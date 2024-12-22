@@ -1,6 +1,6 @@
 Meterpreter is an advanced and flexible payload used in **Metasploit Framework**, designed for post-exploitation tasks after successfully exploiting a target system. It allows attackers (or ethical hackers) to interact with and control the compromised system remotely, offering numerous features for pivoting, escalation, and lateral movement.
 
-## **Common Meterpreter Commands**:
+## Common Meterpreter Commands
 
 1. **Basic Commands**:
 - `sysinfo`: Displays system information (OS, architecture, logged-in users).
@@ -26,5 +26,12 @@ When you gain access to a Windows machine through Meterpreter, one of the first 
     After gaining access to the machine, it's essential to search for processes that run with higher privileges or are more stable, such as **Explorer.exe**. Using **`pgrep explorer`**, you can find the **PID (Process ID)** of **Explorer.exe**. This process is typically running with user-level privileges, but it's often more stable and trusted by the system compared to other processes.
     
 - **Migrate to a Trusted Process (migrate)**:  
-    Once you have the **PID** of **Explorer.exe**, use the **`migrate`** command to move your Meterpreter session to that process.
+    Once you have the **PID** of **Explorer.exe**, use the **`migrate <PID>`** command to move your Meterpreter session to that process.
+
+## Ensuring correct payload
+Verify that you are using the correct payload that matches the architecture of the target system (32-bit vs. 64-bit). For instance:
+- For 32-bit systems, use `windows/meterpreter/reverse_tcp`.
+- For 64-bit systems, use `windows/x64/meterpreter/reverse_tcp`.
+
+If the wrong payload is used, you may establish a connection but fail to create the Meterpreter session, as the payload will not be compatible with the target architecture.
 

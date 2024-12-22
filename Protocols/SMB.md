@@ -152,4 +152,5 @@ If **SMBv1** is enabled, the server is more likely to allow **anonymous connecti
 
 ```bash
 smbclient -L //<target_ip>/ -N
+# When the password is required type Anonymous
 ```

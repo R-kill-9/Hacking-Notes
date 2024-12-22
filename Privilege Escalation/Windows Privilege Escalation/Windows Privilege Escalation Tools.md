@@ -31,7 +31,7 @@ When you run `whoami /priv`, you will receive a list of the privileges assigned 
 
 - **Privilege Name**: A brief description of each privilege.
 - **State**: Indicates whether the privilege is enabled (Enabled) or disabled (Disabled).
-### Example of Usage
+#### Example of Usage
 ```bash
 whoami /priv
 ```
@@ -46,4 +46,17 @@ SeBackupPrivilege                  Enabled
 SeRestorePrivilege                 Disabled
 SeChangeNotifyPrivilege            Enabled
 SeTakeOwnershipPrivilege           Enabled
+```
+
+## net view and net use commands
+`net view` lists available shared resources on a local network, such as computers or shared folders. It helps to discover devices and resources accessible in the network.  
+
+```bash
+net view
+```
+
+`net use` is used to connect, disconnect, or manage connections to shared resources like network drives or printers. It allows mapping shared folders as network drives.  
+
+```bash
+net use Z: \\ComputerName\SharedFolder
 ```
