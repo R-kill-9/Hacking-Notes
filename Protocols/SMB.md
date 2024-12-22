@@ -76,6 +76,7 @@ smbmap -H ip -u username -p password
 psexec.py <user>@<target_ip> cmd.exe
 ```
 
+
 ## Enumeration using Nmap
 **Nmap** scripts can be very useful for enumerating SMB information. They can be listed using `ls /usr/share/nmap/scripts | grep smb`.
 - **smb-enum-shares**: Lists shared directories available on the SMB service and checks for anonymous access.

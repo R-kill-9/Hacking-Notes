@@ -15,17 +15,24 @@
 ## Enumeration and Scanning Using Nmap
 
 **Nmap** can be used to perform SNMP enumeration by scanning the SNMP service (usually on port 161) and using scripts to gather detailed information from SNMP-enabled devices.
+
 **Scan for SNMP Service (Port 161) with Version and Script Detection**
+
+This command scans for the SNMP service on port 161 and detects its version and available scripts. It provides details about the SNMP service, such as the version running on the target device.
 ```bash
 nmap -sU -sCV -p 161 <target>
 ```
 
 **Perform a Brute Force Attack on SNMP Community Strings**
+
+This command uses the `snmp-brute` Nmap script to attempt brute-forcing common SNMP community strings (like `public`, `private`, and others). If successful, it reveals **valid community strings** that can be used to query the device.
 ```bash
 nmap -sU -p 161 --script snmp-brute <target>
 ```
 
 **Scan SNMP with Built-in Nmap Scripts**
+
+This command runs all available Nmap SNMP-related scripts (`snmp-*`) to gather detailed information from the target device. If SNMP is improperly configured, this scan can provide an attacker with a comprehensive view of the target device, potentially revealing sensitive information such as device names, usernames, network configurations, and even passwords in some cases.
 ```bash
 nmap -sU -p 161 --script snmp-* <target> > snmp_info
 ```

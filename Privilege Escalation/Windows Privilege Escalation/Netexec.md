@@ -24,12 +24,6 @@ netexec <protocol> <ip> -u 'username' -p 'password' -x 'command'
 netexec <protocol> <ip> -u 'username' -p 'password' --get 'share_name/file_path'
 ```
 
-- Access shared files
-
-```bash
-netexec <protocol> <ip> -u 'username' -p 'password' --get 'share_name/file_path'
-```
-
 - Check User and Group Information
 
 ```bash

