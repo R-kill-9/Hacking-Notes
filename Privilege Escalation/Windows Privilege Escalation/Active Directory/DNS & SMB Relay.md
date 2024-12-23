@@ -50,7 +50,7 @@ use windows/smb/smb_relay
 
 2. Configure the module options:
 
-- Set the target IP and other necessary parameters, such as `SRVHOST` and `LHOST`.
+- Set the target IP and other necessary parameters, such as `SRVHOST` `SMBHOST` and `LHOST`.
 - Ensure the listener is ready to capture and relay the credentials.
 
 3. Run the attack:

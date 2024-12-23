@@ -1,5 +1,19 @@
-To include an Nmap scan file in Metasploit, you can import it to analyze and use the discovered hosts and services in your exploitation workflow. 
+## Executing Nmap in Metasploit
+You can run Nmap scans directly within the Metasploit console.
 
+```bash
+db_nmap -sV -p 80,443 <target>
+```
+
+For reviewing the results you can use:
+
+```bash
+services -p <port> -u
+```
+
+## Import Nmap Results 
+
+To include an Nmap scan file in Metasploit, you can import it to analyze and use the discovered hosts and services in your exploitation workflow. 
 1. **Perform an Nmap Scan with XML Output**  
 Run your Nmap scan and save the results in an XML file using the `-oX` option:
 
