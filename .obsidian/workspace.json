@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tools and Techniques/Databases/Database interaction.md",
+                "file": "Metasploit/Msfvenom.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Database interaction"
+              "title": "Msfvenom"
             }
           }
         ]
@@ -179,14 +179,16 @@
   },
   "active": "2cf909a8fd4dba6e",
   "lastOpenFiles": [
-    "Tools and Techniques/Databases/MySQL  Enumeration.md",
-    "Tools and Techniques/Databases/Database interaction.md",
     "Protocols/HTTP.md",
+    "Metasploit/Wmap.md",
+    "Information Gathering/Active Information Gathering/Nmap.md",
+    "Protocols/SMTP.md",
+    "Tools and Techniques/Databases/Database interaction.md",
+    "Tools and Techniques/Databases/MySQL  Enumeration.md",
     "Privilege Escalation/Linux Privilege Escalation/ShellShock.md",
     "Pentest Web/WebDAV.md",
     "Protocols/FTP.md",
     "Pivoting & Port Forwarding/Metasploit pivoting.md",
-    "Information Gathering/Active Information Gathering/Nmap.md",
     "Pivoting & Port Forwarding/Proxychains.md",
     "Metasploit/Nmap.md",
     "Metasploit/Metasploit Pivoting.md",
@@ -203,8 +205,6 @@
     "Information Gathering/Active Information Gathering/Ping Sweeping.md",
     "Information Gathering/Passive Information Gathering/Email Harvesting.md",
     "Information Gathering/Passive Information Gathering/Google Dorks.md",
-    "Information Gathering/Passive Information Gathering/Leak password databases.md",
-    "Information Gathering/Passive Information Gathering/Subdomain enumeration.md",
     "Pivoting & Port Forwarding",
     "Privilege Escalation/Windows Privilege Escalation/Windows Credentials Dumping",
     "Images/uac_example.png",

