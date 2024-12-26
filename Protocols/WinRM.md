@@ -32,16 +32,3 @@ netexec winrm <target> -u <username> -p <password>
 netexec winrm -u <username_wordlist> -p <password_wordlist> -t <target-ip>
 ```
 
-## Configuration Verification  
-It can be checked if WinRM is configured and running on a Windows machine.
-
-```bash
-winrm enumerate winrm/config/listener
-```
-
-## Enable WinRM (Administrator Access Required)  
-If you have administrative privileges, you can enable WinRM on the target machine.
-
-```bash
-winrm enumerate winrm/config/listener
-```

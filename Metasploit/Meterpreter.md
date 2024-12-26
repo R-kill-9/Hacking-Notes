@@ -19,14 +19,25 @@ Meterpreter is an advanced and flexible payload used in **Metasploit Framework**
 - `keyscan_start`: Starts logging keystrokes on the victim's system.
 - `keyscan_dump`: Displays the captured keystrokes.
 
-## Ensuring the escalation
-When you gain access to a Windows machine through Meterpreter, one of the first things you should do is ensure persistence and escalate your privileges. Here's why and how you can use pgrep explorer and migrate commands.
+## Process migration
+**Process migration** in exploitation involves moving a Meterpreter session from the process where the initial payload is running to a more stable or advantageous process on the target system. This is typically done to maintain session stability, evade detection, or elevate privileges. When migrating to a process like `lsass.exe`, the session inherits the process's privileges, which are often at the highest level (NT AUTHORITY\SYSTEM).
 
-- **Identify a Suitable Process (pgrep explorer)**:  
-    After gaining access to the machine, it's essential to search for processes that run with higher privileges or are more stable, such as **Explorer.exe**. Using **`pgrep explorer`**, you can find the **PID (Process ID)** of **Explorer.exe**. This process is typically running with user-level privileges, but it's often more stable and trusted by the system compared to other processes.
-    
-- **Migrate to a Trusted Process (migrate)**:  
-    Once you have the **PID** of **Explorer.exe**, use the **`migrate <PID>`** command to move your Meterpreter session to that process.
+In contrast, migrating to other processes, such as `explorer.exe`, may not elevate privileges but can serve as a means of camouflaging the session within a less monitored or critical process. 
+
+#### Execution
+1. **Search for a Specific Process**
+```bash
+meterpreter > pgrep lsass
+# Or
+meterpreter > pgrep explorer
+```
+This will return the PID of the `lsass.exe` or `explorer.exe` process.
+
+2. **Migrate to the Desired Process**
+```bash
+meterpreter > migrate <PID>
+```
+
 
 ## Ensuring correct payload
 Verify that you are using the correct payload that matches the architecture of the target system (32-bit vs. 64-bit). For instance:

