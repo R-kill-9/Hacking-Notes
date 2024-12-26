@@ -61,19 +61,19 @@ smbmap -H ip -u username -p password
 
 #### Usage
 
-|Option|Description|
-|---|---|
-|`\\<target>`|Specifies the target machine. Use `\\*` for all machines in a domain.|
-|`-u <user>`|Specifies the username for authentication (e.g., `-u Administrator`).|
-|`-p <password>`|Specifies the password for the given username.|
-|`-s`|Runs the command as the SYSTEM account.|
-|`-i`|Starts an interactive session on the target.|
-|`-d`|Does not wait for the process to terminate. Useful for long-running tasks.|
-|`-c`|Copies the executable file to the target system before running it.|
-|`-h`|Runs the command with elevated privileges on the target.|
-|`-v`|Verifies that the target binary is a valid image.|
+| Option      | Description                                                                |
+| ----------- | -------------------------------------------------------------------------- |
+| `<target>`  | Specifies the target machine. Use `\\*` for all machines in a domain.      |
+| `-u <user>` | Specifies the username for authentication (e.g., `-u Administrator`).      |
+| `-p`        | Specifies the password for the given username.                             |
+| `-s`        | Runs the command as the SYSTEM account.                                    |
+| `-i`        | Starts an interactive session on the target.                               |
+| `-d`        | Does not wait for the process to terminate. Useful for long-running tasks. |
+| `-c`        | Copies the executable file to the target system before running it.         |
+| `-h`        | Runs the command with elevated privileges on the target.                   |
+| `-v`        | Verifies that the target binary is a valid image.                          |
 ```bash
-psexec.py <user>@<target_ip> cmd.exe
+python3 psexec.py <user>@<target_ip> 
 ```
 
 

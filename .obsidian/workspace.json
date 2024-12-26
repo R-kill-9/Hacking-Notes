@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tools and Techniques/File transmission.md",
+                "file": "Protocols/SMTP.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "File transmission"
+              "title": "SMTP"
             }
           }
         ]
@@ -179,8 +179,14 @@
   },
   "active": "2cf909a8fd4dba6e",
   "lastOpenFiles": [
-    "Metasploit/Metasploit Basic Usage.md",
+    "Metasploit/Searchsploit.md",
+    "Information Gathering/Active Information Gathering/Nmap.md",
+    "Metasploit/Msfvenom.md",
+    "Metasploit/Meterpreter.md",
+    "Protocols/SMB.md",
     "Privilege Escalation/Windows Privilege Escalation/Windows Privilege Escalation Tools.md",
+    "Tools and Techniques/File transmission.md",
+    "Metasploit/Metasploit Basic Usage.md",
     "Privilege Escalation/Windows Privilege Escalation/Windows Kernel Exploits.md",
     "Privilege Escalation/Windows Privilege Escalation/User Account Control (UAC).md",
     "Privilege Escalation/Windows Privilege Escalation/Pass The Hash.md",
@@ -191,20 +197,14 @@
     "Pivoting & Port Forwarding/Netstat.md",
     "Pivoting & Port Forwarding/Metasploit pivoting.md",
     "Metasploit/Nmap.md",
-    "Metasploit/Msfvenom.md",
-    "Metasploit/Meterpreter.md",
     "Metasploit/Metasploit Pivoting.md",
-    "Metasploit/Searchsploit.md",
-    "Tools and Techniques/File transmission.md",
     "Protocols/WinRM.md",
     "Tools and Techniques/Databases/MySQL  Enumeration.md",
     "Protocols/HTTP.md",
     "Metasploit/Wmap.md",
-    "Information Gathering/Active Information Gathering/Nmap.md",
     "Protocols/SMTP.md",
     "Tools and Techniques/Databases/Database interaction.md",
     "Privilege Escalation/Linux Privilege Escalation/ShellShock.md",
-    "Pentest Web/WebDAV.md",
     "Pivoting & Port Forwarding",
     "Privilege Escalation/Windows Privilege Escalation/Windows Credentials Dumping",
     "Images/uac_example.png",
