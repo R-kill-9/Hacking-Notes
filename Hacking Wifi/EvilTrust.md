@@ -2,7 +2,7 @@ This is a tool created by [s4vitar](https://github.com/s4vitar) with the aim of 
 
 Tool link: https://github.com/s4vitar/evilTrust
 
-# Configuration
+## Configuration
 First of all, if you are not using any network card you need to ensure that your laptop can use the `Monitor`mode on its own card.
 
 - Stop Network Manager
@@ -24,7 +24,7 @@ sudo iwconfig wlan0 mode managed
 sudo systemctl start NetworkManager
 ```
 
-# Usage
+## Usage
 Before using it you just need to ensure that you have installed the following tools:
 - php
 - dnsmasq
@@ -34,15 +34,15 @@ Next, you need to select the interface to use, the name for your new access poin
 
 Finally, you need to select the template that you want to use and wait for the victims to introduce their credentials.
 
-# IOS and Microsoft
+## IOS and Microsoft
 To get EvilTrust working for iOS and Microsoft devices, it was necessary adding two files directly to the login directories of each template (such as for Google, Facebook, etc.) resolved the issue. 
 
-## hotspot-detect.html
+#### hotspot-detect.html
 ```bash
 <meta http-equiv="refresh" content="1;url=http://192.168.1.1/">
 ```
 
-## connecttest.txt
+#### connecttest.txt
 ```bash
 Microsoft connect text
 ```

