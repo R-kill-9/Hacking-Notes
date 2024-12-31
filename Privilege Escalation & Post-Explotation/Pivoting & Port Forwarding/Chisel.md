@@ -29,6 +29,14 @@ chisel server -p 9999 --reverse
 ./chisel client <local_machine_ip>:<local_listener_port> R:<remote_port_to_open>:127.0.0.1:<target_machine_port_to_open>
 ```
 
+## Dynamic Port Forwarding
+Creates a local SOCKS proxy that dynamically forwards traffic to any destination through the Chisel server.
+
+```bash
+./chisel client <server_ip>:<port> dynamic :<local_port>
+```
+
+
 ## SOCKS Proxy in Reverse Mode
 
 The following command creates a **proxy SOCKS on the Chisel server**, routing traffic through the client (victim machine). This sets up a SOCKS proxy on the **Chisel server**, which routes traffic from the server through the client. It is particularly useful when the server (attacker) needs access to the client’s internal network or services.
@@ -45,11 +53,3 @@ The following command creates a **proxy SOCKS on the Chisel server**, routing tr
 ```
 proxychains nmap -sT -p 80,443 <target_ip>
 ```
-
-## Dynamic Port Forwarding
-Creates a local SOCKS proxy that dynamically forwards traffic to any destination through the Chisel server.
-
-```bash
-./chisel client <server_ip>:<port> dynamic :<local_port>
-```
-

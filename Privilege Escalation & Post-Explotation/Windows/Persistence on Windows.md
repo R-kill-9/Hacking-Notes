@@ -4,9 +4,9 @@ Persistence is a key post-exploitation step that allows an attacker to maintain 
 ## Metasploit
 
 1. Gain a Meterpreter session on the target machine 
-2. Load the `persistence_service`Module
+2. Load the `persistence_service` module
 ```bash
-use post/windows/manage/persistence_service
+use exploit/windows/local/persistence_service
 ```
 
 3. Set Required Options

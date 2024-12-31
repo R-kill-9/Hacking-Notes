@@ -1,7 +1,7 @@
 Pivoting  is the process of using a compromised system as a gateway to access other machines or networks that are not directly reachable.
 
 1. **Compromise a Host**
-- Gain access to a machine using exploits in Metasploit, resulting in a **Meterpreter session** or other payload connection. 
+- Gain access to a machine using exploits in Metasploit, resulting in a Meterpreter session or other payload connection. 
 - Identify a network that was not accessible before.
 
 2.  **Set Up Routes**
@@ -38,6 +38,8 @@ Once the pivot is set up, you can also use Metasploit to create a SOCKS proxy, a
 # Ensure that the srvport is defined at /etc/proxychains4.conf and the socks version in use. 
 use auxiliary/server/socks_proxy
 set SRVPORT 9050
+# If our attacker machine is configured with proxychains4 we will need to specify the version 4a
+set VERSION <version>
 run
 ```
 

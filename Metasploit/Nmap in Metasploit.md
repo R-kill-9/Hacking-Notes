@@ -1,5 +1,4 @@
-## Executing Nmap in Metasploit
-You can run Nmap scans directly within the Metasploit console.
+It is possible run Nmap scans directly within the Metasploit console.
 
 ```bash
 db_nmap -sV -p 80,443 <target>
