@@ -43,7 +43,7 @@ EXIT;
 ```
 - Import the `.bd` file (if it’s an SQL dump):
 ```sql
-mysql -u root -p db_name < archivo.bd
+mysql -u root -p db_name < file.bd
 ```
 - Once imported, you can connect to the database:
 ```sql

