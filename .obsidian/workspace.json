@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Privilege Escalation & Post-Explotation/Windows/Windows System Enumeration.md",
+                "file": "Privilege Escalation & Post-Explotation/Windows/Windows Post Exploitation using Metasploit.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Windows System Enumeration"
+              "title": "Windows Post Exploitation using Metasploit"
             }
           }
         ]
@@ -179,15 +179,16 @@
   },
   "active": "4e07bf17baaa21df",
   "lastOpenFiles": [
+    "Privilege Escalation & Post-Explotation/Windows/Windows System Enumeration.md",
+    "Privilege Escalation & Post-Explotation/Windows/Windows Privilege Escalation Tools.md",
+    "Privilege Escalation & Post-Explotation/Windows/Windows Kernel Exploits.md",
+    "Privilege Escalation & Post-Explotation/Windows/Windows Post Exploitation using Metasploit.md",
+    "Privilege Escalation & Post-Explotation/Windows/User Account Control (UAC).md",
     "Tools and Techniques/Browser extensions.md",
     "Tools and Techniques/List of Used Tools.md",
     "Tools and Techniques/Serveo.md",
     "Tools and Techniques/Useful Resources.md",
     "Tools and Techniques/Searchsploit.md",
-    "Privilege Escalation & Post-Explotation/Windows/Windows Privilege Escalation Tools.md",
-    "Privilege Escalation & Post-Explotation/Windows/Windows Post Exploitation using Metasploit.md",
-    "Privilege Escalation & Post-Explotation/Windows/Windows System Enumeration.md",
-    "Privilege Escalation & Post-Explotation/Windows/Windows Kernel Exploits.md",
     "Metasploit/Meterpreter.md",
     "Privilege Escalation & Post-Explotation/Linux/Persistence on Linux.md",
     "Privilege Escalation & Post-Explotation/Linux/ShellShock.md",
@@ -195,7 +196,6 @@
     "Privilege Escalation & Post-Explotation/Linux/Dumping Linux Password Hashes.md",
     "Privilege Escalation & Post-Explotation/Linux/Cron Jobs.md",
     "Privilege Escalation & Post-Explotation/Linux/Capabilities.md",
-    "Privilege Escalation & Post-Explotation/Windows/User Account Control (UAC).md",
     "Privilege Escalation & Post-Explotation/Windows/Psexec.md",
     "Privilege Escalation & Post-Explotation/Windows/Pass The Hash.md",
     "Privilege Escalation & Post-Explotation/Windows/Netexec.md",

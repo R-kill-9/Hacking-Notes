@@ -101,7 +101,7 @@ Provides a detailed list of all running processes.
 wmic process list full
 ```
 
-- **`schtasks /query /fo LIST`**  
+- **`schtasks /query /fo LIST /v`**  
 Enumerates all the scheduled tasks.
 ```bash
 schtasks /query /fo LIST /v
@@ -130,4 +130,19 @@ sc query
 Displays configuration details of a specific service.
 ```bash
 sc qc wuauserv
+```
+
+## Network and Shared Resources Enumeration
+- **`net view`** 
+Lists available shared resources on a local network, such as computers or shared folders. It helps to discover devices and resources accessible in the network.  
+
+```bash
+net view
+```
+
+- **`net use`** 
+This command is used to connect, disconnect, or manage connections to shared resources like network drives or printers. It allows mapping shared folders as network drives.  
+
+```bash
+net use Z: \\ComputerName\SharedFolder
 ```

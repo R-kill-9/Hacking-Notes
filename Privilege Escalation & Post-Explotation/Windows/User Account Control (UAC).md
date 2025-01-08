@@ -2,6 +2,17 @@ User Account Control (UAC) is a security feature in Microsoft Windows designed t
 
 ![](../../Images/uac_example.png)
 
+
+## UAC Enable Verification
+You can use the `reg query` command to check the value of the registry key related to UAC:
+
+```bash
+reg query HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA
+```
+
+- If the value of `EnableLUA` is `1`, UAC is enabled.
+- If the value of `EnableLUA` is `0`, UAC is disabled.
+
 ## BypassUAC_injection (Metasploit)
 1. **Set up the module**: To use the `bypassuac_injection` module, start by selecting it within Metasploit:
 ```bash
