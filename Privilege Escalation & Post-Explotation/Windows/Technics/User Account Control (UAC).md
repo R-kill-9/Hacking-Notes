@@ -1,6 +1,6 @@
 User Account Control (UAC) is a security feature in Microsoft Windows designed to prevent unauthorized changes to the operating system. It ensures that any changes requiring administrative privileges must be explicitly approved by the user. UAC helps protect against malware and unauthorized software installations.
 
-![](../../Images/uac_example.png)
+![](uac_example.png)
 
 
 ## UAC Enable Verification

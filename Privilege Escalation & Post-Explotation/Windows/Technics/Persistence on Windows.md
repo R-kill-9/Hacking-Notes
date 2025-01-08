@@ -1,4 +1,3 @@
-
 Persistence is a key post-exploitation step that allows an attacker to maintain access to a compromised system even after it has been rebooted or the initial session has been closed.
 
 ## Metasploit

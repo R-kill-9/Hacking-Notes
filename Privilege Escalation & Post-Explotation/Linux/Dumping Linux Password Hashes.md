@@ -7,7 +7,7 @@ This is a file that we can find in all the Linux machines. Once we have gained a
  - User Information
  - Home Directory
  - Shell
- - 
+ 
 ```bash
 cat /etc/passwd
 #Example of a row:
