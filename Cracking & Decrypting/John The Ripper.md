@@ -3,7 +3,7 @@ customizable cracker. It can be run against various encrypted password formats  
 hash.
 
 
-## Cracking password
+## Cracking passwords
 
 ```bash
 # wordlist example: /usr/share/wordlists/rockyou.txt
@@ -13,6 +13,32 @@ Once we have already used the previous command, we can see the password and user
 ```bash
 john --show <hash_file>
 ```
+
+#### How to Specify the Hash Format
+
+You can use the `--format=<format>` flag followed by the hash type when running John the Ripper.
+
+
+```bash
+# wordlist example: /usr/share/wordlists/rockyou.txt
+john --format=<format> --wordlist=<wordlist> <hash_file>
+```
+
+**Common Hash Formats Supported by John the Ripper**
+
+|**Format Name**|**Description**|
+|---|---|
+|**raw-md5**|Standard MD5 hash format (e.g., `098f6bcd4621d373cade4e832627b4f6`).|
+|**ntlm**|Windows NTLM hash format (e.g., `098f6bcd4621d373cade4e832627b4f6`).|
+|**lm**|Windows LM hash format, often used in older Windows versions (e.g., `aad3b435b51404eeaad3b435b51404ee`).|
+|**crypt**|Traditional Unix crypt format (e.g., `$1$random$7k9Y19m9ay2nn0Cnkso2e/`).|
+|**bcrypt**|Bcrypt format, used in many modern applications for storing passwords (e.g., `$2y$12$...`).|
+|**sha256crypt**|SHA-256 encrypted passwords used in Unix systems (e.g., `$5$rounds=5000$...`).|
+|**descrypt**|DES-based encryption for Unix passwords (e.g., `abC23jiN`).|
+|**mssql2000**|Hash format for Microsoft SQL Server 2000 (e.g., `0x0100...`).|
+|**mysql**|MySQL password hash format (e.g., `*A75C1E...`).|
+|**krb5asrep**|Kerberos AS-REP hash format, used for ticket-based authentication (e.g., `user$krb5asrep$...`).|
+
 
 ## Cracking a zip file
 1. **Convert the ZIP file to a hash format**:

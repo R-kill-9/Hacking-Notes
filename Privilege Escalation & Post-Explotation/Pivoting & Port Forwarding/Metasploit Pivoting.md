@@ -9,7 +9,7 @@ Pivoting  is the process of using a compromised system as a gateway to access ot
 - Use the `autoroute` module to add a route through the compromised host. This will enable Metasploit to send traffic through the host to the target network.
 
 ```bash
-run autoroute -s [target_subnet]
+run autoroute -s [compromised_host_subnet]
 ```
 
 3. **Verify the Routes**
