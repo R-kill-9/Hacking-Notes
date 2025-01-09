@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding/Chisel.md",
+                "file": "Privilege Escalation & Post-Explotation/Windows/Techniques/Clearing Windows Logs.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Chisel"
+              "title": "Clearing Windows Logs"
             }
           }
         ]
@@ -179,6 +179,10 @@
   },
   "active": "4e07bf17baaa21df",
   "lastOpenFiles": [
+    "Privilege Escalation & Post-Explotation/Windows/Techniques/Alternate Data Streams (ADS).md",
+    "Privilege Escalation & Post-Explotation/Windows/Techniques/Access Token Impersonation.md",
+    "Privilege Escalation & Post-Explotation/Windows/Techniques/Windows Post Exploitation using Metasploit.md",
+    "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding/Chisel.md",
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Persistence on Windows.md",
     "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding/Metasploit Pivoting.md",
     "Information Gathering/Active Information Gathering/Nmap.md",
@@ -201,10 +205,6 @@
     "Protocols/NetBIOS.md",
     "Protocols/LDAP.md",
     "Protocols/HTTP.md",
-    "Protocols/FTP.md",
-    "Privilege Escalation & Post-Explotation/Windows/Tools/Winpeas.md",
-    "Privilege Escalation & Post-Explotation/Windows/Tools/Psexec.md",
-    "Privilege Escalation & Post-Explotation/Windows/Tools/PrivEscCheck.md",
     "Privilege Escalation & Post-Explotation/Linux/Techniques",
     "Privilege Escalation & Post-Explotation/Linux/Tools",
     "Privilege Escalation & Post-Explotation/Support Techniques",
