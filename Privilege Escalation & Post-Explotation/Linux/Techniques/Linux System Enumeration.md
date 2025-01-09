@@ -54,6 +54,12 @@ Displays the current user ID (UID), group ID (GID), and groups the user belongs 
 id
 ```
 
+- **`sudo -l`**
+It is used to know what commands can be executed as root by the actual user.
+```bash
+sudo -l
+```
+
 - **`who`**  
 Lists all logged-in users.
 

