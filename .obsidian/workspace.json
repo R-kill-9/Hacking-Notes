@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Privilege Escalation & Post-Explotation/Windows/Techniques/Clearing Windows Logs.md",
+                "file": "Privilege Escalation & Post-Explotation/Linux/Techniques/Clearing generated tracks on Linux.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Clearing Windows Logs"
+              "title": "Clearing generated tracks on Linux"
             }
           }
         ]
@@ -179,6 +179,10 @@
   },
   "active": "4e07bf17baaa21df",
   "lastOpenFiles": [
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Path Hijacking.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Cron Jobs.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Clearing generated tracks on Linux.md",
+    "Privilege Escalation & Post-Explotation/Windows/Techniques/Clearing Windows Logs.md",
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Alternate Data Streams (ADS).md",
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Access Token Impersonation.md",
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Windows Post Exploitation using Metasploit.md",
@@ -193,7 +197,6 @@
     "Cracking & Decrypting/Hash identifying.md",
     "Privilege Escalation & Post-Explotation/Windows/Windows Credentials Dumping/Mimikatz.md",
     "Privilege Escalation & Post-Explotation/Linux/Techniques/Persistence on Linux.md",
-    "Privilege Escalation & Post-Explotation/Linux/Techniques/Cron Jobs.md",
     "Protocols/RDP.md",
     "Information Gathering/Active Information Gathering/Ping Sweeping.md",
     "Protocols/SSH.md",
@@ -202,9 +205,6 @@
     "Protocols/SMB.md",
     "Protocols/RPC.md",
     "Protocols/Ports and Services Reference Guide.md",
-    "Protocols/NetBIOS.md",
-    "Protocols/LDAP.md",
-    "Protocols/HTTP.md",
     "Privilege Escalation & Post-Explotation/Linux/Techniques",
     "Privilege Escalation & Post-Explotation/Linux/Tools",
     "Privilege Escalation & Post-Explotation/Support Techniques",
