@@ -56,5 +56,4 @@ netstat -anp
 - Kill unnecessary processes:
 ```bash
 kill -9 <PID>
-
 ```
