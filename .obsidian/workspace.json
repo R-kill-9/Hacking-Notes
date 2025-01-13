@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Cracking & Decrypting/John The Ripper.md",
+                "file": "Pentest Web/File Upload Attacks.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "John The Ripper"
+              "title": "File Upload Attacks"
             }
           }
         ],
@@ -194,10 +194,15 @@
   },
   "active": "d3014c75713f00aa",
   "lastOpenFiles": [
+    "Pentest Web/Path traversal.md",
+    "Pentest Web/File Upload Attacks.md",
+    "Pentest Web/Local File Inclusion (LFI).md",
     "Certifications/EJPT Roadmap.md",
+    "Privilege Escalation & Post-Explotation/Support Techniques/Upgrade a Shell.md",
+    "Privilege Escalation & Post-Explotation/Support Techniques/Bind Shell.md",
+    "Privilege Escalation & Post-Explotation/Support Techniques/Reverse Shell.md",
     "Cracking & Decrypting/John The Ripper.md",
     "Privilege Escalation & Post-Explotation/Linux/Techniques/Linux System Enumeration.md",
-    "Privilege Escalation & Post-Explotation/Support Techniques/Upgrade a Shell.md",
     "Protocols/SMB.md",
     "Privilege Escalation & Post-Explotation/Windows/Tools/Netexec.md",
     "Protocols/Ports and Services Reference Guide.md",
@@ -209,7 +214,6 @@
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Persistence on Windows.md",
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Pass The Hash.md",
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Access Token Impersonation.md",
-    "Privilege Escalation & Post-Explotation/Support Techniques/Bind Shell.md",
     "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding/Netstat.md",
     "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding/Metasploit Pivoting.md",
     "Metasploit/Nmap in Metasploit.md",
@@ -217,10 +221,6 @@
     "Metasploit/Meterpreter.md",
     "Metasploit/Metasploit Pivoting.md",
     "Certifications",
-    "Pentest Web/API testing.md",
-    "Privilege Escalation & Post-Explotation/Linux/Techniques/Clearing generated tracks on Linux.md",
-    "Privilege Escalation & Post-Explotation/Linux/Techniques/Path Hijacking.md",
-    "Privilege Escalation & Post-Explotation/Linux/Techniques/Cron Jobs.md",
     "Privilege Escalation & Post-Explotation/Linux/Techniques",
     "Privilege Escalation & Post-Explotation/Linux/Tools",
     "Privilege Escalation & Post-Explotation/Support Techniques",

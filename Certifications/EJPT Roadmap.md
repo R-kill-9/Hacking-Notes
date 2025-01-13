@@ -16,7 +16,7 @@ This solid theoretical and practical foundation was key to approaching the machi
   [Link](https://tryhackme.com/room/basicpentestingjt)  
   Learn how to enumerate, exploit, and escalate privileges.
 
-- [ ] **RootMe** (Free)  
+- [x] **RootMe** (Free)  
   [Link](https://tryhackme.com/room/rrootme)  
   Simple enumeration, web exploitation, and privilege escalation.
 
