@@ -93,6 +93,21 @@ Once John has finished trying passwords, you can view the found password with th
 john --show <hash_file_generated>
 ```
 
+4.  **Decrypt the SSH Key with the Cracked Password**
+
+Now that you have the password, you can decrypt the SSH key and use it to access the server. 
+
+```bash
+ssh-keygen -p -f <path_to_private_key> -P <old_password> -N <new_password>
+```
+
+For example, if the cracked password is `kill-9`, you can update or regenerate the SSH private key:
+
+```bash
+ssh-keygen -p -f id_rsa -P kill-9 -N ""
+
+```
+
 ## Cracking .kdbx Files (KeePass)
 If you want to **crack the password** of a `.kdbx` file (KeePass), John the Ripper can be used with the help of an additional tool like `keepass2john` to convert the KeePass file into a hash.
 

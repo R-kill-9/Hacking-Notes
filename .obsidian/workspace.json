@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Certifications/EJPT Roadmap.md",
+                "file": "Cracking & Decrypting/John The Ripper.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "EJPT Roadmap"
+              "title": "John The Ripper"
             }
           }
         ],
@@ -194,12 +194,12 @@
   },
   "active": "d3014c75713f00aa",
   "lastOpenFiles": [
+    "Certifications/EJPT Roadmap.md",
     "Cracking & Decrypting/John The Ripper.md",
     "Privilege Escalation & Post-Explotation/Linux/Techniques/Linux System Enumeration.md",
     "Privilege Escalation & Post-Explotation/Support Techniques/Upgrade a Shell.md",
     "Protocols/SMB.md",
     "Privilege Escalation & Post-Explotation/Windows/Tools/Netexec.md",
-    "Certifications/EJPT Roadmap.md",
     "Protocols/Ports and Services Reference Guide.md",
     "Protocols/NetBIOS.md",
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Windows System Enumeration.md",
