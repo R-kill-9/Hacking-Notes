@@ -5,12 +5,12 @@
 
 For example, we could use it to extract metadata from a PDF file and check the "creator" field to see if it was created with a potentially vulnerable tool.
 
-# binwalk
+## binwalk
 **binwalk** is a tool used for analyzing and extracting data from binary files, such as firmware images, executables, and other binary data. Can be very useful for extracting information from images.
 
-# Revealing Pixelated information in a PDF
+## Revealing Pixelated information in a PDF
 
-## Check for Embedded Text in the PDF
+#### Check for Embedded Text in the PDF
 
 - Sometimes pixelated text might still be embedded as text within the PDF. Extract the text to see if the credentials are present.
 - **Tools**: Use `pdftotext` or `strings` to extract potential embedded text.
@@ -20,13 +20,13 @@ pdftotext file.pdf -        # Converts PDF content to text in terminal
 strings file.pdf | grep -i "password"  # Searches for keywords like "password" or "user"
 ```
 
-## Use OCR (Optical Character Recognition) Techniques
+#### Use OCR (Optical Character Recognition) Techniques
 If the pixelated content isn't text, OCR can sometimes identify characters within pixelated images.
 
 ``` bash
 pdfimages -png file.pdf output_image
 ```
-## Depix.py
+#### Depix.py
 [Depix](https://github.com/spipm/Depix) is a PoC for a technique to recover plaintext from pixelized screenshots.
 
 - **Installation:**

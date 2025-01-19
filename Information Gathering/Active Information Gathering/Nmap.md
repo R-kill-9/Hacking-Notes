@@ -1,4 +1,4 @@
-**Nmap (Network Mapper)**  allows users to scan networks, identify hosts, and determine open ports, services, and operating systems running on devices.
+ **Nmap (Network Mapper)**  allows users to scan networks, identify hosts, and determine open ports, services, and operating systems running on devices.
 
 | Option               | Description                                                                                                                     |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------- |

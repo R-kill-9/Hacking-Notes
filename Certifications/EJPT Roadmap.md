@@ -12,33 +12,45 @@ This solid theoretical and practical foundation was key to approaching the machi
 ## Machines
 
 ####  TryHackMe 
-- [x] **Basic Pentesting** (Free)  
-  [Link](https://tryhackme.com/room/basicpentestingjt)  
-  Learn how to enumerate, exploit, and escalate privileges.
+- [ ] **TryHackMe | Ice**  
+  [Link](https://tryhackme.com/room/ice)  
+  Learn to exploit web-based vulnerabilities and privilege escalation.
 
-- [x] **RootMe** (Free)  
-  [Link](https://tryhackme.com/room/rrootme)  
-  Simple enumeration, web exploitation, and privilege escalation.
+- [ ] **TryHackMe | Brooklyn Nine Nine**  
+  [Link](https://tryhackme.com/room/brooklynninenine)  
+  Practice web exploitation and system enumeration inspired by the show.
 
-- [ ] **Simple CTF** (Free)  
-  [Link](https://tryhackme.com/room/easyctf)  
-  A beginner-friendly machine for practicing basic skills.
+- [ ] **TryHackMe | Anonymous**  
+  [Link](https://tryhackme.com/room/anonymous)  
+  Focus on reconnaissance, enumeration, and privilege escalation.
 
-- [ ] **Ignite** (Free)  
-  [Link](https://tryhackme.com/room/ignite)  
-  Practice exploiting Tomcat and privilege escalation.
+- [ ] **TryHackMe | Easy Peasy**  
+  [Link](https://tryhackme.com/r/room/easypeasyctf)  
+  Perfect for beginners to learn basic enumeration and exploitation.
 
-- [ ] **Startup** (Free)  
-  [Link](https://tryhackme.com/room/startup)  
-  Great for learning web app vulnerabilities and privilege escalation.
+- [ ] **TryHackMe | GoldenEye**  
+  [Link](https://tryhackme.com/room/goldeneye)  
+  Explore web vulnerabilities and system privilege escalation.
 
-- [ ] **Blog** (Free)  
+- [ ] **TryHackMe | HA Joker CTF**  
+  [Link](https://tryhackme.com/room/hajokerctf)  
+  Capture-the-flag challenge focusing on exploitation and escalation.
+
+- [ ] **TryHackMe | Poster**  
+  [Link](https://tryhackme.com/room/poster)  
+  Learn web application vulnerabilities in a practical environment.
+
+- [ ] **TryHackMe | Wordpress: CVE-2021-29447**  
+  [Link](https://tryhackme.com/room/wordpresscve202129447)  
+  Exploit a real-world WordPress vulnerability and learn escalation.
+
+- [ ] **TryHackMe | Blog**  
   [Link](https://tryhackme.com/room/blog)  
   Focus on web exploitation and local privilege escalation.
 
-- [ ] **Erit Securus I** (Free)  
-  [Link](https://tryhackme.com/room/eritsecurus1)  
-  A mix of enumeration and exploitation.
+- [ ] **TryHackMe | RootMe**  
+  [Link](https://tryhackme.com/room/rootme)  
+  Simple enumeration, web exploitation, and privilege escalation.
 
 ## Exam Example
 To familiarize myself with the exam format and expectations, I followed this **YouTube walkthrough**: [Exam Example Video](https://www.youtube.com/watch?v=v20IsEd5nUU&list=PLQM9pgUvi6dz0ZbeWRc9IIp_aVXzwFMWX "https://www.youtube.com/watch?v=v20IsEd5nUU&list=PLQM9pgUvi6dz0ZbeWRc9IIp_aVXzwFMWX")

@@ -25,5 +25,5 @@ It can be useful intercept the petition with burp for extract the different fiel
 
 ```bash
 # t = threads
-hydra -t 64 -l <username> -P <password_list> -f <target_IP_or_URL> http-post-form "/path_to_login_form:username_field=^USER^&password_field=^PASS^:error_message"
+hydra -t 64 -l <username> -P <password_list> -f http-post-form "http://<target-ip-or-url>/<path_to_login_form>:<username_field>=^USER^&<password_field>=^PASS^:<error_message>"
 ```
