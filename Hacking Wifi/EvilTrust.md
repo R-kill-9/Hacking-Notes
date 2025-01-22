@@ -9,13 +9,20 @@ First of all, if you are not using any network card you need to ensure that your
 ```bash
 sudo systemctl stop NetworkManager
 ```
+
+#### Setup the network card 
 - Setup the network card in monitor mode
 ```bash
-sudo iwconfig wlan0 mode monitor
+sudo iwconfig wlan1 mode monitor
 ```
 - Verify that the Monitor mode is enabled
 ```bash
 iwconfig
+```
+ - If the command fails, execute the following one and try again:
+```bash
+sudo airmon-ng start wlan1
+sudo iwconfig wlan1 mode monitor
 ```
 
 Once you have finished the activity, you can reconnect your wifi settings.
@@ -30,6 +37,9 @@ Before using it you just need to ensure that you have installed the following to
 - dnsmasq
 - hostapd
 
+```bash
+./evilTrust.sh -m terminal
+```
 Next, you need to select the interface to use, the name for your new access point and the channel to use (the most recommended ones are 1, 6, 11).
 
 Finally, you need to select the template that you want to use and wait for the victims to introduce their credentials.
