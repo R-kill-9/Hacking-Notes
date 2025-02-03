@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Pentest Web/XSS/Blind Cross-Site Scripting (Blind XSS).md",
+                "file": "Pentest Web/Dumping Git Repositories.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Blind Cross-Site Scripting (Blind XSS)"
+              "title": "Dumping Git Repositories"
             }
           }
         ]
@@ -40,8 +40,7 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical",
-                "autoReveal": false
+                "sortOrder": "alphabetical"
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -190,18 +189,18 @@
   },
   "active": "8c479a71d3dba8e2",
   "lastOpenFiles": [
-    "Pentest Web/XSS/DOM-based XSS.md",
-    "Pentest Web/XSS/Cross Site Scripting (XSS).md",
-    "Pentest Web/XSS/Blind Cross-Site Scripting (Blind XSS).md",
-    "Pentest Web/XSS",
-    "Tools and Techniques/File hidden information.md",
     "Pentest Web/Fuzzing.md",
-    "Privilege Escalation & Post-Explotation/Support Techniques/Upgrade a Shell.md",
-    "Pentest Web/SSTI.md",
     "Pentest Web/SQL Injection/SQL Injection Tools.md",
     "Pentest Web/SQL Injection/SQL Injection Theory.md",
+    "Pentest Web/XSS/Blind Cross-Site Scripting (Blind XSS).md",
+    "Pentest Web/XSS/DOM-based XSS.md",
+    "Pentest Web/XSS/Cross Site Scripting (XSS).md",
+    "Pentest Web/XSS",
+    "Tools and Techniques/File hidden information.md",
+    "Privilege Escalation & Post-Explotation/Support Techniques/Upgrade a Shell.md",
+    "Pentest Web/SSTI.md",
     "Tools and Techniques/List of Used Tools.md",
-    "Pentest Web/Dumping Git Repos with git-dumper.md",
+    "Pentest Web/Dumping Git Repositories.md",
     "Hacking Wifi/EvilTrust.md",
     "Pentest Web/Code Review/Basic Code Review.md",
     "Pentest Web/Code Review/Authorization Review.md",
