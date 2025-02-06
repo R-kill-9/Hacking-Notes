@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Pentest Web/SQL Injection/Blind SQL Injection/Boolean-Based Blind SQL Injection.md",
+                "file": "Pentest Web/SQL Injection/Blind SQL Injection/Time-Based Blind SQL Injection.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Boolean-Based Blind SQL Injection"
+              "title": "Time-Based Blind SQL Injection"
             }
           }
         ]
@@ -190,9 +190,13 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
-    "Pentest Web/SQL Injection/Blind SQL Injection/Boolean-Based Blind SQL Injection.md",
     "Pentest Web/SQL Injection/Blind SQL Injection/Blind SQL Injection Theory.md",
+    "Pentest Web/SQL Injection/Blind SQL Injection/Boolean-Based Blind SQL Injection.md",
     "Pentest Web/SQL Injection/Blind SQL Injection/Time-Based Blind SQL Injection.md",
+    "Pentest Web/SQL Injection/SQL Injection Theory.md",
+    "Pentest Web/API testing.md",
+    "Pentest Web/XSS/Cross Site Scripting (XSS).md",
+    "Pentest Web/XSS/Blind Cross-Site Scripting (Blind XSS).md",
     "Images/Grep-Match-Burp.png",
     "Pentest Web/SQL Injection/Union-Based SQL Injection/Union-Based SQL Injection.md",
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Clearing Windows Logs.md",
@@ -212,11 +216,7 @@
     "Metasploit/Msfvenom.md",
     "Metasploit/Meterpreter.md",
     "Metasploit/Metasploit Pivoting.md",
-    "Pentest Web/API testing.md",
     "Pentest Web/HTTP Headers.md",
-    "Pentest Web/XSS/Blind Cross-Site Scripting (Blind XSS).md",
-    "Pentest Web/XSS/Cross Site Scripting (XSS).md",
-    "Information Gathering/Passive Information Gathering/Website Footprinting.md",
     "Pentest Web/SQL Injection/Union-Based SQL Injection",
     "Pentest Web/SQL Injection/Blind SQL Injection",
     "Pentest Web/XSS",
