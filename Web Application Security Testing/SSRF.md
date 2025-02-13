@@ -3,7 +3,7 @@
 ## Example of How SSRF Works
 
 Suppose there is a web application that allows users to provide a URL of an image for the server to download and display within the application. If this input is not properly validated, an attacker could provide a URL pointing to an internal resource within the server's network, such as `http://localhost/admin`, or to an internal service on a specific port, like `http://localhost:8080/secret-data`.
-# SSRFmap
+## SSRFmap
 **ssrfmap.py** is a tool designed to automate the exploitation of SSRF vulnerabilities. It allows attackers or pentesters to utilize and manipulate input parameters that trigger server-side requests to perform various malicious activities, such as port scanning, service enumeration, and exploitation of other internal resources.
 ### Installation 
 ```bash
