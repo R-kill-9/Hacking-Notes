@@ -1,4 +1,4 @@
- //192.168**SMB** (Server Message Block) is a network file sharing protocol used by Windows-based systems to facilitate file and printer sharing, as well as communication between devices on a local network.
+**SMB** (Server Message Block) is a network file sharing protocol used by Windows-based systems to facilitate file and printer sharing, as well as communication between devices on a local network.
 ## SmbClient 
 It is a network protocol tool that allows users to communicate with remote computers and servers to use their resources or share, open, and edit files.
 

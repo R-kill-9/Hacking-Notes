@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Application Security Testing/SSTI.md",
+                "file": "Protocols/SMB.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SSTI"
+              "title": "SMB"
             }
           }
         ]
@@ -190,6 +190,9 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
+    "Privilege Escalation & Post-Explotation/Support Techniques/File transmission.md",
+    "Tools and Techniques/File hidden information.md",
+    "Web Application Security Testing/SSTI.md",
     "Web Application Security Testing/File Upload Attacks.md",
     "Web Application Security Testing/Cookies.md",
     "Web Application Security Testing/Burpsuite.md",
@@ -213,9 +216,6 @@
     "Protocols/LDAP.md",
     "Web Application Security Testing/API testing.md",
     "Web Application Security Testing/Wordpress.md",
-    "Web Application Security Testing/WebDAV.md",
-    "Web Application Security Testing/Web scanning.md",
-    "Web Application Security Testing/SSTI.md",
     "Images/Grep-Match-Burp.png",
     "Web Application Security Testing/SQL Injection/Union-Based SQL Injection",
     "Web Application Security Testing/SQL Injection/Blind SQL Injection",
