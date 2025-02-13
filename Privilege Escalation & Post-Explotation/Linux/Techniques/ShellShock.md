@@ -2,7 +2,7 @@
 
 ---
 
-## **Affected Systems**
+## Affected Systems
 - Systems running **Bash versions 4.3** and earlier (unpatched).
 - Commonly found on:
     - Linux distributions (e.g., **Debian**, **CentOS**, **Ubuntu**).
@@ -23,7 +23,7 @@ nmap --script http-shellshock --script-args uri=/cgi-bin/vulnerable_script -p80 
 env x='() { :;}; echo Vulnerable' bash -c "echo Test"
 ```
 
-## **Exploitation**
+## Exploitation
 
 #### Using a proxy
 1. **Identify a vulnerable CGI script**:

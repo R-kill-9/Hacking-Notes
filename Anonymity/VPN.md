@@ -1,4 +1,4 @@
-# OpenVPN
+## OpenVPN
 
 A recommended VPN tool is **OpenVPN**, that can be installed with this command:
 ```
@@ -10,7 +10,7 @@ For using it we will need root permissions.
 sudo openvpn <client.ovpn>
 ```
 
-# ProtonVPN
+## ProtonVPN
 Proton VPN is a privacy-focused VPN service developed by the team behind ProtonMail. It aims to provide secure internet access while preserving user anonymity.
 
 **Key Features:**

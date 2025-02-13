@@ -2,7 +2,7 @@
 
 ---
 
-## **Key Concepts**
+## Key Concepts
 
 - **Hash Authentication**: Many Windows services accept NTLM hashes as authentication without verifying the plaintext password.
 - **Hash Retrieval**: Hashes are extracted from memory, SAM databases, or network traffic using tools like Mimikatz or secretsdump.
@@ -10,7 +10,7 @@
 
 --- 
 
-## **Obtain Hashes**
+## Obtain Hashes
 
 - Extract NTLM hashes from a compromised system using tools like:
 
@@ -24,7 +24,7 @@ Or dump hashes from the SAM database:
 secretsdump.py <target_user>@<target_ip>
 ```
 
-## **Use Hashes to authenticate**
+## Use Hashes to authenticate
 
 #### Using netexec
 

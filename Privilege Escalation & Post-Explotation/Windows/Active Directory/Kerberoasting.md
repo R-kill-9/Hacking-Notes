@@ -1,6 +1,6 @@
 It is a method used to extract and crack service account passwords that utilize Kerberos authentication within a Windows Active Directory environment. This attack targets accounts with Kerberos Service Principal Names (SPNs) set, allowing attackers to request encrypted service tickets from the domain controller.
 
-#### **How It Works**:
+#### How It Works:
 
 1. **Kerberos Authentication**:
     
@@ -21,7 +21,7 @@ It is a method used to extract and crack service account passwords that utilize 
     
     - Once the attacker cracks the password, they can use it to impersonate the service account, which may have elevated privileges in the domain, granting them further access to sensitive systems or data.
 
-#### **Steps in Targeted Kerberoasting**:
+#### Steps in Targeted Kerberoasting:
 
 1. **Enumerate Service Accounts**:
     
@@ -48,12 +48,11 @@ python targetedKerberoast.py -u <username> -p <password> -d <domain> -t <target_
 ```
 
 
-3. **Extract and Save the TGS Ticket**:
-    
+1. **Extract and Save the TGS Ticket**:
     - The TGS ticket is saved in a file, which contains the encrypted hash of the service account password.
     - This is typically done using **Mimikatz**, **Impacket**, or **Rubeus**.
 
-4. **Crack the Hash Offline**:
+2. **Crack the Hash Offline**:
     
     - The encrypted hash is cracked using password-cracking tools like **Hashcat** or **John the Ripper**.
 ```bash

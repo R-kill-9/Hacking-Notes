@@ -6,19 +6,19 @@
 - [prowler](#p)
 - [aws reverse shell](#awsrs)
 
-# Profile configuration <a name="pc"></a>
+## Profile configuration <a name="pc"></a>
 ```bash
 aws configure --profile <profile_name>
 ```
 It will be necessary to introduce the **AWS ACCESS KEY ID** and the **AWS SECRET ACCESS KEY** of your account. Also, you need to specify the region name and the output format.
 
-## Actual profile information
+#### Actual profile information
 ```bash
 aws sts get-caller-identity --profile <profile_name>
 ```
-# EC2 <a name="ec2"></a>
+## EC2 <a name="ec2"></a>
 
-## Commands
+#### Commands
 - Create key pair:
 ```bash
 aws ec2 create-key-pair --key-name <key_pair_name> --query 'KeyMaterial' --output text > <key_pair_name> --profile <profile_name>
@@ -48,9 +48,9 @@ aws ec2 terminate-instances --instance-ids <instance_id> --profile <profile_name
 aws ec2 delete-key-pair --key-name <key_pair_name> --profile <profile_name>
 ```
 
-# S3 <a name="s3"></a>
+## S3 <a name="s3"></a>
 
-## Commands
+#### Commands
 - Create a bucket:
 ```bash
 aws s3 mb s3://<bucket_name>
@@ -95,9 +95,9 @@ aws s3 rm s3://<bucket_name> --recursive
 aws s3 rb s3://<bucket_name> --recursive
 ```
 
-# IAM <a name="iam"></a>
+## IAM <a name="iam"></a>
 
-## Commands
+#### Commands
 - Create an IAM group:
 ```bash
 aws iam create-group --group-name <group_name>
@@ -205,14 +205,14 @@ aws_session_token= x
 
 ```
 
-## Permissions enumeration - enumerate-iam.py
+#### Permissions enumeration - enumerate-iam.py
 This script will enumerate all the services that can be used for this user. This script can be easily detected as it does a lot of querys in few time.
 ```bash
 python3 enumerate-iam.py --access-key <access_key> --secret-key <secret_key>
 ```
 
-# Lambda <a name="lambda"></a>
-## Commands
+## Lambda <a name="lambda"></a>
+#### Commands
 - List lambda functions:
 ```bash
 aws lambda list-functions --region <region> --profile <assumed_role> 
@@ -225,8 +225,9 @@ aws --profile <assumed_role> --region us-east-1 lambda get-function --function-n
 ```bash
 aws lambda create-function --function-name <function_name> --runtime python3.9 --role <role_arn> --handler lambda_function.lambda_handler --zip-file <zip_file> --profile <profile>
 ```
-# Privilege escalation
-## Using IAM 
+
+## Privilege escalation
+#### Using IAM 
 Example: https://github.com/R-kill-9/AWSGoat/blob/master/attack-manuals/module-2/04-IAM%20Privilege%20Escalation.md
 
 A possible privIlege escalation could be done following this steps
@@ -237,7 +238,7 @@ A possible privIlege escalation could be done following this steps
 - List all IAM roles (IAM)
 - Get information about a specific role (IAM)
 
-# prowler <a name="p"></a>
+## prowler <a name="p"></a>
 
 **Prowler** is an Open Source security tool to perform AWS, GCP and Azure security best practices assessments, audits, incident response, continuous monitoring, hardening and forensics readiness.
 
@@ -249,7 +250,7 @@ It contains hundreds of controls covering CIS, NIST 800, NIST CSF, CISA, RBI, Fe
 prowler aws --profile custom-profile -f us-east-1 eu-south-2
 ```
 
-# aws reverse shell <a name="awsrs"></a>
+## aws reverse shell <a name="awsrs"></a>
 
 The `aws reverse shell` command is used to copy files from your local machine to one of the AWS buckets. After copying the file, you can access it and enter commands.
 

@@ -1,6 +1,7 @@
 **ProxyChains** works by intercepting an application’s network traffic and redirecting it through one or more proxy servers before reaching its final destination. It achieves this by modifying system calls that handle networking, effectively forcing the application to send its traffic through the configured proxies. 
 
 When a command is executed with ProxyChains, it reads the configuration file (typically located at `/etc/proxychains.conf`) to determine the proxy chain settings and dynamically reroutes traffic as specified.
+
 ## Configure ProxyChains
 
 - Edit the configuration file:

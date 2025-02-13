@@ -1,6 +1,6 @@
 **Alternate Data Streams** (ADS) are a feature of the NTFS file system in Windows that allow a file to store multiple streams of data. In addition to the primary or visible stream, extra streams can be attached to a file without affecting its main content or size as displayed in the file explorer.
 
-## **How ADS Work**
+## How ADS Work
 
 Each file on an NTFS partition has a default data stream (e.g., the visible content of a text file). ADS allows hidden streams to be added in this format:
 

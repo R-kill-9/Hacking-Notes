@@ -12,14 +12,14 @@ For a CSRF attack to occur, three essential conditions must be met:
 A CSRF token is a unique, secret, and unpredictable value that a web application generates and includes in forms or requests to protect against CSRF attacks.
 
 ### Common flaws in CSRF token validation
-#### Validation of CSRF token depends on request method
+###### Validation of CSRF token depends on request method
 Some applications correctly validate the token when the request uses the POST method but skip the validation when the GET method is used.
 
 In this situation, the attacker can switch to the GET method to bypass the validation and deliver a CSRF attack:
 
 `GET /email/change?email=pwned@evil-user.net HTTP/1.1 Host: vulnerable-website.com Cookie: session=2yQIDcpia41WrATfjPqvm9tOkDvkMvLm`
 
-#### Validation of CSRF token depends on token being present
+###### Validation of CSRF token depends on token being present
 
 Some applications correctly validate the token when it is present but skip the validation if the token is omitted.
 
@@ -27,7 +27,7 @@ In this situation, the attacker can remove the entire parameter containing the t
 
 `POST /email/change HTTP/1.1 Host: vulnerable-website.com Content-Type: application/x-www-form-urlencoded Content-Length: 25 Cookie: session=2yQIDcpia41WrATfjPqvm9tOkDvkMvLm email=pwned@evil-user.net`
 
-#### CSRF token is not tied to the user session
+##### CSRF token is not tied to the user session
 
 Some applications do not validate that the token belongs to the same session as the user who is making the request. Instead, the application maintains a global pool of tokens that it has issued and accepts any token that appears in this pool.
 

@@ -1,4 +1,4 @@
-# TOR (The Onion Router)
+## TOR (The Onion Router)
 
 TOR is a free, open-source software for enabling anonymous communication over the Internet. It protects users' identities and online activity by routing traffic through a network of volunteer-operated servers (nodes), obscuring the user's IP address.
 
@@ -15,7 +15,7 @@ sudo service tor start
 torbrowser-launcher
 ```
 
-# Nipe 
+## Nipe 
 Nipe is a tool that enables users to route their internet traffic through the Tor network, effectively masking their IP address and enhancing anonymity.
 
 ```bash

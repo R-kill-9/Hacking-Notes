@@ -1,5 +1,4 @@
-Complete documentation: [Link](https://raw.githubusercontent.com/OWASP/ASVS/v4.0.3/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.3-es.pdf
-) 
+Complete documentation: [Link](https://raw.githubusercontent.com/OWASP/ASVS/v4.0.3/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0.3-es.pdf) 
 
 
 ## 1. Architecture, Design, and Threat Modeling

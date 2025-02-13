@@ -2,7 +2,7 @@
 ## Unattended.xml
 The **unattended.xml** file is an automation configuration file used during Windows installations (including deployments via WDS, MDT, or other tools). It provides instructions for automating tasks like partitioning disks, creating users, and setting passwords.
 
-#### **Where Passwords Appear**
+#### Where Passwords Appear
 
 Administrator account credentials or local user passwords may be included in plaintext under nodes like `<UserAccounts>` or `<AutoLogon>`.
 

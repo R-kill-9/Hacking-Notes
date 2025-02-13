@@ -1,4 +1,4 @@
-# wpscan
+## wpscan
 **WPScan** is a widely-used open-source security scanner specifically designed to detect vulnerabilities in WordPress websites.
 
 | Option                       | Description                                                                                         |
@@ -14,11 +14,11 @@
 | `--verbose`                   | Increases the verbosity level of the output, providing more detailed information about the scan process. |
 
 
-## Basic usage
+#### Basic usage
 ```bash
 wpscan --url <url>
 ```
-## Other options
+#### Other options
 ```bash
 wpscan --enumerate vp,u,t,p \
        --plugins-detection mixed \
@@ -30,7 +30,7 @@ wpscan --enumerate vp,u,t,p \
        --verbose
 ```
 
-# xmlrpc.php
+## xmlrpc.php
 **xmlrpc.php** is a file that represents a feature of WordPress that enables data to be transmitted with HTTP acting as the transport mechanism and XML as the encoding mechanism.
 
 #### Risks of xmlrpc.php
@@ -40,7 +40,7 @@ wpscan --enumerate vp,u,t,p \
 3. **Pingback Amplification**: Malicious pingback requests can be used to reflect traffic to other sites, creating a DDoS attack.
 4. **Vulnerabilities**: Older WordPress versions may have exploitable bugs in `xmlrpc.php`, enabling remote code execution (RCE) or other attacks.
 
-### Attack process
+#### Attack process
 Check if `xmlrpc.php` exists and is active on the target site. Create an XML file named `list_methods.xml` with the following content:
 
 ```bash
@@ -81,7 +81,7 @@ curl -X POST -H "Content-Type: application/xml" --data @bruteforce.xml http://<t
 
 If the response contains valid blog information, the credentials are correct. Automate this process for multiple attempts with tools like `wpscan` or custom scripts.
 
-#### Using WPScan
+#### Attack process using WPScan
 
 WPScan simplifies brute force attacks and XML-RPC vulnerability scans.
 

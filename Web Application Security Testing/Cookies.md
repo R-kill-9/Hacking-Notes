@@ -6,14 +6,14 @@ From a cybersecurity perspective, cookies are often valuable targets for attacke
     - **XSS (Cross-Site Scripting)**: If an attacker injects malicious JavaScript into a vulnerable web application, they can capture cookies that are not protected by the **HttpOnly** flag.
     - **Network Sniffing**: If cookies are transmitted over HTTP instead of HTTPS, attackers can intercept them by eavesdropping on unencrypted network traffic.
 
-## HttpOnly Flag 
+## HttpOnly Attribute 
 Cookies without the **HttpOnly** flag can be accessed by scripts running in the browser. If an attacker manages to inject malicious JavaScript into your application (e.g., through an XSS attack), they could directly steal sensitive cookies, like session identifiers.
 
-## Secure Flag 
+## Secure Attribute 
 
 The **Secure** flag ensures that cookies are only sent over encrypted HTTPS connections. Without this flag, cookies could be transmitted in plain text over HTTP, making them vulnerable to interception by attackers monitoring network traffic (e.g., on public Wi-Fi).
 
-## SameSite
+## SameSite Attribute
 The **SameSite** attribute mitigates Cross-Site Request Forgery (CSRF) and some forms of cross-origin information leakage by controlling whether cookies are sent with cross-site requests.
 
 - **SameSite Attribute Options**:

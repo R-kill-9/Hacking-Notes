@@ -1,6 +1,6 @@
 **Netstat** (Network Statistics) is a command-line tool to display network connections, routing tables, and interface statistics. It can be useful to find open ports to execute a port forwarding.
 
-#### **Key Flags**
+#### Key Flags
 
 | Option | Description |
 |--------|-------------|
@@ -10,7 +10,7 @@
 | **`-u`** | Display UDP connections. |
 | **`-l`** | Show only listening ports. |
 | **`-p`** | Show the PID/program name associated with each connection. |
-### **Basic Commands**
+### Basic Commands
 
 - **Show active connections**:
 ```bash

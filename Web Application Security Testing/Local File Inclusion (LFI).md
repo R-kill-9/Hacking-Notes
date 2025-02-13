@@ -1,6 +1,6 @@
 **Local File Inclusion (LFI)** is a web vulnerability that occurs when an application allows users to include local files from the server through manipulable parameters. 
 
-## **Identifying LFI**
+## Identifying LFI
 
 Look for parameters that might reference files, such as:
 
@@ -18,7 +18,7 @@ By manipulating the `page` parameter, you might access unintended files.
 
 ## Exploitation Techniques
 
-#### **Directory Traversal**
+#### Directory Traversal
 
 Use `../` to navigate directories on the server.
 
@@ -26,7 +26,7 @@ Use `../` to navigate directories on the server.
 http://example.com/index.php?page=../../../../etc/passwd
 ```
 
-#### **Forcing PHP File Inclusion Without Execution**
+#### Forcing PHP File Inclusion Without Execution
 
 By default, including a `.php` file causes the server to execute it rather than display its source code. However, certain methods can bypass execution.
 
@@ -47,7 +47,7 @@ echo "<base64_content>" | base64 -d
 - `index.php.save`
 - `.index.php.swp` 
 
-#### **Log Poisoning**
+#### Log Poisoning
 
 Inject malicious PHP code into server logs and include the log file.
 
