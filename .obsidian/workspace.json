@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Information Gathering/Passive Information Gathering/DNS recognizement.md",
+                "file": "Information Gathering/Passive Information Gathering/Subdomain enumeration.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "DNS recognizement"
+              "title": "Subdomain enumeration"
             }
           }
         ]
@@ -190,11 +190,11 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
+    "Information Gathering/Passive Information Gathering/Leak password databases.md",
+    "Information Gathering/Passive Information Gathering/Email Harvesting.md",
     "Information Gathering/Passive Information Gathering/Subdomain enumeration.md",
     "Information Gathering/Passive Information Gathering/DNS recognizement.md",
-    "Information Gathering/Passive Information Gathering/Email Harvesting.md",
     "Information Gathering/Passive Information Gathering/Google Dorks.md",
-    "Information Gathering/Passive Information Gathering/Leak password databases.md",
     "Web Application Security Testing/Website Footprinting.md",
     "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding/Metasploit Port Forwarding.md",
     "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding/Port Forwarding Theory.md",
