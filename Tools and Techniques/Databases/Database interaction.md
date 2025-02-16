@@ -1,6 +1,6 @@
 If you already have the database on your Kali machine, you can easily view and analyze it using the appropriate tools. The first step is to identify the type of database to choose the correct tool. Below is a general guide on how to proceed:
 
-#  **Identify the type of database**
+##  Identify the type of database
 
 First, make sure you know the format of the database. To do so, use the `file` command:
 ```bash
@@ -8,7 +8,7 @@ file file.bd
 ```
 This command will tell you what type of file it is (for example, SQLite, MySQL dump, PostgreSQL, etc.).
 
-# sqlite3
+## sqlite3
 - Open the database with `sqlite3`:
 ```sql
 sqlite3 archivo.bd
@@ -34,7 +34,7 @@ SELECT * FROM table_name;
 .exit
 ```
 
-# MySQL or MariaDB
+## MySQL or MariaDB
 - Create a new database:
 ```sql
 mysql -u root -p
@@ -49,7 +49,7 @@ mysql -u root -p db_name < file.bd
 ```sql
 mysql -u root -p db_name -h <host_name>
 ```
-### Commands <a name="mysql"></a>
+#### Commands <a name="mysql"></a>
 
 - Prints out the databases we can access:
 ````bash
@@ -72,7 +72,7 @@ SELECT * FROM {table_name};
 ````  
 
 
-# PostgreSQL
+## PostgreSQL
 - Create a new database:
 ```sql
 sudo -u postgres createdb db_name
@@ -86,7 +86,7 @@ psql -U postgres -d db_name -f archivo.bd
 psql -U postgres -d db_name
 ```
 
-# DBeaver
+## DBeaver
 If you prefer a graphical interface to analyze the database, you can install tools like **DBeaver**:
 
 ```sql

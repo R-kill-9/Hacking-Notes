@@ -2,7 +2,7 @@ Authorization review focuses on verifying that users only have permissions to ex
 
 ---
 
-### **Key Points to Review**
+### Key Points to Review
 
 1. **Role-Based Access Control (RBAC)**: Verify that roles are properly defined and enforced for each user action.
 2. **Least Privilege Principle**: Ensure users and services have the minimum permissions necessary.
@@ -11,7 +11,7 @@ Authorization review focuses on verifying that users only have permissions to ex
 
 ---
 
-### **Method-Level Authorization in Spring Security**
+### Method-Level Authorization in Spring Security
 
 You can enforce fine-grained control at the method level using annotations:
 
@@ -52,7 +52,7 @@ protected void configure(HttpSecurity http) throws Exception {
 
 ---
 
-### **JWT Validation**
+### JWT Validation
 JSON Web Tokens (JWT) are commonly used for securing backend APIs by providing a compact and self-contained way to transmit user identity and claims. Proper validation of JWTs is critical to ensure that only authorized users can access protected resources.
 
 #### Key Points for JWT Validation:

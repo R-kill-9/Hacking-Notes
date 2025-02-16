@@ -1,4 +1,4 @@
-### **Public Exposure of Swagger Documentation**
+### Public Exposure of Swagger Documentation
 
 - **Verify accessibility**:
     - Check common paths like `/swagger-ui.html`, `/v2/api-docs`, `/v3/api-docs`or `/openapi.json`.
@@ -7,7 +7,7 @@
     - Restrict access to authorized users only.
     - Implement authentication mechanisms (e.g., API tokens or role-based access) for Swagger documentation.
 
-### **Endpoint Exposure**
+### Endpoint Exposure
 
 - **Sensitive endpoints**:
 	- Identify endpoints such as `/health`, `/metrics`, `/env`, `configprops`, `beeans` or `/info`.

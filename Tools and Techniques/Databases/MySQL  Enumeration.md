@@ -12,7 +12,7 @@ Brute force attacks can be used to test common or weak usernames and passwords a
 hydra -l <username> -P <password_list> mysql://<target_ip>:3306
 ```
 
-## **MySQL Enumeration with Metasploit**
+## MySQL Enumeration with Metasploit*
 **Metasploit** offers several modules for enumerating MySQL services on a target.
 
 - **Identify MySQL Version**: Use `mysql_version` to identify the version of MySQL running on the target system. 
