@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Application Security Testing/SQL Injection/SQL Injection Theory.md",
+                "file": "Web Application Security Testing/Fuzzing.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SQL Injection Theory"
+              "title": "Fuzzing"
             }
           }
         ]
@@ -190,6 +190,7 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
+    "Web Application Security Testing/SQL Injection/SQL Injection Theory.md",
     "Web Application Security Testing/XSS/DOM-based XSS.md",
     "Web Application Security Testing/XSS/Cross Site Scripting (XSS).md",
     "Web Application Security Testing/XSS/Blind Cross-Site Scripting (Blind XSS).md",
@@ -216,7 +217,6 @@
     "Web Application Security Testing/Proxies",
     "Information Gathering/Passive Information Gathering/WAF Detection.md",
     "Web Application Security Testing/Website Footprinting.md",
-    "Web Application Security Testing/WebDAV.md",
     "Images/Grep-Match-Burp.png",
     "Web Application Security Testing/SQL Injection/Union-Based SQL Injection",
     "Web Application Security Testing/SQL Injection/Blind SQL Injection",
