@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "Web Application Security Testing/Fuzzing.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -190,6 +190,11 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
+    "Web Application Security Testing/Web Scanning Tools.md",
+    "Web Application Security Testing/Website Fingerprinting.md",
+    "Web Application Security Testing/Wordpress.md",
+    "Information Gathering/Passive Information Gathering/Subdomain enumeration.md",
+    "Web Application Security Testing/Fuzzing.md",
     "Web Application Security Testing/SQL Injection/SQL Injection Theory.md",
     "Web Application Security Testing/XSS/DOM-based XSS.md",
     "Web Application Security Testing/XSS/Cross Site Scripting (XSS).md",
@@ -211,12 +216,7 @@
     "Protocols/Ports and Services Reference Guide.md",
     "Information Gathering/Active Information Gathering/Netcat.md",
     "Web Application Security Testing/Proxies/OWASP ZAP Configuration Guide.md",
-    "Web Application Security Testing/Proxies/BurpSuite Configuration Guide.md",
-    "Web Application Security Testing/Proxies/Burpsuite.md",
-    "README.md",
     "Web Application Security Testing/Proxies",
-    "Information Gathering/Passive Information Gathering/WAF Detection.md",
-    "Web Application Security Testing/Website Footprinting.md",
     "Images/Grep-Match-Burp.png",
     "Web Application Security Testing/SQL Injection/Union-Based SQL Injection",
     "Web Application Security Testing/SQL Injection/Blind SQL Injection",

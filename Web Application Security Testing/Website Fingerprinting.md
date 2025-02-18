@@ -1,4 +1,4 @@
-**Website Footprinting** is the process of gathering information about a website to understand its structure, technologies, and potential vulnerabilities. This involves techniques like analyzing DNS records, identifying software versions, mapping directories, and examining publicly available files.
+**Website Fingerprinting** is the process of gathering information about a website to understand its structure, technologies, and potential vulnerabilities. This involves techniques like analyzing DNS records, identifying software versions, mapping directories, and examining publicly available files.
 
 ## Wappalyzer
 `Wappalyzer` is a web browser extension or add-on that provides information about the technologies used on a website. It helps identify the software frameworks, content management systems (CMS), e-commerce platforms, server software, analytics tools, and other technologies powering a website.
