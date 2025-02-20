@@ -17,7 +17,7 @@ Burp Suite primarily functions as a **man-in-the-middle proxy** between your bro
     - Burp Suite listens on **127.0.0.1:8080** (local IP and port 8080).
     - This means your browser’s traffic must be routed through **Burp's proxy** to inspect the requests and responses.
 
-#### How to confirm:￼￼How
+#### How to confirm:
 
 - Open Burp Suite and go to the **Proxy** tab, then select **Options**.
 - Ensure that **Proxy Listeners** are enabled on `127.0.0.1:8080`. If the port is blocked or you need to change it, click **Edit** and select a different port.
