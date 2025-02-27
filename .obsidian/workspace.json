@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Application Security Testing/Basic Authentication Header.md",
+                "file": "Privilege Escalation & Post-Explotation/Support Techniques/Reverse Shell.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Basic Authentication Header"
+              "title": "Reverse Shell"
             }
           }
         ]
@@ -190,8 +190,11 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
-    "Web Application Security Testing/Proxies/BurpSuite Configuration Guide.md",
+    "Privilege Escalation & Post-Explotation/Support Techniques/File transmission.md",
+    "Web Application Security Testing/Methodologies/OWASP WSTG.md",
+    "Web Application Security Testing/Methodologies/OWASP ASVS.md",
     "Web Application Security Testing/Basic Authentication Header.md",
+    "Web Application Security Testing/Proxies/BurpSuite Configuration Guide.md",
     "Web Application Security Testing/Proxies/OWASP ZAP Configuration Guide.md",
     "Web Application Security Testing/Fuzzing.md",
     "Web Application Security Testing/Web Scanning Tools.md",
@@ -213,9 +216,6 @@
     "Tools and Techniques/Databases/Database interaction.md",
     "Web Application Security Testing/Code Review/Swagger API.md",
     "Web Application Security Testing/Code Review/Protection Against CSRF.md",
-    "Web Application Security Testing/Code Review/Detecting SQL Injection in Source Code.md",
-    "Web Application Security Testing/Code Review/Basic Code Review.md",
-    "Web Application Security Testing/Code Review/Authorization Review.md",
     "Web Application Security Testing/Proxies",
     "Images/Grep-Match-Burp.png",
     "Web Application Security Testing/SQL Injection/Union-Based SQL Injection",
