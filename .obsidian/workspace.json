@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Web Application Security Testing/XSS/XSS Payloads Cheat Sheet.md",
+                "file": "Web Application Security Testing/XSS/Blind Cross-Site Scripting (Blind XSS).md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "XSS Payloads Cheat Sheet"
+              "title": "Blind Cross-Site Scripting (Blind XSS)"
             }
           }
         ]
@@ -190,9 +190,9 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
-    "Web Application Security Testing/XSS/Cross Site Scripting (XSS).md",
-    "Web Application Security Testing/XSS/XSS Payloads Cheat Sheet.md",
     "Web Application Security Testing/XSS/DOM-based XSS.md",
+    "Web Application Security Testing/XSS/XSS Payloads Cheat Sheet.md",
+    "Web Application Security Testing/XSS/Cross Site Scripting (XSS).md",
     "Web Application Security Testing/XSS/Blind Cross-Site Scripting (Blind XSS).md",
     "Privilege Escalation & Post-Explotation/Support Techniques/Reverse Shell.md",
     "Privilege Escalation & Post-Explotation/Support Techniques/File transmission.md",
