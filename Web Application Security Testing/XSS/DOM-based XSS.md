@@ -1,6 +1,4 @@
-**DOM-based Cross-Site Scripting (DOM-based XSS)** occurs when the vulnerability exists in the client-side code (JavaScript) rather than the server. In this type of attack, the malicious payload is executed as a result of the victim’s browser interpreting and executing JavaScript code on the page, manipulating the DOM (Document Object Model) in an unsafe way.
-
-In a DOM-based XSS attack, the injected script does not come from the server’s response (like reflected or stored XSS). Instead, the malicious code is embedded in the URL or another part of the client-side input, and JavaScript running on the page dynamically processes this data and performs unsafe DOM manipulation. This type of attack can allow an attacker to execute arbitrary JavaScript within the victim's browser, leading to the compromise of sensitive data.
+In a **DOM-based XSS attack**, the injected script does not come from the server’s response (like reflected or stored XSS). Instead, the malicious code is embedded in the URL or another part of the client-side input, and JavaScript running on the page dynamically processes this data and performs unsafe DOM manipulation. This type of attack can allow an attacker to execute arbitrary JavaScript within the victim's browser, leading to the compromise of sensitive data.
 
 ---
 
@@ -47,11 +45,6 @@ When the victim clicks the link, the JavaScript code directly places the content
 ## Example Payloads for DOM-based XSS
 
 Here are some common payloads that could be used in DOM-based XSS attacks:
-
-1. **Basic Script Injection**:
-```html
-<script>alert('DOM-based XSS')</script>
-```
 
 1. **Injection via URL parameters**:
 ```html
