@@ -8,7 +8,9 @@ In a **DOM-based XSS attack**, the injected script does not come from the server
 2. **Client-Side Execution**: When the user clicks the malicious link, the client-side JavaScript (running in the victim's browser) processes the input and directly manipulates the DOM without proper sanitization or escaping of the malicious code.
 3. **Script Execution**: The injected payload is executed in the victim’s browser, often leading to data theft (like cookies), session hijacking, or other malicious behavior.
 
-#### Example 
+#### Examples
+
+###### innerHTML
 Consider a website that has a JavaScript function that uses user input directly from the URL query parameters to display content dynamically.
 
 For example, the site may take the `name` parameter from the URL and display it on the page:
@@ -19,7 +21,7 @@ let name = new URLSearchParams(window.location.search).get('name');
 document.getElementById('greeting').innerHTML = 'Hello, ' + name;
 ```
 
-###### Malicious URL
+**Malicious URL**
 An attacker could craft a URL like this:
 ```jaavascript
 http://example.com/?name=<script>alert('DOM-based XSS')</script>
@@ -27,7 +29,30 @@ http://example.com/?name=<script>alert('DOM-based XSS')</script>
 
 When the victim clicks the link, the JavaScript code directly places the content from the `name` parameter into the HTML without any sanitization. As a result, the malicious script is executed, and an alert is shown with the message "DOM-based XSS."
 
+###### eval
+Imagine a website that lets users perform quick calculations directly through the URL. The developer might use `eval()` to evaluate math expressions:
 
+```javascript
+let expression = new URLSearchParams(window.location.search).get('calc');
+let result = eval(expression);
+alert('Result: ' + result);
+```
+
+If the user visits:
+
+```
+http://example.com/?calc=2+3*4
+```
+
+The site shows an alert with the result: `Result: 14`.
+
+However, an attacker could abuse this by injecting malicious code:
+
+```
+http://example.com/?calc=alert('XSS')
+```
+
+This would trigger a popup saying "**XSS**".
 
 ---
 
