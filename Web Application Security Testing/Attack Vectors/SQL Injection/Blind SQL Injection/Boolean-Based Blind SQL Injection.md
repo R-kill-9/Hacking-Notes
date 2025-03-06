@@ -66,7 +66,7 @@ Repeat this process for all positions to reconstruct the full password.
 5. **Set Up "Grep - Match" for Response Analysis**  
    - Navigate to the "Options" tab in Intruder.  
    - In the "Grep - Match" section, add a keyword that appears only in successful responses.
-![](../../../Images/Grep-Match-Burp.png)
+![](../../../../Images/Grep-Match-Burp.png)
 
 6. Start the Attack  
    - Click the **"Start Attack"** button.  

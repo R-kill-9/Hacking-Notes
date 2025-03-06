@@ -3,7 +3,7 @@ JWT token forgery occurs when an attacker manipulates or forges a JWT to imperso
 
 ## JWT Manipulation
 [token.dev](https://token.dev) is a useful tool for inspecting and manipulating JWTs. It helps you understand the three main components of a token:
-![](../Images/Token_dev.png)
+![](../../Images/Token_dev.png)
 - **Header:** Contains metadata, including the algorithm used for signing.
 
 - **Payload:** Holds the claims or data, like user roles or expiration times.
