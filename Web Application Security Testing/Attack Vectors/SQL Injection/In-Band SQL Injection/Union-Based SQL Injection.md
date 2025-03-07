@@ -7,11 +7,14 @@ When an attacker uses Union-Based SQL Injection, they attempt to combine the res
 
 
 ---
-#### Usefuel Cheat Sheets
-It is very important to consult these resources to correctly execute an SQL injection attack after verifying its existence:
-- [MySQL SQL Injection](https://pentestmonkey.net/cheat-sheet/sql-injection/mysql-sql-injection-cheat-sheet) 
-- [Oracle SQL Injection](https://pentestmonkey.net/cheat-sheet/sql-injection/oracle-sql-injection-cheat-sheet)  
-- [PostgreSQL SQL Injection](https://pentestmonkey.net/cheat-sheet/sql-injection/postgres-sql-injection-cheat-sheet)
+## Cheat Sheets
+It is very important to consult these resources available in [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection) to correctly execute an SQL injection attack after verifying its existence:
+- [MySQL SQL Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MySQL%20Injection.md) 
+- [Oracle SQL Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/OracleSQL%20Injection.md)  
+- [PostgreSQL SQL Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/PostgreSQL%20Injection.md)
+- [SQLite Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/SQLite%20Injection.md)
+
+
 ---
 
 ## 1. Determining the Number of Columns
@@ -33,7 +36,7 @@ By incrementally increasing the column number in `ORDER BY` clauses, we can find
 
 Once a certain number causes an error, we can deduce that the original query has fewer columns than this value.
 
-#### Using UNION SELECT NULL
+#### Using UNION SELECT 
 
 Another approach is to inject `UNION SELECT NULL` with different counts of `NULL` values, matching the number of columns until there’s no error. For example:
 
@@ -44,8 +47,16 @@ Another approach is to inject `UNION SELECT NULL` with different counts of `NULL
 
 ' UNION SELECT NULL, NULL, NULL -- (error, meaning only 2 columns exist)
 ```
-> Note the space after the double dash
 
+Another way to discover the number of columns in a vulnerable query is by using `' UNION SELECT` with sequential numbers.
+
+```sql
+' UNION SELECT 1 -- (error, probably more columns)
+
+' UNION SELECT 1,2 -- (error, keep trying)
+
+' UNION SELECT 1,2,3 -- (no error, 3 columns found)
+```
 
 Once the correct number of columns is determined, the information extraction can be executed.
 

