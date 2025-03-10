@@ -1,18 +1,34 @@
 This technique involves injecting conditions that return either **true** or **false**, observing the application's response.
+
+
+---
+## Cheat Sheets
+It is very important to consult these resources available in [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection) to correctly execute an SQL injection attack after verifying its existence:
+- [MySQL SQL Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MySQL%20Injection.md) 
+- [Oracle SQL Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/OracleSQL%20Injection.md)  
+- [PostgreSQL SQL Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/PostgreSQL%20Injection.md)
+- [SQLite Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/SQLite%20Injection.md)
+
+
+---
+
+
+
 ## 1. Verify Injection Point
 
 Modify a parameter (e.g., `id`) to check if the application is vulnerable.
 
 - **True Condition (Response is Normal):**
 ```sql
-' AND '1'='1 -- 
+' AND 1=1 -- 
 ```
 - **False Condition (Response is Different):**
 ```sql
-' AND '1'='2 -- 
+' AND 1=2 -- 
 ```
 If the response changes, the injection point is confirmed.
 
+>**Note:** If the parameter is a numeric value (e.g., post_id=1), the boolean injection after the quote may not be necessary, as the number itself can be tested directly (e.g., post_id=1 OR 1=1).
 ## 2. Determine Table Existence
 
 Check if a table (e.g., `users`) exists:
@@ -60,7 +76,7 @@ Repeat this process for all positions to reconstruct the full password.
    - Assign it a numeric payload from 1 to the expected password length (e.g., `1-20`).  
 
 4. **Configure the Second Payload (Character Extraction)**  
-   - Identify the parameter that represents the **character to be checked** in the password, such as `SUBSTRING(password, POSITION, 1) = '{CHARACTER}'`
+   - Identify the parameter that represents the **character to be checked** in the password, such as `SUBSTRING(password, POSITION, POSITION) = '{CHARACTER}'`
    - Select this parameter and assign it a character payload.  
 
 5. **Set Up "Grep - Match" for Response Analysis**  

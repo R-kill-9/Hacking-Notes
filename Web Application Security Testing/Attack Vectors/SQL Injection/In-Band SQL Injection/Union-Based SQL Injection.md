@@ -32,7 +32,6 @@ By incrementally increasing the column number in `ORDER BY` clauses, we can find
 
 ' ORDER BY N -- (error 500, N exceeds the column count)
 ```
-> Note the space after the double dash
 
 Once a certain number causes an error, we can deduce that the original query has fewer columns than this value.
 

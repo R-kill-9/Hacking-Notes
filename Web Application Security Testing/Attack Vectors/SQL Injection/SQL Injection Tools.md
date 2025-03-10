@@ -6,9 +6,7 @@ If we needed authentication to access to the web we will need to add the cookies
 #### Example 1
 
 We can use *sqlmap* specifying the target url:
-- *Parameters*:
-	- `-u`: Specifies the target URL to be tested for SQL injection vulnerabilities. In this case, the target URL is http://192.168.1.102/administrator
-	    
+
 | Option                    | Description                                                                                                                       |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | `-u`                       | Specifies the target URL to be tested for SQL injection vulnerabilities. Example: `http://192.168.1.102/administrator`.          |

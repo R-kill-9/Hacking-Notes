@@ -1,5 +1,6 @@
 This technique introduces delays to confirm whether a condition is true.
 
+
 ## 1. Verify Vulnerability with a Delay
 
 For **MySQL** (SLEEP function):

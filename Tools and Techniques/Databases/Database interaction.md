@@ -86,6 +86,38 @@ psql -U postgres -d db_name -f archivo.bd
 psql -U postgres -d db_name
 ```
 
+
+## MongoDB
+- **List all databases**
+
+To list all databases, you can use the following command:
+
+```sql
+show dbs
+```
+- **List all collections in the current database**
+
+To list all collections in the current database, use this command:
+
+```sql
+show collections
+```
+
+- **Query all documents in a collection**
+
+To query and list all documents in the `users` collection, use:
+
+```sql
+db.users.find()
+```
+
+- **Query documents with a condition**
+
+To query documents where `age` is 30 in the `users` collection, you can run:
+```sql
+db.users.find({ age: 30 })
+```
+
 ## DBeaver
 If you prefer a graphical interface to analyze the database, you can install tools like **DBeaver**:
 
