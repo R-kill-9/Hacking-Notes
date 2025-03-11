@@ -31,15 +31,18 @@ echo "dXNlcm5hbWU6cGFzc3dvcmQ=" | base64 -d
 
 Since Basic Authentication lacks rate-limiting by default, brute-force attacks are effective.
 
-- **Using Hydra** (Fast parallel brute-forcing tool):
+**Using Hydra**:
+
+Normally, basic authentication requests are sent via GET. In the `-m` parameter, you configure the specific directory you want to access, which is protected by authentication.
 ```bash
-hydra -L users.txt -P passwords.txt http://example.com -m /admin -V
+hydra -l <user_name> -P <wordlist> <target_ip> http-get -m /basic/ -v 
 ```
 
-- **Using Burp Suite Intruder**:
+**Using Burp Suite Intruder**:
 
 1. Capture a request with the **Basic Auth header**.
 2. Send it to **Intruder**.
 3. Set **payload positions** in the `Authorization` header.
-4. Use **Base64 encoded wordlists** for usernames/passwords.
+4. Encode both payload positions using Base64 with the **Payload Processing** option from the Intruder/Payload configuration.
+![](../../Images/Burp-base64encode-payload.png)
 5. Run the attack and look for **200 OK** responses.

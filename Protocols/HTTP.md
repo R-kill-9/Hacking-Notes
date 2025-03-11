@@ -14,6 +14,8 @@
 - **PATCH**: Partially updates a resource.  
 - **HEAD**: Similar to GET but returns only headers.  
 - **OPTIONS**: Describes the communication options for a resource.  
+- **TRACE**: Echoes back the received request. 
+
 
 ## Status Codes
 - **1xx (Informational)**: Processing information (e.g., `100 Continue`).  

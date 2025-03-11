@@ -1,9 +1,6 @@
-**Hydra** supports a wide range of protocols, including HTTP, FTP, SMTP, Telnet, SSH, and many others. It works by sending multiple login attempts to the target system using a wordlist or custom dictionary file that contains potential usernames and passwords. Hydra then systematically tries each combination until it finds a successful login or exhausts all possibilities.
+**Hydra** supports a wide range of protocols, including SMB, HTTP, FTP, SMTP, Telnet, SSH, and many others. It works by sending multiple login attempts to the target system using a wordlist or custom dictionary file that contains potential usernames and passwords. Hydra then systematically tries each combination until it finds a successful login or exhausts all possibilities.
+
 ```bash
-# password list example: 10-million-password-list-top-1000000.txt
-# IP example: 10.10.10.10
-# service example: ssh
-# if you want to use a list of users the flag is -L
 hydra -l <username> -P <password_list_path> <service>://<IP_or_domain_name> 
 ```
 
