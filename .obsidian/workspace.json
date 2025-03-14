@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Tools and Techniques/Databases/Database interaction.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Database interaction"
             }
           }
         ]
@@ -190,6 +190,17 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Path Hijacking.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Linux System Enumeration.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Linux Kernel Exploits.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Dumping Linux Password Hashes.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Cron Jobs.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Clearing generated tracks on Linux.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Capabilities.md",
+    "Privilege Escalation & Post-Explotation/Support Techniques/Upgrade a Shell.md",
+    "Tools and Techniques/Useful Resources.md",
+    "Web Application Security Testing/Attack Vectors/SQL Injection/SQL Injection Tools.md",
+    "README.md",
     "Web Application Security Testing/Attack Vectors/Basic Digest Header.md",
     "Web Application Security Testing/Attack Vectors/Basic Authentication Header.md",
     "Cracking & Decrypting/Hydra.md",
@@ -206,17 +217,6 @@
     "Web Application Security Testing/Attack Vectors/IDOR.md",
     "Web Application Security Testing/Attack Vectors/JWT Forgery.md",
     "Web Application Security Testing/Attack Vectors/Local File Inclusion (LFI).md",
-    "Web Application Security Testing/Attack Vectors/SSRF.md",
-    "Web Application Security Testing/Attack Vectors/Path traversal.md",
-    "Web Application Security Testing/Attack Vectors/SSTI.md",
-    "Web Application Security Testing/Attack Vectors/Web Scanning Tools.md",
-    "Web Application Security Testing/Attack Vectors/Website Fingerprinting.md",
-    "README.md",
-    "Web Application Security Testing/Attack Vectors/SQL Injection/NoSQL Injection/NoSQL Injection (MongoDB).md",
-    "Web Application Security Testing/Attack Vectors/SQL Injection/NoSQL Injection/NoSQL Theory.md",
-    "Web Application Security Testing/Attack Vectors/SQL Injection/Blind SQL Injection/Time-Based Blind SQL Injection.md",
-    "Web Application Security Testing/Attack Vectors/SQL Injection/Blind SQL Injection/Boolean-Based Blind SQL Injection.md",
-    "Web Application Security Testing/Attack Vectors/SQL Injection/In-Band SQL Injection/Union-Based SQL Injection.md",
     "Web Application Security Testing/Attack Vectors/SQL Injection/NoSQL Injection",
     "Web Application Security Testing/Attack Vectors/SQL Injection/In-Band SQL Injection",
     "Web Application Security Testing/Attack Vectors",
