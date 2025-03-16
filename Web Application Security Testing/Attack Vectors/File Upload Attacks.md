@@ -17,7 +17,7 @@ system($_GET['cmd']);
 ```
 
 2. **Rename the File with Double Extensions**
-You can rename your  file to include both a dangerous extension and a harmless one. For example, rename `webshell.php` to `webshell.php.jpg`.
+You can rename your  file to include both a dangerous extension and a harmless one. For example, rename `webshell.php` to `webshell.jpg.php`.
 3. **Upload the File**
 Upload the file to the server using the vulnerable file upload functionality.
 
@@ -61,3 +61,22 @@ By doing this, the malicious file might bypass the server's validation system, w
 
 - **Legitimate MIME Type**: When uploading an image, the MIME type might be something like `image/jpeg` or `image/png`.
 - **MIME Spoofing**: An attacker could change the MIME type of a PHP file to `image/jpeg`. This could bypass the file type checks performed by the server if it is only checking the MIME type for validation, without inspecting the actual file content.
+
+## Bypassing Extension Filters in Nginx
+
+Some Nginx configurations attempt to restrict the execution of certain file types, such as `.php`, to prevent unauthorized code execution. However, misconfigurations can allow attackers to bypass these restrictions and execute scripts by exploiting how Nginx handles file paths.
+
+#### Example Scenario
+
+Imagine an upload directory where only image files (e.g., `.png`, `.jpg`) are allowed, and `.php` files are blocked. However, an attacker uploads a file named `rev.png/rev.php`, resulting in a directory structure like:
+
+```
+/uploads/rev.png
+```
+
+Now, if Nginx is misconfigured and allows execution of PHP files in subdirectories, the attacker might be able to execute the script with a request like:
+
+```
+http://example.com/uploads/rev.png/rev.php?cmd=whoami
+```
+

