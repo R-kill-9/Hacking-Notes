@@ -191,6 +191,7 @@
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
     "Web Application Security Testing/Attack Vectors/Remote File Inclusion (RFI).md",
+    "README.md",
     "Web Application Security Testing/Attack Vectors/Local File Inclusion (LFI).md",
     "Web Application Security Testing/Attack Vectors/Web Shell/Web Shell Examples.md",
     "Privilege Escalation & Post-Explotation/Support Techniques/Reverse Shell.md",
@@ -198,7 +199,6 @@
     "Web Application Security Testing/Attack Vectors/Wordpress.md",
     "Web Application Security Testing/Attack Vectors/Fuzzing.md",
     "Web Application Security Testing/Attack Vectors/Path traversal.md",
-    "README.md",
     "Web Application Security Testing/Attack Vectors/Web Shell/Weevely.md",
     "Web Application Security Testing/Attack Vectors/Web Shell",
     "Web Application Security Testing/Attack Vectors/File Upload Attacks.md",

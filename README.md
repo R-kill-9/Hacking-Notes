@@ -1,6 +1,21 @@
-# Hacking-Notes
-This repository is a collection of personal notes, resources, and guides focused on ethical hacking and penetration testing. It includes various techniques, tools, and methodologies I have explored during my learning process in this field.
+## Overview
+
+This repository contains a collection of notes, techniques, and tools for ethical hacking, penetration testing, and cybersecurity. It is designed to be a practical resource for beginners and professionals aiming to enhance their knowledge and skills in hacking and security.
+
+## Installation
+
+To get started, clone the repository to your local machine:
+
+```bash
+git clone https://github.com/R-kill-9/Hacking-Notes.git
+cd Hacking-Notes
+```
 
 ## License
 
-This repository is for educational purposes only. You are free to use, modify, and improve the contents, but please ensure that any usage is ethical, responsible, and authorized.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or feedback, feel free to reach out via GitHub issues or email.
+
