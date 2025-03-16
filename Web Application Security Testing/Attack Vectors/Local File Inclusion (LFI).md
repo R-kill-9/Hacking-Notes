@@ -18,13 +18,14 @@ By manipulating the `page` parameter, you might access unintended files.
 
 ## Exploitation Techniques
 
-#### Directory Traversal
+#### Basic LFI 
 
-Use `../` to navigate directories on the server.
+Basic LFI occurs when an application directly includes a file based on user input **without proper validation**, allowing attackers to access and execute unintended files.
 
 ```bash
-http://example.com/index.php?page=../../../../etc/passwd
+http://example.com/index.php?page=about.php
 ```
+The application includes and executes `pages/about.php`. However, an attacker can manipulate this behavior to load arbitrary files.
 
 #### Forcing PHP File Inclusion Without Execution
 
