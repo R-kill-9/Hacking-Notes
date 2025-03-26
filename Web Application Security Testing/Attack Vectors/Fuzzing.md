@@ -12,16 +12,15 @@ feroxbuster -u <URL>
 
 #### Useful Parameters
 
-|   |   |
-|---|---|
-|Option|Description|
-|`-u <URL>`|Target URL to scan.|
-|`-w <wordlist>`|Specify a custom wordlist.|
-|`-t <threads>`|Number of threads to use (default: 50).|
-|`-n`|Do not recurse into found directories.|
-|`-e`|Extensions to fuzz (e.g., `-e php,txt,html`).|
-|`-x <extensions>`|Filter results by file extension.|
-|`-o <file>`|Output results to a file.|
+|                   |                                               |
+| ----------------- | --------------------------------------------- |
+| Option            | Description                                   |
+| `-u <URL>`        | Target URL to scan.                           |
+| `-w <wordlist>`   | Specify a custom wordlist.                    |
+| `-t <threads>`    | Number of threads to use (default: 50).       |
+| `-n`              | Do not recurse into found directories.        |
+| `-x <extensions>` | Extensions to fuzz (e.g., `-e php,txt,html`). |
+| `-o <file>`       | Output results to a file.                     |
 
 #### Example Usage:
 
@@ -37,7 +36,7 @@ feroxbuster -u http://<machine-ip> -w <wordlist> -r
 
 - **Scan for specific extensions:**
 ```
-feroxbuster -u http://<machine-ip> -e php,html,txt
+feroxbuster -u http://<machine-ip> -x php,html,txt
 ```
 
 - **Save results to a file:**
