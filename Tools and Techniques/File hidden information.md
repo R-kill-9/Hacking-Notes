@@ -5,8 +5,16 @@
 
 For example, we could use it to extract metadata from a PDF file and check the "creator" field to see if it was created with a potentially vulnerable tool.
 
+```bash
+exiftool <image>
+```
+
 #### binwalk
 **binwalk** is a tool used for analyzing and extracting data from binary files, such as firmware images, executables, and other binary data. Can be very useful for extracting information from images.
+
+```bash
+binwalk -e <image>
+```
 
 ## Revealing Pixelated information in a PDF
 
