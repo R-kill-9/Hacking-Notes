@@ -6,21 +6,19 @@ Feroxbuster is a **fast, recursive, and parallel** directory and file brute-forc
 
 #### Basic Usage
 
-```
-feroxbuster -u <URL>
-```
-
-#### Useful Parameters
-
-|                   |                                               |
-| ----------------- | --------------------------------------------- |
 | Option            | Description                                   |
+| ----------------- | --------------------------------------------- |
 | `-u <URL>`        | Target URL to scan.                           |
 | `-w <wordlist>`   | Specify a custom wordlist.                    |
 | `-t <threads>`    | Number of threads to use (default: 50).       |
 | `-n`              | Do not recurse into found directories.        |
 | `-x <extensions>` | Extensions to fuzz (e.g., `-e php,txt,html`). |
 | `-o <file>`       | Output results to a file.                     |
+
+
+```
+feroxbuster -u <URL>
+```
 
 #### Example Usage:
 
@@ -52,23 +50,43 @@ feroxbuster -u http://<machine-ip> -o results.txt
 
 ## Gobuster
 It is a command-line tool used for performing brute-force scans or directory and subdomain enumeration on a website.
-- To find subdirectories:
-````bash
-#wordlist example:/usr/share/wordlists/dirb/big.txt
-#wordlist example: /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
-#machine example: 10.10.192.23 or http://10.10.192.23:80
-#-q to don't print the errors
-gobuster dir -u <machine-ip> -w <wordlist> -o gobuster.out -t 200
-````
 
-- To find subdomains:
+| Option  | Description                                            |
+|---------|--------------------------------------------------------|
+| `-u`    | Target URL (e.g., http://10.10.192.23)                 |
+| `-w`    | Wordlist path (e.g., /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt) |
+| `-o`    | Save results to a file (e.g., gobuster.out)            |
+| `-t`    | Number of threads (higher = faster, but more resource-heavy) |
+| `-q`    | Quiet mode (suppress error messages)                   |
+| `-s`    | Filter response status codes (e.g., `-s 200,403` to show only 200 and 403 responses) |
+| `-x`    | Filter by file extensions (e.g., `-x .php,.html`)      |
+| `-l`    | Limit results by minimum response length (e.g., `-l 100` to only show responses with length > 100 bytes) |
+
+#### Directory Discovery
+Used to find hidden folders and files.
 ```bash
-#wordlist example: /usr/share/dnsrecon/subdomains-top1mil-20000.txt
-#machine ip example: 10.10.192.25
-gobuster vhost -w <wordlist> -u <machine-ip> -o gobuster.out
-````
+gobuster dir -u <machine-ip> -w <wordlist> -o gobuster.out -t 200
+```
 
+#### Subdomain Enumeration
 
+You can find subdomains in two ways:
+
+1. **VHOST Mode (Virtual Host)**
+
+Used when testing against an IP and expecting subdomains to resolve through the Host header.
+
+```bash
+gobuster vhost -u http://<ip> -w <wordlist> -o gobuster.out
+```
+
+2. **DNS Mode**
+
+Used when you know the domain name (e.g., medusa.hmv).
+
+```bash
+gobuster dns -d <domain> -w <wordlist> -o gobuster.out
+```
 
 ---
 
@@ -116,37 +134,32 @@ wfuzz -c --hc 404 -w <wordlist> http://<machine-ip>/FUZZ.php
 ---
 
 
-
-
-
 ## ffuf
 Fuff is primarily used for discovering hidden resources in web applications by brute-forcing URLs and parameters. It is effective for testing web application security, identifying vulnerabilities, and mapping application structures.
 
 #### Basic Usage
 
-Fuff operates from the command line. The basic syntax for using Fuff is as follows:
+| Option              | Description                                                       |
+| ------------------- | ----------------------------------------------------------------- |
+| `-u <URL>`          | Target URL.                                                       |
+| `-w <wordlist>`     | Path to the wordlist for fuzzing.                                 |
+| `-r`                | Set the request method (GET, POST, etc.).                         |
+| `-t <number>`       | Set the number of concurrent threads (default is 10).             |
+| `-mc <status_code>` | Match responses with specific status codes (e.g., 200, 404).      |
+| `-o <output_file>`  | Save the output to a specified file.                              |
+| `-p <parameter>`    | Specify a parameter for fuzzing.                                  |
+| `-d <parameter>`    | Defines the data that will be sent in the body of a POST request. |
+| `-fs <length>`      | Filter out responses by response size (in bytes).                 |
+| `-fw <words>`       | Filter by word count.                                             |
+| `-fl <lines>`       | Filter by line count.                                             |
+
 ```bash
 ffuf -u <URL> -w <wordlist>
 ```
-- **Parameters**:
-    - `-u <URL>`: Target URL (with optional parameters).
-    - `-w <wordlist>`: Path to the wordlist for fuzzing.
+
 
 #### Post method
 
 ```bash
-# request_file = request to fuzz saved from Burpsuite
-ffuf -u <URL> -X POST -request <request_file> -w <wordlist> -fs 61
+ffuf -u <URL> -X POST -d "parameter+FUZZ" -w <wordlist> -fs 61
 ```
-
-#### Common Options
-
-| Option              | Description                                                               |
-| ------------------- | ------------------------------------------------------------------------- |
-| `-r`                | Set the request method (GET, POST, etc.).                                 |
-| `-t <number>`       | Set the number of concurrent threads (default is 10).                     |
-| `-mc <status_code>` | Match responses with specific status codes (e.g., 200, 404).              |
-| `-o <output_file>`  | Save the output to a specified file.                                      |
-| `-p <parameter>`    | Specify a parameter for fuzzing.                                          |
-| `-d <parameter>`    | Defines the data that will be sent in the body of a POST request.         |
-| `-fs 61`            | Filters responses by size (e.g., filter responses based on their length). |
