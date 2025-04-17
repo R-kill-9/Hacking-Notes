@@ -44,5 +44,5 @@ hydra -l <user_name> -P <wordlist> <target_ip> http-get -m /basic/ -v
 2. Send it to **Intruder**.
 3. Set **payload positions** in the `Authorization` header.
 4. Encode both payload positions using Base64 with the **Payload Processing** option from the Intruder/Payload configuration.
-![](../../Images/Burp-base64encode-payload.png)
+![](../../../Images/Burp-base64encode-payload.png)
 5. Run the attack and look for **200 OK** responses.
