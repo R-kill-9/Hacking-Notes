@@ -7,9 +7,6 @@
 | Anaximandre       | HackMyVM      | Medium     |      |
 | Messages          | HackMyVM      | Medium     |      |
 | Catland           | HackMyVM      | Medium     |      |
-| TheWall           | HackMyVM      | Easy       |      |
-| Beloved           | HackMyVM      | Easy       |      |
-| Talk              | HackMyVM      | Easy       |      |
 | Casino            | HackMyVM      | Medium     |      |
 
 
