@@ -1,64 +1,62 @@
 ## General Table
-
-| Name              | Platform      | Difficulty  | Done |
-| ----------------- | ------------- | ----------- | ---- |
-| Facultad          | TheHackerLabs | Easy        | ✓    |
-| Web Machine: (N7) | VulnHub       | Medium      | ✓    |
-| Literal           | HackMyVM      | Easy        | ✓    |
-| Ophiuchi          | HTB           | Easy        |      |
-| Seal              | HTB           | Easy        |      |
-| Time              | HTB           | Medium      |      |
-| Sau               | HTB           | Easy        |      |
-| Magic             | HTB           | Medium      |      |
-| Postman           | HTB           | Easy        |      |
-| Horizontal        | HTB           | Easy        |      |
-| Support           | HTB           | Medium      |      |
-| Craft             | HTB           | Easy/Medium |      |
-| Validation        | HTB           | Easy        |      |
-| BountyHunter      | HTB           | Easy        |      |
-| NodeBlog          | HTB           | Easy        |      |
-| Nibbles           | HTB           | Easy        |      |
-| Active            | HTB           | Medium      |      |
-| Optimum           | HTB           | Easy        |      |
-| Jerry             | HTB           | Easy        |      |
-| Photobomb         | HTB           | Easy        |      |
-| Writer            | HTB           | Easy        |      |
-| Precious          | HTB           | Medium      |      |
-| Inception         | HTB           | Medium      |      |
-| Cronos            | HTB           | Easy/Medium |      |
-| Luanne            | HTB           | Medium      |      |
-| Rope              | HTB           | Medium      |      |
-| Book              | HTB           | Medium      |      |
-| Academy           | HTB           | Easy        |      |
+| Name              | Platform      | Difficulty | Done |
+|-------------------|---------------|------------|------|
+| Facultad          | TheHackerLabs | Easy       | ✓    |
+| Web Machine: (N7) | VulnHub        | Medium     | ✓    |
+| Literal           | HackMyVM      | Easy       | ✓    |
+| Jerry             | HTB           | Easy       |      |
+| Nibbles           | HTB           | Easy       |      |
+| Shocker           | HTB           | Easy       |      |
+| Lame              | HTB           | Easy       |      |
+| Legacy            | HTB           | Easy       |      |
+| Optimum           | HTB           | Easy       |      |
+| Bashed            | HTB           | Easy       |      |
+| Valentine         | HTB           | Easy       |      |
+| Blue              | HTB           | Easy       |      |
+| Devel             | HTB           | Easy       |      |
+| Beep              | HTB           | Easy       |      |
+| Arctic            | HTB           | Easy       |      |
+| Granny            | HTB           | Easy       |      |
+| Grandpa           | HTB           | Easy       |      |
+| Bastard           | HTB           | Medium     |      |
+| Poison            | HTB           | Medium     |      |
+| Sunday            | HTB           | Medium     |      |
+| SwagShop          | HTB           | Medium     |      |
+| Nineveh           | HTB           | Medium     |      |
+| Chatterbox        | HTB           | Medium     |      |
+| Sense             | HTB           | Medium     |      |
+| Popcorn           | HTB           | Medium     |      |
+| Netmon            | HTB           | Medium     |      |
+| Traverxec         | HTB           | Medium     |      |
+| OpenAdmin         | HTB           | Medium     |      |
 ## Topics for each machine
-
-| Name          | Main Topics                                              |
-| ------------- | --------------------------------------------------------- |
-| Facultad      | SQLi, basic authentication bypass                         |
-| Web Machine: (N7) | RCE, misconfigurations                                 |
-| Literal       | Simple PHP deserialization, weak permissions              |
-| Ophiuchi      | XML External Entity (XXE) + JWT                           |
-| Seal          | SSRF, misconfigured S3 bucket                             |
-| Time          | Blind SQL Injection with time-based techniques            |
-| Sau           | IDOR + weak API security                                  |
-| Magic         | Auth bypass + file upload vulnerability                   |
-| Postman       | JWT weaknesses + API misconfig                             |
-| Horizontal    | IDOR (Horizontal privilege escalation)                    |
-| Support       | SQLi, session management flaws                            |
-| Craft         | SSRF and SQL Injection                                     |
-| Validation    | SQL Injection, PHP LFI                                     |
-| BountyHunter  | Basic XSS and path traversal                               |
-| NodeBlog      | NoSQL Injection + file upload                             |
-| Nibbles       | Web admin panel RCE                                        |
-| Active        | LDAP enumeration, kerberos attacks (AS-REP roasting)      |
-| Optimum       | Exploitable file upload in HTTP server                    |
-| Jerry         | Default admin Tomcat credentials exploit                  |
-| Photobomb     | Parameter pollution + simple privilege escalation         |
-| Writer        | SQLi, predictable object references                       |
-| Precious      | PDF Generator RCE via YAML deserialization                |
-| Inception     | XSS to session stealing and pivoting                      |
-| Cronos        | DNS zone transfer + SQLi                                  |
-| Luanne        | Node.js deserialization, command injection                |
-| Rope          | Stored XSS, auth bypass                                    |
-| Book          | SQLi, weak password reset logic                           |
-| Academy       | SQLi + broken access control                              |
+| Name              | Focus Areas                                |
+|-------------------|---------------------------------------------|
+| Facultad          | SQL Injection, Login Bypass                |
+| Web Machine: (N7) | File Inclusion, Basic Auth, Web Logic      |
+| Literal           | XSS, SQLi, Cookie Manipulation             |
+| Jerry             | Web App Enumeration, Apache Tomcat Manager |
+| Nibbles           | File Upload, Auth Bypass                   |
+| Shocker           | Shellshock RCE                             |
+| Lame              | SMB Exploitation, Misconfigurations        |
+| Legacy            | SMBv1 Exploitation                         |
+| Optimum           | HTTP File Upload Exploit                   |
+| Bashed            | Web Shell Exploitation                     |
+| Valentine         | Heartbleed, SSL Inspection                 |
+| Blue              | EternalBlue Exploit                        |
+| Devel             | FTP Exploitation, Web Upload               |
+| Beep              | Multiple Web Services, Local File Inclusion|
+| Arctic            | ColdFusion Exploitation                    |
+| Granny            | Windows WebApp Enumeration                 |
+| Grandpa           | IIS Exploitation                           |
+| Bastard           | Drupalgeddon (Drupal RCE)                  |
+| Poison            | Poison Ivy Web Shell, PHP Backdoor         |
+| Sunday            | RPC Enum, Weak Credentials                 |
+| SwagShop          | Magento Auth Bypass, SQLi                  |
+| Nineveh           | Web Login Bypass, SSRF                     |
+| Chatterbox        | Uncommon Service Exploitation              |
+| Sense             | LFI, CVE-based Exploitation                |
+| Popcorn           | XSS, Torrent Web Exploit                   |
+| Netmon            | SNMP/Web Interface Exploitation            |
+| Traverxec         | User Enumeration, GTFOBins                 |
+| OpenAdmin         | Web Login Abuse, RCE                       |
