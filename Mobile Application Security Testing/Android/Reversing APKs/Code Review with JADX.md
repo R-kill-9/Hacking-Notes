@@ -7,6 +7,11 @@
 ./bin/jadx-gui
 ```
 
+Another option is installing it using apt:
+```bash
+sudo apt install jadx
+jadx-gui
+```
 ## Loading an APK
 
 1. First, **extract the APK** (you can pull it from a device):
