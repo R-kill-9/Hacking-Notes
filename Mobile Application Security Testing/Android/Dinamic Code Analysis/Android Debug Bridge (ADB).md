@@ -46,3 +46,10 @@ adb shell ls -la
 | `adb install <apk_file>`                 | Installs an APK on the device                    |
 | `adb uninstall <package_name>`           | Uninstalls an app                                |
 | `exit`                                   | Exits the interactive shell session              |
+#### ADB Input Examples
+|Command|Action|
+|---|---|
+|`adb shell input text 'hello%sworld'`|Types "hello world"|
+|`adb shell input keyevent 66`|Presses "Enter" key|
+|`adb shell input tap 500 800`|Simulates tap at (500, 800)|
+|`adb shell input swipe 300 1000 300 500`|Swipes up|

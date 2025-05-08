@@ -191,6 +191,7 @@
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
     "Mobile Application Security Testing/Android/Dinamic Code Analysis/Android Debug Bridge (ADB).md",
+    "README.md",
     "Mobile Application Security Testing/Android/Reversing APKs/APKTool.md",
     "Mobile Application Security Testing/Android/Dinamic Code Analysis",
     "Mobile Application Security Testing/Android/Reversing APKs/Code Review with JADX.md",
@@ -203,7 +204,6 @@
     "Mobile Application Security Testing/Android/Theory/Data Storage.md",
     "Mobile Application Security Testing/Android/Theory/Android Application Fundamentals.md",
     "Mobile Application Security Testing/Android/Android Penetration Testing General Guide.md",
-    "README.md",
     "Mobile Application Security Testing/Android/Theory/Android Sandboxing.md",
     "Mobile Application Security Testing/Android/Static Code Analysis",
     "Mobile Application Security Testing/Android/Environment/Rooting an Android Device with Magisk.md",
