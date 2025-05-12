@@ -80,6 +80,74 @@ PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, Pendin
 If the provided intent is not explicit, a malicious app could craft an intent that gets executed with your app’s privileges. Therefore, always use explicit intents in pending intent constructions to reduce security risks.
 
 
+---
+
+## Components
+**Components** is a generic term used to describe the most common building blocks of Android applications. These include:
+
+- Activities
+- Services
+- Broadcast Receivers
+- Content Providers
+
+Each component is implemented in Java/Kotlin and must be declared in the application's `AndroidManifest.xml`.
+
+#### Activities
+
+Activities represent visual screens with which users interact. They display UI elements such as buttons, images, text fields, etc.
+
+Most applications expose at least one activity that can be launched via an `Intent`, often acting as an entry point into the app.
+
+
+#### Services
+
+Services are used to perform long-running operations in the background without a user interface.
+
+- They are started using `startService()` and stopped using `stopService()`.
+- A service may also be **bound** to allow communication with other components.
+
+Because services can be triggered by external input (intents), they must be carefully validated. The first place to inspect for vulnerabilities is typically the intent passed to the `onStartCommand()` method.
+
+
+#### Broadcast Receivers
+
+Broadcast receivers are components that listen for broadcasted intents from the system or other apps.
+
+- **Static receivers** are declared in the manifest.
+- **Dynamic receivers** are registered at runtime using `registerReceiver()`.
+
+They are commonly used to react to system events (e.g., device boot, network change) or messages sent by other apps. Since they receive input from external sources, they must validate all data received via the intent.
+
+
+#### Content Providers
+
+Content Providers allow applications to share **structured data**, such as data from relational databases, with other apps in a secure and managed way.
+
+They are declared in the `AndroidManifest.xml` with attributes like:
+```xml
+<provider
+    android:name=".MyProvider"
+    android:authorities="com.example.provider"
+    android:exported="true"
+    android:readPermission="com.example.READ_PERMISSION"
+    android:writePermission="com.example.WRITE_PERMISSION" />
+```
+
+Security for content providers is enforced through:
+
+- The `android:exported` flag (determines if other apps can access it).
+- `readPermission` and `writePermission` attributes to control access levels.
+- The use of `grantUriPermissions`, which allows apps to **temporarily access** specific URIs when given explicit permission.
+
+Example for URI permission grant via intent:
+```java
+intent.setData(uri);
+intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+```
+
+
+---
+
 ## Deep links 
 **Deep links** allow an application to respond to URLs and trigger an intent from a web link, email, or another app. This enables users to navigate directly to specific content or features within an app.
 
@@ -213,72 +281,6 @@ Binder provides the underlying transport for:
 - System calls between apps and the Android framework
 
 Almost all high-level IPC mechanisms in Android (like `Messenger`, `AIDL`, and bound services) are **abstractions over Binder**.
-
----
-
-## Components
-**Components** is a generic term used to describe the most common building blocks of Android applications. These include:
-
-- Activities
-- Services
-- Broadcast Receivers
-- Content Providers
-
-Each component is implemented in Java/Kotlin and must be declared in the application's `AndroidManifest.xml`.
-
-#### Activities
-
-Activities represent visual screens with which users interact. They display UI elements such as buttons, images, text fields, etc.
-
-Most applications expose at least one activity that can be launched via an `Intent`, often acting as an entry point into the app.
-
-
-#### Services
-
-Services are used to perform long-running operations in the background without a user interface.
-
-- They are started using `startService()` and stopped using `stopService()`.
-- A service may also be **bound** to allow communication with other components.
-
-Because services can be triggered by external input (intents), they must be carefully validated. The first place to inspect for vulnerabilities is typically the intent passed to the `onStartCommand()` method.
-
-
-#### Broadcast Receivers
-
-Broadcast receivers are components that listen for broadcasted intents from the system or other apps.
-
-- **Static receivers** are declared in the manifest.
-- **Dynamic receivers** are registered at runtime using `registerReceiver()`.
-
-They are commonly used to react to system events (e.g., device boot, network change) or messages sent by other apps. Since they receive input from external sources, they must validate all data received via the intent.
-
-
-#### Content Providers
-
-Content Providers allow applications to share **structured data**, such as data from relational databases, with other apps in a secure and managed way.
-
-They are declared in the `AndroidManifest.xml` with attributes like:
-```xml
-<provider
-    android:name=".MyProvider"
-    android:authorities="com.example.provider"
-    android:exported="true"
-    android:readPermission="com.example.READ_PERMISSION"
-    android:writePermission="com.example.WRITE_PERMISSION" />
-```
-
-Security for content providers is enforced through:
-
-- The `android:exported` flag (determines if other apps can access it).
-- `readPermission` and `writePermission` attributes to control access levels.
-- The use of `grantUriPermissions`, which allows apps to **temporarily access** specific URIs when given explicit permission.
-
-Example for URI permission grant via intent:
-```java
-intent.setData(uri);
-intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-```
-
 
 ---
 

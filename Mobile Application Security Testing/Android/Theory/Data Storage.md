@@ -44,4 +44,3 @@ Tracking can be performed through:
     Security and privacy concerns arise when tracking is done without user consent or by malicious apps.
     
 
----

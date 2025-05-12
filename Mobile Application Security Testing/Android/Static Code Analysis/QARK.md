@@ -1,6 +1,4 @@
-**QARK** (Quick Android Review Kit) is an open-source tool developed by LinkedIn for static security analysis of Android applications.
-
-It is designed to scan APKs or Android source code to identify common vulnerabilities, insecure configurations, and misuses of Android APIs.
+**QARK** (Quick Android Review Kit) is an open-source tool developed for static security analysis of Android applications.
 
 ## Features
 
@@ -53,13 +51,9 @@ python qarkMain.py --source 1 --path /path/to/java/code
 - Generates an interactive report with:
     
     - List of vulnerabilities
-        
     - Risk levels
-        
     - Code locations (if source provided)
-        
 - Offers option to build a proof-of-concept APK for certain vulnerabilities (like exported activities).
-
 
 
 
