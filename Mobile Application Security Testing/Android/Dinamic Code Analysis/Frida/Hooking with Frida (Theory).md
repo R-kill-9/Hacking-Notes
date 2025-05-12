@@ -1,4 +1,8 @@
-Frida provides an easy-to-use framework for hooking into a running application and modifying its behavior. Below, we’ll explore some practical examples and commands for hooking functions in a live process, with a focus on real-world use cases for security testing.
+**Frida** provides an easy-to-use framework for hooking into a running application and modifying its behavior. Below, we’ll explore some practical examples and commands for hooking functions in a live process, with a focus on real-world use cases for security testing.
+
+> Useful content:
+> [Hooking Java Methods with Frida](https://www.youtube.com/watch?v=RJXsvAjZl9U&t=330s)
+> [Hooking Native Android Methods with Frida](https://www.youtube.com/watch?v=N2JtRXCofUU&t=370s)
 
 ## Basic Hooking in Java (Android)
 
