@@ -103,29 +103,17 @@ It is a command-line tool used for performing brute-force scans or directory and
 
 #### Subdomains
 ```bash
-#wordlist example:/usr/share/wordlists/dirb/big.txt
-#machine example: 10.10.192.23
-#-c print with colours
-#--hc <status> don't print outuput with this status. For example: --hc 404
 wfuzz -c  -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-20000.txt  -u http://<machine-ip> -H "Host: FUZZ.<machine-ip>" -t 100
 ```
 
 
 #### Subdirectories
 ```bash
-#wordlist example:/usr/share/wordlists/dirb/big.txt
-#machine example: 10.10.192.23
-#-c print with colours
-#--hc 404 don't print errors
 wfuzz -c --hc 404 -w <wordlist> http://<machine-ip>/FUZZ
 ```
 
 #### Common files
 ```bash
-#wordlist example:/usr/share/wordlists/dirb/big.txt
-#machine example: 10.10.192.23
-#-c print with colours
-#--hc 404 don't print errors
 wfuzz -c --hc 404 -w <wordlist> http://<machine-ip>/FUZZ.php
 ```
 
