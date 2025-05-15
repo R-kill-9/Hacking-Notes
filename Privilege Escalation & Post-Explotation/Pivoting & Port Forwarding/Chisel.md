@@ -26,8 +26,9 @@ chisel server -p 9999 --reverse
 ```
 **Target machine**
 ```bash
-./chisel client <local_machine_ip>:<local_listener_port> R:<remote_port_to_open>:127.0.0.1:<target_machine_port_to_open>
+./chisel client <local_machine_ip>:<local_listener_port> R:<target_machine_port_to_open>:127.0.0.1:<target_machine_port_to_open>
 ```
+Once the command has been executed, visit `http://localhost:<target_machine_port_to_open>` on your browser
 
 ## Dynamic Port Forwarding
 Creates a local SOCKS proxy that dynamically forwards traffic to any destination through the Chisel server.
