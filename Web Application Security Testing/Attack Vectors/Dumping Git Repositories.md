@@ -24,6 +24,24 @@ python3 git-dumper.py <url> <directory>
 python3 git-dumper.py http://example.com/.git/ /path/to/directory
 ```
 
+## Information Enumeration Using grep
+
+After dumping a Git repository, `grep` is useful for quickly finding sensitive information such as usernames, emails, or credentials. For example, searching for a domain in emails:
+
+```bash
+grep -r "@example.com" .
+```
+
+This can reveal user accounts like `admin@example.com`, which can be valuable for further attacks.
+
+You can also search for keywords like passwords or secrets:
+
+```bash
+grep -ri "password" .
+grep -ri "secret" .
+```
+
+
 ## Possible Vulnerabilities Exposed
 
 By dumping the Git repository, you may find the following types of sensitive information:
