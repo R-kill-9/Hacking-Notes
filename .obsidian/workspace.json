@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tools and Techniques/Databases/Database interaction.md",
+                "file": "README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Database interaction"
+              "title": "README"
             }
           }
         ]
@@ -190,6 +190,7 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
+    "Tools and Techniques/Databases/Database interaction.md",
     "Tools and Techniques/Databases/MySQL  Enumeration.md",
     "Privilege Escalation & Post-Explotation/Linux/Linux Privilege Escalation Guide.md",
     "Privilege Escalation & Post-Explotation/Support Techniques/Upgrade a Shell.md",
@@ -215,7 +216,6 @@
     "Privilege Escalation & Post-Explotation/Windows/Active Directory/DNS & SMB Relay.md",
     "Privilege Escalation & Post-Explotation/Windows/Active Directory/BloodHound.md",
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Persistence on Windows.md",
-    "Privilege Escalation & Post-Explotation/Windows/Techniques/Pass The Hash.md",
     "Mobile Application Security Testing/Android/Dinamic Code Analysis/MobSF",
     "Mobile Application Security Testing/Android/Dinamic Code Analysis/Frida",
     "Mobile Application Security Testing/Android/Static Code Analysis",
