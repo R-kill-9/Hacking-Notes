@@ -140,14 +140,36 @@ Fuff is primarily used for discovering hidden resources in web applications by b
 | `-fs <length>`      | Filter out responses by response size (in bytes).                 |
 | `-fw <words>`       | Filter by word count.                                             |
 | `-fl <lines>`       | Filter by line count.                                             |
+| `-H`                | Header.                                                           |
 
 ```bash
 ffuf -u <URL> -w <wordlist>
 ```
 
+#### Example
+In this example we are trying to fuzz the username parameter for this GET request:
+```
+GET /view.php?username=kill-9&file=test.php.pdf HTTP/1.1
+Host: nocturnal.htb
+Accept-Language: en-US,en;q=0.9
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://nocturnal.htb/dashboard.php
+Accept-Encoding: gzip, deflate, br
+Cookie: PHPSESSID=8cm81dpba2svtbmi4i5jr7n3jp
+Connection: keep-alive
+```
+
+Configuring the following command, we achieve to enumerate the application users.
+
+```bash
+ffuf -u 'http://nocturnal.htb/view.php?username=FUZZ&file=file.xlsx' -w /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt -H 'Cookie: PHPSESSID=8cm81dpba2svtbmi4i5jr7n3jp'  -fs 2985
+```
 
 #### Post method
 
 ```bash
 ffuf -u <URL> -X POST -d "parameter+FUZZ" -w <wordlist> -fs 61
 ```
+

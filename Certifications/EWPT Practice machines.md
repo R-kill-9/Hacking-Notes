@@ -1,12 +1,12 @@
 ## General Table
 | Name              | Platform      | Difficulty | Done |
-|-------------------|---------------|------------|------|
+| ----------------- | ------------- | ---------- | ---- |
 | Facultad          | TheHackerLabs | Easy       | ✓    |
-| Web Machine: (N7) | VulnHub        | Medium     | ✓    |
+| Web Machine: (N7) | VulnHub       | Medium     | ✓    |
 | Literal           | HackMyVM      | Easy       | ✓    |
-| Jerry             | HTB           | Easy       |      |
-| Nibbles           | HTB           | Easy       |      |
-| Shocker           | HTB           | Easy       |      |
+| Jerry             | HTB           | Easy       | ✓    |
+| Nibbles           | HTB           | Easy       | ✓    |
+| Shocker           | HTB           | Easy       | ✓    |
 | Lame              | HTB           | Easy       |      |
 | Legacy            | HTB           | Easy       |      |
 | Optimum           | HTB           | Easy       |      |
