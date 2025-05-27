@@ -42,11 +42,11 @@ Below is a detailed list of the most important aspects to review, including the 
 
 ### High-Privilege Accounts (Domain Admins, Enterprise Admins, etc.)
 
-#### **How to Review**:
+#### How to Review:
 
 To identify **high-privilege accounts**, you should focus on certain **groups** and **permissions** that are typically associated with administrative access. In BloodHound, these are usually visualized on the **graph**.
 
-#### **Key Options to Use**:
+#### Key Options to Use:
 
 - **Search for specific groups** in the BloodHound interface:
     
@@ -67,17 +67,15 @@ To identify **high-privilege accounts**, you should focus on certain **groups** 
 
 ### Outbound Object Control (Lateral Movement)
 
-#### **What is it?**:
-
 **Outbound Object Control** refers to a situation where a user or group can control objects outside their domain, giving attackers the ability to manipulate permissions and escalate privileges across domains.
 
-#### **How to Review**:
+#### How to Review:
 
 1. In the **BloodHound interface**, search for a user, and look at their **Node Info**.
 2. Under **Outbound Object Control**, check if the value is different than **0**. This indicates that the user has permissions to affect objects in other systems or domains.
 
 ![](bloodhound-outbound-object.png)
-#### **Key Options**:
+#### Key Options:
 
 - **Check the "Outbound Object Control" field**:
     - Navigate to **Node Info** when selecting a user. The "Outbound Object Control" field will show whether a user has outbound permissions to affect other objects.
@@ -88,11 +86,9 @@ To identify **high-privilege accounts**, you should focus on certain **groups** 
 
 ### Group Memberships and Permissions
 
-#### **What to Review**:
-
 Reviewing **group memberships** and **permissions** will help you identify if any user has excessive privileges.
 
-#### **How to Review**:
+#### How to Review:
 
 - **Search for groups**: You can search for the most common privileged groups like **Domain Admins** and see if any user is a member.
 - **Right-click on users** in the BloodHound interface to inspect their **group memberships**.
@@ -100,7 +96,7 @@ Reviewing **group memberships** and **permissions** will help you identify if an
     - Navigate to **Groups** > **Permissions** > **Resources**.
     - Check if any non-administrative users have permissions on sensitive resources (e.g., file shares or domain controllers).
 
-#### **Key Options to Use**:
+#### Key Options to Use:
 
 - **Group Enumeration**:
     - BloodHound will show group memberships when you click on a user or group.
@@ -112,16 +108,14 @@ Reviewing **group memberships** and **permissions** will help you identify if an
 
 ### Service Principal Names (SPNs) and Kerberoasting
 
-#### **What is it?**:
-
 SPNs are used by service accounts to authenticate to AD services. These service accounts can sometimes have weak passwords, making them vulnerable to **Kerberoasting**.
 
-#### **How to Review**:
+#### How to Review:
 
 - **Look for service accounts with SPNs**: These accounts are the prime candidates for **Kerberoasting**.
 - **In BloodHound**, navigate to **Service Accounts**. Any service account associated with an SPN is a potential target for Kerberoasting.
 
-#### **Key Options to Use**:
+#### Key Options to Use:
 
 - **Search for SPNs**: BloodHound will show **Service Accounts** when searching for user types. Check if the account has an SPN associated with it.
 - **Kerberoasting Pathways**: Identify if the user or group has access to service accounts with SPNs. These service accounts can be targeted by Kerberoasting.
@@ -131,11 +125,9 @@ SPNs are used by service accounts to authenticate to AD services. These service 
 
 ### Lateral Movement Paths and Attack Vectors
 
-#### **How to Review**:
-
 BloodHound’s most valuable feature is its ability to display **lateral movement paths**. These paths help identify how an attacker can escalate privileges by moving from one user or machine to another.
 
-#### **Key Options to Use**:
+#### Key Options to Use:
 
 - **Search for Users**:
     
@@ -150,11 +142,10 @@ BloodHound’s most valuable feature is its ability to display **lateral movemen
 
 ### Trusts and Cross-Domain Permissions
 
-#### **What is it?**:
 
 Active Directory environments may have **trusts** between domains, and attackers may exploit these to move across domains and escalate privileges.
 
-#### **How to Review**:
+#### How to Review:
 
 - **Search for cross-domain permissions**:
     
@@ -169,17 +160,15 @@ Active Directory environments may have **trusts** between domains, and attackers
 
 ### Remote Access (WinRM/DCOM)
 
-#### **What is it?**:
-
 **WinRM** (Windows Remote Management) and **DCOM** are remote management protocols that can be exploited for lateral movement across machines.
 
-#### **How to Review**:
+#### How to Review:
 
 1. **Search for users with remote access permissions**.
     - Look for **WinRM** permissions or **DCOM** access in the BloodHound interface under user permissions.
 2. **Check session information**: BloodHound will show whether any users have active remote sessions (via WinRM or DCOM).
 
-#### **Key Options to Use**:
+#### Key Options to Use:
 
 - **Remote Access Enumeration**: Search for users with permissions on systems via **WinRM** or **DCOM**.
 - **Active Session Enumeration**: BloodHound allows you to visualize remote sessions and which users are interacting with which systems.
@@ -189,18 +178,17 @@ Active Directory environments may have **trusts** between domains, and attackers
 
 ### Misconfigurations and Delegated Control
 
-#### **What is it?**:
 
 Misconfigurations in **delegated permissions** can create vulnerabilities in the domain, such as over-permissioned accounts or excessive access to sensitive resources.
 
-#### **How to Review**:
+#### How to Review:
 
 - **Check for improper delegation**:
     - In the **graph view**, right-click on groups or users to inspect if they have any unnecessary delegated control.
 - **Look for permissions on sensitive objects**:
     - Review the **Permissions** tab for specific users to see whether their permissions are too broad, especially on domain controllers or file servers.
 
-#### **Key Options to Use**:
+#### Key Options to Use:
 
 - **Permissions Enumeration**:
     - Use the **Permissions** tab to review delegated permissions or accidental permissions granted to groups and users.
@@ -210,15 +198,14 @@ Misconfigurations in **delegated permissions** can create vulnerabilities in the
 
 ### Active Directory Sessions (Admin Access)
 
-#### **What to Review**:
 
 Check the **Active Directory sessions** to determine which users have administrative access to critical systems.
 
-#### **How to Review**:
+#### How to Review:
 
 - Look for **admin sessions** across the network. BloodHound can display if any high-privileged users are currently logged into critical systems.
 - Check the **Node Info** for any session-related information for **administrators** on high-value targets like **domain controllers** or **file servers**.
 
-#### **Key Options to Use**:
+#### Key Options to Use:
 
 - **Session Enumeration**: BloodHound will show session details when inspecting individual user or group nodes.
