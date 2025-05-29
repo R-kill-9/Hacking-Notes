@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Certifications/EWPT Practice machines.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "EWPT Practice machines"
             }
           }
         ]
@@ -190,10 +190,10 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
+    "README.md",
     "Privilege Escalation & Post-Explotation/Linux/Linux Privilege Escalation Guide.md",
     "Privilege Escalation & Post-Explotation/Support Techniques/Upgrade a Shell.md",
     "Certifications/EWPT Practice machines.md",
-    "README.md",
     "Certifications/EJPT Roadmap.md",
     "Metasploit/Meterpreter.md",
     "Privilege Escalation & Post-Explotation/Windows/Tools/PrivEscCheck.md",

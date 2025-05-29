@@ -8,7 +8,7 @@
 | Shocker      | HTB      | Fácil | ✓    |
 | Lame         | HTB      | Fácil | ✓    |
 | Legacy       | HTB      | Fácil | ✓    |
-| Bashed       | HTB      | Fácil |      |
+| Bashed       | HTB      | Fácil | ✓    |
 | Valentine    | HTB      | Fácil |      |
 | Devel        | HTB      | Fácil |      |
 | Beep         | HTB      | Fácil |      |
