@@ -9,9 +9,7 @@
 | Lame         | HTB      | Fácil | ✓    |
 | Legacy       | HTB      | Fácil | ✓    |
 | Bashed       | HTB      | Fácil | ✓    |
-| Valentine    | HTB      | Fácil |      |
-| Devel        | HTB      | Fácil |      |
-| Beep         | HTB      | Fácil |      |
+| Devvortex    | HTB      | Fácil | ✓    |
 | Arctic       | HTB      | Fácil |      |
 | Granny       | HTB      | Fácil |      |
 | Grandpa      | HTB      | Fácil |      |
@@ -42,33 +40,3 @@
 | Forge        | HTB      | Media |      |
 | Validation   | HTB      | Media |      |
 | GoodGames    | HTB      | Media |      |
-## Topics for each machine
-| Name              | Focus Areas                                 |
-| ----------------- | ------------------------------------------- |
-| Facultad          | SQL Injection, Login Bypass                 |
-| Web Machine: (N7) | File Inclusion, Basic Auth, Web Logic       |
-| Literal           | XSS, SQLi, Cookie Manipulation              |
-| Jerry             | Web App Enumeration, Apache Tomcat Manager  |
-| Nibbles           | File Upload, Auth Bypass                    |
-| Shocker           | Shellshock RCE                              |
-| Lame              | SMB Exploitation, Misconfigurations         |
-| Legacy            | SMBv1 Exploitation                          |
-| Optimum           | HTTP File Upload Exploit                    |
-| Bashed            | Web Shell Exploitation                      |
-| Valentine         | Heartbleed, SSL Inspection                  |
-| Blue              | EternalBlue Exploit                         |
-| Devel             | FTP Exploitation, Web Upload                |
-| Beep              | Multiple Web Services, Local File Inclusion |
-| Arctic            | ColdFusion Exploitation                     |
-| Granny            | Windows WebApp Enumeration                  |
-| Grandpa           | IIS Exploitation                            |
-| Bastard           | Drupalgeddon (Drupal RCE)                   |
-| Poison            | Poison Ivy Web Shell, PHP Backdoor          |
-| Sunday            | RPC Enum, Weak Credentials                  |
-| SwagShop          | Magento Auth Bypass, SQLi                   |
-| Nineveh           | Web Login Bypass, SSRF                      |
-| Chatterbox        | Uncommon Service Exploitation               |
-| Sense             | LFI, CVE-based Exploitation                 |
-| Popcorn           | XSS, Torrent Web Exploit                    |
-| Netmon            | SNMP/Web Interface Exploitation             |
-| OpenAdmin         | Web Login Abuse, RCE                        |
