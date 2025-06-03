@@ -1,6 +1,6 @@
 > For a deeper understanding and detailed techniques on each topic, review the expanded content available in the **Techniques** directory.
 ## Reconnaissance
-Gather basic system and user information to understand your environment.
+Gather basic system and user information to understand the environment.
 
 ```bash
 whoami                 # Current user
@@ -8,6 +8,14 @@ id                     # User and group details
 hostname               # Hostname
 uname -a               # Kernel and system architecture info
 cat /etc/os-release    # OS version and details
+```
+
+## Environment Variables and PATH Hijacking
+Review environment variables, especially PATH, for opportunities to inject malicious binaries.
+
+```bash
+env                                 # List all environment variables
+echo $PATH                          # Check PATH variable
 ```
 
 ## User and Group Enumeration
@@ -66,13 +74,6 @@ cat /var/log/secure               # Authentication logs (RedHat-based)
 cat /var/log/syslog              # System logs
 ```
 
-## Environment Variables and PATH Hijacking
-Review environment variables, especially PATH, for opportunities to inject malicious binaries.
-
-```bash
-env                                 # List all environment variables
-echo $PATH                          # Check PATH variable
-```
 
 ## Docker and Containers
 If Docker is installed, sometimes users in docker group can escalate privileges.
