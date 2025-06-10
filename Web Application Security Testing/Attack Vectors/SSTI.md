@@ -45,3 +45,18 @@ This confirms that the server is evaluating user input as code. An attacker coul
 ```bash
 http://example.com/greet?name={{config.__class__.__init__.__globals__['os'].system('whoami')}}
 ```
+
+## SSTI in Java Template Engines (e.g., Thymeleaf with Spring Boot)
+
+Java template engines like Thymeleaf allow expressions using Spring Expression Language (SpEL):
+
+- Expressions look like: `*{...}` or `${...}`
+- Improperly sanitized user input inside these expressions can allow attackers to:
+    - Access Spring beans
+    - Call arbitrary Java methods
+    - Execute system commands via `Runtime.getRuntime().exec()`
+
+**Example payload:**
+```scss
+*{T(java.lang.Runtime).getRuntime().exec('whoami')}
+```

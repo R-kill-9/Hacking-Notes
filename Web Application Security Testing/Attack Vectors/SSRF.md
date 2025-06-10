@@ -5,20 +5,20 @@
 Suppose there is a web application that allows users to provide a URL of an image for the server to download and display within the application. If this input is not properly validated, an attacker could provide a URL pointing to an internal resource within the server's network, such as `http://localhost/admin`, or to an internal service on a specific port, like `http://localhost:8080/secret-data`.
 ## SSRFmap
 **ssrfmap.py** is a tool designed to automate the exploitation of SSRF vulnerabilities. It allows attackers or pentesters to utilize and manipulate input parameters that trigger server-side requests to perform various malicious activities, such as port scanning, service enumeration, and exploitation of other internal resources.
-### Installation 
+#### Installation 
 ```bash
 git clone https://github.com/swisskyrepo/SSRFmap
 cd SSRFmap
 pip3 install -r requirements.txt
 ```
-### Configuration
+#### Configuration
 The `request.txt` file should contain the full HTTP request that the web application makes when provided with a URL. This file might look like this:
 ```bash
 GET /fetch?url=http://example.com/image.jpg HTTP/1.1
 Host: vulnerable-app.com
 User-Agent: Mozilla/5.0
 ```
-## Port scanning
+#### Port scanning
 To scan ports on an internal IP address, you can use the following command:
 - Parameters: 
 	- `-r`: name of the file where the request has been saved.
@@ -27,8 +27,8 @@ To scan ports on an internal IP address, you can use the following command:
 ```bash
 python3 ssrfmap.py -r <request> -p <vulnerable_parameter> -m portscan
 ```
-## Service enumeration
+#### Service enumeration
 To enumerate services, you can use:
 ```bash
-`python3 ssrfmap.py -r request.txt --url "http://127.0.0.1:8000" --data`
+python3 ssrfmap.py -r request.txt --url "http://127.0.0.1:8000" --data
 ```

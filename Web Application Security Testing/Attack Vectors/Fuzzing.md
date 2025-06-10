@@ -15,7 +15,6 @@ Feroxbuster is a **fast, recursive, and parallel** directory and file brute-forc
 | `-x <extensions>` | Extensions to fuzz (e.g., `-e php,txt,html`). |
 | `-o <file>`       | Output results to a file.                     |
 
-
 ```
 feroxbuster -u <URL>
 ```

@@ -84,6 +84,18 @@ docker ps
 docker run -v /:/host -it alpine chroot /host sh  # Example of Docker escape (if permitted)
 ```
 
+## Virtual Hosts Enumeration
+
+Check for additional virtual hosts configured in web servers like nginx or Apache. This can reveal hidden websites or admin panels.
+
+```bash
+ls /etc/nginx/sites-enabled/
+cat /etc/nginx/sites-enabled/*       
+
+ls /etc/apache2/sites-enabled/
+cat /etc/apache2/sites-enabled/*     
+```
+
 ## Automated Enumeration Tools
 
 **linpeas:** A comprehensive script that automates the enumeration process to identify potential privilege escalation vectors.

