@@ -102,7 +102,7 @@ It is a command-line tool used for performing brute-force scans or directory and
 
 #### Subdomains
 ```bash
-wfuzz -c  -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-20000.txt  -u http://<machine-ip> -H "Host: FUZZ.<machine-ip>" -t 100
+wfuzz -c  -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-20000.txt  -u http://<machine-ip> -H "Host: FUZZ.<machine-ip>" -t 100 --hl 7 --hc 145
 ```
 
 

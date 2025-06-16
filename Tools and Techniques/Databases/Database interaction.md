@@ -95,6 +95,14 @@ To list all databases, you can use the following command:
 ```sql
 show dbs
 ```
+
+- **Move to a databases**
+
+To move to one of the listed databases, you can use the following command:
+
+```sql
+use <db>
+```
 - **List all collections in the current database**
 
 To list all collections in the current database, use this command:
