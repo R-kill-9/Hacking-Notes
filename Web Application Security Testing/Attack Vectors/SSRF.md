@@ -17,7 +17,7 @@ GET /fetch?url=http://localhost:8000/admin HTTP/1.1
 ``` 
 
 
-## SSRF to LFI (Local File Inclusion)
+## SSRF to LFI or RFI
 
 You can abuse SSRF to access local files on the server if `file://` scheme is allowed.
 
