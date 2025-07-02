@@ -3,7 +3,7 @@
 | Option                      | Description                                                                                                                 |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `--url`                     | Specifies the URL of the WordPress website you want to scan.                                                                |
-| `--enumerate`               | Enumerates vulnerable plugins (`vp`), users (`u`), themes (`t`), version (`v`), and plugins (`p`).                          |
+| `--enumerate`               | Enumerates vulnerable plugins (`vp`), users (`u`), themes (`t`), version (`v`).                                             |
 | `--plugins-detection mixed` | Specifies the plugin detection mode, in this case, `"mixed"`, which includes both passive and aggressive detection methods. |
 | `--passwords`               | Specifies a file containing a list of passwords to use for brute force attacks.                                             |
 | `--usernames`               | Specifies a file containing usernames to use for brute force attacks.                                                       |
@@ -19,9 +19,9 @@ wpscan --url <url>
 
 #### Other options
 ```bash
-wpscan --enumerate p,u,t,v 
+wpscan --enumerate u,t,vp 
 	   --api-token YOUR_TOKEN_HERE
-       --plugins-detection mixed 
+       --plugins-detection aggressive  
        --passwords /path/to/passwords.txt 
        --usernames /path/to/usernames.txt 
        --exclude-content-length 
