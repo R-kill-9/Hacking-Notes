@@ -64,7 +64,7 @@ It is a command-line tool used for performing brute-force scans or directory and
 #### Directory Discovery
 Used to find hidden folders and files.
 ```bash
-gobuster dir -u <machine-ip> -w <wordlist> -o gobuster.out -t 200
+gobuster dir -u <machine-ip> -w <wordlist> -o gobuster.out -t 200 -x php, txt, html
 ```
 
 #### Subdomain Enumeration

