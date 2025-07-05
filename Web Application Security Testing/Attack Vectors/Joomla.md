@@ -18,7 +18,12 @@ Check page source for:
 <meta name="generator" content="Joomla! - Open Source Content Management" />
 ```
 
+#### CVE-2023-23752 (4.0.0 ≤ Joomla ≤ 4.2.7)
 
+- Public exploit:  
+[https://github.com/0xNahim/CVE-2023-23752](https://github.com/0xNahim/CVE-2023-23752)
+
+- Leaks sensitive config/data via unauthenticated API access, providing user credentials.
 ## Remote Code Execution via Template Editing
 
 If you have administrator access, or can exploit weak ACL (Access Control List) configurations, you can inject PHP code into template files.

