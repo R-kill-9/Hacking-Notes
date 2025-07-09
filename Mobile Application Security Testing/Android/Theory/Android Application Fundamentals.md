@@ -98,6 +98,10 @@ Activities represent visual screens with which users interact. They display UI e
 
 Most applications expose at least one activity that can be launched via an `Intent`, often acting as an entry point into the app.
 
+**Fragments**
+
+A **Fragment** is a reusable, modular UI component that must be hosted inside an Activity and can be dynamically added, removed, or replaced to build flexible and adaptive interfaces.
+
 
 #### Services
 
