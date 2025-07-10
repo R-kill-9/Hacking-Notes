@@ -63,3 +63,20 @@ Get-WmiObject -Class Win32_OperatingSystem | Select-Object -Property *
 ```
 
 Retrieves detailed information about the current OS using WMI (Windows Management Instrumentation). Useful for enumeration and privilege escalation checks.
+
+## TCP Port Scanner
+```powershell
+$target = "192.168.1.1"
+$ports = 1..1024
+
+foreach ($port in $ports) {
+    $tcp = New-Object System.Net.Sockets.TcpClient
+    try {
+        $tcp.Connect($target, $port)
+        if ($tcp.Connected) {
+            Write-Host "Port $port is OPEN" -ForegroundColor Green
+            $tcp.Close()
+        }
+    } catch {}
+}
+```
