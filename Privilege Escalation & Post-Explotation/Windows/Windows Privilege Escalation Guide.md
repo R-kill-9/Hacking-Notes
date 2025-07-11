@@ -62,3 +62,11 @@ netstat -ano                    # Active network connections
 net share                       # Shared folders
 net view /domain                # Domain computers
 ```
+
+## Automatic Tools
+For advanced techniques and automated enumeration, use these tools:
+```powershell
+PowerUp.ps1                    # Privilege escalation checks in PowerShell
+PowerView.ps1                  # Active Directory enumeration and recon
+SharpHound.exe                 # BloodHound data collection tool
+```

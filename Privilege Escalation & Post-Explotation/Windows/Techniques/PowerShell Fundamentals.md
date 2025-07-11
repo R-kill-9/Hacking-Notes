@@ -7,19 +7,10 @@ C:\Windows\System32\WindowsPowerShell
 
 ---
 
-
 ## Execution Policy Bypass
 
 Windows uses _execution policies_ to restrict script execution. Attackers or pentesters often bypass these restrictions.
 
-#### Check If PowerShell Is 64-bit
-
-```powershell
-[Environment]::Is64BitProcess
-```
-Returns `True` if the current process is 64-bit. Useful when dealing with payloads or DLLs that require specific architectures.
-
-#### Bypass Execution Policy
 ```powershell
 powershell.exe -ExecutionPolicy Bypass cmd.exe
 ```
@@ -34,6 +25,15 @@ Opens `cmd.exe` through PowerShell with full script execution permissions. Risky
 
 
 ---
+## File and Folder Permissions
+You can inspect the permissions of files and directories using the `Get-Acl` cmdlet. This is helpful for identifying misconfigurations or excessive privileges that could be abused.
+```powershell
+Get-Acl "C:\Program Files (x86)\<file_or_directory>" | Format-List
+```
+
+
+---
+
 
 ## Process Enumeration
 
@@ -46,7 +46,7 @@ Get-Process | Sort-Object Unique | Select-Object ProcessName, Id
 
 Displays a list of all running processes, sorted uniquely by name and showing their process IDs.
 
-Find Process Path (e.g., Firefox)
+**Find Process Path (e.g., Firefox)**
 ```powershell
 Get-Process firefox | Sort-Object Unique | Format-List Path
 ```
