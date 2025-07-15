@@ -10,6 +10,36 @@ Example:
 
 Even if both apps run under the same user account (the phone user), they run as different system users.
 
+#### Shared UIDs 
+Android allows multiple applications to share the **same UID** if they are signed with the **same certificate** and explicitly declare a `sharedUserId` in their `AndroidManifest.xml` file.
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.app"
+    android:sharedUserId="com.example.shared" >
+```
+
+This configuration disables the default sandboxing between those apps, allowing them to:
+
+- Access each other's private data stored in `/data/data/`
+- Run in the same Linux process (optional, depending on process management)
+- Share the same permission set, including dangerous or custom permissions
+
+**Example:**
+
+If App A requests this:
+```xml
+<uses-permission android:name="android.permission.CAMERA" />
+```
+
+Then the system grants the CAMERA permission to the **shared UID**.
+
+So even if App B doesn't request CAMERA in its manifest, it can still do this:
+```xml
+Camera cam = Camera.open(); // Works because UID has permission
+```
+
+
 ## Filesystem Isolation
 Each app gets its own directory in `/data/data/<package_name>/`. By default, only that app (with its assigned UID) has permission to read/write within this directory.
 
@@ -32,27 +62,3 @@ su 10088
 ```
 You’ll get an interactive shell as that app’s user (if allowed), but you won’t be able to access other apps' files without proper privileges or exploitation.
 
-#### Shared UIDs 
-Android allows multiple applications to share the **same UID** if they are signed with the **same certificate** and explicitly declare a `sharedUserId` in their `AndroidManifest.xml` file.
-
-```xml
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.app"
-    android:sharedUserId="com.example.shared" >
-```
-
-This configuration disables the default sandboxing between those apps, allowing them to:
-
-- Access each other's private data stored in `/data/data/`
-- Run in the same Linux process (optional, depending on process management)
-- Share the same permission set, including dangerous or custom permissions
-
-##### Security Risks
-
-While shared UIDs are useful for creating tightly coupled app suites from the same developer, they come with several risks:
-
-- **Privilege Escalation**: If one app in the shared UID group is compromised, the attacker may access or control the other apps sharing that UID.
-- **Data Leakage**: Improper validation between apps sharing a UID could lead to unintended access to sensitive data.
-- **Maintenance Complexity**: Managing updates and signing certificates becomes more complex. All apps using the shared UID must be signed with the exact same key.
-
-Due to these risks, **Google Play no longer allows shared UIDs for new apps**, and Android has deprecated this feature in later versions.

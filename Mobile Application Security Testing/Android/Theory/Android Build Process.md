@@ -11,6 +11,9 @@
 3. **APK Packaging**  
    The `.dex` files, along with resources, assets, and other metadata, are bundled into an APK (Android Package) file using build tools like Gradle. This APK is the final binary that gets installed on Android devices.
 
+---
+
+
 ## APK Structure
 
 #### APK Contents  
@@ -40,6 +43,9 @@ Contains metadata related to the APK’s signing and integrity. Common files inc
 
 #### res/   
 Holds all the app’s resources, such as images and XML layout files. While important for app functionality and user interface, this folder generally does not pose a direct security risk.
+
+
+---
 
 ## Code Signing
 APK files must be digitally signed to be installed on Android devices. Signing is based on public-key cryptography and ensures the integrity and origin of the application.
