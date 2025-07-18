@@ -49,12 +49,10 @@ python qarkMain.py --source 1 --path /path/to/java/code
 ## Output
 
 - Generates an interactive report with:
-    
     - List of vulnerabilities
     - Risk levels
     - Code locations (if source provided)
 - Offers option to build a proof-of-concept APK for certain vulnerabilities (like exported activities).
-
 
 
 ## Typical Vulnerabilities Detected

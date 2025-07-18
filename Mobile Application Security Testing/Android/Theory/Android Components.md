@@ -68,6 +68,9 @@ Cannot be started using intents directly. Access is done via ContentResolver.
 
 - Activity Hijacking: An attacker intercepts an implicit intent and shows their own UI instead of the intended one.
 
+---
+
+
 ## Activities
 An `Activity` in Android represents a single, focused screen with which the user can interact. It serves as the entry point for user interactions and typically contains a user interface (UI). Activities are central to the Android application lifecycle and manage what the user currently sees and interacts with.
 
@@ -101,6 +104,11 @@ If an application has:
 - `SettingsActivity` (not exported)
 
 An attacker could directly launch `DashboardActivity` using an intent, bypassing the `LoginActivity`. This creates a security vulnerability, as it allows access to parts of the app that should be protected by authentication.
+
+
+---
+
+
 ## Services
 `Services` are used to perform long-running operations in the background.
 Types:
@@ -113,6 +121,12 @@ Types:
 Intent serviceIntent = new Intent(this, SyncService.class);
 startService(serviceIntent);
 ```
+
+
+
+---
+
+
 ## Broadcast receivers 
 A `BroadcastReceiver` is a component that allows Android apps to receive and respond to **broadcasted intents** from the system or other applications. These broadcasts signal that a specific event has occurred (e.g., battery low, network connected, SMS received, etc.).
 
@@ -149,6 +163,11 @@ Or statically in `AndroidManifest.xml`:
     </intent-filter>
 </receiver>
 ```
+
+
+---
+
+
 ## Content providers
 A `ContentProvider` manages access to a **structured set of data**. It enables data sharing **between applications**, exposing data through a **uniform interface using URIs**.
 
@@ -171,10 +190,10 @@ Cursor cursor = getContentResolver().query(
 
 Each content provider exposes a public URI that other apps can use to query or modify data. For example:
 
-- Contacts: `content://contacts/people`
-    
+- Contacts: `content://contacts/people`    
 - Media: `content://media/external/images/media`
 
+---
 
 ## General ExampleAccessing Data Example
 
