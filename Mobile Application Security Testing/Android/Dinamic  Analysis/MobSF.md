@@ -4,16 +4,13 @@
 ## Static Analysis with MobSF
 
 1. **Preparing the APK**
-    
     - Ensure the APK is not obfuscated or heavily packed for better results.
     - No need for source code. MobSF decompiles the APK internally.
     
 2. **Uploading the APK**
-    
     - Open MobSF in the browser: `http://127.0.0.1:8000`
     - Drag and drop the APK file into the interface or use the upload button.
 3. **Analysis Process**
-    
     - MobSF decompiles the APK using `apktool`, `dex2jar`, and `jadx`.
     - It extracts:
         - Manifest file (AndroidManifest.xml)
@@ -23,7 +20,6 @@
         - Activities, services, broadcast receivers, content providers
 
 4. **Static Analysis Output**
-    
     - Code analysis with vulnerability detection (e.g., insecure WebView usage, exported components)
     - Hardcoded secrets, API keys, and credentials
     - Binary analysis (native libraries, certificate info)

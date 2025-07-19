@@ -27,6 +27,12 @@ cd android-studio/bin
 ```
 The first launch may take a while. Follow the setup wizard and accept all default settings.
 
+For executing the application use:
+```bash
+/opt/android-studio/bin/studio.sh
+```
+
+
 ## Step 3: Create an Emulator (AVD)
 
 1. Open the **AVD Manager** from Android Studio (search for it in the top-right corner).
