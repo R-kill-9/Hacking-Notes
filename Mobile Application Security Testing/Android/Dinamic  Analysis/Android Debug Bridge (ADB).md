@@ -53,3 +53,46 @@ adb shell ls -la
 |`adb shell input keyevent 66`|Presses "Enter" key|
 |`adb shell input tap 500 800`|Simulates tap at (500, 800)|
 |`adb shell input swipe 300 1000 300 500`|Swipes up|
+
+## File Extraction (Pull from Device)
+
+To extract files from a device or emulator to your machine, use `adb pull`.
+```bash
+adb pull <remote_path> <local_path>
+```
+
+**Example:**
+
+1. List the packages.
+```bash
+adb shell pm list packages
+```
+
+2. Get the APK path.
+
+```bash
+adb shell pm path com.example.app
+```
+Output: `package:/data/app/com.example.app-XXXXX/base.apk`
+
+3. Pull the APK.
+
+```bash
+adb pull /data/app/com.example.app-XXXXX/base.apk .
+```
+
+This command saves the APK in the current working directory on your machine.
+
+> Note: For accessing protected directories like `/data/`, your device/emulator must be rooted.
+
+## File Insertion (Push to Device)
+
+Use adb push to send files from your local machine to the Android device.
+```bash
+adb push <local_path> <remote_path>
+```
+
+**Example:**
+```bash
+adb push example.apk /sdcard/
+```

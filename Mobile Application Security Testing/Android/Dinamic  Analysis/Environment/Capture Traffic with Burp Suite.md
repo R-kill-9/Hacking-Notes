@@ -7,7 +7,6 @@
 
 ---
 
-
 ## 1. Configure Network and Proxy
 
 #### Set Burp as an HTTP Proxy

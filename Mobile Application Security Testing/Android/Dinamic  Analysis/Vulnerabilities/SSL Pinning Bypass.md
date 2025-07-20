@@ -1,6 +1,6 @@
 **SSL Pinning** is a security mechanism that ensures the app only trusts a specific certificate or public key, protecting against MITM (Man-In-The-Middle) attacks.
 
-If an app uses SSL pinning, Mitmproxy won't be able to intercept the HTTPS traffic, as the app will detect that the certificate does not match what it expects.
+If an app uses SSL pinning, Burp won't be able to intercept the HTTPS traffic, as the app will detect that the certificate does not match what it expects.
 
 ## Bypass Techniques
 

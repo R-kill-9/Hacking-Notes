@@ -58,7 +58,7 @@ A social media app saves the user’s password in plaintext for “Remember Me�
 
 ---
 
-## 4. Insecure OAuth Implementation
+## Insecure OAuth Implementation
 
 Using unsafe flows or configurations in OAuth, such as the **implicit grant flow**, exposes tokens to interception.
 
