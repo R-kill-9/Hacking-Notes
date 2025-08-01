@@ -1,7 +1,8 @@
 **BloodHound** is an Active Directory (AD) reconnaissance tool that can reveal hidden relationships and identify attack paths within an AD environment.
 
 ## First time settings
-- create a new neo4j console:
+> This guide is based on the official Kali Linux Guide for [Bloodhound](https://www.kali.org/tools/bloodhound/) 
+- Create a new neo4j console:
 ```bash
 sudo neo4j console
 ```
@@ -25,6 +26,11 @@ source ~/.zshrc
 ```bash
 bloodhound-python -c All -u user -p password -d domain_name  -ns target_ip --zip 
 ```
+This can also be done using `nxc`:
+```bash
+nxc ldap ip -u 'user' -p 'password' --bloodhound -c all --dns-server domain
+```
+
 - Remember to create your node4j console:
 ```bash
 sudo neo4j console

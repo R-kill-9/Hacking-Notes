@@ -26,6 +26,9 @@
 nmap  -sS -sCV -p21 <ip_address>
 ```
 
+
+---
+
 ## Nmap scripts
 In Kali Linux, **Nmap scripts** are located in the directory:   `/usr/share/nmap/scripts/`
 
@@ -51,3 +54,14 @@ Use the `--script-args` flag to supply arguments to a script during an Nmap scan
 ```bash
 nmap --script <script-name> --script-args <argument1>=<value1>,<argument2>=<value2> <target>
 ```
+
+---
+
+
+## Converting XML to HTML Using xsltproc
+
+If the `Nmap` results have been stored using XML, you can convert the XML output into a human-readable HTML report using `xsltproc`.
+```bash
+xsltproc scan_results.xml -o report.html
+```
+
