@@ -4,6 +4,8 @@
 > [Hooking Java Methods with Frida](https://www.youtube.com/watch?v=RJXsvAjZl9U&t=330s)
 > [Hooking Native Android Methods with Frida](https://www.youtube.com/watch?v=N2JtRXCofUU&t=370s)
 
+
+
 ## Basic Hooking in Java (Android)
 
 To hook into Java code within an Android app, we can use the `Java.use()` function, which allows us to access a class and its methods.
