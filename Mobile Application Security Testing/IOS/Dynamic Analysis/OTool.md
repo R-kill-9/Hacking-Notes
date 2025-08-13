@@ -25,3 +25,14 @@ otool -l DVIA-v2 | grep -A 5 LC_LOAD_DYLIB | grep name
 ```
 
 This extracts the names of dynamically linked libraries.
+
+
+**Identify the Minimum Supported iOS Version**
+
+Before choosing the device:
+
+1. Unzip the `.ipa` file.
+2. Open the binary located in `Payload/YourApp.app/` using:
+```bash
+otool -l YourBinary | grep -A 3 LC_VERSION_MIN_IPHONEOS
+```
