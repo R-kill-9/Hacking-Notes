@@ -88,7 +88,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 234.5
+    "width": 256.5
   },
   "right": {
     "id": "a556cefe2b7e606e",
@@ -190,12 +190,15 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
+    "Mobile Application Security Testing/IOS/Dynamic Analysis/Jailbreaking iPhone 7 (iOS 15.8.3) with palera1n.md",
+    "Mobile Application Security Testing/IOS/Dynamic Analysis/Jailbreaking Theory.md",
+    "README.md",
+    "Hacking Wifi/EvilTrust.md",
     "Mobile Application Security Testing/Android/Static Analysis/AndoridManifest Analysis.md",
     "Tools and Techniques/Penetration Testing on Smart TVs & Embedded Mobile OS Devices.md",
     "Mobile Application Security Testing/IOS/Dynamic Analysis/OTool.md",
     "Mobile Application Security Testing/Android/Static Analysis/Ghidra.md",
     "Mobile Application Security Testing/Android/Reversing APKs/Reflection De-obfuscation.md",
-    "README.md",
     "Web Application Security Testing/Code Review/JWT User Authentication.md",
     "Tools and Techniques/Virtual Environment Creation (uv).md",
     "Privilege Escalation & Post-Explotation/Windows/Active Directory/Unconstrained Delegation & Constrained Delegation.md",
@@ -204,7 +207,6 @@
     "Mobile Application Security Testing/Important Pre-Engagement Considerations.md",
     "Mobile Application Security Testing/IOS/Static  Analysis/Info.plist Analysis.md",
     "Mobile Application Security Testing/IOS/Static  Analysis",
-    "Mobile Application Security Testing/IOS/Dynamic Analysis/Jailbreaking.md",
     "Mobile Application Security Testing/IOS/Dynamic Analysis/Developer Account & Apple Configurator.md",
     "Mobile Application Security Testing/IOS/Dynamic Analysis",
     "Mobile Application Security Testing/Android/Theory/Smali.md",
@@ -217,8 +219,6 @@
     "Mobile Application Security Testing/Android/Static Analysis/Vulnerabilities/Hardcoded Secrets.md",
     "Mobile Application Security Testing/Android/Static Analysis/Vulnerabilities",
     "Mobile Application Security Testing/Android/Static Analysis/QARK.md",
-    "Mobile Application Security Testing/Android/Static Analysis/MobSF.md",
-    "Mobile Application Security Testing/Android/Static Analysis/Androguard.md",
     "Mobile Application Security Testing/Android/Static Analysis",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Environment",
