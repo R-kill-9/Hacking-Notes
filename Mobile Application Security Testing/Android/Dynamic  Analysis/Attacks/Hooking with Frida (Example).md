@@ -32,7 +32,7 @@ Java.perform(function () {
     var SecurityManager = Java.use("com.example.app.SecurityManager");
 
     // Hook into the verifyPassword function
-    SecurityManager.verifyPassword.implementation = function (password) {
+    SecurityManager.verifyPassword.overload('java.lang.String').implementation = function(password) {
         console.log("Intercepted password check! Skipping verification.");
         
         // Always return true to bypass the password check

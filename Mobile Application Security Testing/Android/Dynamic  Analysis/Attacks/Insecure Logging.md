@@ -6,16 +6,29 @@ This issue is particularly dangerous on **compromised devices** (e.g. rooted or 
 
 - Exposes internal application logic, session tokens, API responses, credentials, and personal user data
 - Logs may be accessible via `logcat` (Android) or system logs (iOS), especially on compromised devices.
+
 ```bash
 adb shell
 logcat
 ```
 
+**Finding  Logs for an specific app**
 
+To get the process ID of a specific app, you can use:
+
+```bash
+adb shell 'pidof infosecadventures.allsafe'
+```
+
+Then specify the PID
+  
+```bash
+adb shell logcat --pid [PID] 
+```
 
 ---
 
-#### Example 1: Insecure logging of sensitive user data (Java - Android)
+#### Example: Insecure logging of sensitive user data (Java - Android)
 
 ```java
 public class LoginActivity extends AppCompatActivity {
@@ -26,22 +39,3 @@ public class LoginActivity extends AppCompatActivity {
 }
 ```
 Logs like this may be accessed using `adb logcat`, leaking passwords in plaintext.
-
-#### Example 2: Insecure logging in Swift
-```swift
-func authenticate(user: String, password: String) {
-    print("Authenticating user: \(user) with password: \(password)") // INSECURE
-    // Perform authentication
-}
-```
-
-On jailbroken devices, these logs can be accessed from the system log files.
-
-#### Example 3: Insecure logging in Objective-C
-```swift
-- (void)loginWithUsername:(NSString *)username password:(NSString *)password {
-    NSLog(@"Login attempt: %@ / %@", username, password); // INSECURE
-    // Perform login logic
-}
-```
-This data will be visible in device logs or on macOS Console if the app is running in debug mode.

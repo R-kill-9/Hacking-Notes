@@ -7,7 +7,7 @@
 #### Install Frida Tools on Host
 Use Python’s package manager:
 ```bash
-pip install frida-tools
+pipx install frida-tools
 ``` 
 
 #### Download Frida Server for Android

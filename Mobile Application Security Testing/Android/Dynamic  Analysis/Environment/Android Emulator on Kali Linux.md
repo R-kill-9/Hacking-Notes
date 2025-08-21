@@ -21,9 +21,7 @@ sudo apt update && sudo apt install -y wget unzip openjdk-17-jdk libvirt-daemon 
 2. Download the `.zip` file for Linux.
 3. Extract and run the installer:
 ```
-unzip android-studio-*.zip
-cd android-studio/bin
-./studio.sh
+sudo tar -xvzf android-studio-*-linux.tar.gz -C /opt/`\
 ```
 The first launch may take a while. Follow the setup wizard and accept all default settings.
 
@@ -59,3 +57,12 @@ By default, official emulators have `adb root` disabled. You can enable root acc
 - Option 1: Use a "Google APIs x86" image from Android 9 or earlier (where adb root typically works).
 
 - Option 2: Download a pre-rooted image such as agisk-patched emulator images.
+
+---
+
+## Troubleshooting: Error 319  
+If you get **Error 319** when launching the Android Emulator, it usually indicates a problem with hardware graphics acceleration on your system. 
+
+To fix it, go to your device **Settings → Advanced Settings → Additional Settings → Emulated Performance** and change **Graphics Acceleration** to **Software**. This forces the emulator to use software rendering instead of relying on your GPU, which can prevent crashes related to incompatible or missing graphics drivers.
+
+![](../../../../Images/319_code_fix_android_studio.png)
