@@ -86,6 +86,7 @@ fastboot flashing unlock
 ```
 - Some devices may use `fastboot oem unlock` instead.
 - On your phone, confirm the unlock when prompted.
+
 > This process will wipe all your data.
 
 
@@ -158,3 +159,21 @@ fastboot reboot
 - `/data/data/`
 
 3. If the app can read/write in these folders, root is active.
+
+
+---
+
+
+## 5. Installing "Always Trust User Certificates" Magisk Module
+
+On Android 7 (Nougat) and above, apps no longer trust **user-installed CA certificates** by default. This means that even if you install Burp’s CA certificate via Android settings, most apps will reject it, leading to TLS errors.
+
+To bypass this restriction without modifying each APK, you can use the Magisk module **Always Trust User Certificates**, which makes the system trust user CA certificates globally.
+
+#### Steps:
+
+1. Open the **Magisk app** on your rooted device.
+2. Go to **Modules > Install from Storage**.
+3. Download the module [Always Trust User Certificates](https://github.com/NVISOsecurity/MagiskTrustUserCerts)
+4. Flash the ZIP through Magisk.
+5. Reboot your device.
