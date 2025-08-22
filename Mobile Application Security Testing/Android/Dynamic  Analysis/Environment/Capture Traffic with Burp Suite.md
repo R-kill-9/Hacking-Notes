@@ -91,6 +91,18 @@ It requires no manual configuration on the device's Wi-Fi settings, making it fa
 
 #### Possible Solutions
 
+**Always Trust User Certificates (Magisk Module)**
+
+The **Always Trust User Certificates** Magisk module allows Android devices (Android 7+ and higher) to trust user-installed CA certificates at the system level. This simplifies HTTPS interception in apps that normally ignore user CAs.
+
+1. Download the module ZIP from [GitHub](https://github.com/NVISOsecurity/AlwaysTrustUserCerts/releases)
+2. Install the module via Magisk and reboot the device.
+3. Install the Burp Suite CA certificate on the device.
+4. Verify the certificate appears in the system store (`Settings > Security > Trusted credentials > System`).
+5. Configure Burp Suite and the Android proxy as usual.
+
+
+
 **Patch the APK (Android 7+ user CAs)**
 
 Use **apk-mitm** to make the app trust user CAs and (often) disable pinning.
@@ -119,7 +131,6 @@ adb install -r app-patched.apk
 
 - If the app enforces integrity checks/Play Integrity, it may detect repackaging.
 - If patching fails (e.g., native pinning), use Frida (below).
-
 
 
 **Install Burp CA into the system trust store**
