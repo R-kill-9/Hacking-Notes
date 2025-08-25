@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Drozer.md",
+                "file": "README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Drozer"
+              "title": "README"
             }
           }
         ]
@@ -191,6 +191,7 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Drozer.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/SSL Pinning Bypass.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Hooking with Frida (Theory).md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Hooking with Frida (Example).md",
@@ -216,7 +217,6 @@
     "Mobile Application Security Testing/Android/Theory/Android Internals and Security Mechanisms.md",
     "Mobile Application Security Testing/Android/Theory/Android Sandboxing.md",
     "Mobile Application Security Testing/Android/Theory/AndoridManifest.md",
-    "Mobile Application Security Testing/Android/Theory/Andorid System Architecture.md",
     "Images/319_code_fix_android_studio.png",
     "Images/password_setting_option.png",
     "Images/sileo_install_option.png",
