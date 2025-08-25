@@ -48,24 +48,49 @@ adb install -r /path/to/output/dir/patched.apk
 
 ---
 
-## Frida (Runtime Hooking)
+## Frida 
 
-Frida can hook SSL functions and bypass certificate checks.
+> Check this content for useful scripts: [Frida CodeShare](https://codeshare.frida.re/@pcipolloni/universal-android-ssl-pinning-bypass-with-frida/)
 
-**Steps:**
-
-- Connect the device:
+1. Start a shell on the device or emulator and gain root
 ```bash
-frida -U -n <package_name> -l bypass-ssl.js
+adb shell
+su
 ```
 
-**Example Script (Java SSL Pinning Bypass):**
-```javascript
-Java.perform(function () {
-    var CertificatePinner = Java.use('okhttp3.CertificatePinner');
-    CertificatePinner.check.overload('java.lang.String', 'java.util.List').implementation = function (a, b) {
-        console.log('[!] SSL Pinning bypassed');
-        return;
-    };
-});
+2. Start the Frida server
+```bash
+cd /data/local/tmp
+./frida-server-17.2.17-android-x86_64
+```
+
+3. Push the Burp Suite CA certificate to the device and set correct permissions
+
+- Download your Burp Suite CA certificate (e.g., `cert.der`).
+    
+- Move it to the exact location expected by the Frida script:
+```bash
+adb push cert.der /data/local/tmp
+adb shell
+su
+cd /data/local/tmp
+mv cert.der cert-der.crt
+chmod 755 cert-der.crt
+```
+
+4. Run the SSL pinning bypass using Frida
+
+- `-U` connects to the USB device/emulator.
+- `--codeshare` loads the published Frida script for bypassing SSL pinning    
+- `-f <package>` spawns the target app.
+
+```bash
+frida -U --codeshare pcipolloni/universal-android-ssl-pinning-bypass-with-frida -f infosecadventures.allsafe
+```
+
+Expected output:
+```bash
+[+] Loading our CA...
+[+] Creating a TrustManager that trusts the CA...
+[+] SSLContext initialized with our custom TrustManager!
 ```

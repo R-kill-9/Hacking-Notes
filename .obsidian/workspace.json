@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Drozer.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Drozer"
             }
           }
         ]
@@ -191,19 +191,22 @@
   },
   "active": "2b315d3f1e6dc3a5",
   "lastOpenFiles": [
-    "Mobile Application Security Testing/Android/Dynamic  Analysis/Environment/Rooting an Android Device with Magisk.md",
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/SSL Pinning Bypass.md",
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Hooking with Frida (Theory).md",
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Hooking with Frida (Example).md",
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Broadcast Receiver Testing.md",
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Insecure Biometric Failover.md",
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Exported Activity Exploitation Example.md",
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Dynamic Storage Analysis.md",
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Bypassing Root Detection.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Frida.md",
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Environment/Android Emulator on Kali Linux.md",
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Environment/Rooting an Android Device with Magisk.md",
     "README.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Environment/Capture Traffic with Burp Suite.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Environment/Configuring Access from Kali Linux to an Android Device.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Insecure Logging.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Inspecting Files Created During Runtime.md",
-    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Hooking with Frida (Example).md",
-    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Hooking with Frida (Theory).md",
-    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Dynamic Storage Analysis.md",
-    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Exported Activity Exploitation Example.md",
-    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Bypassing Root Detection.md",
-    "Mobile Application Security Testing/Android/Dynamic  Analysis/Environment/Android Emulator on Kali Linux.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Android Debug Bridge (ADB).md",
     "Mobile Application Security Testing/Android/Static Analysis/Structure of a MVVM Android Application.md",
     "Mobile Application Security Testing/Android/Static Analysis/MVVM Application Analysis.md",
@@ -215,9 +218,6 @@
     "Mobile Application Security Testing/Android/Theory/AndoridManifest.md",
     "Mobile Application Security Testing/Android/Theory/Andorid System Architecture.md",
     "Images/319_code_fix_android_studio.png",
-    "Mobile Application Security Testing/Android/Theory/Certificate Pinning.md",
-    "Mobile Application Security Testing/IOS/Dynamic Analysis/Jailbreaking using palera1n (iPhone 7 - iOS 15.8.3).md",
-    "Information Gathering/Active Information Gathering/Ping Sweeping.md",
     "Images/password_setting_option.png",
     "Images/sileo_install_option.png",
     "Images/palera1n_app_installed.png",

@@ -51,12 +51,8 @@ Java.perform(function () {
 
 After writing the script, you can execute it on the target Android app. Assuming the app is running and the device is connected, you can inject the Frida script using:
 
-- `-U`: This flag tells Frida to target the USB device.
-- `-n com.example.app`: This specifies the target app by its package name.
-- `-l bypass_password.js`: This is the script that will be injected into the app to bypass the password check.
-
 ```bash
-frida -U -n com.example.app -l bypass_password.js
+frida -U -f com.example.app -l bypass_password.js
 ```
 
 ## 5. Outcome

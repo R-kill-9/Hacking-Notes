@@ -1,6 +1,7 @@
 **Frida** provides an easy-to-use framework for hooking into a running application and modifying its behavior. Below, we’ll explore some practical examples and commands for hooking functions in a live process, with a focus on real-world use cases for security testing.
 
 > Useful content:
+> [Frida CodeShare](https://codeshare.frida.re/@pcipolloni/universal-android-ssl-pinning-bypass-with-frida/)
 > [Hooking Java Methods with Frida](https://www.youtube.com/watch?v=RJXsvAjZl9U&t=330s)
 > [Hooking Native Android Methods with Frida](https://www.youtube.com/watch?v=N2JtRXCofUU&t=370s)
 
@@ -17,6 +18,8 @@ Let's assume you want to hook into a login function that checks if the user’s 
 ```javascript
 Java.perform(function () {
     var LoginActivity = Java.use('com.example.app.LoginActivity');  // Replace with actual class path
+    
+    // Replace login for actual vulnerable function
     LoginActivity.login.implementation = function (username, password) {
         console.log('Original username: ' + username);
         console.log('Original password: ' + password);
