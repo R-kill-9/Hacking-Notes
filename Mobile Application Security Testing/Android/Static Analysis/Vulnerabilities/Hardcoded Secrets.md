@@ -2,6 +2,17 @@
 
 Storing secrets in code can expose critical data to attackers, especially when the app is decompiled or the code is leaked. This can lead to unauthorized access, privilege escalation, or data breaches.
 
+#### Key files 
+
+- `res/values/strings.xml` → API keys, internal URLs, tokens
+- `res/values/secrets.xml` (if exists) → separate sensitive information
+- `assets/` → configuration files, JSON, certificates (`.json`, `.pem`, `.crt`)
+- `lib/` → native libraries, look for sensitive strings compiled in `.so` files
+- `smali/` (decompiled with apktool) → hardcoded keys in compiled code, use regex for API keys, passwords, tokens
+- `classes.dex` → compiled Dalvik code, inspect with JADX or dex2jar
+- `AndroidManifest.xml` → permissions, exported activities, content providers
+- `gradle.properties` → build variables, sometimes include test credentials
+
 #### Common types of hardcoded secrets
 
 - API keys (e.g. Google Maps, Firebase)

@@ -96,3 +96,94 @@ adb push <local_path> <remote_path>
 ```bash
 adb push example.apk /sdcard/
 ```
+
+
+## Sending Intents 
+
+Once your **device or emulator** is connected, ADB can be used to **start activities, services or send broadcast intents** directly, which is useful for testing deep links, triggering background processes or simulating system events.
+
+#### Starting an Activity
+**Flags:**
+- `-a` → action (e.g., `android.intent.action.VIEW`)
+- `-m` -> package name
+- `-d` → data URI (deep link or resource)
+- `--es` → string extra
+- `--ei` → integer extra
+- `--ez` → boolean extra
+- `--esn` → null string extra
+
+To launch a specific Activity:
+```bash
+adb shell am start -n <package_name>/<activity_name>
+```
+
+Example:
+```bash
+adb shell am start -n com.example.app/.MainActivity
+```
+
+You can also include data (`-d`) and action (`-a`) with optional extras:
+```bash
+adb shell am start -n com.example.app/.WebViewActivity \
+    -a android.intent.action.VIEW \
+    -d "myapp://host/path?param=value" \
+    --es "extra_key" "extra_value" \
+    --ei "extra_int" 123 \
+    --eZ "boolean_value" "true"
+```
+#### Starting a Service
+
+To start a background service:
+```bash
+adb shell am startservice -n <package_name>/<service_name>
+```
+- Remember to check the AndroidManifest to obtain the Service name; don’t confuse it with the class name.
+
+Example:
+```bash
+adb shell am startservice -n com.example.app/.BackgroundService \
+    -a com.example.app.ACTION_SYNC \
+    --es "userId" "42"
+```
+
+#### Sending a Broadcast Intent
+
+To send a broadcast to a `BroadcastReceiver`:
+```bash
+adb shell am broadcast -n <package_name>/<receiver_class> -a <action>
+```
+
+Example:
+```bash
+adb shell am broadcast -n com.example.app/.MyReceiver \
+    -a com.example.app.ACTION_NOTIFY \
+    --es "message" "Hello from ADB"
+```
+
+
+#### Sending a Broadcast Intent
+
+To send a broadcast to a `BroadcastReceiver`:
+```bash
+adb shell am broadcast -n <package_name>/<receiver_class> -a <action>
+```
+
+Example:
+```bash
+adb shell am broadcast -n com.example.app/.MyReceiver \
+    -a com.example.app.ACTION_NOTIFY \
+    --es "message" "Hello from ADB"
+```
+
+#### Querying an Exported Content Provider
+
+If a **Content Provider** is exported, it can be accessed externally using `adb` without app privileges.
+
+```bash
+adb shell content query --uri content://<authority>/<path>
+```
+
+Example:
+```bash
+adb shell content query --uri content://com.example.app.provider/users
+```
