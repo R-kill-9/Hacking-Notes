@@ -6,7 +6,7 @@
 
 1. Open Burp Suite
 2. Go to `Proxy > Options > Proxy Listeners`
-3. Add a new entry, for example in the port `9090` with the `All interfaces` option for **Bind to address option**.
+3. Add a new entry, for example in the port `8080` with the `All interfaces` option for **Bind to address option**.
 
 **Find your PC's IP address**
 ```bash
@@ -22,7 +22,7 @@ On your Android device:
 3. Set:
     - Proxy: Manual
     - Proxy hostname: your PC IP (e.g., `192.168.1.100`)
-    - Proxy port: `9090`
+    - Proxy port: `8080`
 
 Now all HTTP(S) traffic from the device goes through Burp.
  
@@ -40,7 +40,9 @@ Burp intercepts HTTPS by acting as a Man-In-The-Middle proxy. For that, you must
 5. Transfer it to your Android (e.g., `/sdcard/Download`)
 6. On Android:
     - Go to `Settings > Security > Install a certificate > CA Certificate > Install anyway`
+7. Reboot the device.
 
+> In devices with **Android 7+** make sure that the Magisk **Always Trust User Certificates** is enabled.
 
 ---
 
@@ -67,7 +69,6 @@ It requires no manual configuration on the device's Wi-Fi settings, making it fa
 ---
 
 ## Troubleshooting: Proxy & Certificate Issues 
-
 
 
 - HTTPS requests do not appear in Burp even though the proxy is configured.
