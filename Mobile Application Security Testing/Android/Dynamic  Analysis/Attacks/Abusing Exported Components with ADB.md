@@ -38,8 +38,8 @@ adb shell am start -n com.example.app/.WebViewActivity \
 3. Pass custom extras:
 ```bash
 adb shell am start -n com.example.app/.LoginActivity \
-    --es "username" "admin" \
-    --es "password" "1234"
+    --es username "admin" \
+    --es password "1234"
 ```
 
 
@@ -121,6 +121,7 @@ adb shell content query --uri content://com.example.app.provider/users
 ```
 
 **Inserting Data**
+Add a new row to the provider using `--bind` to specify column values:
 ```bash
 adb shell content insert --uri content://com.example.app.provider/users \
     --bind "username:s:attacker" \
@@ -128,6 +129,7 @@ adb shell content insert --uri content://com.example.app.provider/users \
 ```
 
 **Updating Data**
+Modify existing rows with `--where` to filter:
 ```bash
 adb shell content update --uri content://com.example.app.provider/users \
     --where "id=1" \
@@ -135,6 +137,7 @@ adb shell content update --uri content://com.example.app.provider/users \
 ```
 
 **Deleting Data**
+Remove rows with `--where`:
 ```bash
 adb shell content delete --uri content://com.example.app.provider/users \
     --where "id=1"
