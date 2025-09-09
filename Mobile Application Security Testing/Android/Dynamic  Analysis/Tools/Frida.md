@@ -72,7 +72,7 @@ frida -U -n <process_name> -l hook.js
 ``` 
 - Spawn app with hook:
 ```bash
-frida -U -f com.example.app -l hook.js --no-pause
+frida -U -f com.example.app -l hook.js 
 ``` 
 5. **Monitor output** from your script and adjust as needed.
 6. **Iterate** on your hook script to expand capabilities or refine what you intercept.
