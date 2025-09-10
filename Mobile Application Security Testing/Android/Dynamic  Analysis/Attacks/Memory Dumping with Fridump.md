@@ -24,6 +24,7 @@ To install Fridump you just need to clone it from git and run it:
 python3 -m venv venv
 source venv/bin/activate
 git clone https://github.com/Nightbringer21/fridump.git
+cd fridump
 python fridump.py -h
 ```
 
@@ -42,7 +43,7 @@ adb shell "/data/local/tmp/frida-server &"
 ```
 2. Identify the target application's process name:
 ```bash
-frida-ps -U
+frida-ps -Uai
 ```
 3. Dump the application's memory:
 ```bash
