@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Memory Dumping with Fridump.md",
+                "file": "README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Memory Dumping with Fridump"
+              "title": "README"
             }
           }
         ]
@@ -191,6 +191,7 @@
   },
   "active": "e968bf16b389e24b",
   "lastOpenFiles": [
+    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Memory Dumping with Fridump.md",
     "Mobile Application Security Testing/IOS/Dynamic Analysis/Jailbreaking using palera1n (iPhone 7 - iOS 15.8.3).md",
     "README.md",
     "Mobile Application Security Testing/Mobile Pentesting Practice Labs.md",
@@ -202,7 +203,6 @@
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Android Debug Bridge (ADB).md",
     "Mobile Application Security Testing/Android/Static Analysis/Androguard.md",
     "Mobile Application Security Testing/IOS/Dynamic Analysis/Memory Dumping with Fridump.md",
-    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Memory Dumping with Fridump.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Frida.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Drozer.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Environment/Android Emulator on Kali Linux.md",
