@@ -26,7 +26,7 @@ sudo /bin/sh -c "$(curl -fsSL https://static.palera.in/scripts/install.sh)"
 ```
 
 
-## 2. Enter DFU Mode
+#### 2. Enter DFU Mode
 
 1. Power off the iPhone.
 2. Hold **Power** for 3 seconds.

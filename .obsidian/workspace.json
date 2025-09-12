@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Memory Dumping with Fridump.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Memory Dumping with Fridump"
             }
           }
         ]
@@ -191,6 +191,8 @@
   },
   "active": "e968bf16b389e24b",
   "lastOpenFiles": [
+    "Mobile Application Security Testing/IOS/Dynamic Analysis/Jailbreaking using palera1n (iPhone 7 - iOS 15.8.3).md",
+    "README.md",
     "Mobile Application Security Testing/Mobile Pentesting Practice Labs.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Abusing Exported Components with ADB.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Deep Link Exploitation.md",
@@ -199,7 +201,6 @@
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Inspecting Files Created During Runtime.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Android Debug Bridge (ADB).md",
     "Mobile Application Security Testing/Android/Static Analysis/Androguard.md",
-    "README.md",
     "Mobile Application Security Testing/IOS/Dynamic Analysis/Memory Dumping with Fridump.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Memory Dumping with Fridump.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Frida.md",
@@ -216,7 +217,6 @@
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Insecure Logging.md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/Hooking with Frida (Theory).md",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Java Debugger (jdb).md",
-    "Web Application Security Testing/Attack Vectors/SQL Injection/In-Band SQL Injection/Union-Based SQL Injection.md",
     "Images/319_code_fix_android_studio.png",
     "Images/password_setting_option.png",
     "Images/sileo_install_option.png",
