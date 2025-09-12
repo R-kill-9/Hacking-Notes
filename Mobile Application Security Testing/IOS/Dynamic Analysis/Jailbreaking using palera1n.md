@@ -1,10 +1,9 @@
 ## Overview
 
-The iPhone 7 uses the **A10 chip**, which is vulnerable to the **checkm8** bootrom exploit.  
-This makes it possible to jailbreak any firmware version on the device, including iOS 15.8.3, using **palera1n**.  
-The jailbreak will be **semi-tethered**.
+Palera1n is compatible with all iOS devices vulnerable to the checkm8 bootrom exploit. It allows you to jailbreak almost any firmware version supported by the device. The jailbreak is **semi-tethered**, which means if the device powers off or runs out of battery, it will start normally but the jailbreak will not be active until you run palera1n again.
 
 > [Useful Tutorial](https://www.youtube.com/watch?v=3Vd-lbaH1MM)
+
 ---
 
 ## Requirements
@@ -35,7 +34,7 @@ sudo /bin/sh -c "$(curl -fsSL https://static.palera.in/scripts/install.sh)"
 5. Screen stays black → DFU mode is active.
 
 #### 3. Run the Jailbreak
-
+> Before executing palera1n, make sure your device is in DFU mode, because otherwise palera1n may put it into Recovery Mode and you could have trouble getting out.
 - **Rootful:** Grants full system access, allowing installation of all tweaks, system modifications, and advanced tools like Frida; higher risk of system instability.
 ```bash
 sudo palera1n -f -c
@@ -45,6 +44,8 @@ sudo palera1n -f -c
 ```bash
 sudo palera1n -l 
 ```
+
+> Try always to use Rootless method before.
 
 |Command Option|Description|
 |---|---|
