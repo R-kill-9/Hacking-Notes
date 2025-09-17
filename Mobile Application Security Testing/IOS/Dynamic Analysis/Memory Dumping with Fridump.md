@@ -23,16 +23,15 @@ To install Fridump you just need to clone it from git and run it:
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-git clone https://github.com/Nightbringer21/fridump.git
-python fridump.py -h
+git clone https://github.com/rootbsd/fridump3
+cd fridump3
+python fridump3.py -h
 ```
 
 
 ---
 
 ## Usage
-
-#### Android
 
 1. Push the Frida server to the device and set appropriate permissions:
 ```bash
@@ -42,23 +41,11 @@ adb shell "/data/local/tmp/frida-server &"
 ```
 2. Identify the target application's process name:
 ```bash
-frida-ps -U
-```
-3. Dump the application's memory:
-```bash
-python fridump.py -U -s <process_name>
-```
-
-#### iOS
-
-1. Connect the iOS device via USB.
-2. Identify the target application's process name:
-```bash
 frida-ps -Uai
 ```
 3. Dump the application's memory:
 ```bash
-python fridump.py -U -s <process_name>
+python3 fridump3.py -u -o dump/ <process_id>
 ```
 
 
