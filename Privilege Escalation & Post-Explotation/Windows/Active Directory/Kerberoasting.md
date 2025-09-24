@@ -48,11 +48,11 @@ python targetedKerberoast.py -u <username> -p <password> -d <domain> -t <target_
 ```
 
 
-1. **Extract and Save the TGS Ticket**:
+3. **Extract and Save the TGS Ticket**:
     - The TGS ticket is saved in a file, which contains the encrypted hash of the service account password.
     - This is typically done using **Mimikatz**, **Impacket**, or **Rubeus**.
 
-2. **Crack the Hash Offline**:
+4. **Crack the Hash Offline**:
     
     - The encrypted hash is cracked using password-cracking tools like **Hashcat** or **John the Ripper**.
 ```bash
