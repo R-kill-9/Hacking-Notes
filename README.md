@@ -1,6 +1,6 @@
 ## Overview
 
-This repository contains a collection of notes, techniques, and tools for ethical hacking, penetration testing, and cybersecurity. It is designed to be a practical resource for beginners and professionals aiming to enhance their knowledge and skills in hacking and security.
+This repository contains a collection of notes and techniques for ethical hacking and penetration testing. It is designed to be a practical resource for beginners and professionals aiming to enhance their knowledge and skills in hacking and security.
 
 ## Installation
 
