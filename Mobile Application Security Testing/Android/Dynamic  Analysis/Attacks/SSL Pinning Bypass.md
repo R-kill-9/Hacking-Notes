@@ -40,7 +40,7 @@ chmod 755 cert-der.crt
 - `-f <package>` spawns the target app.
 
 ```bash
-frida -U --codeshare pcipolloni/universal-android-ssl-pinning-bypass-with-frida -f infosecadventures.allsafe
+frida -U --codeshare pcipolloni/universal-android-ssl-pinning-bypass-with-frida -f <package>
 ```
 
 Expected output:

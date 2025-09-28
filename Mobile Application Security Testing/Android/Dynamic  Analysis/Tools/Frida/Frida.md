@@ -88,3 +88,41 @@ frida -U -f com.example.app -l hook.js
 | `-o <file>`        | Redirect output to a file                         |
 | `--runtime=<type>` | Specify JavaScript runtime (`v8`, `duk`)          |
 | `-h`, `--help`     | Show help information                             |
+#### Hook multiple functions at once
+
+When reversing Android apps you often need to patch many small checks (root checks, signature checks, feature flags, etc.). Instead of writing repetitive `targetClass.method.implementation` blocks, you can hook multiple functions at once with concise helpers and patterns. 
+
+```js
+// Root Bypass
+Java.perform(function() {
+var targetClass = Java.use('sg.vantagepoint.util.RootDetection');
+
+targetClass.checkRoot1.implementation = function() {
+console.log('Bypassing root check in checkRoot1()');
+return false; // Always return false
+};
+
+targetClass.checkRoot2.implementation = function() {
+console.log('Bypassing root check in checkRoot2()');
+return false; // Always return false
+};
+
+targetClass.checkRoot3.implementation = function() {
+console.log('Bypassing root check in checkRoot3()');
+return false; // Always return false
+};
+
+});
+
+
+// Debug Bypass
+Java.perform(function() {
+var targetClass = Java.use('sg.vantagepoint.util.IntegrityCheck');
+
+targetClass.isDebuggable.implementation = function() {
+console.log('Bypassing Integrity Check');
+return false; // Always return false
+};
+});
+
+``` 

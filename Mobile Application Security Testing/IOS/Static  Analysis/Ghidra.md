@@ -40,15 +40,20 @@ Once the **Analyze** button is confirmed, Ghidra will begin processing the binar
 ---
 
 ## Application Analysis
-Para realizar e analisis puede ser muy util utilizzar el Symbol Tree situado a la izquierda. Explica brevemente que funcionalidades hay.
+For the analysis it can be very helpful to use the **Symbol Tree** panel located on the left side of Ghidra.  
+This panel provides quick access to key elements of the binary, such as classes, methods, functions, exports, and other symbols identified during the import process.
 
-![](Simbol_Tree_Ghidra.png)
-Algo muy util es buscar cosas en el Filterque sepas que pueden existir e la aplicación como Jailbreak, CheckPin para ver i encuentras sus fiuncionalidades relacionadas.
-Por ejemplo en este ejemplo tenemos una app que sabemos que teiene un buttonClick, en este caso si buscamos el buttonClick nos aparece su codigo asociasdo en ensamblador  y el mismo codigo recontruido a al dereha
+![](../../../Images/Simbol_Tree_Ghidra.png)
 
-![](Symbol_Tree_Filter_Ghidra.png)
+A particularly useful feature is the **Filter** search box.  
+You can type keywords that you suspect might exist in the application, such as _Jailbreak_, _CheckPin_, or other relevant terms, to quickly locate related functionality.
 
-También podemos observar que si interacutamos con el código de la derecha se nos marca cual es la parte del código ensamblador relacionada.
+For example, in this case we know the app contains a method called **buttonClick**.  
+Searching for “buttonClick” immediately reveals its associated code, showing both the assembly instructions and the decompiled high-level code on the right.
+
+![](../../../Images/Symbol_Tree_Filter_Ghidra.png)
+
+Additionally, when you interact with the decompiled code on the right, Ghidra automatically highlights the corresponding section of assembly code, making it easy to correlate high-level logic with low-level instructions.
 
 ## Example
 > Example copied from [Solving crackme](https://serializethoughts.com/2019/10/28/solving-mstg-crackme-angr)
