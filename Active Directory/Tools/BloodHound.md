@@ -28,10 +28,11 @@ bloodhound-python -c All -u user -p password -d domain_name  -ns target_ip --zip
 ```
 This can also be done using `nxc`:
 ```bash
-nxc ldap ip -u 'user' -p 'password' --bloodhound -c all --dns-server domain
+nxc ldap <target_ip> -u 'user' -p 'password' --bloodhound -c all --dns-server <target_ip>
 ```
 
-- Remember to create your node4j console:
+>Remember to create your node4j console:
+
 ```bash
 sudo neo4j console
 ```
@@ -39,6 +40,26 @@ sudo neo4j console
 - Upload the data
 - Use the menu to see the information
 - Is very useful to use the ANALYSIS tool to display visual information
+
+
+#### Troubleshooting
+
+- **Clock Skew (KRB_AP_ERR_SKEW)**  
+If you receive a clock-skew error, synchronize the time with the domain controller:
+```bash
+sudo rdate -n <dc_ip>
+```
+
+- **DNS Resolution Errors**  
+If BloodHound fails to resolve the domain, use a DNS proxy such as **dnschef** to fake DNS replies:
+```bash
+dnschef --fakeip <dc_ip>
+```
+
+Then re-run data collection pointing to the proxy:
+```bash
+bloodhound-python -d <domain> -v --zip -c All -ns 127.0.0.1 -u '<user>' -p '<password>' -dc <dc_hostname>
+```
 
 
 ---
@@ -80,7 +101,7 @@ To identify **high-privilege accounts**, you should focus on certain **groups** 
 1. In the **BloodHound interface**, search for a user, and look at their **Node Info**.
 2. Under **Outbound Object Control**, check if the value is different than **0**. This indicates that the user has permissions to affect objects in other systems or domains.
 
-![](bloodhound-outbound-object.png)
+![](../../Images/bloodhound-outbound-object.png)
 #### Key Options:
 
 - **Check the "Outbound Object Control" field**:

