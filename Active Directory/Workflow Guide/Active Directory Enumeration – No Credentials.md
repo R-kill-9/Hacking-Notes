@@ -26,7 +26,7 @@ nmap -Pn -sC -sV -p- -oA <output> <ip>
 nmap -sU -sC -sV -oA <output> <ip>
 
 # Check for known SMB vulnerabilities
-nmap -Pn --script smb-vuln* -p139,445 <ip>
+nmap -Pn --script 'smb-vuln*' -p139,445 <ip>
 
 # Quick scan of the most common ports
 nmap -Pn -sV --top-ports 50 --open <ip>
@@ -71,7 +71,7 @@ A successful transfer reveals hostnames, IPs, and internal structure.
 Check for unauthenticated access to shared resources:
 ```bash
 # Enumerate with guest user
-netexec <protocol> <ip> -u 'guest' -p '' --shares
+netexec smb <ip> -u 'guest' -p '' --shares
 
 # List SMB shares anonymously
 smbclient -U '%' -L //<ip>

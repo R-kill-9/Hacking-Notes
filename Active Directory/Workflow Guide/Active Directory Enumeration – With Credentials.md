@@ -78,7 +78,7 @@ Enumerate LDAP for users, groups, ACLs, delegation, and export results.
 ldapsearch-ad.py -l <dc_ip> -d <domain> -u <user> -p '<password>' -o <output.log> -t all
 
 # ldapdomaindump: dump LDAP domain data to folder
-ldapdomaindump.py -u <user> -p <password> -o <dump_folder> ldap://<dc_ip>:389
+ldapdomaindump -u <user> -p <password> -o <dump_folder> ldap://<dc_ip>:389
 
 # ldeep (LDAP deep enumeration)
 ldeep ldap -u <users> -p '<password>' -d <domain> -s ldap://<dc_ip> all <backup_folder>

