@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Hacking Wifi/EvilTrust.md",
+                "file": "README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "EvilTrust"
+              "title": "README"
             }
           }
         ]
@@ -189,9 +189,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "eb37985d2c501f7f",
+  "active": "3bb5292e73c6fe4f",
   "lastOpenFiles": [
+    "Cloud/Azure Entra ID.md",
+    "Cloud/AWS.md",
     "README.md",
+    "Hacking Wifi/EvilTrust.md",
     "Active Directory/Attacks/AD CS Exploitation.md",
     "Active Directory/Attacks/Pass The Hash.md",
     "Active Directory/Attacks/LDAP Relay.md",
@@ -214,9 +217,6 @@
     "Mobile Application Security Testing/IOS/IPA Acquisition.md",
     "Mobile Application Security Testing/IOS/Static  Analysis/Info.plist Analysis.md",
     "Mobile Application Security Testing/IOS/Dynamic Analysis/iOS App Provisioning and IPA file Signing.md",
-    "Mobile Application Security Testing/Android/Dynamic  Analysis/Tools/Frida/Frida Scripts.md",
-    "Mobile Application Security Testing/Android/Dynamic  Analysis/Attacks/SSL Pinning Bypass.md",
-    "Mobile Application Security Testing/Android/Dynamic  Analysis/Environment/Capture Traffic with Burp Suite.md",
     "Images/insecure_webview_allsafe_hosts.png",
     "Images/insecure_webview_allsafe_sharedprefs.png",
     "Images/insecure_webview_allsafe_code.png",
