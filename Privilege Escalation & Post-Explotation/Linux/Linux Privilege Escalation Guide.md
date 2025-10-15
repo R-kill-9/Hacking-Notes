@@ -10,6 +10,16 @@ uname -a               # Kernel and system architecture info
 cat /etc/os-release    # OS version and details
 ```
 
+## Sensitive User's Information
+
+```bash
+ls -la ~               # List hidden files in the home directory
+cat ~/.bash_history    # Review command history for credentials or misconfigurations
+cat ~/.ssh/authorized_keys
+cat ~/.ssh/id_rsa      # Check for private SSH keys
+ls -la ~/.mozilla/     # List hidden browser files 
+```
+
 ## Environment Variables and PATH Hijacking
 Review environment variables, especially PATH, for opportunities to inject malicious binaries.
 
