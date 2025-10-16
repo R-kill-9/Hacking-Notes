@@ -189,8 +189,18 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "eb37985d2c501f7f",
+  "active": "3bb5292e73c6fe4f",
   "lastOpenFiles": [
+    "Active Directory/Workflow Guide/Active Directory Enumeration – No Credentials.md",
+    "Information Gathering/Passive Information Gathering/DNS recognizement.md",
+    "Information Gathering/Passive Information Gathering/Email Harvesting.md",
+    "Information Gathering/Passive Information Gathering/Google Dorks.md",
+    "Information Gathering/Passive Information Gathering/Subdomain enumeration.md",
+    "Information Gathering/Passive Information Gathering/Leak password databases.md",
+    "README.md",
+    "Cloud/Azure/AzurePEAS.md",
+    "Cloud/Azure/Untitled.md",
+    "Cloud/Azure",
     "Active Directory/Attacks/Credentials Dumping.md",
     "Privilege Escalation & Post-Explotation/Linux/Techniques/Browser Stored Data.md",
     "Privilege Escalation & Post-Explotation/Linux/Linux Privilege Escalation Guide.md",
@@ -205,19 +215,10 @@
     "Privilege Escalation & Post-Explotation/Windows/Credentials Dumping/Mimikatz.md",
     "Privilege Escalation & Post-Explotation/Windows/Credentials Dumping/Windows Password Hashes Theory.md",
     "Privilege Escalation & Post-Explotation/Windows/Credentials Dumping/Local Stored Credentials.md",
-    "Active Directory/Workflow Guide/Active Directory Enumeration – No Credentials.md",
     "Active Directory/Attacks/AS-REP Roasting.md",
     "Active Directory/Workflow Guide/Active Directory Enumeration – Valid User, No Password.md",
     "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding/Ligolo-NG.md",
-    "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding/Metasploit Pivoting.md",
-    "Information Gathering/Active Information Gathering/Ping Sweeping.md",
     "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding/Untitled",
-    "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding/Chisel.md",
-    "Web Application Security Testing/Attack Vectors/Fuzzing.md",
-    "Web Application Security Testing/Attack Vectors/Web Shell/Web Shell Examples.md",
-    "README.md",
-    "Cloud/Azure Entra ID.md",
-    "Cloud/AWS.md",
     "Images/insecure_webview_allsafe_hosts.png",
     "Images/insecure_webview_allsafe_sharedprefs.png",
     "Images/insecure_webview_allsafe_code.png",
@@ -235,7 +236,6 @@
     "Images/uncrackable2_secret.png",
     "Mobile Application Security Testing/Mobile Security Resources",
     "Mobile Application Security Testing/Android/Dynamic  Analysis/Exploit App Development",
-    "Mobile Application Security Testing/IOS/Static  Analysis",
-    "Mobile Application Security Testing/IOS/Dynamic Analysis"
+    "Mobile Application Security Testing/IOS/Static  Analysis"
   ]
 }
