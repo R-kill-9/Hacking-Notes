@@ -12,7 +12,7 @@ sudo nano /etc/proxychains.conf
 socks5 127.0.0.1 9050  
 ```
 
-## Set Up a Pivot Machine
+## Set Up a Pivot Machine using Metasploit
 
 You can use tools like SSH or Metasploit to compromise a machine and establish a tunnel for traffic forwarding.
 
