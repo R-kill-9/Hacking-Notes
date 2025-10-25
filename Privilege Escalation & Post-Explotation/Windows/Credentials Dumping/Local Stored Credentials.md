@@ -20,9 +20,17 @@ Although the administrator’s password is not visible in plain text using cmdke
 runas.exe /savecred /user:administrator cmd
 ```
 
-#### Add credentials
+#### Delete credentials
 ```powershell
 cmdkey /delete:<target>
+```
+
+#### Abusing Extracted Credentials
+
+If a password is retrieved, an attacker can impersonate the user:
+
+```powershell
+runas /user:Administrator cmd
 ```
 
 ---
@@ -47,13 +55,6 @@ reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v Defaul
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon
 ```
 These values can be queried using the following commands:
-#### Abusing Extracted Credentials
-
-If a password is retrieved, an attacker can impersonate the user:
-
-```powershell
-runas /user:Administrator cmd
-```
 
 
 
