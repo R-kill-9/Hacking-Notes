@@ -38,7 +38,7 @@ This means users can **fully control** the file.
 
 ---
 
-## 3. **Generate a Malicious Payload with msfvenom
+## 3. Generate a Malicious Payload with msfvenom
 
 On your Kali machine, create a reverse shell payload named exactly like the service executable.
 

