@@ -18,7 +18,7 @@ rdesktop -u <username> -p <password> <target_ip>
 
 **xfreerdp**
 ```bash
-xfreerdp /u:<username> /p:<password> /v:<target_ip>
+xfreerdp /u:<username> /p:<password> /v:<target_ip> /dynamic-resolution
 ```
 
 **netexec**
