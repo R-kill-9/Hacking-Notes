@@ -13,15 +13,15 @@ Jenkins is an automation server widely used for CI/CD pipelines. Its file struct
 
 ## Important Jenkins Files & Directories for Pentesting
 
-|File/Folder|Description|
-|---|---|
-|`/var/jenkins_home/config.xml`|Main Jenkins config file|
-|`/var/jenkins_home/credentials.xml`|Stored encrypted credentials|
-|`/var/jenkins_home/secrets/master.key`|Master key to decrypt credentials|
-|`/var/jenkins_home/secrets/hudson.util.Secret`|Secret key used in credential encryption|
-|`/var/jenkins_home/users/config.xml`|List of registered users|
-|`/var/jenkins_home/users/<user>/config.xml`|User-specific settings and password hashes|
-|`/var/jenkins_home/secrets/initialAdminPassword`|Initial admin password during setup|
+| File/Folder                                      | Description                                |
+| ------------------------------------------------ | ------------------------------------------ |
+| `/var/jenkins_home/config.xml`                   | Main Jenkins config file                   |
+| `/var/jenkins_home/credentials.xml`              | Stored encrypted credentials               |
+| `/var/jenkins_home/secrets/master.key`           | Master key to decrypt credentials          |
+| `/var/jenkins_home/secrets/hudson.util.Secret`   | Secret key used in credential encryption   |
+| `/var/jenkins_home/users/config.xml`             | List of registered users                   |
+| `/var/jenkins_home/users/<user>/config.xml`      | User-specific settings and password hashes |
+| `/var/jenkins_home/secrets/initialAdminPassword` | Initial admin password during setup        |
 
 
 ---

@@ -49,7 +49,7 @@ nxc smb 10.10.11.35 -u 'guest' -p '' --rid-brute
 
 To extract the discovered usernames more cleanly, run:
 ```bash
-netexec smb 192.168.1.43 -u 'guest' -p '' --rid-brute | grep 'SidTypeUser' | sed -n "s/.*\\\\\([^ ]*\).*/\1/p" | sort -u
+nxc smb <ip> -u 'username' -p 'password' --users | awk '{if(NR>5) print $5}' | sort -u > domain_users.txt
 ```
 
 
