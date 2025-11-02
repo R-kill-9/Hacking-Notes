@@ -45,7 +45,10 @@ sprayhound -U <users.txt> -p <password> -d <domain> -dc <dc_ip>
 
 # kerbrute password spray
 kerbrute passwordspray -d <domain> <users.txt> <password>
+```
 
+### Credential Brute Force (Not recommended on production environments)
+```bash
 # nxc mass auth with continue-on-success
 nxc smb <dc_ip> -u <users.txt> -p <password> --continue-on-success
 ```
