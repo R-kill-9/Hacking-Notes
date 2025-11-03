@@ -2,9 +2,7 @@ Technical notes for  of Windows Active Directory environments, extracted from [o
 
 
 ---
-## Password Spray
-
-**Purpose:** test a small set of passwords across many accounts (or user\==password checks) while avoiding account lockouts; collect any cleartext credential successes.
+## Credentials Obtention
 
 ### Get password policy (do this before testing)
 

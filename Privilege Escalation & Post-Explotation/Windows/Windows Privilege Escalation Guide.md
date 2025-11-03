@@ -28,6 +28,7 @@ net user                   # List local users
 net localgroup administrators   # Local admins
 whoami /groups             # List user groups
 whoami /priv               # User privileges
+whoami /all                # Get all the information related with the user
 ```
 
 ## Privilege Escalation via Schedules or Services
