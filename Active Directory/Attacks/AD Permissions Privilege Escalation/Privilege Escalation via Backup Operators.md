@@ -31,7 +31,7 @@ memberOf: CN=Backup Operators,CN=Builtin,DC=SOUPEDECODE,DC=LOCAL
 
 This can also be seen with Bloodhound:
 
-![](../../Images/backup_operators_pe_example_group_member.png)
+![](backup_operators_pe_example_group_member.png)
 
 **Step 2: Prepare SMB Server**  
 You need to set up a writable SMB share to receive dumped registry files:
@@ -65,26 +65,3 @@ Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies [*] T
 ```
 
 With this, we can confirm that the process worked and we obtained the password hashes of those users, but only **from the local system**.  
-What we actually want are the **domain password hashes** of those same users.  
-The hash we are most interested in is the one belonging to the **Domain Controller**, and the most promising candidate for that is the **$MACHINE.ACC** account.  
-Therefore, we will now test which user from the previously gathered list this hash belongs to.
-
->**$MACHINE.ACC hash** 
->The machine account (the computer object of the Domain Controller in Active Directory).  This account automatically exists for every domain-joined host and uses a randomly generated password.  
-  Its NTLM hash can be reused to authenticate to the domain just like a normal user.  
-  If this is the **Domain Controller’s machine account**, it often has privileges to replicate the Active Directory database, making it extremely valuable.
-    
-
-
-**Step 5: Validate the DC Machine Account Hash**  
-Use the machine account hash to attempt SMB authentication across the domain:
-```bash
-nxc smb <domain_ip> -u users.txt  -H 'hash'
-```
-
-**Step 6: Dump Domain Credentials**  
-With the machine account hash, the attacker can use **DRSUAPI** replication privileges to extract the **NTDS.dit** database containing all domain password hashes:
-```bash
-impacket-secretsdump '<domain>/<user>$@<DC_IP>' \
-  -hashes 'aad3b435b51404eeaad3b435b51404ee:<NTLM_HASH>'
-```
