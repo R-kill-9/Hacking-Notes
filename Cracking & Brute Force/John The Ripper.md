@@ -157,3 +157,28 @@ Next, use **John the Ripper** with a wordlist to try cracking the password. You 
 john --wordlist=<wordlist> <hash_file_generated>
 ```
 
+
+
+---
+
+## Cracking a PDF File (pdf2john)
+
+- Convert the PDF file to a hash format:  
+
+
+```bash
+pdf2john <pdf_file> > <hash_file_generated>
+```
+
+- Crack the hash file:  
+
+
+```bash
+john --wordlist=<wordlist> <hash_file_generated>
+```
+
+- View the result:  
+
+```bash
+john --show <hash_file_generated>
+```

