@@ -25,7 +25,7 @@ sudo ip route del 192.168.98.0/24 dev tun0
 # Bring interface up
 sudo ip link set ligolo up
 
-# Add internal network route
+# Add target internal network route
 sudo ip route add 192.168.98.0/24 dev ligolo
 ```
 
