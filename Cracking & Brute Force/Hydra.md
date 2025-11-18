@@ -25,7 +25,7 @@ It can be useful intercept the petition with burp for extract the different fiel
 
 
 ```bash
-hydra -t 64 -l <username> -P <password_list> -f http-post-form "http://<target-ip-or-url>/<path_to_login_form>:<username_field>=^USER^&<password_field>=^PASS^:<error_message>"
+hydra -l <username> -P <wordlist> <host> http-post-form "<path>:<parameters>:<failure_message>"
 ```
 
 

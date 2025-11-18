@@ -119,6 +119,9 @@ nxc smb <dc_ip> --users
 
 # List members of the Domain Users group
 net rpc group members 'Domain Users' -W '<domain>' -I <ip> -U '%'
+
+# Enumerate mssql local users
+nxc mssql <target> -u <user> -p <password> --rid-brute 10000 --local-auth
 ```
 
 Valid usernames are essential for Kerberos attacks or password guessing.
