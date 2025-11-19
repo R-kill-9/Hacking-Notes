@@ -25,7 +25,7 @@ It can be useful intercept the petition with burp for extract the different fiel
 
 
 ```bash
-hydra -l <username> -P <wordlist> <host> http-post-form "<path>:<parameters>:<failure_message>"
+hydra -l <username> -P <wordlist> <host> http-post-form "<path>:<username_parameter>=^USER^&>:<password_parameter>=^PASS^:<failure_message>"
 ```
 
 

