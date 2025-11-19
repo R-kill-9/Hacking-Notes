@@ -1,6 +1,6 @@
-- **GenericAll** is a powerful permission in Active Directory. It means the principal (user/group) has **full control** over the target object.
+**GenericAll** is a powerful permission in Active Directory. It means the principal (user/group) has **full control** over the target object.
 
-- With GenericAll, you can modify any attribute of the object, including sensitive ones like `servicePrincipalName`, `memberOf`, or even reset the password.
+With GenericAll, you can modify any attribute of the object, including sensitive ones like `servicePrincipalName`, `memberOf`, or even reset the password.
 
 
 ---
@@ -15,7 +15,7 @@ If you have **GenericAll** over a user object, you can reset their password with
 - Using **BloodyAD**:
 
 ```bash
-bloodyAD --host 172.16.1.15 -d bloody.local -u jane.doe -p :NTLMHASH set password targetuser NewPass123!
+bloodyAD --host 172.16.1.15 -d bloody.local -u jane.doe -p :NTLMHASH set password targetuser 'NewPass123!'
 ```
 
 - Using **impacket** (`rpcclient` or `net`):

@@ -20,7 +20,6 @@ When a user authenticates to a service with unconstrained delegation, their **TG
 
 ## Constrained Delegation (S4U2Proxy / S4U2Self)
 
-**Definition:**  
 Constrained Delegation allows a service to impersonate users **only to specific services**, defined by `msDS-AllowedToDelegateTo`.
 
 #### Two key Kerberos extensions involved:

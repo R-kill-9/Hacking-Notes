@@ -105,7 +105,6 @@ For example, if the cracked password is `kill-9`, you can update or regenerate t
 
 ```bash
 ssh-keygen -p -f id_rsa -P kill-9 -N ""
-
 ```
 
 ## Cracking .kdbx Files (KeePass)

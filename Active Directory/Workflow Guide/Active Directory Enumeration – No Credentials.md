@@ -114,6 +114,7 @@ nxc smb <dc_ip> --rid-brute 10000
 netexec smb <dc_ip> -u 'guest' -p '' --rid-brute | grep 'SidTypeUser' | sed -n "s/.*\\\\\([^ ]*\).*/\1/p" | sort -u
 
 nxc smb <ip> -u 'username' -p 'password' --users | awk '{if(NR>5) print $5}' | sort -u > domain_users.txt
+
 # List users through SMB directly
 nxc smb <dc_ip> --users
 
