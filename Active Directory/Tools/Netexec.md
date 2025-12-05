@@ -55,26 +55,7 @@ nxc smb <ip> -u 'username' -p 'password' --users | awk '{if(NR>5) print $5}' | s
 
 ---
 ## Exhaustive Netexec guide
-> Notes copied from [hackingarticles](https://www.hackingarticles.in/active-directory-pentesting-using-netexec-tool-a-complete-guide/).
-
-### Test if an Account Exists without Kerberos
-
-**Purpose**: This command is used to check whether an account exists within Active Directory without Kerberos protocol. When using the option -k or–use-kcache, you need to specify the same hostname (FQDN) as the one from the kerberos ticket
-
-```bash
-nxc ldap 192.168.1.48 -u "user.txt" -p '' -k
-```
-
-![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgNNNwiICcOsj4aDlCXW9UA9lHsLKnsuIDyQSWVxK3ROflZw1luCD7lNHFbJtvAr3j2_ViYUWMHkEWF3wMckPaJcITORBsRPa29lJzmsxOSXIr4MvthV6AMYefiFN9u3gI1bbXUf9tu1nwPtuuNKWJ4ubLctviaMAyIDiO-F9QwmXVnkiXymF98pO1s7t1A/s16000/0.png)
-
-**Explanation**:
-
-- -u “user.txt”: List of usernames to check.
-- -p ”: No password is supplied (since it’s only testing account existence).
-
-**MITRE ATT&CK Mapping**:
-
-**T1071** – Application Layer Protocol: LDAP (This is a reconnaissance activity using LDAP).
+> Notes copied and extended from [hackingarticles](https://www.hackingarticles.in/active-directory-pentesting-using-netexec-tool-a-complete-guide/). It is also very recommendable checking the official guide [Netexec](https://www.netexec.wiki/smb-protocol/scan-for-vulnerabilities).
 
 ### Testing Credentials
 
@@ -112,7 +93,7 @@ nxc ldap 192.168.1.48 -u raj -H 64FBAE31CC352FC26AF97CBDEF151E03
 **All users**:
 
 ```bash
-nxc ldap 192.168.1.48 -u raj -p Password@1 –users
+nxc ldap 192.168.1.48 -u raj -p Password@1 --users
 ```
 
 ![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPTRqRWx06WIvW0xSxjU5htUp1Mabc-uaFomiERUwra57t1x_EVSwgP95mdNBboJxePrnUYddp6IJ4gxMUUEbs_e3vVLZrdSMM6N0UUq5fRRsQUGMFs6B_4vbwgAuWU_Wx3OE60et_v9U2W6-mj835HWapr9OXglL90rMf063HQJNjIzECNFttt5G5PfoD/s16000/3.png)
@@ -134,34 +115,6 @@ nxc ldap 192.168.1.48 -u raj -p Password@1 --active-users
 
 **T1087** – Account Discovery.
 
-### LDAP Queries for Specific Users
-
-**Purpose**: Queries LDAP for specific user attributes, such as their sAMAccountName.
-
-**Query a specific user**:
-
-```bash
-nxc ldap 192.168.1.48 -u raj -p Password@1 --query "(sAMAccountName=aarti)" ""
-```
-
-![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjgyUEersDg3drlfgDYlQgu0pZeVL0ARbeqxZ0Vv8agJu2eR04n3UDzenxqkZmjHpGGNwU8zAOx8sz6IZSzbCikZCGaq8GL8OaBnKGJcvwZ9NhfTTmtieKVz5iIrl9DZYunIZd5zD-qOLSN1rXr_xz0pFQ3VPHlCq9s3jwKR_Y-QKyshgUtyvHyaVDfRSfe/s16000/5.png)
-
-**Query all users**:
-
-```bash
-nxc ldap 192.168.1.48 -u raj -p Password@1 --query "(sAMAccountName=*)" ""
-```
-
-![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiMETTUTDQKfA-M2z0fVze677PG1_0dqQNrM4ZqYCycdfy9IB17YEHMPTvJycWCjRalaDKTa9gYzpXFgd7xnAWqwj4nkv54TVT2TX2kL8jEqtat93VPZEOdmI-jn0xNqxmHv9ONL3L1h8HhGJtdR6XjmxQQ4EzXFmnnUMY6lGQVKy-3utCZ2CQoFhiNRaqI/s16000/6.png)
-
-**Explanation**:
-
-- –query “(sAMAccountName=aarti)”: Queries for a user with the sAMAccountName “aarti”.
-- –query “(sAMAccountName=*)”: Retrieves all users in the AD environment.
-
-**MITRE ATT&CK Mapping**:
-
-**T1087** – Account Discovery.
 
 ### ASREPRoasting
 
@@ -194,6 +147,67 @@ nxc ldap 192.168.1.48 -u "users.txt" -p '' --asreproast output.txt
 
 **T1558.001** – Kerberos Ticket Extraction.
 
+
+### Kerberoasting
+
+**Purpose**: Kerberoasting extracts service account hashes by requesting service tickets for accounts with SPNs (Service Principal Names).
+
+```bash
+nxc ldap 192.168.1.48 -u raj -p Password@1 --kerberoasting hash.txt
+``` 
+
+![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWfPJxfx5Gf4Kxnf9lUtirm4HYs6K0qSrOoQCvziAO84vwILl2yeUJwgZtj6vFvIQ2QXGIjvHu9udzuHsyqBEBVc4p8JJyBkxLVEkbNeTdwRJ-yqpmGUKZAmrjZNtGTTzd7ZJ8ptj58dLtKthmdqV6MI0StmJIK8E_d-VdbuVOLPhTqqed7Igqgx8Cymgr/s16000/12.png)
+
+**MITRE ATT&CK Mapping**:
+
+**T1558.001** – Kerberos Ticket Extraction.
+
+
+### BloodHound Ingestor
+
+**Purpose**: The BloodHound ingestor is used to collect data for use in BloodHound, a tool for mapping AD attack paths.
+
+```bash
+nxc ldap 192.168.1.48 -u raj -p Password@1 --bloodhound --collection All --dns-server 192.168.1.48
+```
+
+![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvr-ItBjFrTaskhJYqqwWYzbwI-LDu2wudYFcxMnSA5tlmCJF3fyOgBE-ZaR3SXEndkC6jKmmpmWjU_uF9v0vKPf6uovs2LVJ1UalrPTJDxZNil01L9UXGs1bs0-6tp23QdN3TQehx-jSQz1LNpVY5EnvBg5EphU4Tg9dRAWwshmrhBADnxb9l2IkyoS8a/s16000/13.png)
+
+**MITRE ATT&CK Mapping**:
+
+**T1087** – Account Discovery.
+
+
+### Active Directory Certificate Services (ADCS)
+
+**Purpose**: ADCS can be exploited to issue certificates for unauthorized machines. This command checks for misconfigurations or exploitable configurations within ADCS.
+
+```bash
+nxc ldap 192.168.1.48 -u raj -p Password@1 -M adcs
+```
+
+![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgkN2FEDJo3x1xQmP7VwbpNUV-At0C1aDEs1WgEJfXT_IjdxtdANFia0Zz1JwH1b20fDWLI0A_mPEpwr-xdczEvRCUcZF679XuYUooh0BHciCF9usOsVFIdYI9n1HhKSwKSsDbet9BQ_bJKOovVlVfYO4wbMLZv3s6cEkYJ5YHYgEkV7sy6VyUCJenRiBGC/s16000/62.png)
+
+**MITRE ATT&CK Mapping**:
+
+**T1553.003** – Application Layer Protocol: SMB.
+
+### Coercion‑Related Object Review
+
+**Purpose:**  
+This module examines directory entries for configurations that could unintentionally allow certain types of coercion or unintended interactions between systems. It is intended to support administrative audits and configuration hygiene.
+
+**Example Command:**
+
+```bash
+nxc ldap <target> -u <user> -p <password> -M coerce_plus
+```
+
+**MITRE ATT&CK Mapping:**  
+
+**T1553.003** – Application Layer Protocol: SMB.
+
+
 ### Find Domain SID
 
 **Purpose**: Retrieves the Domain Security Identifier (SID), which is a unique identifier for the domain.
@@ -217,34 +231,6 @@ nxc ldap 192.168.1.48 -u raj -p Password@1 --admin-count
 ```
 
 ![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJyPd19W56QBqaqjTeYLgfFXjyDIoED5iWjzgjVF8tGEHHN0dg74BMPhn3UGXlTVnjOLCKuxvOIqmblW8i8RnYmw5JZ_A6eWdZLcofNqghrWHrfprapZExlpsKdKCulLQalzkZDJtoBhpTbHwHaag9GexJcVve2vaMIWiOe6-NqCyfViQkbCB-1Ol62edj/s16000/11.png)
-
-**MITRE ATT&CK Mapping**:
-
-**T1087** – Account Discovery.
-
-### Kerberoasting
-
-**Purpose**: Kerberoasting extracts service account hashes by requesting service tickets for accounts with SPNs (Service Principal Names).
-
-```bash
-nxc ldap 192.168.1.48 -u raj -p Password@1 --kerberoasting hash.txt
-``` 
-
-![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWfPJxfx5Gf4Kxnf9lUtirm4HYs6K0qSrOoQCvziAO84vwILl2yeUJwgZtj6vFvIQ2QXGIjvHu9udzuHsyqBEBVc4p8JJyBkxLVEkbNeTdwRJ-yqpmGUKZAmrjZNtGTTzd7ZJ8ptj58dLtKthmdqV6MI0StmJIK8E_d-VdbuVOLPhTqqed7Igqgx8Cymgr/s16000/12.png)
-
-**MITRE ATT&CK Mapping**:
-
-**T1558.001** – Kerberos Ticket Extraction.
-
-### BloodHound Ingestor
-
-**Purpose**: The BloodHound ingestor is used to collect data for use in BloodHound, a tool for mapping AD attack paths.
-
-```bash
-nxc ldap 192.168.1.48 -u raj -p Password@1 --bloodhound --collection All --dns-server 192.168.1.48
-```
-
-![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvr-ItBjFrTaskhJYqqwWYzbwI-LDu2wudYFcxMnSA5tlmCJF3fyOgBE-ZaR3SXEndkC6jKmmpmWjU_uF9v0vKPf6uovs2LVJ1UalrPTJDxZNil01L9UXGs1bs0-6tp23QdN3TQehx-jSQz1LNpVY5EnvBg5EphU4Tg9dRAWwshmrhBADnxb9l2IkyoS8a/s16000/13.png)
 
 **MITRE ATT&CK Mapping**:
 
@@ -388,7 +374,7 @@ nxc ldap "192.168.1.48" -u "raj" -p "Password@1" -M get-network
 
 **Purpose**: The **DACL (Discretionary Access Control List)** reading command is used to view access control lists for specific AD objects, which can help identify overly permissive access or misconfigurations.
 
-```
+```bash
 nxc ldap 192.168.1.48 -u raj -p Password@1 --kdcHost ignite.local -M daclread -o TARGET=Administrator ACTION=read
 ```
 
@@ -471,16 +457,73 @@ nxc ldap 192.168.1.48 -u raj -p Password@1 -M pre2k
 
 **T1077** – Windows Admin Shares.
 
-### Active Directory Certificate Services (ADCS)
 
-**Purpose**: ADCS can be exploited to issue certificates for unauthorized machines. This command checks for misconfigurations or exploitable configurations within ADCS.
+
+### LDAP Checker
+
+**Purpose:**  
+This module performs general LDAP‑based checks to validate directory information, identify inconsistencies, or highlight entries that may require administrative attention.
+
+**Example Command:**
 
 ```bash
-nxc ldap 192.168.1.48 -u raj -p Password@1 -M adcs
+nxc ldap <target> -u <user> -p <password> -M ldap_checker
 ```
 
-![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgkN2FEDJo3x1xQmP7VwbpNUV-At0C1aDEs1WgEJfXT_IjdxtdANFia0Zz1JwH1b20fDWLI0A_mPEpwr-xdczEvRCUcZF679XuYUooh0BHciCF9usOsVFIdYI9n1HhKSwKSsDbet9BQ_bJKOovVlVfYO4wbMLZv3s6cEkYJ5YHYgEkV7sy6VyUCJenRiBGC/s16000/62.png)
-
-**MITRE ATT&CK Mapping**:
+**MITRE ATT&CK Mapping:**  
 
 **T1553.003** – Application Layer Protocol: SMB.
+
+
+
+### Zerologon Review
+
+**Purpose:**  
+This module evaluates whether a domain controller may be affected by legacy configuration issues related to the historical Zerologon vulnerability. It is intended for assessment and verification in properly authorized environments.
+
+**Example Command:**
+
+```bash
+nxc ldap <target> -u <user> -p <password> -M zerologon
+```
+
+**MITRE ATT&CK Mapping:**  
+
+**T1553.003** – Application Layer Protocol: SMB.
+
+
+
+### Antivirus Enumeration
+
+**Purpose:**  
+This module queries directory information to identify antivirus‑related attributes or metadata associated with domain‑joined systems. It can help administrators understand the distribution of security products across the environment.
+
+**Example Command:**
+
+```bash
+nxc ldap <target> -u <user> -p <password> -m enum_av
+```
+
+**MITRE ATT&CK Mapping:**  
+
+**T1553.003** – Application Layer Protocol: SMB.
+
+
+
+### Obsolete Objects Review
+
+**Purpose:**  
+This module identifies outdated or legacy directory objects that may no longer be in active use. Such objects can accumulate over time and may require cleanup or administrative review.
+
+**Example Command:**
+
+```bash
+nxc ldap <target> -u <user> -p <password> -M obsolete
+```
+
+**MITRE ATT&CK Mapping:**  
+
+**T1553.003** – Application Layer Protocol: SMB.
+
+
+
