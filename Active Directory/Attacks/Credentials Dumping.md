@@ -5,11 +5,12 @@
 
 ## Common Targets for Credential Dumping
 
-- **LSASS process memory**: Contains NTLM hashes, Kerberos tickets, and plaintext credentials in some cases.
-- **SAM database**: Stores local account password hashes.
-- **NTDS**: Active Directory database containing all domain user password hashes.
-- **LSA Secrets**: Registry keys storing service account credentials, cached domain logons, and DPAPI keys.
-- **Kerberos tickets**: Cached TGTs and service tickets in memory.
+- **LSASS process memory**: Contains NTLM hashes, Kerberos tickets, and in some cases plaintext credentials. It is a critical component of Windows authentication, making it a high‑value target for attackers.
+- **SAM database**: Stores local account password hashes. It is protected by system permissions, but if accessed offline or through privilege escalation, its contents can be extracted.
+- **NTDS**: The Active Directory database that contains all domain user password hashes. Compromising NTDS.dit provides access to the entire domain’s credential material.
+- **LSA Secrets**: Registry-stored secrets that include service account passwords, cached domain logons, and keys used internally by Windows. These secrets can reveal sensitive configuration data and authentication material.
+- **Kerberos tickets**: Cached TGTs and service tickets stored in memory. They can be reused or extracted to impersonate users within a domain environment.
+- **DPAPI (Data Protection API)**: Windows’ built‑in system for encrypting sensitive data such as browser passwords, Wi‑Fi keys, certificates, and application secrets. It relies on user credentials and master keys stored in the system, making it a valuable target for accessing protected information.
 
 
 ---
@@ -145,14 +146,3 @@ impacket-secretsdump domain/admin:password@<dc_ip> -just-dc-ntlm
 impacket-secretsdump -just-dc-user 'domain\krbtgt' domain/admin:password@<dc_ip>
 ```
 
----
-
-#### DCSync Attack
-
-- **Abuse replication privileges** to request password data directly from a DC without touching disk.
-
-```bash
-impacket-secretsdump -just-dc domain/admin:password@<dc_ip>
-```
-
-If the account has replication rights, this functions as a DCSync.
