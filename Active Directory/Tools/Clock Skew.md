@@ -15,7 +15,7 @@ This means your system time is too far off compared to the DC’s time.
 
 ## How to Fix Clock Skew
 
-- Useing `rdate`:
+- Using `rdate`:
 
 ```bash
 sudo rdate -n <dc_ip>
