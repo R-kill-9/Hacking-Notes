@@ -163,12 +163,18 @@ Connection: keep-alive
 Configuring the following command, we achieve to enumerate the application users.
 
 ```bash
-ffuf -u 'http://nocturnal.htb/view.php?username=FUZZ&file=file.xlsx' -w /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt -H 'Cookie: PHPSESSID=8cm81dpba2svtbmi4i5jr7n3jp'  -fs 2985
+ffuf -u 'http://example.com/view.php?username=FUZZ&file=file.xlsx' -w /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt -H 'Cookie: PHPSESSID=8cm81dpba2svtbmi4i5jr7n3jp'  -fs 2985
 ```
 
 #### Post method
 
 ```bash
-ffuf -u <URL> -X POST -d "parameter+FUZZ" -w <wordlist> -fs 61
+ffuf -u <URL> -X POST -d "parameter=FUZZ" -w <wordlist> -fs 61
 ```
 
+#### Fuzzing 2 parameters
+Ffuf also allows fuzzing two parameters at the same time; this can be done as shown in the following example.
+
+```bash
+ffuf -u http://example.com/login -X POST -w users.txt:/usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt -w /usr/share/wordlists/rockyou.txt:PASS  -d "username=USER&password=PASS"  -fs 0             
+```

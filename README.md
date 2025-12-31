@@ -1,6 +1,8 @@
 ## Overview
 
-This repository contains a collection of notes and techniques for ethical hacking and penetration testing. It is designed to be a practical resource for beginners and professionals aiming to enhance their knowledge and skills in hacking and security.
+These are **support notes** intended to help you study and practice ethical hacking and penetration testing. The repository includes techniques, explanations, and references useful for both beginners and experienced professionals who want to strengthen their knowledge in cybersecurity.
+
+If you want a clean and efficient way to organize or expand these notes, I highly recommend using **Obsidian**.
 
 ## Installation
 
