@@ -94,6 +94,8 @@ Once we know the number and type of columns, they can extract sensitive data by 
 
 In this example, the `username` and `password` columns are retrieved from the `users` table.
 
+> In case the extraction field is numeric, it may be useful to indicate negative numbers. This way, a SELECT is not performed on that numeric value and the desired value is selected instead, for example:
+`id = -1 UNION SELECT NULL, database(), NULL --`
 #### Additional Information Extraction
 
 - **Obtain the current database name:**
