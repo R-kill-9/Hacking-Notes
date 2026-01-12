@@ -34,12 +34,6 @@ nmap -p 445,135 --script smb-os-discovery <target-ip>
 - Windows Server 2016
 - Windows Server 2019
 
-### 2. Test for Vulnerability
-
-Using Impacket's `zerologon_tester.py`:
-```bash
-python3 zerologon_tester.py <DC-name> <DC-ip>
-```
 
 ### 2. Test for Vulnerability
 
