@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Cracking & Brute Force/Hashcat.md",
+                "file": "README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Hashcat"
+              "title": "README"
             }
           }
         ],
@@ -206,6 +206,7 @@
   },
   "active": "a13789a8b542142c",
   "lastOpenFiles": [
+    "Cracking & Brute Force/Hashcat.md",
     "Tools and Techniques/Databases/Sqlite3.md",
     "README.md",
     "Active Directory/Tools/BloodHound.md",
@@ -232,7 +233,6 @@
     "Active Directory/Tools/Certipy.md",
     "Privilege Escalation & Post-Explotation/Windows/Windows Privilege Escalation Guide.md",
     "Active Directory/Tools/Netexec.md",
-    "Active Directory/Workflow Guide/Active Directory Enumeration – With Credentials.md",
     "Images/decrypt_jenkins_result.png",
     "Images/Private_key_dev_tools.png",
     "Images/Replace_Confidentiality.png",
