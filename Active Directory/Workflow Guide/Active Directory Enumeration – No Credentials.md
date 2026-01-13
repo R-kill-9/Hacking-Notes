@@ -95,6 +95,9 @@ Query LDAP services without credentials to collect domain information:
 # Retrieve naming contexts and domain info
 ldapsearch -x -H ldap://<dc_ip> -s base
 
+# Enumerate users
+ldapsearch -x -H ldap://<dc_ip> -b "dc=<domain>,dc=local" "(objectClass=user)"
+
 # Detect LDAP services and gather attributes
 nmap -n -sV --script 'ldap* and not brute' -p 389 <dc_ip>
 ```
