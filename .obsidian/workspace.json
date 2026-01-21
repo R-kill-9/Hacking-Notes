@@ -191,8 +191,9 @@
   },
   "active": "3e0a115076eb8c6d",
   "lastOpenFiles": [
-    "Hacking Wifi/Wifitie.md",
+    "Hacking Wifi/Aircrack-ng suite.md",
     "README.md",
+    "Hacking Wifi/Wifitie.md",
     "Cracking & Brute Force/Hashcat.md",
     "Tools and Techniques/Databases/Sqlite3.md",
     "Active Directory/Tools/BloodHound.md",
@@ -217,7 +218,6 @@
     "Active Directory/Tools/Clock Skew.md",
     "Active Directory/Attacks/Golden Ticket Attack.md",
     "Active Directory/Tools/Certipy.md",
-    "Privilege Escalation & Post-Explotation/Windows/Windows Privilege Escalation Guide.md",
     "Images/decrypt_jenkins_result.png",
     "Images/Private_key_dev_tools.png",
     "Images/Replace_Confidentiality.png",
