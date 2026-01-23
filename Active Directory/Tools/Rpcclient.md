@@ -39,12 +39,12 @@ rpcclient -U <username> <target_ip>
 | `enumprivs`             | Enumerate domain privileges.                    |
 #### System & Policy Info
 
-|Command|Description|
-|---|---|
-|`getdompwinfo`|Retrieve password policy (min length, lockout, etc.).|
-|`getdcname`|Get the primary domain controller name.|
-|`netshareenum`|List all SMB shares (even hidden ones, if accessible).|
-|`netsharegetinfo <sharename>`|Get details about a specific share.|
-|`netfileenum`|Enumerate open files on the server.|
-|`enumdrivers`|Enumerate printer drivers (may leak file paths).|
-|`enumports`|Enumerate printer ports.|
+| Command                       | Description                                            |
+| ----------------------------- | ------------------------------------------------------ |
+| `getdompwinfo`                | Retrieve password policy (min length, lockout, etc.).  |
+| `getdcname`                   | Get the primary domain controller name.                |
+| `netshareenum`                | List all SMB shares (even hidden ones, if accessible). |
+| `netsharegetinfo <sharename>` | Get details about a specific share.                    |
+| `netfileenum`                 | Enumerate open files on the server.                    |
+| `enumdrivers`                 | Enumerate printer drivers (may leak file paths).       |
+| `enumports`                   | Enumerate printer ports.                               |
