@@ -25,7 +25,7 @@ nxc smb <ip_range> -u '<user>' -p '<password>' -M spider_plus
 manspider <ip_range> -c passw -e <file extensions> -d <domain> -u <user> -p <password>
 ```
 
-## Enumerate SMB shares (browse and retrieve files)
+### Enumerate SMB shares (browse and retrieve files)
 
 Enumerate shares and optionally download a file from a share.
 ```bash

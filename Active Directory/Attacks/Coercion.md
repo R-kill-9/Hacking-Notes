@@ -8,7 +8,7 @@
 The `coerce_plus` module of **Netexec** inspects Active Directory objects for configurations that could unintentionally allow one machine or service to trigger authentication from another. 
 
 ```bash
-nxc smb <target> -u <user> -p <password> -M coerce_plus
+nxc ldap <target> -u <user> -p <password> -M coerce_plus
 ```
 
 - Detects potential coercion paths (RPC, legacy permissions).

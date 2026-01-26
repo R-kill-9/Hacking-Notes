@@ -448,8 +448,9 @@ nxc ldap 192.168.1.48 -u raj -p Password@1 -M enum_trusts
 ### Identifying Pre-Created Computer Accounts
 
 **Purpose**: This command identifies pre-created computer accounts that could be used for bypassing security controls or creating rogue machines on the network.
-
+```bash
 nxc ldap 192.168.1.48 -u raj -p Password@1 -M pre2k
+```
 
 ![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEKhLq-vebEMutWFoVQUE6niTQ0f1mK1MpwG6D9lasrlvdkTZNNQFfKpKLgf9SLLjMbmyDuCDBvTJsnf2Wwj8YRfSjhnTt7OQSHQ3MxS_kCnryUkphy6YPvzWZrYeVLhKzcQevLHmqkvV4Pde6oAguBE_IVc_hewqRwHtXajejUrenD3bcYI9S0uQ3B-C_/s16000/61.png)
 
@@ -501,7 +502,7 @@ This module queries directory information to identify antivirus‑related attrib
 **Example Command:**
 
 ```bash
-nxc ldap <target> -u <user> -p <password> -m enum_av
+nxc smb <target> -u <user> -p <password> -M enum_av
 ```
 
 **MITRE ATT&CK Mapping:**  
