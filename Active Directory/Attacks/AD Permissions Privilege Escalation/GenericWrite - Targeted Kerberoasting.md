@@ -53,7 +53,7 @@ This confirms write access to the target account.
 6. (Optionally) removes the fake SPN
 
 ```bash
-impacket-targetedKerberoast -v -d domain.local -u controlledUser -p 'ItsPassword'
+targetedKerberoast.py -v -d domain.local -u controlledUser -p 'ItsPassword'
 ```
 
 Output example:
