@@ -55,6 +55,16 @@ reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v Defaul
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultPassword
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon
 ```
+
+## Powershell History
+
+Use it to discover passwords in plain text:
+```powershell
+cd $env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\
+ls
+type ConsoleHost_history.txt
+```
+
 ## Network Enumeration
 
 Identify open ports, connections, and shares:

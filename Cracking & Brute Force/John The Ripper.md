@@ -39,6 +39,7 @@ john --format=<format> --wordlist=<wordlist> <hash_file>
 |**mysql**|MySQL password hash format (e.g., `*A75C1E...`).|
 |**krb5asrep**|Kerberos AS-REP hash format, used for ticket-based authentication (e.g., `user$krb5asrep$...`).|
 
+---
 
 ## Cracking a zip file
 1. **Convert the ZIP file to a hash format**:
@@ -65,6 +66,8 @@ Once John has finished trying passwords, you can view the found password with th
 john --show <hash_file_generated>
 ```
 
+
+---
 
 ## Cracking a SSH Key
 If you want to **crack the password of an SSH key** (e.g., if the private key is protected by a password), you can use `ssh2john` to convert the SSH key to a format John the Ripper can handle. Here are the steps:
@@ -107,6 +110,9 @@ For example, if the cracked password is `kill-9`, you can update or regenerate t
 ssh-keygen -p -f id_rsa -P kill-9 -N ""
 ```
 
+
+---
+
 ## Cracking .kdbx Files (KeePass)
 If you want to **crack the password** of a `.kdbx` file (KeePass), John the Ripper can be used with the help of an additional tool like `keepass2john` to convert the KeePass file into a hash.
 
@@ -133,6 +139,9 @@ Once John has finished trying passwords, you can view the found password with th
 ```bash
 john --show <hash_file_generated>
 ```
+
+
+---
 
 ## Cracking a .pwsafe3 File (Password Safe)
 
@@ -180,4 +189,37 @@ john --wordlist=<wordlist> <hash_file_generated>
 
 ```bash
 john --show <hash_file_generated>
+```
+
+
+
+---
+
+## Cracking a PFX / P12 File (pfx2john)
+
+If you want to crack the password of a **`.pfx` / `.p12` (PKCS#12)** file, you can use **`pfx2john`** to convert it into a hash format that **John the Ripper** understands.
+
+1. **Convert the PFX file to a hash**
+
+First, extract the hash from the PFX file using `pfx2john`:
+
+```bash
+pfx2john <file.pfx> > <hash_file_generated>
+```
+
+This command converts the PFX into a crackable hash format for John the Ripper.
+
+2. **Crack the hash file**
+
+Once you have the hash file, use John with a wordlist to crack the password:
+
+```bash
+# wordlist example: /usr/share/wordlists/rockyou.txt
+john --wordlist=<wordlist> <hash_file_generated>
+```
+
+3. **Use the cracked PFX password**
+
+```bash
+certipy-ad auth -pfx legacyy_dev_auth.pfx -password thuglegacy -dc-ip <DC_IP>
 ```

