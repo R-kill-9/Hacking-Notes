@@ -1,67 +1,140 @@
- **Nmap (Network Mapper)**  allows users to scan networks, identify hosts, and determine open ports, services, and operating systems running on devices.
-
-| Option               | Description                                                                                                                     |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| **`-sV`**            | Shows the version of the service running on each port.                                                                          |
-| **`-sC`**            | Uses additional scripts to gather more information.                                                                             |
-| **`-sS`**            | Stealth scan.                                                                                                                   |
-| **`-sn`**            | Is used for a ping scan.                                                                                                        |
-| **`-sU`**            | Scans the UDP ports.                                                                                                            |
-| **`-sT`**            | Makes the scan by TCP.                                                                                                          |
-| **`-p-`**            | Scans all ports.                                                                                                                |
-| **`-Pn`**            | Skip recognition phase.                                                                                                         |
-| **`-O`**             | Determines the operating system of the target.                                                                                  |
-| **`-p <port>`**      | Scans only the specified port number.                                                                                           |
-| **`-vvv`**           | Increase verbosity.                                                                                                             |
-| **`--open`**         | Only displays open ports.                                                                                                       |
-| **`-iL`**            | Allows you to specify a file containing a list of IP addresses.                                                                 |
-| **`-PS`**            | Sends TCP SYN packets to determine if a host is up. It's useful for network discovery when ICMP (ping) is blocked by firewalls. |
-| **`--osscan-guess`** | Allows to make a guess of the operating system.                                                                                 |
-| **`--min-rate`**     | Specifies the minimum number of packets Nmap should send per second; increasing this number speeds up the scan.                 |
-| **`-T[0...5]`**      | Sets the timing template, which controls the speed and aggressiveness of the scan.                                              |
-| **`-oN,-oG,-oX`**    | Saves the scan results in a human-readable plain text format (-oN), in XML format (-oX), or in grepable format (-oG).           |
-
-
-```bash
-nmap  -sS -sCV -p21 <ip_address>
-```
-
+**Nmap** (Network Mapper) is a powerful network scanning tool used for host discovery, port scanning, service enumeration, OS detection, and security auditing. It is widely used in penetration testing and network defense.
 
 ---
 
-## Nmap scripts
-In Kali Linux, **Nmap scripts** are located in the directory:   `/usr/share/nmap/scripts/`
+## Common Scan Options
 
-These scripts, part of the **Nmap Scripting Engine (NSE)**, extend Nmap's functionality. They allow users to perform tasks such as:
+|Option|Description|
+|---|---|
+|`-sS`|TCP SYN stealth scan. Sends SYN packets and analyzes responses without completing the TCP handshake. Faster and less noisy than full TCP scans.|
+|`-sT`|TCP connect scan. Completes the TCP handshake. More detectable but useful when SYN scans are not permitted.|
+|`-sU`|UDP port scan. Slower and less reliable but necessary for discovering UDP services.|
+|`-sV`|Service version detection. Identifies the application and version running on open ports.|
+|`-sC`|Runs default NSE scripts for basic enumeration and vulnerability checks.|
+|`-sn`|Ping scan. Discovers live hosts without scanning ports.|
+|`-p-`|Scans all 65535 TCP ports.|
+|`-p <port>`|Scans only the specified port(s).|
+|`-Pn`|Skips host discovery and treats the target as alive. Useful when ICMP is blocked.|
+|`-n`|Disables DNS resolution. Improves speed and reduces noise.|
+|`-O`|OS detection using TCP/IP fingerprinting.|
+|`--osscan-guess`|Makes an educated guess if OS detection is inconclusive.|
+|`--open`|Shows only open ports.|
+|`-vvv`|Increases verbosity.|
+|`-iL <file>`|Scans a list of targets from a file.|
+|`-T0` to `-T5`|Timing templates. Higher values are faster but noisier.|
+|`--min-rate <number>`|Sets minimum packets per second to speed up scans.|
+|`-oN/-oG/-oX`|Output formats: normal, grepable, and XML.|
 
-- Vulnerability detection.
-- Service enumeration.
-- Brute-forcing.
-- Exploiting specific vulnerabilities.
 
-```bash
+```
+nmap -sS -sCV -p21 <ip_address>
+```
+
+Performs a SYN scan with service/version detection and default scripts on port 21.
+
+---
+
+## Advanced Evasion Scan Example
+
+```
+nmap -sS -Pn -n -p- 10.129.2.80 --disable-arp-ping -source-port 53 -D RND:2
+```
+
+- `-sS`: Stealth SYN scan
+    
+- `-Pn`: Skips host discovery
+    
+- `-n`: No DNS resolution
+    
+- `-p-`: Scan all ports
+    
+- `--disable-arp-ping`: Avoids ARP discovery (useful in restricted networks)
+    
+- `--source-port 53`: Spoofs source port as DNS to bypass firewalls
+    
+- `-D RND:2`: Uses 2 random decoy IPs to obfuscate the real scanning host
+    
+
+This scan is designed to **evade firewalls, IDS, and IPS systems**.
+
+
+#### IDS and IPS Considerations
+
+**IDS (Intrusion Detection System)**
+
+- Monitors network traffic and generates alerts.
+    
+- Does not block traffic.
+    
+- Nmap scans with high speed (`-T4`, `-T5`) or full port scans are often detected.
+    
+- SYN scans, decoys, and slow timing (`-T1`, `-T2`) can reduce detection.
+    
+
+**IPS (Intrusion Prevention System)**
+
+- Actively blocks suspicious traffic.
+    
+- May drop packets or blacklist the scanning IP.
+    
+- Using `-Pn`, decoys (`-D`), spoofed source ports, and low packet rates helps bypass IPS.
+    
+
+---
+
+## Nmap Scripting Engine (NSE)
+
+NSE extends Nmap by allowing scripted interaction with services.
+
+Scripts are located in:
+
+```
+/usr/share/nmap/scripts/
+```
+
+#### Script Capabilities
+
+- Vulnerability detection
+    
+- Service enumeration
+    
+- Authentication brute-force
+    
+- Configuration auditing
+    
+- Exploitation checks
+    
+
+#### Useful NSE Categories
+
+- `auth`
+    
+- `brute`
+    
+- `default`
+    
+- `discovery`
+    
+- `exploit`
+    
+- `safe`
+    
+- `vuln`
+
+#### Running NSE Scripts
+
+```
 nmap --script <script-name> <target>
 ```
 
-To understand what a specific **Nmap NSE script** does, you can use the `--script-help` option followed by the script's name.
+#### Script Arguments
 
-```bash
-nmap --script-help <script-name>
+```
+nmap --script <script-name> --script-args <key>=<value> <target>
 ```
 
-Use the `--script-args` flag to supply arguments to a script during an Nmap scan.
+Example:
 
-```bash
-nmap --script <script-name> --script-args <argument1>=<value1>,<argument2>=<value2> <target>
 ```
-
----
-
-
-## Converting XML to HTML Using xsltproc
-
-If the `Nmap` results have been stored using XML, you can convert the XML output into a human-readable HTML report using `xsltproc`.
-```bash
-xsltproc scan_results.xml -o report.html
+nmap --script http-brute --script-args userdb=users.txt,passdb=pass.txt 10.10.10.10
 ```
-

@@ -1,5 +1,7 @@
 **FTP** (File Transfer Protocol) is a standard network protocol used to transfer files between a client and a server over a network. 
 
+---
+
 ## Anonymous access
 **FTP** allows users to connect to an FTP server without a specific username or password. The user typically logs in using the username **"anonymous"**. This provides a convenient way to access publicly available files, like software or documentation, but it also poses several security risks if not properly controlled.
 
@@ -9,6 +11,9 @@ ftp <target_ip>
 username: Anonymous
 password: Anonymous
 ```
+
+
+---
 
 ## Brute Force Attack with Hydra
 **Hydra** is a powerful password-cracking tool used for conducting **brute-force attacks** on various services, including FTP.
@@ -22,6 +27,9 @@ password: Anonymous
 ```bash
 hydra -l <username> -P <password_file> ftp://<target_ip>
 ```
+
+
+---
 
 ## Enumeration using Metasploit
 #### Version Enumeration

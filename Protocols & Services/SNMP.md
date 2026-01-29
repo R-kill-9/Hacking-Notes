@@ -1,4 +1,4 @@
-**SNMP** is a protocol that runs in **UDP** port **161** that is used for network management, monitoring, and controlling devices such as routers, switches, servers, and printers. It allows administrators to gather valuable information about devices and networks, as well as configure and troubleshoot devices remotely.
+**SNMP (Simple Network Management Protocol)** is a protocol that runs in **UDP** port **161** that is used for network management, monitoring, and controlling devices such as routers, switches, servers, and printers. It allows administrators to gather valuable information about devices and networks, as well as configure and troubleshoot devices remotely.
 
 ---
 ## General Infomation
@@ -12,6 +12,8 @@
     - **Manager**: A system that controls and monitors SNMP devices (e.g., network management software).
     - **Agent**: Software on the device that collects and reports information back to the manager.
     - **MIB (Management Information Base)**: A database defining what data the manager can query from the agent.
+    - **OID (Object Identifier)**: A unique numeric identifier organized in a hierarchical tree that specifies a particular SNMP object and its location within the MIB.
+    - **Community String**: A plaintext string used as a password in SNMPv1/v2c to control access to SNMP data (e.g., `public` for read-only, `private` for read-write).
 
 
 ---
@@ -34,13 +36,6 @@ This command uses the `snmp-brute` Nmap script to attempt brute-forcing common S
 nmap -sU -p 161 --script snmp-brute <target>
 ```
 
-**Scan SNMP with Built-in Nmap Scripts**
-
-This command runs all available Nmap SNMP-related scripts (`snmp-*`) to gather detailed information from the target device. If SNMP is improperly configured, this scan can provide an attacker with a comprehensive view of the target device, potentially revealing sensitive information such as device names, usernames, network configurations, and even passwords in some cases.
-```bash
-nmap -sU -p 161 --script snmp-* <target> > snmp_info
-```
-
 
 ---
 
@@ -60,7 +55,14 @@ snmpwalk -v 1 -c public <target>
 ---
 
 ### Brute Force SNMP  communities
+#### onesixtyone
+ This command will execute a brute force attack to retrieve existent communities.
+ ```bash
+onesixtyone -c /usr/share/wordlists/seclists/Discovery/SNMP/snmp.txt  10.129.15.150 
+```
 
+
+#### Manual Script
 This Bash loop attempts to brute-force SNMP community strings using a wordlist. It reads each string from the Metasploit default SNMP wordlist and runs `snmpwalk` with SNMP version 2c against the target. The first 10 lines of each response are displayed to quickly identify valid strings.
 
 ```bash

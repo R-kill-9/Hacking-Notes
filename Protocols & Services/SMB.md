@@ -1,4 +1,9 @@
 **SMB** (Server Message Block) is a network file sharing protocol used by Windows-based systems to facilitate file and printer sharing, as well as communication between devices on a local network.
+
+
+---
+
+
 ## SmbClient 
 It is a network protocol tool that allows users to communicate with remote computers and servers to use their resources or share, open, and edit files.
 
@@ -38,6 +43,7 @@ smb: \> prompt OFF
 smb: \> mget *
 ```
 
+---
 ## Smbmap
 It is designed to enumerate and interact with shared files and another resources, providing information about their accessibility, permissions, and potential vulnerabilities.
 - `-H`: Specifies the target IP address (replace "192.168.1.100" with the actual IP).
@@ -47,6 +53,8 @@ It is designed to enumerate and interact with shared files and another resources
 smbmap -H ip -u username -p password
 ```
 
+
+---
 
 ## PsExec
 **PsExec** is a tool from the **Sysinternals Suite** developed by Microsoft. It is used to execute processes or commands on remote systems without requiring manual installation of client software.
@@ -77,6 +85,8 @@ python3 psexec.py <user>@<target_ip>
 ```
 
 
+---
+
 ## Enumeration using Nmap
 **Nmap** scripts can be very useful for enumerating SMB information. They can be listed using `ls /usr/share/nmap/scripts | grep smb`.
 - **smb-enum-shares**: Lists shared directories available on the SMB service and checks for anonymous access.
@@ -89,6 +99,9 @@ python3 psexec.py <user>@<target_ip>
 ```bash
 nmap --script <script_name> <target_ip>
 ```
+
+
+---
 
 
 ## Enumeration using Metasploit
@@ -107,6 +120,7 @@ set RHOSTS <target IP>
 run
 ```
 
+---
 
 ## Eternal Blue
 **Eternal Blue** is a critical vulnerability in the SMBv1 protocol  on Windows systems, specifically identified as **MS17-010** or **CVE-2017-0144**. This exploit allows attackers to execute remote code on unpatched systems, granting full access to compromised machines without needing authentication.
@@ -144,6 +158,8 @@ search eternalblue
 use 0
 ```
 
+
+---
 
 ## SMBv1 Anonymous connection
 

@@ -29,6 +29,6 @@ netexec winrm <target> -u <username> -p <password>
 `netexec` can be used to perform brute force attacks on WinRM.
 
 ```bash
-netexec winrm -u <username_wordlist> -p <password_wordlist> -t <target-ip>
+netexec winrm <target-ip> -u <username_wordlist> -p <password_wordlist> 
 ```
 

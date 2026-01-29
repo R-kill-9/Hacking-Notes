@@ -20,19 +20,32 @@ Identify running services and potential entry points:
 
 ```bash
 # Full TCP scan of all ports with default scripts and version detection
-nmap -Pn -sC -sV -p- -oA <output> <ip>
+nmap -p- -sCV -Pn --open -oA <output> <ip>
 
-# UDP services detection
-nmap -sU -sC -sV -oA <output> <ip>
+# Web servers scan (HTTP/HTTPS and common web ports)
+nmap -p 80,443,8080,8000,8443 -sCV -Pn --open <ip>
 
-# Check for known SMB vulnerabilities
-nmap -Pn --script 'smb-vuln*' -p139,445 <ip>
+# Database servers scan (MySQL, PostgreSQL, MSSQL, Oracle, MongoDB)
+nmap -p 3306,5432,1433,1521,27017 -sV -Pn --open <ip>
 
-# Quick scan of the most common ports
-nmap -Pn -sV --top-ports 50 --open <ip>
+# FTP server scan and anonymous access check
+nmap -p 21 -sCV -Pn --open <ip>
 
-# Detect live hosts with a ping sweep
-nmap -sP <ip_range>
+# SMTP servers scan (mail services)
+nmap -p 25,465,587 -sCV -Pn --open <ip>
+
+# IMAP and POP3 mail services scan
+nmap -p 110,143,993,995 -sCV -Pn --open <ip>
+
+# DNS zone transfer check
+nmap -p 53 --script dns-zone-transfer <ip>
+
+# NFS services scan
+nmap -p 111,2049 -sV -Pn --open <ip>
+
+# SNMP enumeration (common misconfigurations)
+nmap -p 161 --script snmp-info,snmp-enum <ip>
+
 ```
 
 These scans reveal which protocols (SMB, LDAP, Kerberos) are exposed for further testing.

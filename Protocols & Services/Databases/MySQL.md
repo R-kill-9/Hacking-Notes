@@ -33,6 +33,7 @@ mysql -u username -p -h <host> -P 3306
 - `-h`: Host IP or domain
 - `-P`: Port (default is 3306)
 
+> If you receive the following error: `ERROR 2026 (HY000): TLS/SSL error: self-signed certificate in certificate chain`, use the flag `--ssl=0` at the end of the command. 
 
 ---
 
