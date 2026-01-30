@@ -11,6 +11,9 @@
 - **SRV Record**: Defines service-specific information for the domain, such as port numbers.
 - **PTR Record**: Resolves an IP address back to a domain or hostname (reverse DNS lookup).
 
+
+---
+
 ## DNSRecon
 `DNSRecon` is a tool used for performing DNS (Domain Name System) reconnaissance. It helps gather detailed information about a domain's DNS records, such as A records, MX records, CNAME records, and more. The tool is commonly used in security assessments to map out the structure of a domain and identify potential attack vectors, such as subdomains, mail servers, and DNS misconfigurations.
 

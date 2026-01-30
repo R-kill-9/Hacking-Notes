@@ -1,5 +1,7 @@
 **Serveo** is a cloud-based service that allows you to expose local servers to the internet through SSH tunneling without needing to install any additional software. It’s similar to services like Ngrok, but it operates through an SSH connection, making it a very lightweight and easy-to-use option for developers and pentesters alike.
 
+---
+
 ## Basic Commands and Usage
 
 #### 1. Exposing a Local Web Server (Port 8080)
@@ -18,6 +20,9 @@ Ensure the local service you want to expose is running and that the port (in thi
 python3 -m http.server 8080
 ```
 
+
+---
+
 ## Using a Custom Subdomain
 
 To use a custom subdomain with Serveo, use the following command:
@@ -26,6 +31,8 @@ ssh -R yoursubdomain:80:localhost:8080 serveo.net
 ```
 This will expose your local service at `https://yoursubdomain.serveo.net`.
 
+
+---
 
 ## Forwarding SSH or Other Services
 

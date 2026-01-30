@@ -1,51 +1,7 @@
 **Fuzzing** is an automated software testing method that injects invalid, malformed, or unexpected inputs into a system to reveal software defects and vulnerabilities. A fuzzing tool injects these inputs into the system and then monitors for exceptions such as crashes or information leakage.
 
-## Feroxbuster
-
-Feroxbuster is a **fast, recursive, and parallel** directory and file brute-forcing tool written in Rust. It is highly effective for finding hidden directories and files.
-
-#### Basic Usage
-
-| Option            | Description                                   |
-| ----------------- | --------------------------------------------- |
-| `-u <URL>`        | Target URL to scan.                           |
-| `-w <wordlist>`   | Specify a custom wordlist.                    |
-| `-t <threads>`    | Number of threads to use (default: 50).       |
-| `-n`              | Do not recurse into found directories.        |
-| `-x <extensions>` | Extensions to fuzz (e.g., `-e php,txt,html`). |
-| `-o <file>`       | Output results to a file.                     |
-
-```
-feroxbuster -u <URL>
-```
-
-#### Example Usage:
-
-- **Basic scan:**
-```
-feroxbuster -u http://<machine-ip> -t 50
-```
-
-- **Recursive scan with a wordlist:**
-```
-feroxbuster -u http://<machine-ip> -w <wordlist> -r
-```
-
-- **Scan for specific extensions:**
-```
-feroxbuster -u http://<machine-ip> -x php,html,txt
-```
-
-- **Save results to a file:**
-```
-feroxbuster -u http://<machine-ip> -o results.txt
-```
-
-
-
 
 ---
-
 
 ## Gobuster
 It is a command-line tool used for performing brute-force scans or directory and subdomain enumeration on a website.
@@ -86,36 +42,6 @@ Used when you know the domain name (e.g., medusa.hmv).
 ```bash
 gobuster dns -d <domain> -w <wordlist> -o gobuster.out
 ```
-
----
-
-
-
-## wfuzz
-It is a command-line tool used for performing brute-force scans or directory and subdomain enumeration on a website. Also, it can be useful for enumerate files with an specific extension.
-#### Useful parameters
-| Option | Description                                                                         |
-| ------ | ----------------------------------------------------------------------------------- |
-| `--hc` | This filter excludes responses that have x words.                                   |
-| `--hl` | This filter excludes responses that have x lines, which seem to be false positives. |
-| `--hh` | This filter excludes responses that have x characters.                              |
-
-#### Subdomains
-```bash
-wfuzz -c  -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-20000.txt  -u http://<machine-ip> -H "Host: FUZZ.<machine-ip>" -t 100 --hl 7 --hc 145
-```
-
-
-#### Subdirectories
-```bash
-wfuzz -c --hc 404 -w <wordlist> http://<machine-ip>/FUZZ
-```
-
-#### Common files
-```bash
-wfuzz -c --hc 404 -w <wordlist> http://<machine-ip>/FUZZ.php
-```
-
 
 
 ---
@@ -178,3 +104,84 @@ Ffuf also allows fuzzing two parameters at the same time; this can be done as sh
 ```bash
 ffuf -u http://example.com/login -X POST -w users.txt:/usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt -w /usr/share/wordlists/rockyou.txt:PASS  -d "username=USER&password=PASS"  -fs 0             
 ```
+
+#### Fuzzing Virtual Hosts
+```bash
+wfuzz -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-110000.txt  -u http://<host>  -H "Host: FUZZ.<host>" -t 100 -fs <size>
+```
+
+
+---
+
+## Feroxbuster
+
+Feroxbuster is a **fast, recursive, and parallel** directory and file brute-forcing tool written in Rust. It is highly effective for finding hidden directories and files.
+
+#### Basic Usage
+
+| Option            | Description                                   |
+| ----------------- | --------------------------------------------- |
+| `-u <URL>`        | Target URL to scan.                           |
+| `-w <wordlist>`   | Specify a custom wordlist.                    |
+| `-t <threads>`    | Number of threads to use (default: 50).       |
+| `-n`              | Do not recurse into found directories.        |
+| `-x <extensions>` | Extensions to fuzz (e.g., `-e php,txt,html`). |
+| `-o <file>`       | Output results to a file.                     |
+
+```bash
+feroxbuster -u <URL>
+```
+
+#### Example Usage:
+
+- **Basic scan:**
+```bash
+feroxbuster -u http://<machine-ip> -t 50
+```
+
+- **Recursive scan with a wordlist:**
+```bash
+feroxbuster -u http://<machine-ip> -w <wordlist> -r
+```
+
+- **Scan for specific extensions:**
+```bash
+feroxbuster -u http://<machine-ip> -x php,html,txt
+```
+
+- **Save results to a file:**
+```bash
+feroxbuster -u http://<machine-ip> -o results.txt
+```
+
+
+
+---
+
+
+## wfuzz
+It is a command-line tool used for performing brute-force scans or directory and subdomain enumeration on a website. Also, it can be useful for enumerate files with an specific extension.
+#### Useful parameters
+| Option | Description                                                                         |
+| ------ | ----------------------------------------------------------------------------------- |
+| `--hc` | This filter excludes responses that have x words.                                   |
+| `--hl` | This filter excludes responses that have x lines, which seem to be false positives. |
+| `--hh` | This filter excludes responses that have x characters.                              |
+
+#### Subdomains
+```bash
+wfuzz -c  -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-20000.txt  -u http://<machine-ip> -H "Host: FUZZ.<machine-ip>" -t 100 --hl 7 --hc 145
+```
+
+
+#### Subdirectories
+```bash
+wfuzz -c --hc 404 -w <wordlist> http://<machine-ip>/FUZZ
+```
+
+#### Common files
+```bash
+wfuzz -c --hc 404 -w <wordlist> http://<machine-ip>/FUZZ.php
+```
+
+
