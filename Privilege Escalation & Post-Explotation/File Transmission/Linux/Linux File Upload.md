@@ -10,7 +10,6 @@ A simple and effective way to upload files is by using an HTTP server that suppo
 
 To improve security, HTTPS can be used to encrypt the file transfer.
 
----
 
 ### Attacker Machine 
 
@@ -20,7 +19,6 @@ To improve security, HTTPS can be used to encrypt the file transfer.
 sudo python3 -m pip install --user uploadserver
 ```
 
----
 
 ### Create a Self-Signed Certificate
 
@@ -30,7 +28,6 @@ A self-signed certificate is used to enable HTTPS communication.
 openssl req -x509 -out server.pem -keyout server.pem -newkey rsa:2048 -nodes -sha256 -subj '/CN=server'
 ```
 
----
 
 ### Start HTTPS Upload Server
 
@@ -46,7 +43,6 @@ sudo python3 -m uploadserver 443 --server-certificate ~/server.pem
 
 The upload endpoint will be available at `/upload`.
 
----
 
 ### Linux Target
 
@@ -77,15 +73,12 @@ This approach is useful when direct upload mechanisms are unavailable.
 python3 -m http.server
 ```
 
----
-
 **Create a Web Server with Python 2.7:**
 
 ```bash
 python2.7 -m SimpleHTTPServer
 ```
 
----
 
 **Create a Web Server with PHP:**
 
@@ -93,7 +86,6 @@ python2.7 -m SimpleHTTPServer
 php -S 0.0.0.0:8000
 ```
 
----
 
 **Create a Web Server with Ruby:**
 

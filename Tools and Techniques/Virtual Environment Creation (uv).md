@@ -16,10 +16,36 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 
 ---
+## Usage
 
-## Usage: One-Off Virtual Environment
+#### Project Initialization 
 
-Instead of creating a virtual environment manually, you can execute a tool **in an isolated env directly**:
+The first step when starting a new project with uv is to initialize it:
+
+```bash
+uv init
+```
+
+#### Adding Libraries to Your Project
+
+Once your project is initialized with `uv init`, you can add dependencies using:
+
+```bash
+uv add <package>
+```
+
+This will:
+
+- Install the package into the project’s virtual environment
+    
+- Update the `pyproject.toml` and lockfile
+    
+- Make the package available for your scripts
+
+
+#### Running a script with temporary dependencies
+
+You can run a script and install extra packages only for that execution:
 
 ```bash
 uv run <executable> [args]
@@ -37,4 +63,4 @@ uv run bloodhound-python -c All -u user -p pass -d domain.local -ns 192.168.1.10
 - Install the tool and dependencies
 - Run it in isolation
 
-The environment is cached and reused for performance.
+
