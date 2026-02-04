@@ -18,9 +18,7 @@ This is the reverse of the Base64 download technique.
 ### Encode File on Windows
 
 ```powershell
-[Convert]::ToBase64String(
-(Get-Content C:\path\file -Encoding Byte)
-)
+[Convert]::ToBase64String((Get-Content C:\path\file -Encoding Byte))
 ```
 
 ### Decode on Linux

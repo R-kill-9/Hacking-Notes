@@ -1,4 +1,6 @@
-**Hashcat** is a high-performance password recovery tool that supports a broad set of hash algorithms and multiple attack modes. It can process single hashes or large hash lists from files, and it supports CPU and GPU acceleration. Hashcat is commonly used for legitimate security testing, password auditing, and recovery of lost credentials. Always obtain explicit authorization before attempting to crack any credentials that you do not own.
+**Hashcat** is a high-performance password recovery tool that supports a broad set of hash algorithms and multiple attack modes. It can process single hashes or large hash lists from files, and it supports CPU and GPU acceleration. 
+
+---
 
 ## Common attack modes and option descriptions
 
@@ -22,74 +24,96 @@
 | `--force`          | Force execution despite warnings (use with caution).                                                                                                                                         |
 #### Basic Usage
 ```bash
-# save hashes in hashes.txt, wordlist is /usr/share/wordlists/rockyou.txt
+# Save hashes in hashes.txt.
 hashcat -m 0 -a 0 hashes.txt /usr/share/wordlists/rockyou.txt
 ```
 
 
 ---
 
-## Dictionaries and rulesets 
+## Rule-Based Attacks
 
-#### Kaonashi + haku34 rules
+Rules are used to modify words in a wordlist to generate password variants. 
 
-- **Repository:** `https://github.com/kaonashi-passwords/Kaonashi`
+**Common rules are:**
+- `best66.rule`: common transformations like capitalization, number suffixes, leet speak
+- `d3ad0ne.rule`: aggressive transformations
+- `rockyou-30000.rule`: specific popular password patterns
 
-- **Notes:** Kaonashi dictionaries are large, leak-derived wordlists that tend to yield high success rates compared to smaller, older lists (e.g., rockyou). The `haku34` ruleset is an aggressive, high-coverage set of transformation rules used in some cracking projects (RootedCON 2019).
+```bash
+hashcat -a 0 -m 0 <hash> /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best66.rule
+```
 
-- **Usage guidance:** Use Kaonashi + `haku34` for fast hashes (NTLM, MD5, etc.) when GPU time is available. For long-running jobs or when GPU memory/time is limited, consider using a less aggressive ruleset (e.g., `yubaba64` or a smaller rule file) to reduce runtime and candidate explosion.
+#### Kaonashi + rules
+
+[Kaonashi](https://github.com/kaonashi-passwords/Kaonashi) dictionaries are large, leak-derived wordlists that tend to yield high success rates compared to smaller, older lists (e.g., rockyou). 
+
+The `haku34` ruleset is an aggressive, high-coverage set of transformation rules used in some cracking projects (RootedCON 2019).
+
+Use Kaonashi + `haku34` for fast hashes (NTLM, MD5, etc.) when GPU time is available. For long-running jobs or when GPU memory/time is limited, consider using a less aggressive ruleset (e.g., `yubaba64` or a smaller rule file) to reduce runtime and candidate explosion.
 
 #### Lemario (Spanish) + OneRuleToRuleThemAll
-
-- **Repository:** `https://github.com/olea/lemarios` (lemario-general-del-espanol.txt)
-
-- **Notes:** Comprehensive Spanish-language wordlist. Combine with `OneRuleToRuleThemAll.rule` for broad morphological coverage and high likelihood to hit Spanish-language passwords.
+[lemario-general-del-espanol.txt](https://github.com/olea/lemarios) is a comprehensive Spanish-language wordlist. Combine it with `OneRuleToRuleThemAll.rule` for broad morphological coverage and high likelihood to hit Spanish-language passwords.
 
 
 ---
 
 ## Mask-based strategies
+A mask attack (`-a 3`) is a brute-force attack where the keyspace is explicitly defined by the user. It is useful when some structure of the password is known.
 
- Mask attacks are incremental and are ideal for structured or partially-known formats (e.g., DNI, years, known prefixes).
+**Built-in charsets:**
 
-- Example: brute force up to 7 characters (any character set), incremental:
+|Symbol|Charset|
+|---|---|
+|?l|abcdefghijklmnopqrstuvwxyz|
+|?u|ABCDEFGHIJKLMNOPQRSTUVWXYZ|
+|?d|0123456789|
+|?h|0123456789abcdef|
+|?H|0123456789ABCDEF|
+|?s|Space and special characters|
+|?a|?l?u?d?s (all printable)|
+|?b|0x00 - 0xff|
+
+**Example:**
+
 ```bash
-hashcat -a 3 -m 1000 hash.txt --increment --force -O -w 4 "?a?a?a?a?a?a?a"
+hashcat -a 3 -m 0 <hash> '?u?l?l?l?l?d?s'
 ```
 
-- Example with a custom class combining lower+upper for last character:
-```bash
-hashcat -a 3 -m 1000 -O -w 4 -1 ?l?u ntds.txt ?d?d?d?d?d?d?d?d?1
-```
+- This mask: `?u?l?l?l?l?d?s` means:
+    - 1 uppercase letter
+    - 4 lowercase letters
+    - 1 digit
+    - 1 special character
 
 
 ---
 ## Hashcat modes
 
-| Hash mode (`-m`) | Algorithm name                  |
-| ---------------- | ------------------------------- |
-| **0**            | MD5                             |
-| **100**          | SHA1                            |
-| **1400**         | SHA256                          |
-| **1700**         | SHA-512                         |
-| **400**          | phpass                          |
-| **500**          | md5crypt                        |
-| **900**          | MD4                             |
-| **1000**         | NTLM                            |
-| **1100**         | NetNTLMv1                       |
-| **2100**         | DCC2 / MS-Cache v2              |
-| **2500**         | WPA/WPA2-PSK (EAPOL)            |
-| **3000**         | LM                              |
-| **3200**         | bcrypt                          |
-| **5600**         | **NTLMv2**                      |
-| **7400**         | Django PBKDF2-SHA256            |
-| **13100**        | Kerberos 5 TGS etype 23         |
-| **18200**        | Kerberos 5 AS-REP etype 23      |
-| **19600**        | Kerberos 5 TGS etype 17         |
-| **19700**        | Kerberos 5 TGS etype 18         |
-| **22000**        | WPA-PBKDF2-PMKID/EAPOL          |
-| **16800**        | WPA-PMKID                       |
-| **300**          | MySQL 4.1 / 5                   |
-| **112**          | PostgreSQL                      |
-| **12**           | PostgreSQL SCRAM                |
-| **1800**         | SHA-512 crypt                   |
+| Hash mode (`-m`) | Algorithm name             |
+| ---------------- | -------------------------- |
+| **0**            | MD5                        |
+| **100**          | SHA1                       |
+| **1400**         | SHA256                     |
+| **1700**         | SHA-512                    |
+| **400**          | phpass                     |
+| **500**          | md5crypt                   |
+| **900**          | MD4                        |
+| **1000**         | NTLM                       |
+| **1100**         | NetNTLMv1                  |
+| **2100**         | DCC2 / MS-Cache v2         |
+| **2500**         | WPA/WPA2-PSK (EAPOL)       |
+| **3000**         | LM                         |
+| **3200**         | bcrypt                     |
+| **5600**         | NTLMv2                     |
+| **7400**         | Django PBKDF2-SHA256       |
+| **13100**        | Kerberos 5 TGS etype 23    |
+| **18200**        | Kerberos 5 AS-REP etype 23 |
+| **19600**        | Kerberos 5 TGS etype 17    |
+| **19700**        | Kerberos 5 TGS etype 18    |
+| **22000**        | WPA-PBKDF2-PMKID/EAPOL     |
+| **16800**        | WPA-PMKID                  |
+| **300**          | MySQL 4.1 / 5              |
+| **112**          | PostgreSQL                 |
+| **12**           | PostgreSQL SCRAM           |
+| **1800**         | SHA-512 crypt              |

@@ -1,9 +1,7 @@
-**John the Ripper** is a free password cracking software tool. It is among the  most frequently used password testing and breaking programs as it combines a number of  password crackers into one package, autodetects password hash types, and includes a  
-customizable cracker. It can be run against various encrypted password formats  including several crypt password hash types most commonly found on various Unix  versions (based on DES, MD5, or Blowfish), Kerberos AFS, and Windows NT/2000/XP/2003 LM  
-hash.
+**John the Ripper (JtR)** is a free and open-source password cracking tool. It is one of the most widely used password auditing tools because it combines multiple cracking techniques, automatically detects hash formats, and supports a large number of encryption and hashing algorithms.
 
-
-## Cracking passwords
+## Wordlist Mode
+**Wordlist mode** performs a dictionary attack by trying each word from one or more wordlists against the target hash.
 
 ```bash
 # wordlist example: /usr/share/wordlists/rockyou.txt
@@ -24,202 +22,137 @@ You can use the `--format=<format>` flag followed by the hash type when running 
 john --format=<format> --wordlist=<wordlist> <hash_file>
 ```
 
-**Common Hash Formats Supported by John the Ripper**
+**Hash Formats Supported by John the Ripper**
 
-|**Format Name**|**Description**|
+| Hash format | Description |
+|------------|-------------|
+| afs | AFS (Andrew File System) password hashes |
+| bfegg | bfegg hashes used in Eggdrop IRC bots |
+| bf | Blowfish-based crypt(3) hashes |
+| bsdi | BSDi crypt(3) hashes |
+| crypt | Traditional Unix crypt(3) hashes |
+| des | Traditional DES-based crypt(3) hashes |
+| dmd5 | DMD5 (Dragonfly BSD MD5) password hashes |
+| dominosec | IBM Lotus Domino 6/7 password hashes |
+| episerver | EPiServer SID (Security Identifier) password hashes |
+| hdaa | hdaa password hashes used in Openwall GNU/Linux |
+| hmac-md5 | HMAC-MD5 password hashes |
+| hmailserver | hMailServer password hashes |
+| ipb2 | Invision Power Board 2 password hashes |
+| krb4 | Kerberos 4 password hashes |
+| krb5 | Kerberos 5 password hashes |
+| LM | LM (Lan Manager) password hashes |
+| lotus5 | Lotus Notes/Domino 5 password hashes |
+| mscash | MS Cache password hashes |
+| mscash2 | MS Cache v2 password hashes |
+| mschapv2 | MS-CHAP v2 password hashes |
+| mskrb5 | MS Kerberos 5 password hashes |
+| mssql05 | MS SQL Server 2005 password hashes |
+| mssql | MS SQL Server password hashes |
+| mysql-fast | MySQL fast password hashes |
+| mysql | MySQL password hashes |
+| mysql-sha1 | MySQL SHA1 password hashes |
+| netlm | NETLM (NT LAN Manager) password hashes |
+| netlmv2 | NETLMv2 password hashes |
+| netntlm | NETNTLM password hashes |
+| netntlmv2 | NETNTLMv2 password hashes |
+| nethalflm | NEThalfLM password hashes |
+| md5ns | MD5 namespace password hashes |
+| nsldap | OpenLDAP SHA password hashes |
+| ssha | Salted SHA password hashes |
+| NT | NT (Windows NT) password hashes |
+| openssha | OpenSSH private key password hashes |
+| oracle11 | Oracle 11 password hashes |
+| oracle | Oracle password hashes |
+| pdf | PDF document password hashes |
+| phpass-md5 | PHPass-MD5 password hashes |
+| phps | PHPS password hashes |
+| pix-md5 | Cisco PIX MD5 password hashes |
+| po | Sybase SQL Anywhere password hashes |
+| rar | RAR (WinRAR) password hashes |
+| raw-md4 | Raw MD4 password hashes |
+| raw-md5 | Raw MD5 password hashes |
+| raw-md5-unicode | Raw MD5 Unicode password hashes |
+| raw-sha1 | Raw SHA1 password hashes |
+| raw-sha224 | Raw SHA224 password hashes |
+| raw-sha256 | Raw SHA256 password hashes |
+| raw-sha384 | Raw SHA384 password hashes |
+| raw-sha512 | Raw SHA512 password hashes |
+| salted-sha | Salted SHA password hashes |
+| sapb | SAP CODVN B (BCODE) password hashes |
+| sapg | SAP CODVN G (PASSCODE) password hashes |
+| sha1-gen | Generic SHA1 password hashes |
+| skey | S/Key one-time password hashes |
+| ssh | SSH password hashes |
+| sybasease | Sybase ASE password hashes |
+| xsha | Extended SHA password hashes |
+| zip | ZIP (WinZip) password hashes |
+
+---
+
+## Single Crack Mode
+
+**Single crack mode** is a rule-based attack that generates password candidates from information related to the user account. It is especially effective against **Linux password hashes** extracted from files such as `/etc/passwd` and `/etc/shadow`.
+
+Example entry from `/etc/passwd`:
+
+`r0lf:$6$ues25dIanlctrWxg$...:0:0:RolfSebastian:/home/r0lf:/bin/bash`
+
+From this entry, John can infer:
+
+- Username: `r0lf`
+- Real name: `Rolf Sebastian`
+- Home directory: `/home/r0lf`
+
+#### Running Single Crack Mode
+
+```bash
+john --single <hash_file>
+```
+
+This mode is **fast** and works well when user-related metadata is available.
+
+
+---
+
+## Cracking Encrypted Files with \*2john Tools
+
+John includes multiple **conversion tools** that extract hashes from encrypted files into a crackable format.
+
+1. **Convert the  file to a hash format**:
+
+```bash
+<tool> <file> > <hash_file>
+```
+
+2. **Crack the hash file**:
+
+```bash
+john --wordlist=<wordlist> <hash_file>
+```
+
+3. **View the result**:
+
+```bash
+john --show <hash_file_generated>
+```
+
+**Some Tools supported by John the Ripper**
+
+|**Tool**|**Description**|
 |---|---|
-|**raw-md5**|Standard MD5 hash format (e.g., `098f6bcd4621d373cade4e832627b4f6`).|
-|**ntlm**|Windows NTLM hash format (e.g., `098f6bcd4621d373cade4e832627b4f6`).|
-|**lm**|Windows LM hash format, often used in older Windows versions (e.g., `aad3b435b51404eeaad3b435b51404ee`).|
-|**crypt**|Traditional Unix crypt format (e.g., `$1$random$7k9Y19m9ay2nn0Cnkso2e/`).|
-|**bcrypt**|Bcrypt format, used in many modern applications for storing passwords (e.g., `$2y$12$...`).|
-|**sha256crypt**|SHA-256 encrypted passwords used in Unix systems (e.g., `$5$rounds=5000$...`).|
-|**descrypt**|DES-based encryption for Unix passwords (e.g., `abC23jiN`).|
-|**mssql2000**|Hash format for Microsoft SQL Server 2000 (e.g., `0x0100...`).|
-|**mysql**|MySQL password hash format (e.g., `*A75C1E...`).|
-|**krb5asrep**|Kerberos AS-REP hash format, used for ticket-based authentication (e.g., `user$krb5asrep$...`).|
-
----
-
-## Cracking a zip file
-1. **Convert the ZIP file to a hash format**:
-
-First, you need to use the `zip2john` tool to convert the ZIP file into a hash that John the Ripper can work with.
-
-```bash
-zip2john <zip_file> > <hash_file_generated>
-```
-
-2. **Crack the hash file**:
-
-Once you have the hash file, you can use **John the Ripper** with a wordlist or password list to try to discover the password.
-
-```bash
-john --wordlist=<wordlist> hash_file_generated
-```
-
-3. **View the result**:
-
-Once John has finished trying passwords, you can view the found password with this command:
-
-```bash
-john --show <hash_file_generated>
-```
-
-
----
-
-## Cracking a SSH Key
-If you want to **crack the password of an SSH key** (e.g., if the private key is protected by a password), you can use `ssh2john` to convert the SSH key to a format John the Ripper can handle. Here are the steps:
-
-1. **Convert the SSH key to a hash**:
-
-Use `ssh2john` to convert a private SSH key into a hash format. The output file will contain the hash of the SSH key, which can be processed by John the Ripper.
-
-```bash
-ssh2john <private_key_file> > <hash_file_generated>
-```
-
-2. **Crack the hash file**:
-
-Use John the Ripper with a password list to attempt to discover the password for the private key.
-
-```bash
-john --wordlist=<wordlist> <hash_file_generated>
-```
-
-3. **View the result**:
-
-Once John has finished trying passwords, you can view the found password with this command:
-
-```bash
-john --show <hash_file_generated>
-```
-
-4.  **Decrypt the SSH Key with the Cracked Password**
-
-Now that you have the password, you can decrypt the SSH key and use it to access the server. 
-
-```bash
-ssh-keygen -p -f <path_to_private_key> -P <old_password> -N <new_password>
-```
-
-For example, if the cracked password is `kill-9`, you can update or regenerate the SSH private key:
-
-```bash
-ssh-keygen -p -f id_rsa -P kill-9 -N ""
-```
-
-
----
-
-## Cracking .kdbx Files (KeePass)
-If you want to **crack the password** of a `.kdbx` file (KeePass), John the Ripper can be used with the help of an additional tool like `keepass2john` to convert the KeePass file into a hash.
-
-1. **Convert the .kdbx file to a hash**:
-
-Use `keepass2john` to convert the `.kdbx` file into a format that John the Ripper can handle. This command will extract the hash from the KeePass file:
-
-```bash
-keepass2john <file.kdbx> > <hash_file_generated>
-```
-
-2. **Crack the hash file**:
-
-Now, use **John the Ripper** with a wordlist to attempt to crack the password for the KeePass file.
-
-```bash
-john --wordlist=<wordlist> <hash_file_generated>
-```
-
-3. **View the result**:
-
-Once John has finished trying passwords, you can view the found password with this command:
-
-```bash
-john --show <hash_file_generated>
-```
-
-
----
-
-## Cracking a .pwsafe3 File (Password Safe)
-
-If you want to **crack the password** of a `.pwsafe3` file (Password Safe), you can use **John the Ripper** to attempt to crack the password. Here’s how you do it:
-
-1. **Convert the .pwsafe3 file to a hash:**
-
-First, you need to convert the `.pwsafe3` file into a format that John the Ripper can process. You can use the `pwsafe2john` tool, which extracts the hash from the Password Safe file.
-
-```bash
-pwsafe2john <file.pwsafe3> > <hash_file_generated>
-```
-
-This command will output the hash into a file (e.g., `hash_file_generated`), which John the Ripper can then use.
-
- 2. **Crack the hash file**:
-
-Next, use **John the Ripper** with a wordlist to try cracking the password. You can use any standard wordlist (e.g., `rockyou.txt`).
-
-```bash
-john --wordlist=<wordlist> <hash_file_generated>
-```
-
-
-
----
-
-## Cracking a PDF File (pdf2john)
-
-- Convert the PDF file to a hash format:  
-
-
-```bash
-pdf2john <pdf_file> > <hash_file_generated>
-```
-
-- Crack the hash file:  
-
-
-```bash
-john --wordlist=<wordlist> <hash_file_generated>
-```
-
-- View the result:  
-
-```bash
-john --show <hash_file_generated>
-```
-
-
-
----
-
-## Cracking a PFX / P12 File (pfx2john)
-
-If you want to crack the password of a **`.pfx` / `.p12` (PKCS#12)** file, you can use **`pfx2john`** to convert it into a hash format that **John the Ripper** understands.
-
-1. **Convert the PFX file to a hash**
-
-First, extract the hash from the PFX file using `pfx2john`:
-
-```bash
-pfx2john <file.pfx> > <hash_file_generated>
-```
-
-This command converts the PFX into a crackable hash format for John the Ripper.
-
-2. **Crack the hash file**
-
-Once you have the hash file, use John with a wordlist to crack the password:
-
-```bash
-# wordlist example: /usr/share/wordlists/rockyou.txt
-john --wordlist=<wordlist> <hash_file_generated>
-```
-
-3. **Use the cracked PFX password**
-
-```bash
-certipy-ad auth -pfx legacyy_dev_auth.pfx -password thuglegacy -dc-ip <DC_IP>
-```
+|`pdf2john`|Converts PDF documents for John|
+|`ssh2john`|Converts SSH private keys for John|
+|`mscash2john`|Converts MS Cash hashes for John|
+|`keychain2john`|Converts OS X keychain files for John|
+|`rar2john`|Converts RAR archives for John|
+|`pfx2john`|Converts PKCS#12 files for John|
+|`truecrypt_volume2john`|Converts TrueCrypt volumes for John|
+|`keepass2john`|Converts KeePass databases for John|
+|`vncpcap2john`|Converts VNC PCAP files for John|
+|`putty2john`|Converts PuTTY private keys for John|
+|`zip2john`|Converts ZIP archives for John|
+|`hccap2john`|Converts WPA/WPA2 handshake captures for John|
+|`office2john`|Converts MS Office documents for John|
+|`wpa2john`|Converts WPA/WPA2 handshakes for John|
+If you want to know all the available tools execute `locate '*2john*'` on Kali.
