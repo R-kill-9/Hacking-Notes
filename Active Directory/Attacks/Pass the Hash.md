@@ -58,7 +58,7 @@ netexec smb 192.168.1.20 -u Administrator -d . -H 1A2B3C4D5E6F7890ABCDEF12345678
 
 ---
 
-## evil-winrm
+## Evil-winrm
 
 - PtH via **PowerShell Remoting**.
     
