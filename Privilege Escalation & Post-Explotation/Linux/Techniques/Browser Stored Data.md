@@ -45,3 +45,40 @@ Example findings:
 - Saved links with usernames or tokens in the URL
     
 - Evidence of web applications used by privileged accounts
+
+
+#### Firefox Storage
+
+Location:
+
+```
+~/.mozilla/firefox/<profile>/
+```
+
+Key files:
+
+- `logins.json`
+    
+- `key4.db`
+    
+- `cert9.db`
+    
+
+### Step 4: Decrypting Firefox Credentials
+
+Using [Firefox Decrypt](https://github.com/unode/firefox_decrypt.git):
+
+```bash
+python3 firefox_decrypt.py
+```
+
+Recovered data includes:
+
+- URLs
+    
+- Usernames
+    
+- Plaintext passwords
+    
+
+LaZagne can also extract browser credentials automatically.
