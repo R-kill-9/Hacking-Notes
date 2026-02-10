@@ -50,6 +50,7 @@ find / -perm -4000 -type f 2>/dev/null   # Find all SUID binaries
 find / -writable -type d 2>/dev/null     # Writable directories for current user
 ```
 
+
 ## Scheduled Tasks (Cron Jobs)
 Check for cron jobs running as root or other privileged users.
 

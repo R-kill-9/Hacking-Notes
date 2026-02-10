@@ -195,7 +195,6 @@ password None
 - Patched by Microsoft security updates
     
 
----
 
 ### Kerberos
 
@@ -218,7 +217,6 @@ Domain: DESKTOP-33E7O54
     - Accessing domain resources
         
 
----
 
 ### DPAPI
 

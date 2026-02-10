@@ -26,12 +26,44 @@ xfreerdp /u:<username> /p:<password> /v:<target_ip> /dynamic-resolution
 netexec rdp <target_ip> -u <username> -p <password>
 ```
 
+---
+## RDP Drive Redirection (Shared Folder)
+
+RDP supports **local drive redirection**, allowing a directory from the attacker machine to be mounted inside the remote Windows session. This provides a reliable method for **bidirectional file transfer** once valid RDP credentials are available.
+
+### File Transfer via xfreerdp
+
+```bash
+xfreerdp /u:<username> /p:<password> /d:<domain> /v:<target_ip> /drive:<share_name>,<local_path>
+```
+
+- `<share_name>` is a logical name that will appear on the Windows system
+    
+- `<local_path>` is an existing directory on the attacker machine
+
+
+### Accessing the Shared Folder on Windows
+
+Once connected via RDP, the shared directory is accessible at:
+
+```
+\\tsclient\<share_name>
+```
+
+It is also visible in **File Explorer → This PC** as a redirected drive.
+
+
+--- 
+
 ## Brute Force Attack on RDP  
 `hydra` can be used to brute force RDP credentials.
 
 ```bash
 hydra -l <username> -P <password_list> rdp://<target_ip>
 ```
+
+
+--- 
 
 ## BlueKeep
 **BlueKeep** is a critical vulnerability in the Remote Desktop Protocol (RDP) service of older Windows systems, identified as CVE-2019-0708. This exploit enables unauthenticated attackers to execute remote code on unpatched systems, potentially allowing full control over the affected machine.
