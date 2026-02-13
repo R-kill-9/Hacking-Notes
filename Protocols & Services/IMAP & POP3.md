@@ -39,6 +39,55 @@ nmap -sC -sV -p 110,143,993,995 <ip>
 
 ---
 
+## Manual Interaction – Telnet / Netcat 
+
+For non-TLS services (SMTP 25, POP3 110, IMAP 143), we can interact manually using **telnet** or **netcat**.
+
+### Connect with Telnet
+
+```bash
+telnet <ip> <port>
+```
+
+### Connect with Netcat
+
+```bash
+nc <ip> <port>
+```
+
+Example:
+
+```bash
+nc <ip> 110
+telnet <ip> 25
+```
+
+
+### POP3 (Port 110)
+
+|Command|Description|
+|---|---|
+|`USER username`|Identify user|
+|`PASS password`|Authenticate|
+|`STAT`|Mailbox statistics|
+|`LIST`|List messages|
+|`RETR <id>`|Retrieve email|
+|`DELE <id>`|Delete email|
+|`QUIT`|End session|
+
+
+### IMAP (Port 143)
+
+|Command|Description|
+|---|---|
+|`A1 LOGIN user pass`|Authenticate user|
+|`A1 LIST "" *`|List mailboxes|
+|`A1 SELECT INBOX`|Open mailbox|
+|`A1 FETCH 1 BODY[]`|Retrieve message|
+|`A1 LOGOUT`|Close session|
+
+---
+
 ## Manual Interaction – cURL
 
 ### IMAPS Login & Mailbox Listing
@@ -72,19 +121,6 @@ Reveals:
 openssl s_client -connect <ip>:995
 ```
 
-#### Common POP3 Commands
-
-|Command|Description|
-|---|---|
-|`USER username`|Identify user|
-|`PASS password`|Authenticate|
-|`STAT`|Mailbox statistics|
-|`LIST`|List messages|
-|`RETR <id>`|Retrieve email|
-|`DELE <id>`|Delete email|
-|`CAPA`|Server capabilities|
-|`QUIT`|End session|
-
 ### IMAP over TLS
 
 ```bash
@@ -93,31 +129,13 @@ openssl s_client -connect <ip>:993
 
 #### Common IMAP Commands
 
-| Command                | Description                  |
-| ---------------------- | ---------------------------- |
-| `A1 LOGIN user pass`   | Authenticate user            |
-| `A1 LIST "" *`         | List all mailboxes           |
-| `A1 LSUB "" *`         | List subscribed mailboxes    |
-| `A1 SELECT <INBOX>`    | Select mailbox               |
-| `A1 FETCH <id> all`    | Retrieve message information |
-| `A1 FETCH <id> BODY[]` | Retrieve message body        |
-| `A1 UNSELECT`          | Leave mailbox                |
-| `A1 LOGOUT`            | Close session                |
-
 
 ---
+## Password Spraying with Hydra 
 
-## Practical Attack Flow
+Hydra can be used to perform password spraying or brute-force attacks against email protocols such as POP3, IMAP, or SMTP.
 
-1. Identify mail services via Nmap
-    
-2. Extract hostnames from SSL certificates
-    
-3. Enumerate capabilities (AUTH methods)
-    
-4. Reuse credentials from SMTP / AD
-    
-5. Access mailboxes via IMAP/POP3
-    
-6. Read sensitive emails (password resets, VPN creds)
-    
+```bash
+hydra -L <users.txt> -p '<Password>' -f <target_ip> pop3
+```
+

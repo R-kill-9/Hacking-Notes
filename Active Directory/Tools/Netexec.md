@@ -11,7 +11,7 @@ netexec <protocol> <ip> -u 'username' -p 'password'
 netexec <protocol> <ip> -u 'username' -p 'password' --shares
 ```
 
-- Execute Commands Remotely
+- Execute Commands Remotely (Use uppercase `-X` to run PowerShell commands)
 
 ```bash
 netexec <protocol> <ip> -u 'username' -p 'password' -x 'command'

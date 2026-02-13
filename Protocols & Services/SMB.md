@@ -104,21 +104,78 @@ nmap --script <script_name> <target_ip>
 ---
 
 
-## Enumeration using Metasploit
-**Metasploit** offers several modules for enumerating SMB services on a target.
+## Manual Enumeration
 
-- **Identify SMB Services**: Use `smb_version` to identify the type and version of SMB running. This helps in selecting the right attack vector.
-- **Enumerate Shares**: Use `smb_enumshares` to list shares and look for ones with sensitive data or weak permissions.
-- **List Users**: Use `smb_enumusers` to gather usernames for potential brute force attacks or privilege escalation.
-- **Check Anonymous Access**: Test for shares or access points that are open to the "anonymous" user.
-- **Explore Active Sessions**: Use `smb_enum_sessions` to identify logged-in users, which can help in social engineering or session hijacking.
-- **Credentials Brute Force Attack**: Use `smb_login` to perform brute force attack with username and password dictionaries.
+
+### Accessing SMB Shares (GUI)
+
+- Press **WIN + R**
+    
+- Enter the UNC path:
+    
+
+```text
+\\192.168.220.129\Finance
+```
+
+If access is permitted, the share contents are displayed. Otherwise, Windows prompts for authentication.
+
+
+### SMB via Command Prompt (CMD)
+
+List share contents:
+
+```cmd
+dir \\192.168.220.129\Finance\
+```
+
+Authenticate with explicit credentials:
+
+```cmd
+net use n: \\192.168.220.129\Finance /user:plaintext Password123
+```
+
+### SMB via PowerShell
+
+List files in a share:
+
+```powershell
+Get-ChildItem \\192.168.220.129\Finance\
+```
+
+Map SMB share as a PowerShell drive:
+
+```powershell
+New-PSDrive -Name "N" -Root "\\192.168.220.129\Finance" -PSProvider FileSystem
+```
+
+Map SMB share with credentials:
+
+```powershell
+$username = 'plaintext'
+$password = 'Password123'
+$secpassword = ConvertTo-SecureString $password -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential $username, $secpassword
+New-PSDrive -Name "N" -Root "\\192.168.220.129\Finance" -PSProvider FileSystem -Credential $cred
+```
+
+
+### SMB on Linux
+
+Linux systems can interact with SMB shares using CIFS utilities, regardless of whether the remote server is Windows or Samba.
+
+Create a mount point:
 
 ```bash
-use <module_name>
-set RHOSTS <target IP>
-run
+sudo mkdir /mnt/Finance
 ```
+
+Mount with username and password:
+
+```bash
+sudo mount -t cifs -o username=plaintext,password=Password123,domain=. //192.168.220.129/Finance /mnt/Finance
+```
+
 
 ---
 

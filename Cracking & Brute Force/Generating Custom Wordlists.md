@@ -1,3 +1,60 @@
+## Username Anarchy
+**Username Anarchy** is a Ruby-based username generation tool used during reconnaissance and post-exploitation phases to convert **real human names into likely corporate username formats**.
+
+It is especially useful in **Active Directory attacks**, where knowing valid usernames enables:
+
+- User enumeration
+    
+- Password spraying
+    
+- Kerberos-based attacks
+    
+- Authentication testing
+
+### Installation
+
+Clone the repository to the attack host:
+
+```bash
+git clone https://github.com/urbanadventurer/username-anarchy.git
+cd username-anarchy
+```
+
+The tool requires Ruby, which is installed by default on most Kali and penetration testing distributions.
+
+### Input Format
+
+Username Anarchy expects an input file containing **real names**, one per line.
+
+Example `names.txt`:
+
+```
+Ben Williamson
+Bob Burgerstien
+Jim Stevenson
+```
+
+The tool parses first name and last name automatically.
+
+### Basic Usage
+
+Generate username variants from a list of names:
+
+```bash
+./username-anarchy -i names.txt
+```
+
+The output is written to standard output.
+
+To save the results to a file:
+
+```bash
+./username-anarchy -i names.txt > usernames.txt
+```
+
+
+---
+
 ## Hashcat
 Besides cracking passwords, **Hashcat** can also be used as a **powerful wordlist generator**. By leveraging its attack modes together with the `--stdout` option, Hashcat can generate large, highly customized wordlists without attacking any hashes. 
 

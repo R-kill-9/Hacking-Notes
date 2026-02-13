@@ -29,6 +29,8 @@ Once in the Meterpreter session, you can set up port forwarding using the `portf
 portfwd add -l <local_port> -p <target_port> -r <target_ip>
 ```
 
+---
+
 ## Pivoting with Port Forwarding
 
 Port forwarding can also be used for pivoting into deeper parts of the network.

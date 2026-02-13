@@ -6,6 +6,17 @@
 **FTP** allows users to connect to an FTP server without a specific username or password. The user typically logs in using the username **"anonymous"**. This provides a convenient way to access publicly available files, like software or documentation, but it also poses several security risks if not properly controlled.
 
 ```bash
+ftp> passive off
+```
+
+
+---
+
+## Disable passive mode
+
+Sometimes when listing directories or transferring files via FTP, connections may fail or stall if passive mode is enabled. Disabling passive mode forces the server to initiate data connections directly, which can resolve these issues and improve compatibility with certain firewalls or network configurations.
+
+```bash
 ftp <target_ip>
 # Once Connected
 username: Anonymous
@@ -14,6 +25,30 @@ password: Anonymous
 
 
 ---
+
+## FTP Bounce Attack
+An **FTP bounce attack** is a technique that abuses the FTP protocol to send network traffic to a third system through a vulnerable FTP server.
+
+FTP normally works with two channels:
+
+- **Control channel (TCP 21)** – used to send commands (USER, PASS, PORT, etc.)
+    
+- **Data channel** – used to transfer files or directory listings
+    
+
+In active mode FTP, the client uses the **PORT command** to tell the server where to send the data connection. The client specifies an IP address and a port number. The server then opens a connection to that IP and port.
+
+The vulnerability appears when an FTP server does not properly validate the IP address provided in the PORT command.
+
+The `Nmap` -b flag can be used to perform an FTP bounce attack:
+```bash
+nmap -Pn -v -n -p80 -b anonymous:password@<ftp_server_ip> <internal_target_ip>
+```
+Modern FTP servers include protections that, by default, prevent this type of attack, but if these features are misconfigured in modern-day FTP servers, the server can become vulnerable to an FTP Bounce attack.
+
+
+---
+
 
 ## Brute Force Attack with Hydra
 **Hydra** is a powerful password-cracking tool used for conducting **brute-force attacks** on various services, including FTP.
