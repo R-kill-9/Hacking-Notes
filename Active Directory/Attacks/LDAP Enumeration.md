@@ -144,7 +144,7 @@ Accounts with SPNs are potential targets for:
 
 ---
 
-## 9. Identifying AS-REP Roasting Targets
+## Identifying AS-REP Roasting Targets
 
 ```bash
 ldapsearch -x -H ldap://10.129.72.90 \

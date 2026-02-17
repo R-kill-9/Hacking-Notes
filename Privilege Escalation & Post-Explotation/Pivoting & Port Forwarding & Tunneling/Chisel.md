@@ -3,6 +3,8 @@
 - You can download the Chisel last releases here: [link](https://github.com/jpillora/chisel/releases)
 - Good explanation of how to use it: [explanation](https://deephacking.tech/pivoting-con-chisel/)
 
+---
+
 ## Local Port Forwarding
 
 Allows forwarding traffic from a local port to a specific port on the target machine through the Chisel server.
@@ -15,6 +17,9 @@ Allows forwarding traffic from a local port to a specific port on the target mac
 ```bash
 chisel client <chisel server address>:<chisel server port> <local port to open>:<address to point to>:<port to point to on the target address>
 ```
+
+
+---
 
 ## Remote Port Forwarding 
 
@@ -30,17 +35,24 @@ chisel server -p 9999 --reverse
 ```
 Once the command has been executed, visit `http://localhost:<target_machine_port_to_open>` on your browser
 
+
+---
+
 ## Dynamic Port Forwarding
-Creates a local SOCKS proxy that dynamically forwards traffic to any destination through the Chisel server.
+Creates a **local SOCKS proxy on the attacker machine** that routes traffic through the **compromised host** toward the internal network.
 
 ```bash
 ./chisel client <server_ip>:<port> dynamic :<local_port>
 ```
 
 
+---
+
 ## SOCKS Proxy in Reverse Mode
 
-The following command creates a **proxy SOCKS on the Chisel server**, routing traffic through the client (victim machine). This sets up a SOCKS proxy on the **Chisel server**, which routes traffic from the server through the client. It is particularly useful when the server (attacker) needs access to the client’s internal network or services.
+This technique is commonly used **when a firewall blocks inbound connections**, preventing the attacker from directly accessing the victim machine.
+
+The following command creates a **SOCKS proxy on the Chisel server**, routing traffic through the client (victim machine). This setup allows the attacker to pivot traffic from the server through the compromised host, enabling access to the client’s internal network or services even when direct inbound connectivity is not allowed.
 
 - **Server (Attacker Machine):** Ensure the server is running in reverse mode:
 ```
@@ -52,5 +64,7 @@ The following command creates a **proxy SOCKS on the Chisel server**, routing tr
 ```
 - **Use ProxyChains with a tool**. Now you can use `proxychains` to route the traffic of any command through that proxy SOCKS.
 ```
-proxychains nmap -sT -p 80,443 <target_ip>
+proxychains4 nmap -sT -p 80,443 <target_ip>
 ```
+
+> Use **`socks5 127.0.0.1 1080`** in `proxychains4.conf` because Chisel creates a local **SOCKS5 proxy** on port **1080**. Remove or disable other proxies (like `127.0.0.1:9050`) when using `strict_chain`, otherwise proxychains will try them first and the connection will fail.
