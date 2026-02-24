@@ -2,15 +2,32 @@ Technical notes for **authenticated** reconnaissance of Windows Active Directory
 
 
 ---
-## Classic Enumeration
+### Password Policy Enumeration
+```bash
+# Dump domain password policy using NetExec
+nxc smb <dc_ip> -u '<user>' -p '<password>' --pass-pol
+
+# Enumerate password policy using enum4linux
+enum4linux -P <dc_ip>
+
+# Retrieve password policy via LDAP
+ldapsearch -H ldap://<dc_ip> -x -b "DC=<domain>,DC=<local>" -s sub "*" | grep pwdHistoryLength
+
+# Retrieve password policy using Windows built‑in command
+net accounts
+
+# PowerView enumeration
+Import-Module .\PowerView.ps1
+Get-DomainPolicy
+```
 
 ### Get all AD users 
 
 ```bash
-## Find users exposed via SMB on the DC.
+# Find users exposed via SMB on the DC.
 nxc smb <dc_ip> -u '<user>' -p '<password>' --users
 
-## Dump all AD users from a DC.
+# Dump all AD users from a DC.
 GetADUsers.py -all -dc-ip <dc_ip> <domain>/<username>
 ```
 

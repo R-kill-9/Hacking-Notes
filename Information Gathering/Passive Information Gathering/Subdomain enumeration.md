@@ -17,7 +17,7 @@ sublist3r -d <target_domain> [options]
 
 ## Fierce
 
-[Fierce](https://github.com/davidpepper/fierce) is a **DNS reconnaissance tool** used for discovering subdomains and mapping out a target's network. Unlike brute-force tools, Fierce primarily relies on **passive** and **semi-passive** methods to collect information by querying DNS records, without directly engaging with the target.
+Fierce is a **DNS reconnaissance tool** used for discovering subdomains and mapping out a target's network. Unlike brute-force tools, Fierce primarily relies on **passive** and **semi-passive** methods to collect information by querying DNS records, without directly engaging with the target.
 
 | Option                          | Description                                                                   |
 | ------------------------------- | ----------------------------------------------------------------------------- |
