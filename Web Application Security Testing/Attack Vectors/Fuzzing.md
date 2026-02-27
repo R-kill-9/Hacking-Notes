@@ -6,16 +6,16 @@
 ## Gobuster
 It is a command-line tool used for performing brute-force scans or directory and subdomain enumeration on a website.
 
-| Option  | Description                                            |
-|---------|--------------------------------------------------------|
-| `-u`    | Target URL (e.g., http://10.10.192.23)                 |
-| `-w`    | Wordlist path (e.g., /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt) |
-| `-o`    | Save results to a file (e.g., gobuster.out)            |
-| `-t`    | Number of threads (higher = faster, but more resource-heavy) |
-| `-q`    | Quiet mode (suppress error messages)                   |
-| `-s`    | Filter response status codes (e.g., `-s 200,403` to show only 200 and 403 responses) |
-| `-x`    | Filter by file extensions (e.g., `-x .php,.html`)      |
-| `-l`    | Limit results by minimum response length (e.g., `-l 100` to only show responses with length > 100 bytes) |
+| Option             | Description                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------ |
+| `-u`               | Target URL (e.g., http://10.10.192.23)                                               |
+| `-w`               | Wordlist path (e.g., /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt)   |
+| `-o`               | Save results to a file (e.g., gobuster.out)                                          |
+| `-t`               | Number of threads (higher = faster, but more resource-heavy)                         |
+| `-q`               | Quiet mode (suppress error messages)                                                 |
+| `-s`               | Filter response status codes (e.g., `-s 200,403` to show only 200 and 403 responses) |
+| `-x`               | Filter by file extensions (e.g., `-x .php,.html`)                                    |
+| `--exclude-length` | Limit results by minimum response length.                                            |
 
 #### Directory Discovery
 Used to find hidden folders and files.

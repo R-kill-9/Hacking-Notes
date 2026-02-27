@@ -52,6 +52,8 @@ Example command:
 Snaffler.exe -s -d domain.local -o snaffler.log -v data
 ```
 
+![](../../../Images/snaffler_output.png)
+
 #### Parameters
 
 |Option|Description|
@@ -72,7 +74,7 @@ Snaffler uses **color classification**:
 |Green|Accessible shares discovered|
 |Black|Interesting but lower priority files|
 |Red|High-value sensitive data|
-![](../../../Images/snaffler_output.png)
+
 Example findings:
 
 - `.key`

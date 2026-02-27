@@ -156,23 +156,23 @@ This allows discovery of privilege relationships without BloodHound.
 ---
 
 ## Useful Net commands
-|Comando|Descripción|
-|---|---|
-|`net accounts`|Muestra la política de contraseñas local|
-|`net accounts /domain`|Muestra la política de contraseñas del dominio|
-|`net group /domain`|Lista todos los grupos del dominio|
-|`net group "Domain Admins" /domain`|Enumera los miembros de Domain Admins|
-|`net group "Domain Controllers" /domain`|Lista los controladores de dominio|
-|`net localgroup`|Muestra los grupos locales del equipo|
-|`net localgroup administrators`|Lista los administradores locales|
-|`net localgroup administrators /domain`|Comprueba admins de dominio en admins locales|
-|`net share`|Muestra los recursos compartidos|
-|`net user /domain`|Enumera usuarios del dominio|
-|`net user <ACCOUNT_NAME> /domain`|Muestra detalles de un usuario específico|
-|`net use`|Muestra conexiones y unidades de red mapeadas|
-|`net view`|Lista equipos visibles en la red|
-|`net view /domain`|Lista hosts del dominio|
-|`net view \\computer /ALL`|Enumera shares de un equipo remoto|
+| Command                                  | Description                                    |
+| ---------------------------------------- | ---------------------------------------------- |
+| `net accounts`                           | Displays the local password policy             |
+| `net accounts /domain`                   | Displays the domain password policy            |
+| `net group /domain`                      | Lists all domain groups                        |
+| `net group "Domain Admins" /domain`      | Enumerates members of the Domain Admins group  |
+| `net group "Domain Controllers" /domain` | Lists domain controllers                       |
+| `net localgroup`                         | Shows local groups on the machine              |
+| `net localgroup administrators`          | Lists local administrators                     |
+| `net localgroup administrators /domain`  | Checks domain admins in local administrators   |
+| `net share`                              | Displays shared resources                      |
+| `net user /domain`                       | Enumerates domain users                        |
+| `net user <ACCOUNT_NAME> /domain`        | Shows details for a specific domain user       |
+| `net use`                                | Displays mapped network drives and connections |
+| `net view`                               | Lists visible computers on the network         |
+| `net view /domain`                       | Lists domain hosts                             |
+| `net view \\computer /ALL`               | Enumerates shares on a remote computer         |
 
 ### net1 alternative
 

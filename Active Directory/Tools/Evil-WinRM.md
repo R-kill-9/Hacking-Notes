@@ -30,6 +30,36 @@ evil-winrm -i 10.10.10.10 -u administrator -H <NTLM_HASH>
 
 
 ---
+## WinRM Remote Access from Windows 
+
+WinRM access can be performed **without Evil‑WinRM**, using built‑in PowerShell remoting.
+
+1. Create Credential Object
+
+```powershell
+$password = ConvertTo-SecureString "PasswordHere" -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential ("DOMAIN\username", $password)
+```
+
+2. Start Remote Session
+
+```powershell
+Enter-PSSession -ComputerName TARGET_HOST -Credential $cred
+```
+
+ 3. Execute Single Command (No Shell)
+
+```powershell
+Invoke-Command -ComputerName TARGET_HOST -Credential $cred -ScriptBlock { hostname }
+```
+
+Exit Session
+
+```powershell
+Exit-PSSession
+```
+
+---
 
 ## WinRM Login Using a Certificate (PFX)
 
