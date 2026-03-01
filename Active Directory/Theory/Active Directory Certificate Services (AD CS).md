@@ -41,8 +41,8 @@ Certipy v4.7.0 - by Oliver Lyak (ly4k)
 
 [*] Finding certificate templates and permissions
 
-CA Name             : ACC10-CA
-DNS Name            : acc10-ca.acc10.local
+CA Name             : domain-CA
+DNS Name            : domain-ca.local
 Certificate Template: UserAuthentication
 Schema Version      : 2
 Template ID         : 1.3.6.1.4.1.311.21.8.12345678.98765432.1111.2222.333333333333

@@ -12,8 +12,6 @@ First understand where you are and which identity you are using:
 whoami                         # shows current logged-in user
 whoami /all                    # displays user SID, groups and privileges
 hostname                       # shows machine hostname
-echo %USERDOMAIN%              # prints current domain name
-echo %LOGONSERVER%             # shows authenticating domain controller
 ```
 
 This reveals the current user, group memberships, privileges, and the domain controller handling authentication.
@@ -35,8 +33,6 @@ hostname                       # displays computer name
 systeminfo                     # shows OS, patches and system details
 ipconfig /all                  # lists network interfaces and configuration
 set                            # displays environment variables
-echo %USERDOMAIN%              # prints domain name
-echo %LOGONSERVER%             # shows domain controller used
 ```
 
 Additional useful checks:
