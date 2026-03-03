@@ -191,6 +191,8 @@
   },
   "active": "abb3a7bbba050ee8",
   "lastOpenFiles": [
+    "Privilege Escalation & Post-Explotation/Windows/Windows Privilege Escalation Guide.md",
+    "README.md",
     "Active Directory/Tools/Certipy.md",
     "Active Directory/Techniques/Exploitation/AD CS Exploitation.md",
     "Active Directory/Techniques/AD Permissions Privilege Escalation/ReadGMSA.md",
@@ -215,8 +217,6 @@
     "Active Directory/Tools/Talon.md",
     "Active Directory/Workflow Guide/Active Directory Enumeration – No Credentials.md",
     "Web Application Security Testing/Attack Vectors/Apache Tomcat.md",
-    "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding & Tunneling/Proxychains.md",
-    "Active Directory/Techniques/Exploitation/SMB Relay.md",
     "Active Directory/Techniques/Exploitation",
     "Active Directory/Techniques/Vulnerabilities",
     "Active Directory/Techniques/Enumeration",
