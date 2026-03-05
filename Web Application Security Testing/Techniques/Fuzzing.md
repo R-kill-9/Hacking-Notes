@@ -3,6 +3,80 @@
 
 ---
 
+## ffuf
+Fuff is primarily used for discovering hidden resources in web applications by brute-forcing URLs and parameters. It is effective for testing web application security, identifying vulnerabilities, and mapping application structures.
+
+#### Basic Usage
+
+| Option                      | Description                                                       |
+| --------------------------- | ----------------------------------------------------------------- |
+| `-u <URL>`                  | Target URL.                                                       |
+| `-w <wordlist>`             | Path to the wordlist for fuzzing.                                 |
+| `-r`                        | Set the request method (GET, POST, etc.).                         |
+| `-t <number>`               | Set the number of concurrent threads (default is 10).             |
+| `-mc <status_code>`         | Match responses with specific status codes (e.g., 200, 404).      |
+| `-o <output_file>`          | Save the output to a specified file.                              |
+| `-p <parameter>`            | Specify a parameter for fuzzing.                                  |
+| `-d <parameter>`            | Defines the data that will be sent in the body of a POST request. |
+| `-fs <length>`              | Filter out responses by response size (in bytes).                 |
+| `-fw <words>`               | Filter by word count.                                             |
+| `-fl <lines>`               | Filter by line count.                                             |
+| `-H`                        | Add a custom HTTP header to the request.                          |
+| `-recursion`                | Enable recursive scanning of discovered directories.              |
+| `-recursion-depth <number>` | Set the maximum recursion depth for directory fuzzing.            |
+
+```bash
+ffuf -u http://<domain>/FUZZ -w <wordlist>
+```
+
+#### Example
+In this example we are trying to fuzz the username parameter for this GET request:
+```
+GET /view.php?username=kill-9&file=test.php.pdf HTTP/1.1
+Host: nocturnal.htb
+Accept-Language: en-US,en;q=0.9
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://nocturnal.htb/dashboard.php
+Accept-Encoding: gzip, deflate, br
+Cookie: PHPSESSID=8cm81dpba2svtbmi4i5jr7n3jp
+Connection: keep-alive
+```
+
+Configuring the following command, we achieve to enumerate the application users.
+
+```bash
+ffuf -u 'http://example.com/view.php?username=FUZZ&file=file.xlsx' -w /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt -H 'Cookie: PHPSESSID=8cm81dpba2svtbmi4i5jr7n3jp'  -fs 2985
+```
+
+#### Post method
+
+```bash
+ffuf -u <URL> -X POST -d "parameter=FUZZ" -w <wordlist> -fs 61
+```
+
+#### Fuzzing 2 parameters
+Ffuf also allows fuzzing two parameters at the same time; this can be done as shown in the following example.
+
+```bash
+ffuf -u http://example.com/login -X POST -w /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt:USER -w /usr/share/wordlists/rockyou.txt:PASS  -d "username=USER&password=PASS"  -fs 0             
+```
+
+#### Fuzzing Sub-domains
+```bash
+ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt -u http://FUZZ.<domain>
+```
+
+#### Fuzzing Virtual Hosts
+```bash
+ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt -u http://<domain> -H 'Host: FUZZ.<domain>'
+```
+
+
+
+---
+
 ## Gobuster
 It is a command-line tool used for performing brute-force scans or directory and subdomain enumeration on a website.
 
@@ -43,72 +117,6 @@ Used when you know the domain name (e.g., medusa.hmv).
 gobuster dns -d <domain> -w <wordlist> -o gobuster.out
 ```
 
-
----
-
-
-## ffuf
-Fuff is primarily used for discovering hidden resources in web applications by brute-forcing URLs and parameters. It is effective for testing web application security, identifying vulnerabilities, and mapping application structures.
-
-#### Basic Usage
-
-| Option              | Description                                                       |
-| ------------------- | ----------------------------------------------------------------- |
-| `-u <URL>`          | Target URL.                                                       |
-| `-w <wordlist>`     | Path to the wordlist for fuzzing.                                 |
-| `-r`                | Set the request method (GET, POST, etc.).                         |
-| `-t <number>`       | Set the number of concurrent threads (default is 10).             |
-| `-mc <status_code>` | Match responses with specific status codes (e.g., 200, 404).      |
-| `-o <output_file>`  | Save the output to a specified file.                              |
-| `-p <parameter>`    | Specify a parameter for fuzzing.                                  |
-| `-d <parameter>`    | Defines the data that will be sent in the body of a POST request. |
-| `-fs <length>`      | Filter out responses by response size (in bytes).                 |
-| `-fw <words>`       | Filter by word count.                                             |
-| `-fl <lines>`       | Filter by line count.                                             |
-| `-H`                | Header.                                                           |
-
-```bash
-ffuf -u <URL> -w <wordlist>
-```
-
-#### Example
-In this example we are trying to fuzz the username parameter for this GET request:
-```
-GET /view.php?username=kill-9&file=test.php.pdf HTTP/1.1
-Host: nocturnal.htb
-Accept-Language: en-US,en;q=0.9
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-Referer: http://nocturnal.htb/dashboard.php
-Accept-Encoding: gzip, deflate, br
-Cookie: PHPSESSID=8cm81dpba2svtbmi4i5jr7n3jp
-Connection: keep-alive
-```
-
-Configuring the following command, we achieve to enumerate the application users.
-
-```bash
-ffuf -u 'http://example.com/view.php?username=FUZZ&file=file.xlsx' -w /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt -H 'Cookie: PHPSESSID=8cm81dpba2svtbmi4i5jr7n3jp'  -fs 2985
-```
-
-#### Post method
-
-```bash
-ffuf -u <URL> -X POST -d "parameter=FUZZ" -w <wordlist> -fs 61
-```
-
-#### Fuzzing 2 parameters
-Ffuf also allows fuzzing two parameters at the same time; this can be done as shown in the following example.
-
-```bash
-ffuf -u http://example.com/login -X POST -w users.txt:/usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt -w /usr/share/wordlists/rockyou.txt:PASS  -d "username=USER&password=PASS"  -fs 0             
-```
-
-#### Fuzzing Virtual Hosts
-```bash
-wfuzz -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-110000.txt  -u http://<host>  -H "Host: FUZZ.<host>" -t 100 -fs <size>
-```
 
 
 ---

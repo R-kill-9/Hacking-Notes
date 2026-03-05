@@ -41,7 +41,9 @@ The tool parses first name and last name automatically.
 Generate username variants from a list of names:
 
 ```bash
-./username-anarchy -i names.txt
+./username-anarchy -i names.txt > users.txt
+# For a single user:
+./username-anarchy Name Surename > users.txt
 ```
 
 The output is written to standard output.
@@ -51,6 +53,83 @@ To save the results to a file:
 ```bash
 ./username-anarchy -i names.txt > usernames.txt
 ```
+
+
+---
+## CUPP (Common User Passwords Profiler)
+
+**CUPP** is a tool used to generate **targeted password wordlists** based on personal information about a target. It creates password candidates using OSINT data such as names, birthdays, nicknames, company names, pets, and interests.
+
+This approach is more effective than generic dictionaries because many users build passwords using **personal information**.
+
+CUPP is commonly used together with **Username Anarchy**:
+
+- Username Anarchy → generates possible usernames
+    
+- CUPP → generates personalized passwords
+    
+
+
+### Installation
+
+Install CUPP using the package manager:
+
+```bash
+sudo apt install cupp
+```
+
+Or clone the repository:
+
+```bash
+git clone https://github.com/Mebus/cupp.git
+cd cupp
+```
+
+
+### Interactive Profiling
+
+CUPP is typically used in **interactive mode**, where the operator provides information about the target.
+
+```bash
+cupp -i
+```
+
+The tool will ask for details such as:
+
+- First name and surname
+    
+- Nickname
+    
+- Birthdate
+    
+- Partner or children names
+    
+- Pet names
+    
+- Company name
+    
+- Keywords related to the target
+    
+
+Unknown fields can be skipped.
+
+
+### Wordlist Generation
+
+CUPP generates password candidates by applying common user patterns, including:
+
+- Name variations (lowercase, capitalized)
+    
+- Name combinations
+    
+- Birthdate numbers
+    
+- Appended numbers
+    
+- Special characters
+    
+- Leetspeak substitutions
+
 
 
 ---

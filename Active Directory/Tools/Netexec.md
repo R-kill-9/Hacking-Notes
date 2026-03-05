@@ -422,7 +422,7 @@ nxc ldap 192.168.1.48 -u raj -p Password@1 -M get-unixUserPassword
 **Purpose**: This command retrieves the **Password Settings Objects** (PSO), which are used to define password policies in AD. If misconfigured, these could allow an attacker to bypass certain password requirements.
 
 ```bash
-nxc ldap 192.168.1.48 -u administrator -p Ignite@987 -M pso
+nxc ldap 192.168.1.48 -u administrator -p Ignite@987 --pso
 ```
 
 ![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEialbuLjLL1JPhN8BHx3MnvgNsiekBAmsjGxNCSV6Q9TNuSJ5C00ZipiYiLJxGVlpcLBVG0dNVcJ5YbtBX-m9kxPyAdNtv_LRjG75PLyJY3SwYuQ3L2qU-IGU_21FR6LO60iKu-NjlvANvlkdYdd-z20cuR71oKD_nDtbCX7X_hkkf0pPqeb36K3-usIfq8/s16000/59.png)
@@ -436,7 +436,7 @@ nxc ldap 192.168.1.48 -u administrator -p Ignite@987 -M pso
 **Purpose**: Enumerates trust relationships between different domains, which can be useful for lateral movement and attacking interconnected domains.
 
 ```bash
-nxc ldap 192.168.1.48 -u raj -p Password@1 -M enum_trusts
+nxc ldap 192.168.1.48 -u raj --dc-list
 ```
 
 ![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhbO4vDzxw27GDyngT9WePzM8yVybua7GAIuP2IfKEtyqmHoEaFKJKtgj3K7q4AzecUtnKIlzQa0M-7NNiPQEj5XgpPS9_1roW1qpx5BUNb9VnnlsqWQ7ov17k90tfXsu4RE2iNYKre1B_3pcKnNMg1XtTZygdLnmBUERUop7DBXcFZulBXrElpmm1OxMIN/s16000/60.png)

