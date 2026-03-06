@@ -2,7 +2,7 @@
 
 ---
 
-## Enumerating MySQL 
+## Enumerating MySQL
 
 ### Detect MySQL service and version
 
@@ -11,6 +11,7 @@ nmap -p 3306 --script mysql-info <target>
 ```
 
 ### Brute-force MySQL login
+
 ```bash
 hydra -l <username> -P <password_list> mysql://<target_ip>:3306
 ```
@@ -21,7 +22,6 @@ or
 nmap -p 3306 --script mysql-brute --script-args userdb=users.txt,passdb=pass.txt <target>
 ```
 
-
 ---
 
 ## Connecting Remotely to MySQL
@@ -31,9 +31,11 @@ mysql -u username -p -h <host> -P 3306
 ```
 
 - `-h`: Host IP or domain
+    
 - `-P`: Port (default is 3306)
+    
 
-> If you receive the following error: `ERROR 2026 (HY000): TLS/SSL error: self-signed certificate in certificate chain`, use the flag `--ssl=0` at the end of the command. 
+> If you receive the following error: `ERROR 2026 (HY000): TLS/SSL error: self-signed certificate in certificate chain`, use the flag `--ssl=0` at the end of the command.
 
 ---
 
@@ -52,7 +54,9 @@ mysql -u root -p
 ```
 
 - `-u root`: Username
+    
 - `-p`: Prompts for password
+    
 
 ---
 
@@ -72,54 +76,158 @@ mysql -u root -p db_name < database.sql
 ## Common SQL Commands
 
 - **List all databases**:
+    
 
 ```sql
 SHOW DATABASES;
 ```
 
 - **Select a database**:
+    
 
 ```sql
 USE db_name;
 ```
 
 - **List all tables**:
+    
 
 ```sql
 SHOW TABLES;
 ```
 
 - **Describe a table**:
+    
 
 ```sql
 DESCRIBE table_name;
 ```
 
 - **Show table schema**:
+    
 
 ```sql
 SHOW CREATE TABLE table_name;
 ```
 
+- **Show table columns**:
+    
+
+```sql
+SHOW COLUMNS FROM table_name;
+```
+
 - **Query all data from a table**:
+    
 
 ```sql
 SELECT * FROM table_name;
 ```
 
+- **Query specific columns**:
+    
+
+```sql
+SELECT column1, column2 FROM table_name;
+```
+
+- **Limit query results**:
+    
+
+```sql
+SELECT * FROM table_name LIMIT 10;
+```
+
+- **Pagination with LIMIT and OFFSET**:
+    
+
+```sql
+SELECT * FROM table_name LIMIT 10 OFFSET 20;
+```
+
 - **Search with condition**:
+    
 
 ```sql
 SELECT * FROM users WHERE age = 30;
 ```
 
+- **Search with multiple conditions**:
+    
+
+```sql
+SELECT * FROM users WHERE age > 25 AND city = 'Madrid';
+```
+
+- **Use OR condition**:
+    
+
+```sql
+SELECT * FROM users WHERE role = 'admin' OR role = 'manager';
+```
+
+- **Sort results**:
+    
+
+```sql
+SELECT * FROM users ORDER BY username;
+```
+
+- **Sort descending**:
+    
+
+```sql
+SELECT * FROM users ORDER BY id DESC;
+```
+
+- **Count records**:
+    
+
+```sql
+SELECT COUNT(*) FROM users;
+```
+
+- **Search with wildcard**:
+    
+
+```sql
+SELECT * FROM users WHERE username LIKE 'adm%';
+```
+
+- **Search for NULL values**:
+    
+
+```sql
+SELECT * FROM users WHERE email IS NULL;
+```
+
+- **Insert new record**:
+    
+
+```sql
+INSERT INTO users (username, password) VALUES ('admin','password');
+```
+
+- **Update records**:
+    
+
+```sql
+UPDATE users SET password='newpass' WHERE username='admin';
+```
+
+- **Delete records**:
+    
+
+```sql
+DELETE FROM users WHERE username='admin';
+```
+
 - **Exit MySQL shell**:
+    
 
 ```sql
 EXIT;
 ```
-
-
 
 ---
 
@@ -157,6 +265,7 @@ Possible values:
 - `/path/` → Only allowed inside that directory
     
 - `NULL` → File operations disabled
+    
 
 ### Write Web Shell
 
@@ -177,7 +286,6 @@ Execute commands:
 http://target/webshell.php?c=id
 ```
 
-
 ---
 
 ## Read Local Files
@@ -194,6 +302,7 @@ By default, MySQL does not allow arbitrary file reading. However, if the user ha
     
 
 Check restriction:
+
 ```
 SHOW VARIABLES LIKE 'secure_file_priv';
 ```

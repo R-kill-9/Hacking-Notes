@@ -20,6 +20,70 @@ nxc smb 10.129.234.121 -u user -p 'pass!' --spider IT --content --pattern "passw
 
 ---
 
+## Snaffler
+**Snaffler** is an Active Directory post-enumeration tool designed to locate **credentials, secrets, and sensitive files** stored in network shares.
+
+It automates the discovery of high-value data by:
+
+- Enumerating domain hosts
+    
+- Discovering shared folders (SMB shares)
+    
+- Identifying readable directories
+    
+- Searching for sensitive file types and keywords
+    
+
+### Basic Execution
+
+Example command:
+
+```bash
+Snaffler.exe -s -d domain.local -o snaffler.log -v data
+```
+
+![](../../../Images/snaffler_output.png)
+
+#### Parameters
+
+|Option|Description|
+|---|---|
+|`-s`|Print results to console (stdout)|
+|`-d`|Target Active Directory domain|
+|`-o`|Output logfile|
+|`-v`|Verbosity level|
+
+
+### Output Interpretation
+
+Snaffler uses **color classification**:
+
+|Color|Meaning|
+|---|---|
+|Green|Accessible shares discovered|
+|Black|Interesting but lower priority files|
+|Red|High-value sensitive data|
+
+Example findings:
+
+- `.key`
+    
+- `.ppk`
+    
+- `.kdb`
+    
+- `.sqldump`
+    
+- `.mdf`
+    
+- `.keychain`
+    
+- `.psafe3`
+    
+
+
+---
+
 ## pyFindUncommonShares (Windows)
 [pyFindUncommonShares](https://github.com/p0dalirius/pyFindUncommonShares) is a Python tool created by Podalirius to enumerate uncommon SMB shares across large Windows Active Directory domains. It is the Python equivalent of PowerView’s `Invoke-ShareFinder.ps1`.
 

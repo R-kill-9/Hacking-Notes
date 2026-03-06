@@ -37,7 +37,7 @@ This command retrieves the current LAPS password from AD. (Requires correct bind
 When authenticated, some tools can directly target LAPS via SMB/LDAP modules:
 
 ```
-nxc smb <TARGET_IP> -u <USER> -p <PASSWORD> -M laps
+nxc ldap <TARGET_IP> -u <USER> -p <PASSWORD> -M laps
 ```
 
 This attempts to retrieve the LAPS password by querying the LAPS attribute via LDAP over SMB. 
