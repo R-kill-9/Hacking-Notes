@@ -321,7 +321,7 @@ nxc ldap 192.168.1.48 -u raj -p Password@1 -M group-mem -o GROUP="Domain admins"
 nxc ldap 192.168.1.48 -u raj -p Password@1 -M maq
 ```
 
-![](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjBliCioEFxAcdRvQKyI4tIJ7NA4CoH4yZX5zIF-hzjDKDTbrMvIo0FNEKbn8Mar_GnuvJ765DRp9QoKrj3V7jOmXBw3b0z68UY33hNfyeqOkDA3Yk-0tHEl0-797Wo_mlB-qyAj7zGHOzRnmCXD0lsOuWT51USJqOnbBkP49eg_Uaxyt_EiQl_OcbOg6_/s16000/52.png)
+![68](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjBliCioEFxAcdRvQKyI4tIJ7NA4CoH4yZX5zIF-hzjDKDTbrMvIo0FNEKbn8Mar_GnuvJ765DRp9QoKrj3V7jOmXBw3b0z68UY33hNfyeqOkDA3Yk-0tHEl0-797Wo_mlB-qyAj7zGHOzRnmCXD0lsOuWT51USJqOnbBkP49eg_Uaxyt_EiQl_OcbOg6_/s16000/52.png)
 
 **MITRE ATT&CK Mapping**:
 
