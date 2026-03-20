@@ -1,4 +1,3 @@
-## What is a WebSocket?
 **WebSocket** is a protocol that enables **full-duplex (bidirectional), persistent communication** channels over a single TCP connection. Unlike traditional HTTP requests (which are stateless and one-way), WebSockets keep the connection **open**, allowing continuous data exchange between client and server in real-time.
 
 WebSockets can operate over the `ws://` (insecure) or `wss://` (secure) scheme, similar to HTTP/HTTPS.
