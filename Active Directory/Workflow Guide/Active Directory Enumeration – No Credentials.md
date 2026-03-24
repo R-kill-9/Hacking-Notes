@@ -23,7 +23,7 @@ Identify running services and potential entry points:
 nmap -p- -sCV -Pn --open -oA <output> <ip>
 
 # Web servers scan (HTTP/HTTPS and common web ports)
-nmap -p 80,443,8080,8000,8443 -sCV -Pn --open <ip>
+nmap -p 80,443,8000,8080,8180,8888,10000 -sCV -Pn --open <ip>
 
 # Database servers scan (MySQL, PostgreSQL, MSSQL, Oracle, MongoDB)
 nmap -p 3306,5432,1433,1521,27017 -sV -Pn --open <ip>

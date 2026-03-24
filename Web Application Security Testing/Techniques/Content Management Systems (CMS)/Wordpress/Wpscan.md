@@ -30,9 +30,18 @@ wpscan --enumerate u,t,vp
        --verbose
 ```
 
-## User enumeration
+
+---
+
+## Brute force Attack
 After identifying usernames, you can launch a brute-force attack using `-U` to specify the user and `-P` to provide a password list:
 
 ```bash
-wpscan --url <url> -U <user> -P <wordlist> 
+wpscan --url <url> -U <user> -P <wordlist> -t 20
+```
+
+If `/xmlrpc.php` is enabled you can use the following command to perform a faster attack:
+
+```bash
+wpscan --password-attack xmlrpc --url <url> -U <user> -P <wordlist> -t 20
 ```

