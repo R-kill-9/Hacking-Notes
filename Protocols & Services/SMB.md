@@ -135,6 +135,11 @@ Authenticate with explicit credentials:
 net use n: \\192.168.220.129\Finance /user:plaintext Password123
 ```
 
+View all the shares from a machine: 
+```cmd
+net view \\dc01 /all
+```
+
 ### SMB via PowerShell
 
 List files in a share:

@@ -13,7 +13,7 @@ This behavior can lead to **authentication bypass**, **logic manipulation**, and
 - Converts both operands to a common type (often numeric).
 - Can produce unexpected TRUE results.
 
-#### **Strict Comparison (=\==)
+#### Strict Comparison (=\==)
 
 - No type conversion.
 - Compares both **value and type**.

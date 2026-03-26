@@ -51,12 +51,78 @@ The **snmpwalk** command can be used to retrieve information from an SNMP-enable
 snmpwalk -v 1 -c public <target>
 ```
 
+### Enumerating Running Processes
 
----
+Running processes can reveal:
+
+- Services (web, database, AV, backup tools)
+    
+- Custom binaries
+    
+- Potential privilege escalation vectors
+    
+
+Command:
+
+```bash
+snmpwalk -v1 -c public <target> 1.3.6.1.2.1.25.4.2.1.2
+```
+
+Example output:
+
+```text
+HOST-RESOURCES-MIB::hrSWRunName.1 = STRING: systemd
+HOST-RESOURCES-MIB::hrSWRunName.2 = STRING: sshd
+HOST-RESOURCES-MIB::hrSWRunName.3 = STRING: apache2
+```
+
+### Enumerating Installed Software
+
+Installed software enumeration helps identify:
+
+- Vulnerable versions
+    
+- Misconfigured applications
+    
+- Attack surface expansion
+    
+
+Command:
+
+```bash
+snmpwalk -v1 -c public <target> 1.3.6.1.2.1.25.6.3.1.2
+```
+
+Example:
+
+```text
+HOST-RESOURCES-MIB::hrSWInstalledName.1 = STRING: Microsoft IIS
+HOST-RESOURCES-MIB::hrSWInstalledName.2 = STRING: MySQL Server
+```
+
+### Enumerating System Users
+
+User enumeration is one of the most valuable outcomes of SNMP.
+
+Command:
+
+```bash
+snmpwalk -v1 -c public <target> 1.3.6.1.4.1.77.1.2.25
+```
+
+Example:
+
+```text
+SNMPv2-SMI::enterprises.77.1.2.25.1.1 = STRING: "Administrator"
+SNMPv2-SMI::enterprises.77.1.2.25.1.2 = STRING: "john"
+SNMPv2-SMI::enterprises.77.1.2.25.1.3 = STRING: "backup"
+```
+
 
 ### Brute Force SNMP  communities
 #### onesixtyone
  This command will execute a brute force attack to retrieve existent communities.
+ 
  ```bash
 onesixtyone -c /usr/share/wordlists/seclists/Discovery/SNMP/snmp.txt  10.129.15.150 
 ```

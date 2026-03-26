@@ -1,3 +1,8 @@
+DNS is a distributed system used to resolve domain names into IP addresses. From a pentesting perspective, it is a high-value target because it exposes infrastructure, services, and sometimes internal naming conventions.
+
+DNS enumeration is part of **information gathering** and is often one of the first steps in an engagement. The goal is to extract as much information as possible about a target domain.
+
+---
 ## DNS Records Explanation
 
 - **A Record**: Maps a domain or hostname to an IPv4 address.
@@ -46,3 +51,71 @@ Here is an example for **thehackerlabs.com**:
 ![](Images/DNSdumpster.png)
 
 
+---
+
+## Manual DNS Enumeration
+
+### Using host
+
+The `host` command is a simple and fast way to query DNS records.
+
+```bash
+host www.megacorpone.com
+```
+
+Example output:
+
+```text
+www.megacorpone.com has address 149.56.244.87
+```
+
+Query specific record types:
+
+```bash
+host -t mx megacorpone.com
+```
+
+```text
+megacorpone.com mail is handled by 10 fb.mail.gandi.net.
+megacorpone.com mail is handled by 20 spool.mail.gandi.net.
+megacorpone.com mail is handled by 50 mail.megacorpone.com.
+megacorpone.com mail is handled by 60 mail2.megacorpone.com.
+```
+
+### Using nslookup
+
+Common in Windows environments and useful in “Living off the Land” scenarios.
+
+```bash
+nslookup mail.megacorptwo.com
+```
+
+Specific query:
+
+```bash
+nslookup -type=TXT megacorpone.com
+```
+
+You can also query a specific DNS server:
+
+```bash
+nslookup -type=TXT info.megacorptwo.com 192.168.50.151
+```
+
+---
+
+## DNSEnum
+
+
+Another automated DNS enumeration tool. More aggressive and useful for discovering:
+
+- Subdomains
+    
+- IP ranges
+    
+- Possible zone transfers
+
+
+```bash
+dnsenum megacorpone.com
+```
