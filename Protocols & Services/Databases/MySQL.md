@@ -2,7 +2,7 @@
 
 ---
 
-# Enumerating MySQL
+## Enumerating MySQL
 
 ### Detect MySQL service and version
 
@@ -24,7 +24,7 @@ nmap -p 3306 --script mysql-brute --script-args userdb=users.txt,passdb=pass.txt
 
 ---
 
-# Connecting Remotely to MySQL
+## Connecting Remotely to MySQL
 
 ```bash
 mysql -u username -p -h <host> -P 3306
@@ -39,7 +39,7 @@ mysql -u username -p -h <host> -P 3306
 
 ---
 
-# Starting MySQL Locally (Kali or Linux)
+## Starting MySQL Locally (Kali or Linux)
 
 ### Start MySQL service
 
@@ -60,7 +60,7 @@ mysql -u root -p
 
 ---
 
-# Importing a MySQL Dump
+## Importing a MySQL Dump
 
 If you have a `.sql` file:
 
@@ -73,7 +73,7 @@ mysql -u root -p db_name < database.sql
 
 ---
 
-# Common SQL Commands
+## Common SQL Commands
 
 - **List all databases**:
     
@@ -231,7 +231,7 @@ EXIT;
 
 ---
 
-# Write Local Files (Command Execution via Web Root)
+## Write Local Files (Command Execution via Web Root)
 
 If MySQL runs on a web server (e.g., PHP), and we have the proper privileges, we can achieve command execution by writing a web shell into the web root directory using `SELECT INTO OUTFILE`.
 
@@ -286,6 +286,8 @@ Execute commands:
 http://target/webshell.php?c=id
 ```
 
+> Sometimes is necessary to create the webshell file inside a temporal directory (`/var/www/html/tmp/webshell.php`).
+
 ### Test if file writing works
 
 You can test write permissions by creating a simple file:
@@ -304,7 +306,7 @@ then file writing is allowed.
 
 ---
 
-# Read Local Files
+## Read Local Files
 
 By default, MySQL does not allow arbitrary file reading. However, if the user has the `FILE` privilege and `secure_file_priv` does not restrict access, local files can be read using `LOAD_FILE()`.
 
