@@ -1,20 +1,28 @@
 ## Revealing file hidden information 
 
-#### exiftool
+### exiftool
 **exifTool** is a command-line tool and Perl library used for reading, writing, and manipulating metadata information in various file formats, particularly image and multimedia files. It allows you to extract, modify, and analyze the metadata embedded within these files.
 
 For example, we could use it to extract metadata from a PDF file and check the "creator" field to see if it was created with a potentially vulnerable tool.
 
 ```bash
-exiftool <image>
+exiftool <file>
 ```
 
-#### binwalk
+For more verbose output including duplicate and unknown tags:
+```bash
+exiftool -a -u <file>
+```
+
+### binwalk
 **binwalk** is a tool used for analyzing and extracting data from binary files, such as firmware images, executables, and other binary data. Can be very useful for extracting information from images.
 
 ```bash
-binwalk -e <image>
+binwalk -e <file>
 ```
+
+
+---
 
 ## Revealing Pixelated information in a PDF
 
@@ -34,6 +42,7 @@ If the pixelated content isn't text, OCR can sometimes identify characters withi
 ``` bash
 pdfimages -png file.pdf output_image
 ```
+
 #### Depix.py
 [Depix](https://github.com/spipm/Depix) is a PoC for a technique to recover plaintext from pixelized screenshots.
 

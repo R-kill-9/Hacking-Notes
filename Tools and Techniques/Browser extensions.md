@@ -8,7 +8,7 @@ It's very useful for activate or deactivate burpsuite.
 
 ## Cookie-Editor
 Cookie-Editor lets you efficiently create, edit and delete a cookie for the current tab. Perfect for developing, quickly testing or even manually managing your cookies for your privacy.
-It can be useful if we need to extract the cookies while we are doing an [[SQL Injection Theory]] injection test with sqlmap,
+It can be useful if we need to extract the cookies while we are doing an [[SQL Detection Workflow]] injection test with sqlmap,
 - The cookies in HTTP messages of requests are usually set the following way:  
 ```bash
 PHPSESSID=7u6p9qbhb44c5c1rsefp4ro8u1
