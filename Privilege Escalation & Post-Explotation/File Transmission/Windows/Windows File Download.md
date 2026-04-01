@@ -131,12 +131,6 @@ copy n:\nc.exe
 ```
 
 ---
-Perfect, I see what you want now 👍  
-Below is **a clean section you can drop anywhere in that text**, written in the **same tone, structure, and technical level**, **no emojis**, explaining **RDP shared folder (drive redirection)**.
-
-You can place it **after SMB / FTP**, or under a new heading like _RDP File Transfers_.
-
----
 
 ## RDP Drive Redirection (Shared Folder)
 

@@ -126,9 +126,13 @@ John includes multiple **conversion tools** that extract hashes from encrypted f
 ```
 
 2. **Crack the hash file**:
-
+You can use either **John the Ripper** or **Hashcat** depending on format support and performance.
 ```bash
+# John the Ripper
 john --wordlist=<wordlist> <hash_file>
+
+# Hashcat
+hashcat -m <mode> -a 0 <hash_file> <wordlist>
 ```
 
 3. **View the result**:
@@ -156,3 +160,38 @@ john --show <hash_file_generated>
 |`office2john`|Converts MS Office documents for John|
 |`wpa2john`|Converts WPA/WPA2 handshakes for John|
 If you want to know all the available tools execute `locate '*2john*'` on Kali.
+
+
+---
+## Using Custom Rules
+
+To use custom rules in John, you must first **define them inside the configuration file** (`/etc/john/john.conf`).
+
+Rules must follow the syntax:
+
+```text
+[List.Rules:<rule_name>]
+<rule>
+<rule>
+```
+
+Example:
+
+```bash
+[List.Rules:customRules]
+c $1 $!
+c $1 $3 $7 $!
+```
+
+
+Execute the following command to add rules to John config:
+
+```bash
+sudo sh -c 'cat custom.rule >> /etc/john/john.conf'
+```
+
+Then, you can use them to crack hashes:
+
+```bash
+john --wordlist=<wordlist> --rules=customRules <hash_file>
+```

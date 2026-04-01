@@ -1,5 +1,7 @@
 **PowerUp** is a PowerShell-based post-exploitation tool developed as part of the PowerSploit framework. It is designed to identify and exploite privilege escalation vectors on Windows systems.
 
+---
+
 ## Loading PowerUp
 
 To use PowerUp in-memory (preferred for stealth):
@@ -12,6 +14,13 @@ Alternatively, import it locally:
 ```powershell
 Import-Module .\PowerUp.ps1
 ```
+
+If you have problems to execute it try:
+```powershell
+powershell -ep bypass -c ". .\PowerUp.ps1; Get-ModifiableServiceFile"
+```
+
+---
 
 ## Enumeration Functions
 Once the PowerUp module is loaded (either from memory or disk), individual functions can be called directly from the PowerShell prompt. 

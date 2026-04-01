@@ -56,6 +56,47 @@ Use Kaonashi + `haku34` for fast hashes (NTLM, MD5, etc.) when GPU time is avail
 [lemario-general-del-espanol.txt](https://github.com/olea/lemarios) is a comprehensive Spanish-language wordlist. Combine it with `OneRuleToRuleThemAll.rule` for broad morphological coverage and high likelihood to hit Spanish-language passwords.
 
 
+
+#### Custom Rule Creation
+
+You can also create your own rules to define **specific password mutations** based on observed patterns or password policies.
+
+**Common operations**
+
+- Append character (end): `$1`
+    
+- Prepend character (start): `^1`
+    
+- Capitalize first letter: `c`
+    
+- Lowercase all: `l`
+    
+- Uppercase all: `u`
+    
+- Reverse word: `r`
+    
+- Duplicate word: `d`
+    
+
+**Example rule file**
+
+```bash
+^! $1
+c $1
+$1 $2 $3
+^? $!
+```
+
+**Example output**
+
+```text
+password → !password1
+password → Password1
+password → password123
+password → ?password!
+```
+
+
 ---
 
 ## Mask-based strategies

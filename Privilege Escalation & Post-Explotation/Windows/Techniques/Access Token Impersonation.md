@@ -18,7 +18,10 @@ To execute a Token Impersonation attack, the following privileges are necessary:
 - **SeCreateToken**
 - **SeImpersonatePrivilege**
 
-## Attacking with Incognito (Metasploit) 
+
+---
+
+## Using Incognito (Metasploit) 
 **Incognito** is a powerful Metasploit module specciallly used for token impersonation.
 
 1. **Start a Meterpreter Session and Load the Module**
