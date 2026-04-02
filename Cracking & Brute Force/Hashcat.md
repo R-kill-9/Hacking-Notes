@@ -131,6 +131,8 @@ hashcat -a 3 -m 0 <hash> '?u?l?l?l?l?d?s'
 ---
 ## Hashcat modes
 
+> Complete list available [here](https://hashcat.net/wiki/doku.php?id=example_hashes)
+
 | Hash mode (`-m`) | Algorithm name             |
 | ---------------- | -------------------------- |
 | **0**            | MD5                        |

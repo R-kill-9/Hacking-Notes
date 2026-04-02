@@ -27,6 +27,8 @@ Cron jobs can be exploited if:
 crontab -l
 # Or
 cat /etc/crontab
+# Or
+grep CRON /var/log/syslog
 ```
 
 2. **Check Permissions:** Ensure the target script or command is writable.

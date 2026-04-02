@@ -1,4 +1,4 @@
-> For advanced techniques and automated enumeration, refer to tools like PowerUp, PowerView, and SharpHound. 
+> For a deeper understanding and detailed techniques on each topic, review the expanded content available in the **Techniques** directory.
 
 ## Basic Reconnaissance
 

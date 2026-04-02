@@ -1,5 +1,7 @@
 Linux systems support multiple authentication mechanisms. The most widely used framework is **Pluggable Authentication Modules (PAM)**, which provides a flexible and modular way to handle authentication, authorization, session management, and password policies.
 
+---
+
 ## Pluggable Authentication Modules (PAM)
 
 PAM is a framework that allows applications to authenticate users using configurable modules rather than hard-coded logic.

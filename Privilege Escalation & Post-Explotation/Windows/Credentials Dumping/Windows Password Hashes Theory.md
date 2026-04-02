@@ -1,5 +1,7 @@
 Windows operating systems use password hashes to securely store user credentials. These hashes represent an encrypted version of the user's password, making it difficult to retrieve the original password directly.
 
+---
+
 ## LSASS (Local Security Authority Subsystem Service)
 
 **LSASS** is a critical system process that handles authentication, user logins, and the management of security tokens. It validates user credentials during login and creates security tokens used to manage access rights.
@@ -9,6 +11,8 @@ To dump credentials from LSASS **Mimikatz** can be used:
 ```bash
 .\mimikatz.exe "sekurlsa::logonpasswords"
 ```
+
+---
 
 ## SAM (Security Accounts Manager)
 
@@ -20,6 +24,8 @@ To extract the SAM file (requires SYSTEM privileges):
 .\mimikatz.exe 
 lsadump::sam
 ```
+
+---
 
 ## NTLM
 

