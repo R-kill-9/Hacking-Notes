@@ -1,10 +1,32 @@
 Security headers are essential HTTP response headers that help protect web applications from common threats like **Cross-Site Scripting (XSS), Clickjacking, data leaks, and insecure communication**. Improper configuration or missing security headers can introduce significant vulnerabilities, making their review and proper implementation a critical aspect of web security.
 
-## Obtain Security Headers
-Use `curl` or a browser extension to check for security headers.
+---
+
+## Obtain misconfigured headers with Shcheck
+
+`shcheck` automates the headers analysis by identifying missing or weak headers in a single command.
+
+Installation:
 ```bash
-curl -I http://example.com
+git clone https://github.com/santoru/shcheck.git  
+cd shcheck  
+pip3 install -r requirements.txt
 ```
+Usage:
+```bash
+python3 shcheck.py http://example.com
+```
+Example output:
+
+```bash
+[+] X-Frame-Options: SAMEORIGIN  
+[-] Content-Security-Policy is missing  
+[-] Strict-Transport-Security is missing  
+[-] X-Content-Type-Options is missing
+```
+This allows quick identification of missing protections during enumeration, especially in large attack surfaces.
+
+---
 
 ## Important Headers 
 
