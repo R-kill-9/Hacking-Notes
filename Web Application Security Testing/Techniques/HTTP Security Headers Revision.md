@@ -16,14 +16,8 @@ Usage:
 ```bash
 python3 shcheck.py http://example.com
 ```
-Example output:
 
-```bash
-[+] X-Frame-Options: SAMEORIGIN  
-[-] Content-Security-Policy is missing  
-[-] Strict-Transport-Security is missing  
-[-] X-Content-Type-Options is missing
-```
+![](../../Images/shcheck.png)
 This allows quick identification of missing protections during enumeration, especially in large attack surfaces.
 
 ---

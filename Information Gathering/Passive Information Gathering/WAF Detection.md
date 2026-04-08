@@ -24,15 +24,7 @@ The simplest usage checks whether a WAF is present on a target domain:
 python3 wafhunter.py -u http://example.com
 ```
 
-Example output:
-
-```text
-[+] Target: http://example.com
-[+] WAF Detected: Cloudflare
-[+] WAF Type: CDN / Application Firewall
-```
-
-This indicates that Cloudflare is actively filtering traffic, which may block automated attacks or scans.
+![](../../Images/wafhunter.png)
 
 ### Advanced Techniques
 
