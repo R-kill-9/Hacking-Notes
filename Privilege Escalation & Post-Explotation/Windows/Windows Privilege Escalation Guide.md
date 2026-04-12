@@ -65,8 +65,8 @@ Get-Process -Name <ProcessName> | Select-Object Name, Id, Path                  
 Use native Windows tools to dump or discover sensitive data:
 ```powershell
 cmdkey /list                    # List saved credentials
-Get-ChildItem -Path C:\ -Include *.kdbx,*.ini,*.config -File -Recurse -ErrorAction SilentlyContinue   # Search common credential/config files
-Get-ChildItem -Path C:\Users\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue    # Search user documents
+Get-ChildItem -Path C:\Users\ -Include *.kdbx,*.ini,*.config,*.settings -File -Recurse -Force -ErrorAction SilentlyContinue   # Search common credential/config files
+Get-ChildItem -Path C:\Users\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -Force -ErrorAction SilentlyContinue    # Search user documents
 ```
 
 ## Auto-Login Registry Secrets
