@@ -48,7 +48,19 @@ nmap -p 161 --script snmp-info,snmp-enum <ip>
 
 ```
 
-These scans reveal which protocols (SMB, LDAP, Kerberos) are exposed for further testing.
+To improve recon workflow and avoid missing services, the scans can be saved in normal output format (`-oN`). Once multiple scans are collected, results can be structured using simple parsing techniques with `awk`:
+```bash
+awk '/^Nmap scan report/{
+    gsub("Nmap scan report for ","")
+    host=$0
+}
+/^[0-9]+\/tcp open/{
+    service=$3
+    version=""
+    for(i=4;i<=NF;i++) version=version" "$i
+    print host " → " service " → " version
+}' nmap.txt
+```
 
 ### Find Domain Controllers
 

