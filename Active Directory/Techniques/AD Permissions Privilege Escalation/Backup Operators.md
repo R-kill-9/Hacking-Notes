@@ -31,7 +31,7 @@ memberOf: CN=Backup Operators,CN=Builtin,DC=SOUPEDECODE,DC=LOCAL
 
 This can also be seen with Bloodhound:
 
-![](backup_operators_pe_example_group_member.png)
+![](../../../Images/backup_operators_pe_example_group_member.png)
 
 **Step 2: Prepare SMB Server**  
 You need to set up a writable SMB share to receive dumped registry files:
