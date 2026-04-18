@@ -143,8 +143,12 @@ Place it in the application directory (first in search order).
 
 The DLL executes only when the application is launched.
 
-If it is a service:
+If it is a service, locate it using:
 
+```powershell
+schtasks /query /fo LIST /v 
+```
+Then start it:
 ```powershell
 net stop "VulnService"
 net start "VulnService"
@@ -156,7 +160,18 @@ If it is a normal application:
 Start-Process "C:\Program Files\App\app.exe"
 ```
 
-If you cannot trigger it, wait for a privileged user.
+If you list the task and see:
+```powershell
+Schedule Type:                        At system start up
+```
+
+You can execute it using:
+```powershell
+# Restart system
+shutdown /r /t 0
+# Run it manual
+schtasks /run /tn "task"
+```
 
 ---
 
