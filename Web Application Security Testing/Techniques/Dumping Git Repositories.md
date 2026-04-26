@@ -1,10 +1,24 @@
-Git repositories often contain sensitive information such as source code, configuration files, credentials, and other private data. Sometimes, these repositories can be accidentally exposed on the web. **git-dumper** is a tool that helps extract the content of these exposed Git repositories, even if they are not directly accessible through normal HTTP/HTTPS methods.
+Git repositories can unintentionally expose sensitive information when the `.git/` directory is accessible via HTTP or HTTPS. This can occur due to misconfigured web servers or improper deployment practices.
 
-**git-dumper** is particularly useful for cases where the `.git` directory is exposed to the web but direct access to it is restricted. By dumping the repository, an attacker can retrieve the entire repository, including sensitive data that may be of value during a penetration test.
+When exposed, attackers can retrieve not only the current version of the application but also the full development history, including deleted files, credentials, and configuration changes across commits.
 
-## Installation
+A key risk is that even if sensitive data has been removed from the latest version, it may still exist in previous commits.
 
-To install `git-dumper`, follow these steps (It is possible that you need to configure a virtual environment to successfully install the requirements):
+---
+
+## Extracting exposed repositories with git-dumper
+
+The tool git-dumper is used to reconstruct Git repositories that are accessible over the web but not properly exposed through normal browsing.
+
+It works by recursively downloading the `.git` directory structure, including objects, refs, logs, and configuration files, and then reconstructing a usable local repository.
+
+This is especially useful in penetration testing scenarios where `.git` is exposed but directory listing or direct access is restricted.
+
+---
+
+## Installation process
+
+The tool can be installed by cloning the repository and installing dependencies using Python.
 
 ```bash
 git clone https://github.com/arthaud/git-dumper.git
@@ -12,42 +26,97 @@ cd git-dumper
 pip install -r requirements.txt
 ```
 
-## Usage
-- `<url>` is the URL of the exposed Git repository.
-- `<directory>` is the directory where the repository contents will be saved.
+A virtual environment is recommended to avoid dependency conflicts.
+
+---
+
+## Basic usage of git-dumper
+
+To extract a remote exposed repository, provide the target `.git` URL and an output directory where the reconstructed repository will be stored.
+
 ```bash
 python3 git-dumper.py <url> <directory>
 ```
 
-**Example:** If the repository is exposed at `http://example.com/.git/`, you would run:
+Example:
+
 ```bash
-python3 git-dumper.py http://example.com/.git/ /path/to/directory
+python3 git-dumper.py http://example.com/.git/ ./dumped-repo
 ```
 
-## Information Enumeration Using grep
+Once completed, the output directory will contain a reconstructed Git repository that can be analyzed locally.
 
-After dumping a Git repository, `grep` is useful for quickly finding sensitive information such as usernames, emails, or credentials. For example, searching for a domain in emails:
+---
+
+## Recovering repository history after dumping
+
+After dumping the repository, the next step is to analyze the full Git history. This allows you to recover deleted files, sensitive changes, and previously committed secrets.
+
+First, move into the dumped repository:
 
 ```bash
-grep -r "@example.com" .
+cd dumped-repo
 ```
 
-This can reveal user accounts like `admin@example.com`, which can be valuable for further attacks.
-
-You can also search for keywords like passwords or secrets:
+Then inspect the commit history:
 
 ```bash
+git log --oneline
+```
+
+This will show all available commits, including older versions that may contain sensitive information that is not present in the latest state.
+
+To inspect a specific commit in detail:
+
+```bash
+git show <commit_hash>
+```
+
+To restore the entire project state at a specific commit (useful for recovering deleted content):
+
+```bash
+git checkout <commit_hash>
+```
+
+This places the repository in a detached HEAD state, allowing you to explore the codebase as it existed at that point in time.
+
+If you want to preserve that state for analysis, create a new branch from it:
+
+```bash
+git checkout -b analysis <commit_hash>
+```
+
+---
+
+## Searching for sensitive information in dumped repositories
+
+Once the repository is reconstructed, it is common to search for sensitive data such as credentials, tokens, or internal domains.
+
+This can be done using recursive search tools:
+
+```bash
+grep -r "@domain.com" .
 grep -ri "password" .
 grep -ri "secret" .
 ```
 
+This step is critical because sensitive data is often found in configuration files, environment variables, or even within source code comments.
 
-## Possible Vulnerabilities Exposed
+---
 
-By dumping the Git repository, you may find the following types of sensitive information:
+## Security impact of exposed Git repositories
 
-1. **Sensitive Credentials**: Configuration files or source code may contain hardcoded passwords, API keys, or other secrets.
-2. **Source Code**: The repository may contain proprietary or confidential code that could lead to business logic vulnerabilities.
-3. **Configuration Files**: Files like `.env`, `config.json`, `config.php`, or others might contain environment-specific information that could help in exploiting the system.
-4. **Commit History**: Historical commits might contain sensitive information (passwords, API tokens, etc.) that was added earlier in the development process.
-5. **Exposed Infrastructure Details**: Sometimes, configuration files reveal details about the underlying infrastructure, which can be useful for further attacks.
+When a `.git` directory is exposed, it can lead to severe information disclosure. Attackers may obtain:
+
+- Hardcoded credentials and API keys
+    
+- Database connection strings
+    
+- Internal system architecture details
+    
+- Deleted or hidden source code via commit history
+    
+- Authentication logic that reveals vulnerabilities
+    
+
+Even if sensitive data is removed in the latest version, Git history often retains it indefinitely unless explicitly rewritten.

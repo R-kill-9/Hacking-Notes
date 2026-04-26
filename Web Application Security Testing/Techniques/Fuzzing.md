@@ -29,7 +29,33 @@ Fuff is primarily used for discovering hidden resources in web applications by b
 ffuf -u http://<domain>/FUZZ -w <wordlist>
 ```
 
-#### Example
+> Remember to fuzz directories that start with `.` (hidden paths), as they often expose backup files, configs or admin panels. Use `ffuf -u http://<domain>/.FUZZ -w <wordlist>`
+
+#### Fuzzing Sub-domains
+```bash
+ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt -u http://FUZZ.<domain>
+```
+
+#### Fuzzing Virtual Hosts
+```bash
+ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt -u http://<domain> -H 'Host: FUZZ.<domain>'
+```
+
+#### Post method
+
+```bash
+ffuf -u <URL> -X POST -d "parameter=FUZZ" -w <wordlist> -fs 61
+```
+
+#### Fuzzing 2 parameters
+Ffuf also allows fuzzing two parameters at the same time; this can be done as shown in the following example.
+
+```bash
+ffuf -u http://example.com/login -X POST -w /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt:USER -w /usr/share/wordlists/rockyou.txt:PASS  -d "username=USER&password=PASS"  -fs 0             
+```
+
+
+#### Fuzzing with Headers
 In this example we are trying to fuzz the username parameter for this GET request:
 ```
 GET /view.php?username=kill-9&file=test.php.pdf HTTP/1.1
@@ -48,29 +74,6 @@ Configuring the following command, we achieve to enumerate the application users
 
 ```bash
 ffuf -u 'http://example.com/view.php?username=FUZZ&file=file.xlsx' -w /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt -H 'Cookie: PHPSESSID=8cm81dpba2svtbmi4i5jr7n3jp'  -fs 2985
-```
-
-#### Post method
-
-```bash
-ffuf -u <URL> -X POST -d "parameter=FUZZ" -w <wordlist> -fs 61
-```
-
-#### Fuzzing 2 parameters
-Ffuf also allows fuzzing two parameters at the same time; this can be done as shown in the following example.
-
-```bash
-ffuf -u http://example.com/login -X POST -w /usr/share/wordlists/seclists/Usernames/xato-net-10-million-usernames.txt:USER -w /usr/share/wordlists/rockyou.txt:PASS  -d "username=USER&password=PASS"  -fs 0             
-```
-
-#### Fuzzing Sub-domains
-```bash
-ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt -u http://FUZZ.<domain>
-```
-
-#### Fuzzing Virtual Hosts
-```bash
-ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-5000.txt -u http://<domain> -H 'Host: FUZZ.<domain>'
 ```
 
 

