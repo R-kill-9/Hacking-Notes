@@ -56,7 +56,7 @@ Once access is gained with cadaver, commands such as the following can be execut
 1. **Set Up the Exploit Module**
 
 ```bash
-use exploit/windows/http/webdav_upload_asp
+use exploit/windows/iis/iis_webdav_upload_asp
 ```
 
 2. **Configure the Exploit Options**

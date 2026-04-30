@@ -99,8 +99,9 @@ This allows identification of:
 ## Searching for Sensitive Descriptions
 
 ```bash
-ldapsearch -x -H ldap://10.129.72.90 \
--b "dc=cascade,dc=local" "(description=*)"
+ldapsearch -x -H ldap://192.168.164.122 \
+-b "dc=cascade,dc=local" \
+"(&(objectClass=user)(description=*))" description
 ```
 
 Why this is critical:  

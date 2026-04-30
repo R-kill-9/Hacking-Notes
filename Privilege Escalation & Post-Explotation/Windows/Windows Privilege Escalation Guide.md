@@ -31,6 +31,10 @@ net localgroup <group>     # List users from a group
 whoami /groups             # List user groups
 whoami /priv               # User privileges
 whoami /all                # Get all the information related with the user
+net user /domain           # List all domain users
+net group /domain          # List all domain groups
+net group "Domain Admins" /domain # Enumerate members of the Domain Admins group
+nltest /dclist:<domain>    # List all domain controllers for the specified domain
 ```
 
 ## Scheduled tasks
@@ -82,12 +86,18 @@ reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAd
 
 Use it to discover passwords in plain text:
 ```powershell
-Get-History                            # Show commands from current PowerShell session (in-memory)
-(Get-PSReadlineOption).HistorySavePath # Get path of persistent command history file
-type (Get-PSReadlineOption).HistorySavePath  # Read persistent command history (PSReadLine)
-dir C:\Users\Public\Transcripts\             # List PowerShell transcript files (if enabled)
-type C:\Users\Public\Transcripts\*.txt  # Read transcript logs (commands + output)
-Get-ChildItem -Path C:\ -Include *transcript*.txt -Recurse -ErrorAction SilentlyContinue            # Search for transcript files system-wide
+Get-History                                        # Current session history (memory only)
+(Get-PSReadLineOption).HistorySavePath            # Path to persistent PSReadLine history
+type (Get-PSReadLineOption).HistorySavePath       # Read current user's persistent history
+
+dir C:\Users\*\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\    # Enumerate PowerShell history files for all users
+type C:\Users\<user>\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+
+dir C:\Users\*\Documents\PowerShell_transcript*.txt -ErrorAction SilentlyContinue    # Common transcript location
+Get-ChildItem -Path C:\ -Filter "*transcript*" -Recurse -ErrorAction SilentlyContinue # Search custom transcript paths
+
+reg query "HKLM\Software\Policies\Microsoft\Windows\PowerShell\Transcription"        # Check transcript policy
+reg query "HKCU\Software\Policies\Microsoft\Windows\PowerShell\Transcription"
 ```
 
 ## Network Enumeration
