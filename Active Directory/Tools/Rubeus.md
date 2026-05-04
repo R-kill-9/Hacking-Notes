@@ -1,6 +1,15 @@
 **Rubeus** is a tool designed for Kerberos abuse and ticket management in Active Directory environments. It is widely used in penetration testing and red team operations to request, extract, and manipulate Kerberos tickets. 
 
 ---
+### Requesting TGS from Windows 
+
+```powershell
+.\Rubeus.exe kerberoast /nowrap
+```
+
+- Lists all the kerberosteable users.
+
+---
 
 ### Enumerate tickets in memory
 

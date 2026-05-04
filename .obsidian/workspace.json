@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Privilege Escalation & Post-Explotation/Windows/Techniques/Privileges/SeManageVolumePrivilege.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "SeManageVolumePrivilege"
             }
           }
         ]
@@ -189,34 +189,35 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3bb5292e73c6fe4f",
+  "active": "a4c880ddd4d14398",
   "lastOpenFiles": [
-    "Privilege Escalation & Post-Explotation/Linux/Techniques/Cron Jobs.md",
-    "Privilege Escalation & Post-Explotation/Linux/Linux Privilege Escalation Guide.md",
-    "Cracking & Brute Force/Hashcat.md",
+    "Privilege Escalation & Post-Explotation/Windows/Techniques/Privileges/SeImpersonatePrivilege.md",
+    "Privilege Escalation & Post-Explotation/Windows/Techniques/Privileges/Access Token Impersonation.md",
+    "Privilege Escalation & Post-Explotation/Windows/Techniques/Privileges/SeBackupPrivilege Abuse.md",
+    "Privilege Escalation & Post-Explotation/Windows/Techniques/Privileges/SeManageVolumePrivilege.md",
+    "Privilege Escalation & Post-Explotation/Windows/Techniques/Privileges",
     "Tools and Techniques/Prompt for Notes.md",
-    "Privilege Escalation & Post-Explotation/Windows/Techniques/SeImpersonatePrivilege Abuse.md",
-    "Privilege Escalation & Post-Explotation/Windows/Techniques/Access Token Impersonation.md",
-    "Privilege Escalation & Post-Explotation/RCE/Reverse Shell.md",
-    "Privilege Escalation & Post-Explotation/File Transmission/Basic File Transmission.md",
+    "Protocols & Services/Databases/MSSQL.md",
     "Privilege Escalation & Post-Explotation/Windows/Windows Privilege Escalation Guide.md",
-    "Web Application Security Testing/Techniques/WebDAV.md",
-    "Active Directory/Techniques/Exploitation/GPP - Credential Exposure via Groups.xml.md",
-    "Active Directory/Techniques/Enumeration/LDAP Enumeration.md",
-    "Web Application Security Testing/Web Application Enumeration Guide.md",
-    "Web Application Security Testing/Techniques/Fuzzing.md",
-    "Web Application Security Testing/Techniques/EAR (Early Access Response).md",
-    "Active Directory/Workflow Guide/Active Directory Enumeration – No Credentials.md",
-    "Web Application Security Testing/Techniques/File Handling/PHP Wrappers (LFI to Remote Code Execution).md",
-    "Web Application Security Testing/Techniques/File Handling/Local File Inclusion (LFI).md",
-    "Web Application Security Testing/Techniques/File Handling/Remote File Inclusion (RFI).md",
-    "Web Application Security Testing/Techniques/Web Shell/Web Shell.md",
-    "Web Application Security Testing/Techniques/SQL Injection/Stacked Queries SQL Injection.md",
-    "Protocols & Services/RPC.md",
-    "Web Application Security Testing/Techniques/API testing.md",
-    "Web Application Security Testing/Techniques/SQL Injection/SQL Detection Workflow.md",
-    "Web Application Security Testing/Techniques/SQL Injection/SQLmap.md",
     "Privilege Escalation & Post-Explotation/File Transmission/Windows/Windows File Upload.md",
+    "Privilege Escalation & Post-Explotation/File Transmission/Windows/Windows File Download.md",
+    "Active Directory/Tools/RunasCs.md",
+    "Active Directory/Tools/Rubeus.md",
+    "Active Directory/Techniques/Exploitation/Kerberoasting.md",
+    "Active Directory/Tools/PowerView.md",
+    "Active Directory/Techniques/Enumeration/Active Directory Living‑Off‑The‑Land Enumeration.md",
+    "Active Directory/Techniques/Enumeration/User Enumeration.md",
+    "Active Directory/Techniques/Enumeration/DNS Enumeration in Active Directory (AD-Integrated DNS).md",
+    "Privilege Escalation & Post-Explotation/File Transmission/Basic File Transmission.md",
+    "Web Application Security Testing/Techniques/File Handling/Limited File Uploads.md",
+    "Web Application Security Testing/Techniques/File Handling/File Upload Attacks.md",
+    "Web Application Security Testing/Techniques/Web Shell/Web Shell.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Path Hijacking.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Credential Hunting in Linux.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Cracking Linux Credentials.md",
+    "Privilege Escalation & Post-Explotation/Linux/Techniques/Clearing generated tracks on Linux.md",
+    "Privilege Escalation & Post-Explotation/Linux/Linux Privilege Escalation Guide.md",
+    "Privilege Escalation & Post-Explotation/RCE/Spawn a Shell.md",
     "Images/shcheck.png",
     "Images/wafhunter.png",
     "Images/wafhunter.png",
@@ -235,7 +236,6 @@
     "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding & Tunneling/Tunneling",
     "Active Directory/Techniques/Credentials Dumping",
     "Privilege Escalation & Post-Explotation/File Transmission/Linux",
-    "Privilege Escalation & Post-Explotation/File Transmission/Windows",
-    "Privilege Escalation & Post-Explotation/File Transmission"
+    "Privilege Escalation & Post-Explotation/File Transmission/Windows"
   ]
 }

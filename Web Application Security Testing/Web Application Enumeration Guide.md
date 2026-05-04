@@ -45,7 +45,7 @@ ffuf -u http://target/.FUZZ -w /usr/share/seclists/Discovery/Web-Content/common.
 gobuster dir -u http://target -w wordlist.txt -x php,txt,html   
 ```
 
-**ecursive  enumeration:**
+**Recursive  enumeration:**
 ```bash
 feroxbuster -u http://target -r             
 
