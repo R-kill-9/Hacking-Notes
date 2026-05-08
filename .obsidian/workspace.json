@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Web Application Security Testing/Techniques/Fuzzing.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Fuzzing"
             }
           }
         ]
@@ -191,6 +191,12 @@
   },
   "active": "a4c880ddd4d14398",
   "lastOpenFiles": [
+    "Web Application Security Testing/Web Application Enumeration Guide.md",
+    "Web Application Security Testing/Techniques/Fuzzing.md",
+    "Active Directory/Workflow Guide/Active Directory Enumeration – No Credentials.md",
+    "Information Gathering/Active Information Gathering/Virtual Hosts.md",
+    "Web Application Security Testing/Techniques/TLS enumeration with sslscan.md",
+    "README.md",
     "Privilege Escalation & Post-Explotation/Linux/Vulnerabilities/Copy Fail (CVE-2026-31431).md",
     "Privilege Escalation & Post-Explotation/Linux/Vulnerabilities/PwnKit (CVE-2021-4034).md",
     "Privilege Escalation & Post-Explotation/Linux/Vulnerabilities/Dirty COW (CVE-2016-5195).md",
@@ -203,22 +209,16 @@
     "Privilege Escalation & Post-Explotation/Linux/Linux Authentication Process - Theory.md",
     "Web Application Security Testing/Techniques/Web Shell/Web Shell.md",
     "Protocols & Services/SMTP.md",
-    "Active Directory/Workflow Guide/Active Directory Enumeration – No Credentials.md",
     "Web Application Security Testing/Techniques/SQL Injection/SQL Detection Workflow.md",
     "Web Application Security Testing/Techniques/SQL Injection/Stacked Queries SQL Injection.md",
     "Web Application Security Testing/Techniques/Content Management Systems (CMS)/Wordpress/Wordpress Enumeration.md",
-    "Web Application Security Testing/Web Application Enumeration Guide.md",
     "Web Application Security Testing/Techniques/Content Management Systems (CMS)/Wordpress/Wpscan.md",
     "Web Application Security Testing/Techniques/Content Management Systems (CMS)/Wordpress/Xmlrpc.php.md",
     "Protocols & Services/Databases/MySQL.md",
     "Information Gathering/Passive Information Gathering/Whois.md",
     "Information Gathering/Passive Information Gathering/DNS recognizement.md",
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Privileges/SeManageVolumePrivilege.md",
-    "Privilege Escalation & Post-Explotation/Windows/Techniques/Privileges/SeImpersonatePrivilege.md",
-    "Privilege Escalation & Post-Explotation/Windows/Techniques/Privileges/Access Token Impersonation.md",
-    "Privilege Escalation & Post-Explotation/Windows/Techniques/Privileges/SeBackupPrivilege Abuse.md",
     "Privilege Escalation & Post-Explotation/Windows/Techniques/Privileges",
-    "Protocols & Services/Databases/MSSQL.md",
     "Images/shcheck.png",
     "Images/wafhunter.png",
     "Images/wafhunter.png",

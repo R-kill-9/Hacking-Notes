@@ -47,9 +47,9 @@ gobuster dir -u http://target -w wordlist.txt -x php,txt,html
 
 **Recursive  enumeration:**
 ```bash
-feroxbuster -u http://target -r             
+feroxbuster -u http://target -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-medium.txt -x php,aspx,sql,txt,html,sh,xml,js,cgi,pdf,git -s 200 -r
 
-ffuf -u http://target/FUZZ -w wordlist.txt -recursion -recursion-depth 2                            
+ffuf -u http://target/FUZZ -w wordlist.txt -recursion -recursion-depth 2           
 ```
 
 ---
@@ -57,11 +57,11 @@ ffuf -u http://target/FUZZ -w wordlist.txt -recursion -recursion-depth 2
 ## Subdomain Enumeration
 
 ```bash
-ffuf -w subdomains.txt -u http://FUZZ.target.com
+ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://FUZZ.target.com
 ```
 
 ```bash
-gobuster dns -d target.com -w subdomains.txt
+gobuster dns -d target.com -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
 ```
 
 ---
@@ -69,16 +69,12 @@ gobuster dns -d target.com -w subdomains.txt
 ## Virtual Host Discovery
 
 ```bash
-ffuf -w subdomains.txt -u http://target.com -H "Host: FUZZ.target.com"
-
-ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://target.com -H 'Host: FUZZ.target.com'
-```
-
-```bash
-gobuster vhost -u http://target.com -w subdomains.txt
+ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://target.com -H "Host: FUZZ.target.com"
 
 gobuster vhost -u http://target.com -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt
 ```
+
+
 
 ---
 

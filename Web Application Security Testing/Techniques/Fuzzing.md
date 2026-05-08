@@ -77,6 +77,49 @@ ffuf -u 'http://example.com/view.php?username=FUZZ&file=file.xlsx' -w /usr/share
 ```
 
 
+---
+
+## Feroxbuster
+
+Feroxbuster is a **fast, recursive, and parallel** directory and file brute-forcing tool written in Rust. It is highly effective for finding hidden directories and files.
+
+#### Basic Usage
+
+| Option            | Description                                   |
+| ----------------- | --------------------------------------------- |
+| `-u <URL>`        | Target URL to scan.                           |
+| `-w <wordlist>`   | Specify a custom wordlist.                    |
+| `-t <threads>`    | Number of threads to use (default: 50).       |
+| `-n`              | Do not recurse into found directories.        |
+| `-x <extensions>` | Extensions to fuzz (e.g., `-x php,txt,html`). |
+| `-o <file>`       | Output results to a file.                     |
+
+```bash
+feroxbuster -u <URL> -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-medium.txt -x php,aspx,sql,txt,html,sh,xml,js,cgi,pdf,git -s 200 -r
+```
+
+#### Example Usage:
+
+- **Basic scan:**
+```bash
+feroxbuster -u http://<machine-ip> -t 50
+```
+
+- **Recursive scan with a wordlist:**
+```bash
+feroxbuster -u http://<machine-ip> -w <wordlist> -r
+```
+
+- **Scan for specific extensions:**
+```bash
+feroxbuster -u http://<machine-ip> -x php,html,txt -w <wordlist>
+```
+
+- **Save results to a file:**
+```bash
+feroxbuster -u http://<machine-ip> -o results.txt
+```
+
 
 ---
 
@@ -118,51 +161,6 @@ Used when you know the domain name (e.g., medusa.hmv).
 
 ```bash
 gobuster dns -d <domain> -w <wordlist> -o gobuster.out
-```
-
-
-
----
-
-## Feroxbuster
-
-Feroxbuster is a **fast, recursive, and parallel** directory and file brute-forcing tool written in Rust. It is highly effective for finding hidden directories and files.
-
-#### Basic Usage
-
-| Option            | Description                                   |
-| ----------------- | --------------------------------------------- |
-| `-u <URL>`        | Target URL to scan.                           |
-| `-w <wordlist>`   | Specify a custom wordlist.                    |
-| `-t <threads>`    | Number of threads to use (default: 50).       |
-| `-n`              | Do not recurse into found directories.        |
-| `-x <extensions>` | Extensions to fuzz (e.g., `-e php,txt,html`). |
-| `-o <file>`       | Output results to a file.                     |
-
-```bash
-feroxbuster -u <URL>
-```
-
-#### Example Usage:
-
-- **Basic scan:**
-```bash
-feroxbuster -u http://<machine-ip> -t 50
-```
-
-- **Recursive scan with a wordlist:**
-```bash
-feroxbuster -u http://<machine-ip> -w <wordlist> -r
-```
-
-- **Scan for specific extensions:**
-```bash
-feroxbuster -u http://<machine-ip> -x php,html,txt
-```
-
-- **Save results to a file:**
-```bash
-feroxbuster -u http://<machine-ip> -o results.txt
 ```
 
 
