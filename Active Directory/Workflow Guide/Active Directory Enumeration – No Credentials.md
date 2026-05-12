@@ -46,6 +46,8 @@ nmap -p 111,2049 -sV -Pn --open <ip>
 # SNMP enumeration (common misconfigurations)
 nmap -p 161 --script snmp-info,snmp-enum <ip>
 
+# UDP enumeration 
+nmap --top-ports 1000 -sU <ip>
 ```
 
 To improve recon workflow and avoid missing services, the scans can be saved in normal output format (`-oN`). Once multiple scans are collected, results can be structured using simple parsing techniques with `awk`:
@@ -139,8 +141,6 @@ Identify valid usernames to enable password spraying, Kerberoasting, or brute-fo
 nxc smb <dc_ip> --rid-brute 10000
 
 # To extract the discovered usernames more cleanly, run:
-netexec smb <dc_ip> -u 'guest' -p '' --rid-brute | grep 'SidTypeUser' | sed -n "s/.*\\\\\([^ ]*\).*/\1/p" | sort -u
-
 nxc smb <ip> -u 'username' -p 'password' --users | awk '{if(NR>5) print $5}' | sort -u > domain_users.txt
 
 # List users through SMB directly

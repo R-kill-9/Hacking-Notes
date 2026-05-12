@@ -12,6 +12,11 @@
 rpcclient -U <username> <target_ip>
 ```
 
+For anonymous access:
+```bash
+rpcclient -U "" -N <target_ip>
+```
+
 #### Basic Domain Enumeration
 
 | Command              | Description                                                                    |
