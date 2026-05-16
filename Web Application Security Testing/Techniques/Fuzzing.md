@@ -8,22 +8,22 @@ Fuff is primarily used for discovering hidden resources in web applications by b
 
 #### Basic Usage
 
-| Option                      | Description                                                       |
-| --------------------------- | ----------------------------------------------------------------- |
-| `-u <URL>`                  | Target URL.                                                       |
-| `-w <wordlist>`             | Path to the wordlist for fuzzing.                                 |
-| `-r`                        | Set the request method (GET, POST, etc.).                         |
-| `-t <number>`               | Set the number of concurrent threads (default is 10).             |
-| `-mc <status_code>`         | Match responses with specific status codes (e.g., 200, 404).      |
-| `-o <output_file>`          | Save the output to a specified file.                              |
-| `-p <parameter>`            | Specify a parameter for fuzzing.                                  |
-| `-d <parameter>`            | Defines the data that will be sent in the body of a POST request. |
-| `-fs <length>`              | Filter out responses by response size (in bytes).                 |
-| `-fw <words>`               | Filter by word count.                                             |
-| `-fl <lines>`               | Filter by line count.                                             |
-| `-H`                        | Add a custom HTTP header to the request.                          |
-| `-recursion`                | Enable recursive scanning of discovered directories.              |
-| `-recursion-depth <number>` | Set the maximum recursion depth for directory fuzzing.            |
+| Option              | Description                                                       |
+| ------------------- | ----------------------------------------------------------------- |
+| `-u <URL>`          | Target URL.                                                       |
+| `-w <wordlist>`     | Path to the wordlist for fuzzing.                                 |
+| `-r`                | Set the request method (GET, POST, etc.).                         |
+| `-t <number>`       | Set the number of concurrent threads (default is 10).             |
+| `-mc <status_code>` | Match responses with specific status codes (e.g., 200, 404).      |
+| `-o <output_file>`  | Save the output to a specified file.                              |
+| `-p <parameter>`    | Specify a parameter for fuzzing.                                  |
+| `-d <parameter>`    | Defines the data that will be sent in the body of a POST request. |
+| `-fs <length>`      | Filter out responses by response size (in bytes).                 |
+| `-fw <words>`       | Filter by word count.                                             |
+| `-fl <lines>`       | Filter by line count.                                             |
+| `-H`                | Add a custom HTTP header to the request.                          |
+| `-recursion`        | Enable recursive scanning of discovered directories.              |
+| `--depth <number>`  | Set the maximum recursion depth for directory fuzzing.            |
 
 ```bash
 ffuf -u http://<domain>/FUZZ -w <wordlist>
