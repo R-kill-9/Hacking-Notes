@@ -19,7 +19,7 @@ wpscan --url <url>
 
 #### Other options
 ```bash
-wpscan --enumerate u,t,p 
+wpscan --enumerate u,at,ap,cb,dbe 
 	   --api-token YOUR_TOKEN_HERE
        --plugins-detection aggressive  # Recommended
        --passwords /path/to/passwords.txt 
