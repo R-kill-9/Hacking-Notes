@@ -59,6 +59,36 @@ start            # start the tunnel for the chosen session
 
 
 ---
+## Listener Mechanism
+
+Ligolo allows port forwarding using listeners:
+
+```bash
+listener_add --addr 0.0.0.0:9999 --to 127.0.0.1:9999
+```
+
+This means:
+
+- `0.0.0.0:9999` exposes the service to the internal network.
+- `127.0.0.1:9999` forwards the traffic to the attacker machine locally.
+
+Any request made to port 9999 on the pivot host is transparently forwarded to the attacker machine through the tunnel.
+
+This **Listener Mechanism** is used to **make a service running on your Kali reachable from internal machines through the pivot**.
+
+It’s useful when targets cannot access your attacker machine directly.
+
+Example:
+
+- You run a web server on Kali
+- Internal machine cannot reach Kali
+- The listener forwards traffic from the pivot to your Kali
+
+> **Important:**
+> Commands executed from the internal machine must use the **pivot’s internal IP address**, not the attacker (Kali) IP.  
+> The pivot acts as the reachable endpoint, while Ligolo transparently forwards the traffic back to Kali.
+
+---
 
 ## Double pivoting
 
@@ -124,7 +154,7 @@ Then create a listener:
 listener_add --addr 0.0.0.0:4444 --to 127.0.0.1:11601
 ```
 
-This command creates a listener on porrt 4444 of Pivot‑1. Any connection received is forwarded to the Ligolo proxy.
+This command creates a listener on port 4444 of Pivot‑1. Any connection received is forwarded to the Ligolo proxy.
 
 Verify:
 

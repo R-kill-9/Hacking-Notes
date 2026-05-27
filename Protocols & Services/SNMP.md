@@ -40,7 +40,7 @@ nmap -sU -p 161 --script snmp-brute <target>
 ---
 
 
-### SNMP Walk 
+## SNMP Walk 
 
 The **snmpwalk** command can be used to retrieve information from an SNMP-enabled device. It queries the device using the SNMP protocol and returns a list of available OIDs (Object Identifiers), which can provide detailed information about the device’s configuration and status.
 
@@ -61,8 +61,6 @@ Running processes can reveal:
     
 - Potential privilege escalation vectors
     
-
-Command:
 
 ```bash
 snmpwalk -v1 -c public <target> 1.3.6.1.2.1.25.4.2.1.2
@@ -86,8 +84,6 @@ Installed software enumeration helps identify:
     
 - Attack surface expansion
     
-
-Command:
 
 ```bash
 snmpwalk -v1 -c public <target> 1.3.6.1.2.1.25.6.3.1.2
@@ -118,15 +114,15 @@ SNMPv2-SMI::enterprises.77.1.2.25.1.2 = STRING: "john"
 SNMPv2-SMI::enterprises.77.1.2.25.1.3 = STRING: "backup"
 ```
 
+---
 
-### Brute Force SNMP  communities
-#### onesixtyone
+## Brute Force SNMP  communities
+### onesixtyone
  This command will execute a brute force attack to retrieve existent communities.
  
- ```bash
+```bash
 onesixtyone -c /usr/share/wordlists/seclists/Discovery/SNMP/snmp.txt  10.129.15.150 
 ```
-
 
 #### Manual Script
 This Bash loop attempts to brute-force SNMP community strings using a wordlist. It reads each string from the Metasploit default SNMP wordlist and runs `snmpwalk` with SNMP version 2c against the target. The first 10 lines of each response are displayed to quickly identify valid strings.
@@ -160,4 +156,20 @@ Once the community string is retrieved you can execute snmpwalk to extract the s
 
 ```bash
 snmpwalk -v 2c -c <community> <target> <OID_value>
+```
+
+
+---
+## SNMP RCE (NET-SNMP EXTEND)
+
+SNMP can lead to **remote code execution (RCE)** when the NET-SNMP `extend` feature is enabled and misconfigured. This feature allows the SNMP daemon (`snmpd`) to execute system commands and expose their output through SNMP queries.
+
+
+```bash
+snmpwalk -v2c -c public <target> NET-SNMP-EXTEND-MIB::nsExtendObjects
+```
+
+
+```text
+snmpwalk -v2c -c <command> <target> NET-SNMP-EXTEND-MIB::nsExtendObjects
 ```

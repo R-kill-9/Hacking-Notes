@@ -144,8 +144,10 @@ cat /etc/apache2/sites-enabled/*
 
 **pspy:** Tool to monitor processes and cron jobs without needing root privileges, useful to detect privilege escalation opportunities in real time.
 
+**linux-exploit-suggester:** Tool used to identify potential privilege escalation vulnerabilities on Linux systems by analyzing kernel version, installed software, and misconfigurations.
 ```bash
 ./linpeas.sh
 ./pspy64
+./linux-exploit-suggester.sh
 ```
 

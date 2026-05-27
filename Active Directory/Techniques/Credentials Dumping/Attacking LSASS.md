@@ -38,6 +38,33 @@ Upon successful authentication, LSASS will:
     
 
 ---
+## Remote LSASS Dumping with NetExec + lsassy  
+  
+`lsassy` is a remote credential dumping technique that automates LSASS dumping and credential extraction over SMB using administrative privileges.  
+  
+It leverages tools such as:  
+  
+- `procdump`  
+- `comsvcs.dll`  
+- Remote Service Creation  
+- SMB file transfer  
+  
+to remotely dump the LSASS process and parse credentials automatically.  
+  
+Requirements  
+  
+- Administrative privileges on the target  
+- SMB access (TCP/445)  
+- Remote service creation allowed  
+- LSASS protection disabled or bypassed  
+  
+
+  
+```bash  
+nxc smb <ip> -u <user> -p <password> -M lsassy  
+```
+
+---
 
 ## Dumping LSASS Process Memory
 
