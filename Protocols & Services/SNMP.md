@@ -160,16 +160,37 @@ snmpwalk -v 2c -c <community> <target> <OID_value>
 
 
 ---
-## SNMP RCE (NET-SNMP EXTEND)
 
-SNMP can lead to **remote code execution (RCE)** when the NET-SNMP `extend` feature is enabled and misconfigured. This feature allows the SNMP daemon (`snmpd`) to execute system commands and expose their output through SNMP queries.
+### NET-SNMP EXTEND Enumeration
 
+The NET-SNMP EXTEND feature allows administrators to expose the output of local commands and scripts through SNMP. These commands are typically configured using the `extend` directive in the `snmpd.conf` file and can be queried through the `NET-SNMP-EXTEND-MIB`. If misconfigured, this feature may expose sensitive information or reveal scripts executed on the system.
+
+#### Enumerating Extend Entries
+
+The following command lists configured EXTEND entries:
 
 ```bash
 snmpwalk -v2c -c public <target> NET-SNMP-EXTEND-MIB::nsExtendObjects
 ```
 
+Example output:
 
 ```text
-snmpwalk -v2c -c <command> <target> NET-SNMP-EXTEND-MIB::nsExtendObjects
+NET-SNMP-EXTEND-MIB::nsExtendCommand."apache_status" = STRING: /usr/local/bin/apache_status.sh
+NET-SNMP-EXTEND-MIB::nsExtendCommand."backup_check" = STRING: /usr/local/bin/backup_check.sh
+```
+
+#### Retrieving Command Output
+
+Once an extend entry has been identified, its output can often be retrieved through the corresponding output tables:
+
+```bash
+snmpwalk -v2c -c public <target> NET-SNMP-EXTEND-MIB::nsExtendOutputFull
+```
+
+Example:
+
+```text
+NET-SNMP-EXTEND-MIB::nsExtendOutputFull."apache_status" = STRING: Apache is running normally
+NET-SNMP-EXTEND-MIB::nsExtendOutputFull."backup_check" = STRING: Last backup completed successfully
 ```
