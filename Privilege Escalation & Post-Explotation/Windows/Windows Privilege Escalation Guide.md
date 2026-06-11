@@ -35,6 +35,7 @@ net user /domain           # List all domain users
 net group /domain          # List all domain groups
 net group "Domain Admins" /domain # Enumerate members of the Domain Admins group
 nltest /dclist:<domain>    # List all domain controllers for the specified domain
+tree /f "C:\Users\"        # List Users folders
 ```
 
 ## Scheduled tasks

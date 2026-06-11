@@ -8,6 +8,7 @@ id                     # User and group details
 hostname               # Hostname
 uname -a               # Kernel and system architecture info
 cat /etc/os-release    # OS version and details
+ls /opt && ls /mnt && ls /var # Basic listing
 ```
 
 ## Sensitive User's Information
