@@ -123,6 +123,7 @@ bloodyAD -u stan.dard -p Password123! -d bloody.local --host 192.168.10.2 add dn
 bloodyAD -u stan.dard -p Password123! -d bloody.local --host 192.168.10.2 remove dnsRecord my_machine_name 192.168.10.48
 ```
 
+
 ---
 
 ### Read Sensitive Attributes
