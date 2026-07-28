@@ -12,20 +12,7 @@ As a result:
 
 A file upload vulnerability does not always allow direct code execution. In some cases, the backend does not interpret uploaded files (e.g., no PHP), so webshells are useless.
 
-However, the vulnerability can still be exploited by combining it with **Directory Traversal**.
-
-
-### Path Injection via Filename
-
-If the application does not sanitize the `filename` parameter, we can inject relative paths:
-
-```http
-Content-Disposition: form-data; name="file"; filename="../../../../../../../tmp/test.txt"
-```
-
-This may allow writing files **outside the upload directory**.
-
-The result is often blind, so success must be assumed and tested indirectly.
+However, the vulnerability can still be exploited by combining it with **Directory Traversal** or other vulnerabilities.
 
 ### Arbitrary File Write - Configuration Files
 
@@ -41,8 +28,26 @@ Create a file named `.htaccess` with just this content
 AddType application/x-httpd-php .php20
 ```
 
-With this, a file like `shell.php20` could potentially be executed as PHP if placed in a directory where `.htaccess` is processed.
+After uploading the `.htaccess` file, upload the web shell using the new extension instead of `.php`, for example:
 
+```apache
+shell.php20
+```
+
+When the file is requested through the web server, Apache processes it as PHP because of the new MIME type mapping, resulting in code execution.
+
+
+### Path Injection via Filename
+
+If the application does not sanitize the `filename` parameter, we can inject relative paths:
+
+```http
+Content-Disposition: form-data; name="file"; filename="../../../../../../../tmp/test.txt"
+```
+
+This may allow writing files **outside the upload directory**.
+
+The result is often blind, so success must be assumed and tested indirectly.
 
 
 
