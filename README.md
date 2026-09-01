@@ -1,3 +1,4 @@
+![](kill-9_banner.png)
 ## Overview
 
 These are **support notes** intended to help you study and practice ethical hacking and penetration testing. The repository includes techniques, explanations, and references useful for both beginners and experienced professionals who want to strengthen their knowledge in cybersecurity.
