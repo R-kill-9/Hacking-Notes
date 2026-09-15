@@ -8,6 +8,7 @@ I want you to generate technical cybersecurity notes following this format:
 - Always use "---" as a separator before starting any "##" section
 - Maintain coherence between sections (logical flow: what it is → how it works → usage → result → summary)
 - Avoid excessive bullet points, only use them when they improve clarity
+- Remember to change the name of users, passwords or other sensitive fields.
 
 Code and examples:
 - Include real examples (HTTP requests, XML, commands, etc.)
