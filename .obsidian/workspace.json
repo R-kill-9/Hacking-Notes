@@ -193,8 +193,16 @@
   },
   "active": "a4c880ddd4d14398",
   "lastOpenFiles": [
-    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath/XPath Blind Exploitation.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Injection/LDAP/LDAP Injection.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Injection/LDAP/LDAP Theory.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath/XCat - Automated XPath Injection.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Injection/LDAP",
+    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath/XPath Data Exfiltration.md",
     "Tools and Techniques/Prompt for Notes.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath/XPath Blind Exploitation.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath/XPath Injection.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath/XPath Theory.md",
+    "README.md",
     "Web Application Security Testing/Techniques/SQL Injection/Blind SQL Injection/Boolean-Based Blind SQL Injection.md",
     "Web Application Security Testing/Techniques/SQL Injection/Blind SQL Injection/Blind SQL Injection Theory.md",
     "Web Application Security Testing/Techniques/SQL Injection/Blind SQL Injection/Advanced MySQL Time based SQL Injection Cheatsheet.md",
@@ -205,10 +213,6 @@
     "Web Application Security Testing/Techniques/SQL Injection/In-Band SQL Injection/Error-based SQL Injection.md",
     "Web Application Security Testing/Techniques/SQL Injection/Stacked Queries SQL Injection.md",
     "Web Application Security Testing/Techniques/SQL Injection/SQL Detection Workflow.md",
-    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath/XPath Data Exfiltration.md",
-    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath/XPath Injection.md",
-    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath/XPath Theory.md",
-    "README.md",
     "Web Application Security Testing/Techniques/XXE (XML External Entity).md",
     "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath",
     "Tools and Techniques/File hidden information.md",
@@ -223,9 +227,6 @@
     "Web Application Security Testing/Techniques/XSS/Blind Cross-Site Scripting (Blind XSS).md",
     "Pasted image 20260901193928.png",
     "Web Application Security Testing/Techniques/CSRF.md",
-    "Web Application Security Testing/Techniques/Authentication & Authorization/OAuth.md",
-    "Web Application Security Testing/Techniques/API testing.md",
-    "Web Application Security Testing/Web Application Enumeration Guide.md",
     "Images/Windows_authentication_process.png",
     "Images/pwnfox_usge.png",
     "Images/pwnfox_home.png",
@@ -237,7 +238,6 @@
     "Web Application Security Testing/Techniques/Platforms",
     "Web Application Security Testing/Techniques/Content Management Systems (CMS)",
     "Active Directory/Techniques/Exploitation",
-    "Active Directory/Techniques/Vulnerabilities",
-    "Active Directory/Techniques/Enumeration"
+    "Active Directory/Techniques/Vulnerabilities"
   ]
 }
