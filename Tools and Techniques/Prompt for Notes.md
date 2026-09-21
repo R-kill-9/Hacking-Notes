@@ -6,7 +6,7 @@ I want you to generate technical cybersecurity notes following this format:
 - Technical language but easy to understand (pentesting / HTB / OSCP style)
 - Structure using "##" for sections, "###" for subsections, and "####" for sub-subsections
 - Always use "---" as a separator before starting any "##" section
-- Maintain coherence between sections (logical flow: what it is → how it works → usage → result → summary)
+- Maintain coherence between sections (logical flow: what it is → how it works → usage)
 - Avoid excessive bullet points, only use them when they improve clarity
 - Remember to change the name of users, passwords or other sensitive fields.
 
