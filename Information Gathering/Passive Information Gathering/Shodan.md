@@ -11,7 +11,7 @@ The main Shodan search page allows you to search indexed Internet services using
 
 A generic search:
 
-![](shodan_generic_search.png)
+![](../../Images/shodan_generic_search.png)
 
 looks for `nasa.gov` across Shodan's indexed information. This can produce unrelated results because the word may appear in a banner, hostname, certificate, or other field.
 
@@ -39,7 +39,7 @@ This allows you to narrow the results to specific infrastructure or services.
 
 Opening a result provides a detailed view of the host.
 
-![](shodan_detailed_view.png)
+![](../../Images/shodan_detailed_view.png)
 
 A host page can contain:
 
@@ -113,7 +113,7 @@ IP + ports + services + technologies
 
 Shodan Images provides screenshots captured from certain Internet-exposed services, including RDP, VNC, RTSP, webcams, and X Windows.
 
-![](shodan_images.png)
+![](../../Images/shodan_images.png)
 
 A basic search is:
 
