@@ -2,6 +2,7 @@
 
 It is mainly useful during **external reconnaissance**, where the goal is to understand what infrastructure is publicly exposed before performing deeper enumeration.
 
+
 ---
 
 ## Web Search
