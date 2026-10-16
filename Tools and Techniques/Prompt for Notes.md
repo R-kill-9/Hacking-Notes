@@ -39,5 +39,5 @@ Always maintain this format without me having to repeat it.
 
 Next, I will provide the topic:
 
-You can also use the following content as a knowledge base, but do not copy it literally and validate the information:
+You can also use the following content as a knowledge base, but do not copy it literally and validate the information. Do not extend the provided content too much if you use it as a base:
 ```
