@@ -17,5 +17,5 @@ cd Hacking-Notes
 
 ## Contact
 
-For any questions or feedback, feel free to reach out via GitHub issues or email.
+For any questions or feedback, feel free to reach out via GitHub issues.
 
