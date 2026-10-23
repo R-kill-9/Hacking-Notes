@@ -193,16 +193,20 @@
   },
   "active": "7f7897cda46947b3",
   "lastOpenFiles": [
+    "Web Application Security Testing/Advanced Web Exploitation/Cheatsheets/Authentication.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Authentication/OAuth/Additional OAuth Vulnerabilities.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Cheatsheets/NoSQL Injection.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Cheatsheets/Injection Attacks.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Authentication/OAuth/OAuth Access Token Theft via redirect_uri.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Authentication/OAuth/OAuth Login CSRF via Missing or Weak state.md",
+    "Web Application Security Testing/Advanced Web Exploitation/Cheatsheets",
+    "README.md",
     "Web Application Security Testing/Advanced Web Exploitation/Authentication/SAML/SAML Signature Exclusion.md",
     "Web Application Security Testing/Advanced Web Exploitation/Authentication/SAML/SAML Theory.md",
     "Web Application Security Testing/Advanced Web Exploitation/Authentication/OAuth/OAuth Theory.md",
     "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding & Tunneling/Ligolo-NG.md",
     "Web Application Security Testing/Advanced Web Exploitation/Authentication/SAML",
     "Privilege Escalation & Post-Explotation/Pivoting & Port Forwarding & Tunneling/Proxychains.md",
-    "Web Application Security Testing/Advanced Web Exploitation/Authentication/OAuth/Additional OAuth Vulnerabilities.md",
-    "Web Application Security Testing/Advanced Web Exploitation/Authentication/OAuth/OAuth Access Token Theft via redirect_uri.md",
-    "Web Application Security Testing/Advanced Web Exploitation/Authentication/OAuth/OAuth Login CSRF via Missing or Weak state.md",
-    "README.md",
     "Web Application Security Testing/Techniques/OS Command Injection.md",
     "Web Application Security Testing/Techniques/Authentication & Authorization/OAuth.md",
     "Tools and Techniques/Prompt for Notes.md",
@@ -219,9 +223,6 @@
     "Web Application Security Testing/Advanced Web Exploitation/Injection/NoSQL/NoSQL In-Band Data Extraction.md",
     "Web Application Security Testing/Advanced Web Exploitation/Injection/NoSQL/NoSQL Injection.md",
     "Web Application Security Testing/Advanced Web Exploitation/Injection/NoSQL/NoSQL Theory.md",
-    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath/XPath Blind Exploitation.md",
-    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath/XPath Data Exfiltration.md",
-    "Web Application Security Testing/Advanced Web Exploitation/Injection/PDF/JavaScript Code Execution.md",
     "Images/JWT_Algorithm_Confusion_Modified_JWTS.png",
     "Images/JWT_Algorithm_Confusion_CyberChef.png",
     "Pasted image 20261021111349.png",
@@ -237,7 +238,6 @@
     "Web Application Security Testing/Advanced Web Exploitation/Injection/SSJI",
     "Web Application Security Testing/Advanced Web Exploitation/Injection/NoSQL",
     "Web Application Security Testing/Advanced Web Exploitation/Injection/PDF",
-    "Web Application Security Testing/Advanced Web Exploitation/Injection/LDAP",
-    "Web Application Security Testing/Advanced Web Exploitation/Injection/XPath"
+    "Web Application Security Testing/Advanced Web Exploitation/Injection/LDAP"
   ]
 }
