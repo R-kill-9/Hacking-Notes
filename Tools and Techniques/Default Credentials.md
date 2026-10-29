@@ -1,4 +1,4 @@
-Many systems—such as **routers, firewalls, web applications, databases, and network devices**—ship with **default credentials**. If administrators fail to change them during deployment, these credentials become a **high-impact, low-effort attack vector**.
+Many systems, such as **routers, firewalls, web applications, databases, and network devices**, ship with **default credentials**. If administrators fail to change them during deployment, these credentials become a **high-impact, low-effort attack vector**.
 
 Default credentials are especially common in:
 

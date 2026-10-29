@@ -4,7 +4,7 @@ I want you to generate technical cybersecurity notes following this format:
 - Clear explanation in English, direct and without filler
 - More explanatory text than bullet points
 - Technical language but easy to understand (pentesting / HTB / OSCP style)
-- Structure using "##" for sections, "###" for subsections, and "####" for sub-subsections
+- Structure using "#" for main tilte, "##" for sections, "###" for subsections, and "####" for sub-subsections
 - Always use "---" as a separator before starting any "##" section
 - Maintain coherence between sections (logical flow: what it is → how it works → usage)
 - Avoid excessive bullet points, only use them when they improve clarity
@@ -20,6 +20,7 @@ Style:
 - Do NOT use generic subsection titles such as "What it is", "How it works", "Explanation", or similar low-value headings
 - Not too long, not too short (balanced)
 - Focused on study and real-world usage (avoid unnecessary theory)
+- Do not use this character "—", you can use "," or "-"
 
 If the topic is a tool:
 - First explain what it does
