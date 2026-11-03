@@ -14,6 +14,7 @@ Code and examples:
 - Include real examples (HTTP requests, XML, commands, etc.)
 - Use properly typed code blocks (http, xml, bash, php, etc.)
 - Examples must be practical and ready to copy (Burp / terminal style)
+- If the information provided to create the notes comes from third parties, change the usernames, hostnames, etc., in the examples
 - Do not include information related to platforms as HTB or THM
 
 Style:
