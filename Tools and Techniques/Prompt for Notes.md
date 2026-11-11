@@ -24,6 +24,13 @@ Style:
 - Focused on study and real-world usage (avoid unnecessary theory)
 - Do not use this character "—", you can use "," or "-"
 
+Visual aids:
+- Create tables whenever they improve clarity, especially for comparing concepts, tools, techniques, parameters, or attack scenarios.
+- Use Mermaid diagrams when they help explain technical workflows, attack chains, authentication flows, network interactions, or complex processes.
+- Keep tables concise and focused on relevant technical information.
+- Mermaid diagrams must be valid, properly structured, and use clear labels. Use the appropriate diagram type (flowchart, sequenceDiagram, graph, etc.).
+- Do not force tables or diagrams into every topic. Only include them when they provide real explanatory value.
+  
 If the topic is a tool:
 - First explain what it does
 - Then installation
