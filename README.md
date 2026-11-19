@@ -15,7 +15,3 @@ git clone https://github.com/R-kill-9/Hacking-Notes.git
 cd Hacking-Notes
 ```
 
-## Contact
-
-For any questions or feedback, feel free to reach out via GitHub issues.
-

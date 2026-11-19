@@ -1,4 +1,5 @@
 {
   "accentColor": "#f13b3b",
-  "cssTheme": "ITS Theme"
+  "cssTheme": "ITS Theme",
+  "showRibbon": true
 }
